@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 2 "../../../../../main.ump"
+// line 3 "../../../../../main.ump"
 public class User
 {
 

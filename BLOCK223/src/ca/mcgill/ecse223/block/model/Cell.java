@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 65 "../../../../../main.ump"
+// line 67 "../../../../../main.ump"
 public class Cell
 {
 

@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 94 "../../../../../main.ump"
+// line 96 "../../../../../main.ump"
 public class Ball
 {
 

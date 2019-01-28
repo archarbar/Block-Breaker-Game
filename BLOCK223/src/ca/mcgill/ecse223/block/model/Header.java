@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 45 "../../../../../main.ump"
+// line 47 "../../../../../main.ump"
 public class Header
 {
 

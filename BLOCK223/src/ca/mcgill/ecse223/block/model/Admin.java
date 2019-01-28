@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 7 "../../../../../main.ump"
+// line 8 "../../../../../main.ump"
 public class Admin extends Player
 {
 
@@ -22,9 +22,9 @@ public class Admin extends Player
   // CONSTRUCTOR
   //------------------------
 
-  public Admin(String aUserName, String aPlayerPassword, String aAdminPassword)
+  public Admin(String aUserName, String aPlayerPassword, HallOfFame aHallOfFame, String aAdminPassword)
   {
-    super(aUserName, aPlayerPassword);
+    super(aUserName, aPlayerPassword, aHallOfFame);
     adminPassword = aAdminPassword;
     games = new ArrayList<Game>();
   }
