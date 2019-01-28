@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 41 "../../../../../main.ump"
+// line 42 "../../../../../main.ump"
 public class HallOfFame
 {
 
@@ -114,9 +114,9 @@ public class HallOfFame
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Player addPlayer(String aUserName, String aPlayerPassword)
+  public Player addPlayer(String aUserName, String aPlayerPassword, int aScore)
   {
-    return new Player(aUserName, aPlayerPassword, this);
+    return new Player(aUserName, aPlayerPassword, aScore, this);
   }
 
   public boolean addPlayer(Player aPlayer)

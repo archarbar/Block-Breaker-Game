@@ -18,6 +18,7 @@ class Player
 {
   isA User;
   String playerPassword;
+  Integer score;
   * -- 1 HallOfFame;
 }
 

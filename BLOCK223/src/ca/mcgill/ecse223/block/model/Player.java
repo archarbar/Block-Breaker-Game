@@ -13,6 +13,7 @@ public class Player extends User
 
   //Player Attributes
   private String playerPassword;
+  private int score;
 
   //Player Associations
   private HallOfFame hallOfFame;
@@ -21,10 +22,11 @@ public class Player extends User
   // CONSTRUCTOR
   //------------------------
 
-  public Player(String aUserName, String aPlayerPassword, HallOfFame aHallOfFame)
+  public Player(String aUserName, String aPlayerPassword, int aScore, HallOfFame aHallOfFame)
   {
     super(aUserName);
     playerPassword = aPlayerPassword;
+    score = aScore;
     boolean didAddHallOfFame = setHallOfFame(aHallOfFame);
     if (!didAddHallOfFame)
     {
@@ -44,9 +46,22 @@ public class Player extends User
     return wasSet;
   }
 
+  public boolean setScore(int aScore)
+  {
+    boolean wasSet = false;
+    score = aScore;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getPlayerPassword()
   {
     return playerPassword;
+  }
+
+  public int getScore()
+  {
+    return score;
   }
   /* Code from template association_GetOne */
   public HallOfFame getHallOfFame()
@@ -88,7 +103,8 @@ public class Player extends User
   public String toString()
   {
     return super.toString() + "["+
-            "playerPassword" + ":" + getPlayerPassword()+ "]" + System.getProperties().getProperty("line.separator") +
+            "playerPassword" + ":" + getPlayerPassword()+ "," +
+            "score" + ":" + getScore()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null");
   }
 }

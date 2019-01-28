@@ -22,9 +22,9 @@ public class Admin extends Player
   // CONSTRUCTOR
   //------------------------
 
-  public Admin(String aUserName, String aPlayerPassword, HallOfFame aHallOfFame, String aAdminPassword)
+  public Admin(String aUserName, String aPlayerPassword, int aScore, HallOfFame aHallOfFame, String aAdminPassword)
   {
-    super(aUserName, aPlayerPassword, aHallOfFame);
+    super(aUserName, aPlayerPassword, aScore, aHallOfFame);
     adminPassword = aAdminPassword;
     games = new ArrayList<Game>();
   }
