@@ -1,3 +1,4 @@
+namespace ca.mcgill.ecse223.block.model;
 class User
 {
   String userName;
