@@ -1,0 +1,100 @@
+class User
+{
+  String userName;
+  }
+
+class Admin
+{
+ 
+  String adminPassword;
+  isA Player;
+  
+  1 -- * Game;
+}
+
+class Player
+{
+  isA User;
+  String playerPassword;
+}
+
+class Game
+{
+  Int numLives;
+  Int playerScore;
+  Float width;
+  Float length;
+  String name;
+  Float minPaddleLength;
+  Float maxPaddleLength;
+  Int numLevels;
+  Float speedFactor;
+  1 <@>- 1 HallOfFame;
+  1 <@>- 1 PlayArea;
+  1 <@>- 1 Header;
+  1 <@>- 1..99 Level;
+}
+
+class HallOfFame
+{
+  Float width;
+  Float length;
+}
+
+class Header
+{
+  Float length;
+  Float width;
+}
+
+class PlayArea
+{
+  Float width;
+  Float length;
+}
+
+class Level
+{
+  Int numBlocs;
+  Int numLevels;
+  Boolean blockRandomizer;
+1 -- 1 Paddle;
+}
+
+class Cell
+{
+  Int number;
+  Float xPos;
+  Float yPos;
+}
+
+class Block
+{
+  Color color;
+  Int points;
+  Int cellNumber;
+  Int blockSideLength;
+  * -- 1 Level;
+  1 -- 1 Cell;
+}
+
+class Paddle
+{
+  Float length;
+}
+
+class GridSystem
+{
+  1 -- 1 PlayArea;
+  1 <@>- * Cell;
+ 
+}
+
+class Ball
+{
+  Float speed;
+  Int diameter;
+  Color color;
+  1 -- 1 Level;
+}
+
