@@ -33,7 +33,7 @@ public class HallOfFame
     game = aGame;
   }
 
-  public HallOfFame(float aWidth, float aLength, Int aNumLivesForGame, Int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, Int aNumLevelsForGame, float aSpeedFactorForGame, PlayArea aPlayAreaForGame, Header aHeaderForGame, Admin aAdminForGame)
+  public HallOfFame(float aWidth, float aLength, int aNumLivesForGame, int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, int aNumLevelsForGame, float aSpeedFactorForGame, PlayArea aPlayAreaForGame, Header aHeaderForGame, Admin aAdminForGame)
   {
     width = aWidth;
     length = aLength;

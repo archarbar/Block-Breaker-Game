@@ -20,14 +20,14 @@ class Player
 
 class Game
 {
-  Int numLives;
-  Int playerScore;
+  Integer numLives;
+  Integer playerScore;
   Float width;
   Float length;
   String name;
   Float minPaddleLength;
   Float maxPaddleLength;
-  Int numLevels;
+  Integer numLevels;
   Float speedFactor;
   1 <@>- 1 HallOfFame;
   1 <@>- 1 PlayArea;
@@ -55,25 +55,25 @@ class PlayArea
 
 class Level
 {
-  Int numBlocs;
-  Int numLevels;
+  Integer numBlocs;
+  Integer numLevels;
   Boolean blockRandomizer;
 1 -- 1 Paddle;
 }
 
 class Cell
 {
-  Int number;
+  Integer number;
   Float xPos;
   Float yPos;
 }
 
 class Block
 {
-  Color color;
-  Int points;
-  Int cellNumber;
-  Int blockSideLength;
+  String color;
+  Integer points;
+  Integer cellNumber;
+  Integer blockSideLength;
   * -- 1 Level;
   1 -- 1 Cell;
 }
@@ -93,8 +93,8 @@ class GridSystem
 class Ball
 {
   Float speed;
-  Int diameter;
-  Color color;
+  Integer diameter;
+  String color;
   1 -- 1 Level;
 }
 

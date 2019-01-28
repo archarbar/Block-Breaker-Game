@@ -33,7 +33,7 @@ public class Header
     game = aGame;
   }
 
-  public Header(float aLength, float aWidth, Int aNumLivesForGame, Int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, Int aNumLevelsForGame, float aSpeedFactorForGame, HallOfFame aHallOfFameForGame, PlayArea aPlayAreaForGame, Admin aAdminForGame)
+  public Header(float aLength, float aWidth, int aNumLivesForGame, int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, int aNumLevelsForGame, float aSpeedFactorForGame, HallOfFame aHallOfFameForGame, PlayArea aPlayAreaForGame, Admin aAdminForGame)
   {
     length = aLength;
     width = aWidth;

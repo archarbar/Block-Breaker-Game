@@ -13,8 +13,8 @@ public class Level
   //------------------------
 
   //Level Attributes
-  private Int numBlocs;
-  private Int numLevels;
+  private int numBlocs;
+  private int numLevels;
   private boolean blockRandomizer;
 
   //Level Associations
@@ -27,7 +27,7 @@ public class Level
   // CONSTRUCTOR
   //------------------------
 
-  public Level(Int aNumBlocs, Int aNumLevels, boolean aBlockRandomizer, Paddle aPaddle, Game aGame, Ball aBall)
+  public Level(int aNumBlocs, int aNumLevels, boolean aBlockRandomizer, Paddle aPaddle, Game aGame, Ball aBall)
   {
     numBlocs = aNumBlocs;
     numLevels = aNumLevels;
@@ -50,7 +50,7 @@ public class Level
     ball = aBall;
   }
 
-  public Level(Int aNumBlocs, Int aNumLevels, boolean aBlockRandomizer, float aLengthForPaddle, Game aGame, float aSpeedForBall, Int aDiameterForBall, Color aColorForBall)
+  public Level(int aNumBlocs, int aNumLevels, boolean aBlockRandomizer, float aLengthForPaddle, Game aGame, float aSpeedForBall, int aDiameterForBall, String aColorForBall)
   {
     numBlocs = aNumBlocs;
     numLevels = aNumLevels;
@@ -69,7 +69,7 @@ public class Level
   // INTERFACE
   //------------------------
 
-  public boolean setNumBlocs(Int aNumBlocs)
+  public boolean setNumBlocs(int aNumBlocs)
   {
     boolean wasSet = false;
     numBlocs = aNumBlocs;
@@ -77,7 +77,7 @@ public class Level
     return wasSet;
   }
 
-  public boolean setNumLevels(Int aNumLevels)
+  public boolean setNumLevels(int aNumLevels)
   {
     boolean wasSet = false;
     numLevels = aNumLevels;
@@ -93,12 +93,12 @@ public class Level
     return wasSet;
   }
 
-  public Int getNumBlocs()
+  public int getNumBlocs()
   {
     return numBlocs;
   }
 
-  public Int getNumLevels()
+  public int getNumLevels()
   {
     return numLevels;
   }
@@ -194,7 +194,7 @@ public class Level
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Block addBlock(Color aColor, Int aPoints, Int aCellNumber, Int aBlockSideLength, Cell aCell)
+  public Block addBlock(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Cell aCell)
   {
     return new Block(aColor, aPoints, aCellNumber, aBlockSideLength, this, aCell);
   }
@@ -292,9 +292,9 @@ public class Level
   public String toString()
   {
     return super.toString() + "["+
+            "numBlocs" + ":" + getNumBlocs()+ "," +
+            "numLevels" + ":" + getNumLevels()+ "," +
             "blockRandomizer" + ":" + getBlockRandomizer()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "numBlocs" + "=" + (getNumBlocs() != null ? !getNumBlocs().equals(this)  ? getNumBlocs().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "numLevels" + "=" + (getNumLevels() != null ? !getNumLevels().equals(this)  ? getNumLevels().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null");

@@ -13,14 +13,14 @@ public class Game
   //------------------------
 
   //Game Attributes
-  private Int numLives;
-  private Int playerScore;
+  private int numLives;
+  private int playerScore;
   private float width;
   private float length;
   private String name;
   private float minPaddleLength;
   private float maxPaddleLength;
-  private Int numLevels;
+  private int numLevels;
   private float speedFactor;
 
   //Game Associations
@@ -34,7 +34,7 @@ public class Game
   // CONSTRUCTOR
   //------------------------
 
-  public Game(Int aNumLives, Int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, Int aNumLevels, float aSpeedFactor, HallOfFame aHallOfFame, PlayArea aPlayArea, Header aHeader, Admin aAdmin)
+  public Game(int aNumLives, int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, int aNumLevels, float aSpeedFactor, HallOfFame aHallOfFame, PlayArea aPlayArea, Header aHeader, Admin aAdmin)
   {
     numLives = aNumLives;
     playerScore = aPlayerScore;
@@ -68,7 +68,7 @@ public class Game
     }
   }
 
-  public Game(Int aNumLives, Int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, Int aNumLevels, float aSpeedFactor, float aWidthForHallOfFame, float aLengthForHallOfFame, float aWidthForPlayArea, float aLengthForPlayArea, GridSystem aGridSystemForPlayArea, float aLengthForHeader, float aWidthForHeader, Admin aAdmin)
+  public Game(int aNumLives, int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, int aNumLevels, float aSpeedFactor, float aWidthForHallOfFame, float aLengthForHallOfFame, float aWidthForPlayArea, float aLengthForPlayArea, GridSystem aGridSystemForPlayArea, float aLengthForHeader, float aWidthForHeader, Admin aAdmin)
   {
     numLives = aNumLives;
     playerScore = aPlayerScore;
@@ -94,7 +94,7 @@ public class Game
   // INTERFACE
   //------------------------
 
-  public boolean setNumLives(Int aNumLives)
+  public boolean setNumLives(int aNumLives)
   {
     boolean wasSet = false;
     numLives = aNumLives;
@@ -102,7 +102,7 @@ public class Game
     return wasSet;
   }
 
-  public boolean setPlayerScore(Int aPlayerScore)
+  public boolean setPlayerScore(int aPlayerScore)
   {
     boolean wasSet = false;
     playerScore = aPlayerScore;
@@ -150,7 +150,7 @@ public class Game
     return wasSet;
   }
 
-  public boolean setNumLevels(Int aNumLevels)
+  public boolean setNumLevels(int aNumLevels)
   {
     boolean wasSet = false;
     numLevels = aNumLevels;
@@ -166,12 +166,12 @@ public class Game
     return wasSet;
   }
 
-  public Int getNumLives()
+  public int getNumLives()
   {
     return numLives;
   }
 
-  public Int getPlayerScore()
+  public int getPlayerScore()
   {
     return playerScore;
   }
@@ -201,7 +201,7 @@ public class Game
     return maxPaddleLength;
   }
 
-  public Int getNumLevels()
+  public int getNumLevels()
   {
     return numLevels;
   }
@@ -277,7 +277,7 @@ public class Game
     return 99;
   }
   /* Code from template association_AddMNToOnlyOne */
-  public Level addLevel(Int aNumBlocs, Int aNumLevels, boolean aBlockRandomizer, Paddle aPaddle, Ball aBall)
+  public Level addLevel(int aNumBlocs, int aNumLevels, boolean aBlockRandomizer, Paddle aPaddle, Ball aBall)
   {
     if (numberOfLevels() >= maximumNumberOfLevels())
     {
@@ -427,15 +427,15 @@ public class Game
   public String toString()
   {
     return super.toString() + "["+
+            "numLives" + ":" + getNumLives()+ "," +
+            "playerScore" + ":" + getPlayerScore()+ "," +
             "width" + ":" + getWidth()+ "," +
             "length" + ":" + getLength()+ "," +
             "name" + ":" + getName()+ "," +
             "minPaddleLength" + ":" + getMinPaddleLength()+ "," +
             "maxPaddleLength" + ":" + getMaxPaddleLength()+ "," +
+            "numLevels" + ":" + getNumLevels()+ "," +
             "speedFactor" + ":" + getSpeedFactor()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "numLives" + "=" + (getNumLives() != null ? !getNumLives().equals(this)  ? getNumLives().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "playerScore" + "=" + (getPlayerScore() != null ? !getPlayerScore().equals(this)  ? getPlayerScore().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "numLevels" + "=" + (getNumLevels() != null ? !getNumLevels().equals(this)  ? getNumLevels().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "playArea = "+(getPlayArea()!=null?Integer.toHexString(System.identityHashCode(getPlayArea())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "header = "+(getHeader()!=null?Integer.toHexString(System.identityHashCode(getHeader())):"null") + System.getProperties().getProperty("line.separator") +

@@ -81,7 +81,7 @@ public class Admin extends Player
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(Int aNumLives, Int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, Int aNumLevels, float aSpeedFactor, HallOfFame aHallOfFame, PlayArea aPlayArea, Header aHeader)
+  public Game addGame(int aNumLives, int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, int aNumLevels, float aSpeedFactor, HallOfFame aHallOfFame, PlayArea aPlayArea, Header aHeader)
   {
     return new Game(aNumLives, aPlayerScore, aWidth, aLength, aName, aMinPaddleLength, aMaxPaddleLength, aNumLevels, aSpeedFactor, aHallOfFame, aPlayArea, aHeader, this);
   }

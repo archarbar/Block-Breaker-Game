@@ -12,7 +12,7 @@ public class Cell
   //------------------------
 
   //Cell Attributes
-  private Int number;
+  private int number;
   private float xPos;
   private float yPos;
 
@@ -24,7 +24,7 @@ public class Cell
   // CONSTRUCTOR
   //------------------------
 
-  public Cell(Int aNumber, float aXPos, float aYPos, Block aBlock, GridSystem aGridSystem)
+  public Cell(int aNumber, float aXPos, float aYPos, Block aBlock, GridSystem aGridSystem)
   {
     number = aNumber;
     xPos = aXPos;
@@ -41,7 +41,7 @@ public class Cell
     }
   }
 
-  public Cell(Int aNumber, float aXPos, float aYPos, Color aColorForBlock, Int aPointsForBlock, Int aCellNumberForBlock, Int aBlockSideLengthForBlock, Level aLevelForBlock, GridSystem aGridSystem)
+  public Cell(int aNumber, float aXPos, float aYPos, String aColorForBlock, int aPointsForBlock, int aCellNumberForBlock, int aBlockSideLengthForBlock, Level aLevelForBlock, GridSystem aGridSystem)
   {
     number = aNumber;
     xPos = aXPos;
@@ -58,7 +58,7 @@ public class Cell
   // INTERFACE
   //------------------------
 
-  public boolean setNumber(Int aNumber)
+  public boolean setNumber(int aNumber)
   {
     boolean wasSet = false;
     number = aNumber;
@@ -82,7 +82,7 @@ public class Cell
     return wasSet;
   }
 
-  public Int getNumber()
+  public int getNumber()
   {
     return number;
   }
@@ -146,9 +146,9 @@ public class Cell
   public String toString()
   {
     return super.toString() + "["+
+            "number" + ":" + getNumber()+ "," +
             "xPos" + ":" + getXPos()+ "," +
             "yPos" + ":" + getYPos()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "number" + "=" + (getNumber() != null ? !getNumber().equals(this)  ? getNumber().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "block = "+(getBlock()!=null?Integer.toHexString(System.identityHashCode(getBlock())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "gridSystem = "+(getGridSystem()!=null?Integer.toHexString(System.identityHashCode(getGridSystem())):"null");
   }

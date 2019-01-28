@@ -12,10 +12,10 @@ public class Block
   //------------------------
 
   //Block Attributes
-  private Color color;
-  private Int points;
-  private Int cellNumber;
-  private Int blockSideLength;
+  private String color;
+  private int points;
+  private int cellNumber;
+  private int blockSideLength;
 
   //Block Associations
   private Level level;
@@ -25,7 +25,7 @@ public class Block
   // CONSTRUCTOR
   //------------------------
 
-  public Block(Color aColor, Int aPoints, Int aCellNumber, Int aBlockSideLength, Level aLevel, Cell aCell)
+  public Block(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Level aLevel, Cell aCell)
   {
     color = aColor;
     points = aPoints;
@@ -43,7 +43,7 @@ public class Block
     cell = aCell;
   }
 
-  public Block(Color aColor, Int aPoints, Int aCellNumber, Int aBlockSideLength, Level aLevel, Int aNumberForCell, float aXPosForCell, float aYPosForCell, GridSystem aGridSystemForCell)
+  public Block(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Level aLevel, int aNumberForCell, float aXPosForCell, float aYPosForCell, GridSystem aGridSystemForCell)
   {
     color = aColor;
     points = aPoints;
@@ -61,7 +61,7 @@ public class Block
   // INTERFACE
   //------------------------
 
-  public boolean setColor(Color aColor)
+  public boolean setColor(String aColor)
   {
     boolean wasSet = false;
     color = aColor;
@@ -69,7 +69,7 @@ public class Block
     return wasSet;
   }
 
-  public boolean setPoints(Int aPoints)
+  public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
     points = aPoints;
@@ -77,7 +77,7 @@ public class Block
     return wasSet;
   }
 
-  public boolean setCellNumber(Int aCellNumber)
+  public boolean setCellNumber(int aCellNumber)
   {
     boolean wasSet = false;
     cellNumber = aCellNumber;
@@ -85,7 +85,7 @@ public class Block
     return wasSet;
   }
 
-  public boolean setBlockSideLength(Int aBlockSideLength)
+  public boolean setBlockSideLength(int aBlockSideLength)
   {
     boolean wasSet = false;
     blockSideLength = aBlockSideLength;
@@ -93,22 +93,22 @@ public class Block
     return wasSet;
   }
 
-  public Color getColor()
+  public String getColor()
   {
     return color;
   }
 
-  public Int getPoints()
+  public int getPoints()
   {
     return points;
   }
 
-  public Int getCellNumber()
+  public int getCellNumber()
   {
     return cellNumber;
   }
 
-  public Int getBlockSideLength()
+  public int getBlockSideLength()
   {
     return blockSideLength;
   }
@@ -161,11 +161,11 @@ public class Block
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "color" + "=" + (getColor() != null ? !getColor().equals(this)  ? getColor().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "points" + "=" + (getPoints() != null ? !getPoints().equals(this)  ? getPoints().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "cellNumber" + "=" + (getCellNumber() != null ? !getCellNumber().equals(this)  ? getCellNumber().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "blockSideLength" + "=" + (getBlockSideLength() != null ? !getBlockSideLength().equals(this)  ? getBlockSideLength().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "color" + ":" + getColor()+ "," +
+            "points" + ":" + getPoints()+ "," +
+            "cellNumber" + ":" + getCellNumber()+ "," +
+            "blockSideLength" + ":" + getBlockSideLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "cell = "+(getCell()!=null?Integer.toHexString(System.identityHashCode(getCell())):"null");
   }

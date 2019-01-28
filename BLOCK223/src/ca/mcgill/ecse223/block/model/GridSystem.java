@@ -80,7 +80,7 @@ public class GridSystem
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Cell addCell(Int aNumber, float aXPos, float aYPos, Block aBlock)
+  public Cell addCell(int aNumber, float aXPos, float aYPos, Block aBlock)
   {
     return new Cell(aNumber, aXPos, aYPos, aBlock, this);
   }

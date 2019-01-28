@@ -31,7 +31,7 @@ public class Paddle
     level = aLevel;
   }
 
-  public Paddle(float aLength, Int aNumBlocsForLevel, Int aNumLevelsForLevel, boolean aBlockRandomizerForLevel, Game aGameForLevel, Ball aBallForLevel)
+  public Paddle(float aLength, int aNumBlocsForLevel, int aNumLevelsForLevel, boolean aBlockRandomizerForLevel, Game aGameForLevel, Ball aBallForLevel)
   {
     length = aLength;
     level = new Level(aNumBlocsForLevel, aNumLevelsForLevel, aBlockRandomizerForLevel, this, aGameForLevel, aBallForLevel);

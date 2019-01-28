@@ -39,7 +39,7 @@ public class PlayArea
     gridSystem = aGridSystem;
   }
 
-  public PlayArea(float aWidth, float aLength, Int aNumLivesForGame, Int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, Int aNumLevelsForGame, float aSpeedFactorForGame, HallOfFame aHallOfFameForGame, Header aHeaderForGame, Admin aAdminForGame)
+  public PlayArea(float aWidth, float aLength, int aNumLivesForGame, int aPlayerScoreForGame, float aWidthForGame, float aLengthForGame, String aNameForGame, float aMinPaddleLengthForGame, float aMaxPaddleLengthForGame, int aNumLevelsForGame, float aSpeedFactorForGame, HallOfFame aHallOfFameForGame, Header aHeaderForGame, Admin aAdminForGame)
   {
     width = aWidth;
     length = aLength;

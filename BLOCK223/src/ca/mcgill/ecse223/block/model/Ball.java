@@ -13,8 +13,8 @@ public class Ball
 
   //Ball Attributes
   private float speed;
-  private Int diameter;
-  private Color color;
+  private int diameter;
+  private String color;
 
   //Ball Associations
   private Level level;
@@ -23,7 +23,7 @@ public class Ball
   // CONSTRUCTOR
   //------------------------
 
-  public Ball(float aSpeed, Int aDiameter, Color aColor, Level aLevel)
+  public Ball(float aSpeed, int aDiameter, String aColor, Level aLevel)
   {
     speed = aSpeed;
     diameter = aDiameter;
@@ -35,7 +35,7 @@ public class Ball
     level = aLevel;
   }
 
-  public Ball(float aSpeed, Int aDiameter, Color aColor, Int aNumBlocsForLevel, Int aNumLevelsForLevel, boolean aBlockRandomizerForLevel, Paddle aPaddleForLevel, Game aGameForLevel)
+  public Ball(float aSpeed, int aDiameter, String aColor, int aNumBlocsForLevel, int aNumLevelsForLevel, boolean aBlockRandomizerForLevel, Paddle aPaddleForLevel, Game aGameForLevel)
   {
     speed = aSpeed;
     diameter = aDiameter;
@@ -55,7 +55,7 @@ public class Ball
     return wasSet;
   }
 
-  public boolean setDiameter(Int aDiameter)
+  public boolean setDiameter(int aDiameter)
   {
     boolean wasSet = false;
     diameter = aDiameter;
@@ -63,7 +63,7 @@ public class Ball
     return wasSet;
   }
 
-  public boolean setColor(Color aColor)
+  public boolean setColor(String aColor)
   {
     boolean wasSet = false;
     color = aColor;
@@ -76,12 +76,12 @@ public class Ball
     return speed;
   }
 
-  public Int getDiameter()
+  public int getDiameter()
   {
     return diameter;
   }
 
-  public Color getColor()
+  public String getColor()
   {
     return color;
   }
@@ -105,9 +105,9 @@ public class Ball
   public String toString()
   {
     return super.toString() + "["+
-            "speed" + ":" + getSpeed()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "diameter" + "=" + (getDiameter() != null ? !getDiameter().equals(this)  ? getDiameter().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "color" + "=" + (getColor() != null ? !getColor().equals(this)  ? getColor().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "speed" + ":" + getSpeed()+ "," +
+            "diameter" + ":" + getDiameter()+ "," +
+            "color" + ":" + getColor()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null");
   }
 }
