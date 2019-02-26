@@ -2,69 +2,83 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.util.*;
 
-// line 75 "../../../../../main.ump"
+// line 44 "../../../../../Block223 v2.ump"
 public class Block
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  public static final int MIN_COLOR = 0;
+  public static final int MAX_COLOR = 255;
+  public static final int MIN_POINTS = 1;
+  public static final int MAX_POINTS = 1000;
+  public static final int SIZE = 20;
+  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Block Attributes
-  private String color;
+  private int red;
+  private int green;
+  private int blue;
   private int points;
-  private int cellNumber;
-  private int blockSideLength;
+
+  //Autounique Attributes
+  private int id;
 
   //Block Associations
-  private Level level;
-  private Cell cell;
+  private Game game;
+  private List<BlockAssignment> blockAssignments;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Block(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Level aLevel, Cell aCell)
+  public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    color = aColor;
+    red = aRed;
+    green = aGreen;
+    blue = aBlue;
     points = aPoints;
-    cellNumber = aCellNumber;
-    blockSideLength = aBlockSideLength;
-    boolean didAddLevel = setLevel(aLevel);
-    if (!didAddLevel)
+    id = nextId++;
+    boolean didAddGame = setGame(aGame);
+    if (!didAddGame)
     {
-      throw new RuntimeException("Unable to create block due to level");
+      throw new RuntimeException("Unable to create block due to game");
     }
-    if (aCell == null || aCell.getBlock() != null)
-    {
-      throw new RuntimeException("Unable to create Block due to aCell");
-    }
-    cell = aCell;
-  }
-
-  public Block(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Level aLevel, int aNumberForCell, float aXPosForCell, float aYPosForCell, GridSystem aGridSystemForCell)
-  {
-    color = aColor;
-    points = aPoints;
-    cellNumber = aCellNumber;
-    blockSideLength = aBlockSideLength;
-    boolean didAddLevel = setLevel(aLevel);
-    if (!didAddLevel)
-    {
-      throw new RuntimeException("Unable to create block due to level");
-    }
-    cell = new Cell(aNumberForCell, aXPosForCell, aYPosForCell, this, aGridSystemForCell);
+    blockAssignments = new ArrayList<BlockAssignment>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setColor(String aColor)
+  public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    color = aColor;
+    red = aRed;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setGreen(int aGreen)
+  {
+    boolean wasSet = false;
+    green = aGreen;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setBlue(int aBlue)
+  {
+    boolean wasSet = false;
+    blue = aBlue;
     wasSet = true;
     return wasSet;
   }
@@ -77,25 +91,19 @@ public class Block
     return wasSet;
   }
 
-  public boolean setCellNumber(int aCellNumber)
+  public int getRed()
   {
-    boolean wasSet = false;
-    cellNumber = aCellNumber;
-    wasSet = true;
-    return wasSet;
+    return red;
   }
 
-  public boolean setBlockSideLength(int aBlockSideLength)
+  public int getGreen()
   {
-    boolean wasSet = false;
-    blockSideLength = aBlockSideLength;
-    wasSet = true;
-    return wasSet;
+    return green;
   }
 
-  public String getColor()
+  public int getBlue()
   {
-    return color;
+    return blue;
   }
 
   public int getPoints()
@@ -103,58 +111,149 @@ public class Block
     return points;
   }
 
-  public int getCellNumber()
+  public int getId()
   {
-    return cellNumber;
+    return id;
+  }
+  /* Code from template association_GetOne */
+  public Game getGame()
+  {
+    return game;
+  }
+  /* Code from template association_GetMany */
+  public BlockAssignment getBlockAssignment(int index)
+  {
+    BlockAssignment aBlockAssignment = blockAssignments.get(index);
+    return aBlockAssignment;
   }
 
-  public int getBlockSideLength()
+  public List<BlockAssignment> getBlockAssignments()
   {
-    return blockSideLength;
+    List<BlockAssignment> newBlockAssignments = Collections.unmodifiableList(blockAssignments);
+    return newBlockAssignments;
   }
-  /* Code from template association_GetOne */
-  public Level getLevel()
+
+  public int numberOfBlockAssignments()
   {
-    return level;
+    int number = blockAssignments.size();
+    return number;
   }
-  /* Code from template association_GetOne */
-  public Cell getCell()
+
+  public boolean hasBlockAssignments()
   {
-    return cell;
+    boolean has = blockAssignments.size() > 0;
+    return has;
+  }
+
+  public int indexOfBlockAssignment(BlockAssignment aBlockAssignment)
+  {
+    int index = blockAssignments.indexOf(aBlockAssignment);
+    return index;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setLevel(Level aLevel)
+  public boolean setGame(Game aGame)
   {
     boolean wasSet = false;
-    if (aLevel == null)
+    if (aGame == null)
     {
       return wasSet;
     }
 
-    Level existingLevel = level;
-    level = aLevel;
-    if (existingLevel != null && !existingLevel.equals(aLevel))
+    Game existingGame = game;
+    game = aGame;
+    if (existingGame != null && !existingGame.equals(aGame))
     {
-      existingLevel.removeBlock(this);
+      existingGame.removeBlock(this);
     }
-    level.addBlock(this);
+    game.addBlock(this);
     wasSet = true;
     return wasSet;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfBlockAssignments()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Game aGame)
+  {
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, this, aGame);
+  }
+
+  public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
+  {
+    boolean wasAdded = false;
+    if (blockAssignments.contains(aBlockAssignment)) { return false; }
+    Block existingBlock = aBlockAssignment.getBlock();
+    boolean isNewBlock = existingBlock != null && !this.equals(existingBlock);
+    if (isNewBlock)
+    {
+      aBlockAssignment.setBlock(this);
+    }
+    else
+    {
+      blockAssignments.add(aBlockAssignment);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeBlockAssignment(BlockAssignment aBlockAssignment)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aBlockAssignment, as it must always have a block
+    if (!this.equals(aBlockAssignment.getBlock()))
+    {
+      blockAssignments.remove(aBlockAssignment);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
+  {  
+    boolean wasAdded = false;
+    if(addBlockAssignment(aBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
+  {
+    boolean wasAdded = false;
+    if(blockAssignments.contains(aBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addBlockAssignmentAt(aBlockAssignment, index);
+    }
+    return wasAdded;
   }
 
   public void delete()
   {
-    Level placeholderLevel = level;
-    this.level = null;
-    if(placeholderLevel != null)
+    Game placeholderGame = game;
+    this.game = null;
+    if(placeholderGame != null)
     {
-      placeholderLevel.removeBlock(this);
+      placeholderGame.removeBlock(this);
     }
-    Cell existingCell = cell;
-    cell = null;
-    if (existingCell != null)
+    for(int i=blockAssignments.size(); i > 0; i--)
     {
-      existingCell.delete();
+      BlockAssignment aBlockAssignment = blockAssignments.get(i - 1);
+      aBlockAssignment.delete();
     }
   }
 
@@ -162,11 +261,11 @@ public class Block
   public String toString()
   {
     return super.toString() + "["+
-            "color" + ":" + getColor()+ "," +
-            "points" + ":" + getPoints()+ "," +
-            "cellNumber" + ":" + getCellNumber()+ "," +
-            "blockSideLength" + ":" + getBlockSideLength()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "cell = "+(getCell()!=null?Integer.toHexString(System.identityHashCode(getCell())):"null");
+            "id" + ":" + getId()+ "," +
+            "red" + ":" + getRed()+ "," +
+            "green" + ":" + getGreen()+ "," +
+            "blue" + ":" + getBlue()+ "," +
+            "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
   }
 }

@@ -2,102 +2,109 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.util.*;
 
-// line 97 "../../../../../main.ump"
+// line 69 "../../../../../Block223 v2.ump"
 public class Ball
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  public static final int BALL_DIAMETER = 10;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Ball Attributes
-  private float speed;
-  private int diameter;
-  private String color;
+  private int minBallSpeedX;
+  private int minBallSpeedY;
+  private double ballSpeedIncreaseFactor;
 
   //Ball Associations
-  private Level level;
+  private Game game;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Ball(float aSpeed, int aDiameter, String aColor, Level aLevel)
+  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
-    speed = aSpeed;
-    diameter = aDiameter;
-    color = aColor;
-    if (aLevel == null || aLevel.getBall() != null)
+    minBallSpeedX = aMinBallSpeedX;
+    minBallSpeedY = aMinBallSpeedY;
+    ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
+    if (aGame == null || aGame.getBall() != null)
     {
-      throw new RuntimeException("Unable to create Ball due to aLevel");
+      throw new RuntimeException("Unable to create Ball due to aGame");
     }
-    level = aLevel;
+    game = aGame;
   }
 
-  public Ball(float aSpeed, int aDiameter, String aColor, int aNumBlocsForLevel, int aNumLevelsForLevel, boolean aBlockRandomizerForLevel, Paddle aPaddleForLevel, Game aGameForLevel)
+  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
-    speed = aSpeed;
-    diameter = aDiameter;
-    color = aColor;
-    level = new Level(aNumBlocsForLevel, aNumLevelsForLevel, aBlockRandomizerForLevel, aPaddleForLevel, aGameForLevel, this);
+    minBallSpeedX = aMinBallSpeedX;
+    minBallSpeedY = aMinBallSpeedY;
+    ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
+    game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, this, aPaddleForGame, aBlock223ForGame);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setSpeed(float aSpeed)
+  public boolean setMinBallSpeedX(int aMinBallSpeedX)
   {
     boolean wasSet = false;
-    speed = aSpeed;
+    minBallSpeedX = aMinBallSpeedX;
     wasSet = true;
     return wasSet;
   }
 
-  public boolean setDiameter(int aDiameter)
+  public boolean setMinBallSpeedY(int aMinBallSpeedY)
   {
     boolean wasSet = false;
-    diameter = aDiameter;
+    minBallSpeedY = aMinBallSpeedY;
     wasSet = true;
     return wasSet;
   }
 
-  public boolean setColor(String aColor)
+  public boolean setBallSpeedIncreaseFactor(double aBallSpeedIncreaseFactor)
   {
     boolean wasSet = false;
-    color = aColor;
+    ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
     wasSet = true;
     return wasSet;
   }
 
-  public float getSpeed()
+  public int getMinBallSpeedX()
   {
-    return speed;
+    return minBallSpeedX;
   }
 
-  public int getDiameter()
+  public int getMinBallSpeedY()
   {
-    return diameter;
+    return minBallSpeedY;
   }
 
-  public String getColor()
+  public double getBallSpeedIncreaseFactor()
   {
-    return color;
+    return ballSpeedIncreaseFactor;
   }
   /* Code from template association_GetOne */
-  public Level getLevel()
+  public Game getGame()
   {
-    return level;
+    return game;
   }
 
   public void delete()
   {
-    Level existingLevel = level;
-    level = null;
-    if (existingLevel != null)
+    Game existingGame = game;
+    game = null;
+    if (existingGame != null)
     {
-      existingLevel.delete();
+      existingGame.delete();
     }
   }
 
@@ -105,9 +112,9 @@ public class Ball
   public String toString()
   {
     return super.toString() + "["+
-            "speed" + ":" + getSpeed()+ "," +
-            "diameter" + ":" + getDiameter()+ "," +
-            "color" + ":" + getColor()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null");
+            "minBallSpeedX" + ":" + getMinBallSpeedX()+ "," +
+            "minBallSpeedY" + ":" + getMinBallSpeedY()+ "," +
+            "ballSpeedIncreaseFactor" + ":" + getBallSpeedIncreaseFactor()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
   }
 }

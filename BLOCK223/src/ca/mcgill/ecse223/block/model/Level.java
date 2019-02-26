@@ -4,7 +4,11 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 60 "../../../../../main.ump"
+/**
+ * random attribute not needed anymore
+ * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
+ */
+// line 59 "../../../../../Block223 v2.ump"
 public class Level
 {
 
@@ -12,150 +16,61 @@ public class Level
   // MEMBER VARIABLES
   //------------------------
 
-  //Level Attributes
-  private int numBlocs;
-  private int numLevels;
-  private boolean blockRandomizer;
-
   //Level Associations
-  private Paddle paddle;
   private Game game;
-  private List<Block> blocks;
-  private Ball ball;
+  private List<BlockAssignment> blockAssignments;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Level(int aNumBlocs, int aNumLevels, boolean aBlockRandomizer, Paddle aPaddle, Game aGame, Ball aBall)
+  public Level(Game aGame)
   {
-    numBlocs = aNumBlocs;
-    numLevels = aNumLevels;
-    blockRandomizer = aBlockRandomizer;
-    if (aPaddle == null || aPaddle.getLevel() != null)
-    {
-      throw new RuntimeException("Unable to create Level due to aPaddle");
-    }
-    paddle = aPaddle;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
       throw new RuntimeException("Unable to create level due to game");
     }
-    blocks = new ArrayList<Block>();
-    if (aBall == null || aBall.getLevel() != null)
-    {
-      throw new RuntimeException("Unable to create Level due to aBall");
-    }
-    ball = aBall;
-  }
-
-  public Level(int aNumBlocs, int aNumLevels, boolean aBlockRandomizer, float aLengthForPaddle, Game aGame, float aSpeedForBall, int aDiameterForBall, String aColorForBall)
-  {
-    numBlocs = aNumBlocs;
-    numLevels = aNumLevels;
-    blockRandomizer = aBlockRandomizer;
-    paddle = new Paddle(aLengthForPaddle, this);
-    boolean didAddGame = setGame(aGame);
-    if (!didAddGame)
-    {
-      throw new RuntimeException("Unable to create level due to game");
-    }
-    blocks = new ArrayList<Block>();
-    ball = new Ball(aSpeedForBall, aDiameterForBall, aColorForBall, this);
+    blockAssignments = new ArrayList<BlockAssignment>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setNumBlocs(int aNumBlocs)
-  {
-    boolean wasSet = false;
-    numBlocs = aNumBlocs;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setNumLevels(int aNumLevels)
-  {
-    boolean wasSet = false;
-    numLevels = aNumLevels;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setBlockRandomizer(boolean aBlockRandomizer)
-  {
-    boolean wasSet = false;
-    blockRandomizer = aBlockRandomizer;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public int getNumBlocs()
-  {
-    return numBlocs;
-  }
-
-  public int getNumLevels()
-  {
-    return numLevels;
-  }
-
-  public boolean getBlockRandomizer()
-  {
-    return blockRandomizer;
-  }
-  /* Code from template attribute_IsBoolean */
-  public boolean isBlockRandomizer()
-  {
-    return blockRandomizer;
-  }
-  /* Code from template association_GetOne */
-  public Paddle getPaddle()
-  {
-    return paddle;
-  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
     return game;
   }
   /* Code from template association_GetMany */
-  public Block getBlock(int index)
+  public BlockAssignment getBlockAssignment(int index)
   {
-    Block aBlock = blocks.get(index);
-    return aBlock;
+    BlockAssignment aBlockAssignment = blockAssignments.get(index);
+    return aBlockAssignment;
   }
 
-  public List<Block> getBlocks()
+  public List<BlockAssignment> getBlockAssignments()
   {
-    List<Block> newBlocks = Collections.unmodifiableList(blocks);
-    return newBlocks;
+    List<BlockAssignment> newBlockAssignments = Collections.unmodifiableList(blockAssignments);
+    return newBlockAssignments;
   }
 
-  public int numberOfBlocks()
+  public int numberOfBlockAssignments()
   {
-    int number = blocks.size();
+    int number = blockAssignments.size();
     return number;
   }
 
-  public boolean hasBlocks()
+  public boolean hasBlockAssignments()
   {
-    boolean has = blocks.size() > 0;
+    boolean has = blockAssignments.size() > 0;
     return has;
   }
 
-  public int indexOfBlock(Block aBlock)
+  public int indexOfBlockAssignment(BlockAssignment aBlockAssignment)
   {
-    int index = blocks.indexOf(aBlock);
+    int index = blockAssignments.indexOf(aBlockAssignment);
     return index;
-  }
-  /* Code from template association_GetOne */
-  public Ball getBall()
-  {
-    return ball;
   }
   /* Code from template association_SetOneToAtMostN */
   public boolean setGame(Game aGame)
@@ -189,114 +104,91 @@ public class Level
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfBlocks()
+  public static int minimumNumberOfBlockAssignments()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Block addBlock(String aColor, int aPoints, int aCellNumber, int aBlockSideLength, Cell aCell)
+  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Block aBlock, Game aGame)
   {
-    return new Block(aColor, aPoints, aCellNumber, aBlockSideLength, this, aCell);
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, this, aBlock, aGame);
   }
 
-  public boolean addBlock(Block aBlock)
+  public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
   {
     boolean wasAdded = false;
-    if (blocks.contains(aBlock)) { return false; }
-    Level existingLevel = aBlock.getLevel();
+    if (blockAssignments.contains(aBlockAssignment)) { return false; }
+    Level existingLevel = aBlockAssignment.getLevel();
     boolean isNewLevel = existingLevel != null && !this.equals(existingLevel);
     if (isNewLevel)
     {
-      aBlock.setLevel(this);
+      aBlockAssignment.setLevel(this);
     }
     else
     {
-      blocks.add(aBlock);
+      blockAssignments.add(aBlockAssignment);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeBlock(Block aBlock)
+  public boolean removeBlockAssignment(BlockAssignment aBlockAssignment)
   {
     boolean wasRemoved = false;
-    //Unable to remove aBlock, as it must always have a level
-    if (!this.equals(aBlock.getLevel()))
+    //Unable to remove aBlockAssignment, as it must always have a level
+    if (!this.equals(aBlockAssignment.getLevel()))
     {
-      blocks.remove(aBlock);
+      blockAssignments.remove(aBlockAssignment);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addBlockAt(Block aBlock, int index)
+  public boolean addBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
   {  
     boolean wasAdded = false;
-    if(addBlock(aBlock))
+    if(addBlockAssignment(aBlockAssignment))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfBlocks()) { index = numberOfBlocks() - 1; }
-      blocks.remove(aBlock);
-      blocks.add(index, aBlock);
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveBlockAt(Block aBlock, int index)
+  public boolean addOrMoveBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
   {
     boolean wasAdded = false;
-    if(blocks.contains(aBlock))
+    if(blockAssignments.contains(aBlockAssignment))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfBlocks()) { index = numberOfBlocks() - 1; }
-      blocks.remove(aBlock);
-      blocks.add(index, aBlock);
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addBlockAt(aBlock, index);
+      wasAdded = addBlockAssignmentAt(aBlockAssignment, index);
     }
     return wasAdded;
   }
 
   public void delete()
   {
-    Paddle existingPaddle = paddle;
-    paddle = null;
-    if (existingPaddle != null)
-    {
-      existingPaddle.delete();
-    }
     Game placeholderGame = game;
     this.game = null;
     if(placeholderGame != null)
     {
       placeholderGame.removeLevel(this);
     }
-    for(int i=blocks.size(); i > 0; i--)
+    for(int i=blockAssignments.size(); i > 0; i--)
     {
-      Block aBlock = blocks.get(i - 1);
-      aBlock.delete();
-    }
-    Ball existingBall = ball;
-    ball = null;
-    if (existingBall != null)
-    {
-      existingBall.delete();
+      BlockAssignment aBlockAssignment = blockAssignments.get(i - 1);
+      aBlockAssignment.delete();
     }
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "numBlocs" + ":" + getNumBlocs()+ "," +
-            "numLevels" + ":" + getNumLevels()+ "," +
-            "blockRandomizer" + ":" + getBlockRandomizer()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null");
-  }
 }

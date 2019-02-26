@@ -4,16 +4,13 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 8 "../../../../../main.ump"
-public class Admin extends Player
+// line 19 "../../../../../Block223 v2.ump"
+public class Admin extends UserRole
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
-  //Admin Attributes
-  private String adminPassword;
 
   //Admin Associations
   private List<Game> games;
@@ -22,29 +19,15 @@ public class Admin extends Player
   // CONSTRUCTOR
   //------------------------
 
-  public Admin(String aUserName, String aPlayerPassword, int aScore, HallOfFame aHallOfFame, String aAdminPassword)
+  public Admin(String aPassword, Block223 aBlock223)
   {
-    super(aUserName, aPlayerPassword, aScore, aHallOfFame);
-    adminPassword = aAdminPassword;
+    super(aPassword, aBlock223);
     games = new ArrayList<Game>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setAdminPassword(String aAdminPassword)
-  {
-    boolean wasSet = false;
-    adminPassword = aAdminPassword;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getAdminPassword()
-  {
-    return adminPassword;
-  }
   /* Code from template association_GetMany */
   public Game getGame(int index)
   {
@@ -81,9 +64,9 @@ public class Admin extends Player
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(int aNumLives, int aPlayerScore, float aWidth, float aLength, String aName, float aMinPaddleLength, float aMaxPaddleLength, int aNumLevels, float aSpeedFactor, HallOfFame aHallOfFame, PlayArea aPlayArea, Header aHeader)
+  public Game addGame(String aName, int aNrBlocksPerLevel, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    return new Game(aNumLives, aPlayerScore, aWidth, aLength, aName, aMinPaddleLength, aMaxPaddleLength, aNumLevels, aSpeedFactor, aHallOfFame, aPlayArea, aHeader, this);
+    return new Game(aName, aNrBlocksPerLevel, this, aBall, aPaddle, aBlock223);
   }
 
   public boolean addGame(Game aGame)
@@ -158,10 +141,4 @@ public class Admin extends Player
     super.delete();
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "adminPassword" + ":" + getAdminPassword()+ "]";
-  }
 }

@@ -3,108 +3,30 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 17 "../../../../../main.ump"
-public class Player extends User
+// line 23 "../../../../../Block223 v2.ump"
+public class Player extends UserRole
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Player Attributes
-  private String playerPassword;
-  private int score;
-
-  //Player Associations
-  private HallOfFame hallOfFame;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Player(String aUserName, String aPlayerPassword, int aScore, HallOfFame aHallOfFame)
+  public Player(String aPassword, Block223 aBlock223)
   {
-    super(aUserName);
-    playerPassword = aPlayerPassword;
-    score = aScore;
-    boolean didAddHallOfFame = setHallOfFame(aHallOfFame);
-    if (!didAddHallOfFame)
-    {
-      throw new RuntimeException("Unable to create player due to hallOfFame");
-    }
+    super(aPassword, aBlock223);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setPlayerPassword(String aPlayerPassword)
-  {
-    boolean wasSet = false;
-    playerPassword = aPlayerPassword;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setScore(int aScore)
-  {
-    boolean wasSet = false;
-    score = aScore;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getPlayerPassword()
-  {
-    return playerPassword;
-  }
-
-  public int getScore()
-  {
-    return score;
-  }
-  /* Code from template association_GetOne */
-  public HallOfFame getHallOfFame()
-  {
-    return hallOfFame;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setHallOfFame(HallOfFame aHallOfFame)
-  {
-    boolean wasSet = false;
-    if (aHallOfFame == null)
-    {
-      return wasSet;
-    }
-
-    HallOfFame existingHallOfFame = hallOfFame;
-    hallOfFame = aHallOfFame;
-    if (existingHallOfFame != null && !existingHallOfFame.equals(aHallOfFame))
-    {
-      existingHallOfFame.removePlayer(this);
-    }
-    hallOfFame.addPlayer(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
-    HallOfFame placeholderHallOfFame = hallOfFame;
-    this.hallOfFame = null;
-    if(placeholderHallOfFame != null)
-    {
-      placeholderHallOfFame.removePlayer(this);
-    }
     super.delete();
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "playerPassword" + ":" + getPlayerPassword()+ "," +
-            "score" + ":" + getScore()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null");
-  }
 }
