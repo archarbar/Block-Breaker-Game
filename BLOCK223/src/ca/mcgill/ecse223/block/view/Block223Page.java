@@ -1,4 +1,4 @@
-package ca.mcgill.ecse223.block223.view;
+package ca.mcgill.ecse223.block.view;
 
 import java.awt.Color;
 import java.awt.Component;
