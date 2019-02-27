@@ -8,9 +8,11 @@ import ca.mcgill.ecse223.block223.view.Block223Page;
 public class BlockApplication {
 	
 	private static Block223 block223;
-	private static Game game;
+	private static Game aGame;
 	
 	public static void main(String[] args) {
+		
+		privat static Block223 block223;
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -20,6 +22,10 @@ public class BlockApplication {
 	}
 
 	public static Block223 getBlock223() {
+		if (block223 == null) {
+			//creating new Block223
+			block223 = new Block223();
+		}
  		return block223;
 	}
 	
@@ -35,7 +41,9 @@ public class BlockApplication {
 	public static void setCurrentGame(Game aGame) {
 	}
 	
-	public static Game getCurrentGame() {
+	public static Game getCurrentGame(Game aGame) {
+		Game currentGame = aGame;
+		return currentGame;
 	}
 	
 }

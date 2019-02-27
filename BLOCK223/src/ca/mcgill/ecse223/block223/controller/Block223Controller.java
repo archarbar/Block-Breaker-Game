@@ -164,9 +164,9 @@ public class Block223Controller {
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
 		
-		UserRole currentUser = Block223Application.getCurrentUserRole();
-		//Check if the user is an admin 
 		
+		//Check if the user is an admin
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -211,7 +211,7 @@ public class Block223Controller {
 		Level level = game.getLevel(level);
 		
 		//Check if number of blocks in the level of the current game, if its already at the maximum, print the following error
-		if (blocks.size() > nrBlocksPerLevel) {
+		if (blocks.size() > game.getNrBlocksPerLevel()) {
 			"The number of blocks has reached the maximum number (" + nrBlocksPerLevel + ") allowed for this game.";
 		}
 		//If the position is not empty ((Horizontal/Vertical)gridLocation already occupied), print out error.
