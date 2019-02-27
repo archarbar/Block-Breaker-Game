@@ -2,8 +2,8 @@ package ca.mcgill.ecse223.block223.controller;
 
 import java.util.List;
 
-import ca.mcgill.ecse223.block223.controller.InvalidInputException;
-import ca.mcgill.ecse223.block223.application.BlockApplication;
+import ca.mcgill.ecse223.block223.model.Block223;
+import ca.mcgill.ecse223.block223.application.Block223Application;
 import ca.mcgill.ecse223.block223.model.Admin;
 import ca.mcgill.ecse223.block223.model.Ball;
 import ca.mcgill.ecse223.block223.model.Block;
@@ -15,6 +15,7 @@ import ca.mcgill.ecse223.block223.model.Paddle;
 import ca.mcgill.ecse223.block223.model.Player;
 import ca.mcgill.ecse223.block223.model.User;
 import ca.mcgill.ecse223.block223.model.UserRole;
+import ca.mcgill.ecse223.block223.controller.InvalidInputException;
 
 public class Block223Controller {
 
@@ -401,20 +402,15 @@ public class Block223Controller {
 }
 
 
-	public static BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {
-	
-	//where do I get currentLevel ??
-	BlockAssignment assignments = currentLevel.getBlockAssignments();
-	
-			
-			
-			for (BlockAssignment assignment : assignments) {
-				h= assignment.getGridHorizontalPosition();
-				v=assignment.getGridVerticalPosition();
-				
-				if(h == gridHorizontalPosition && v==gridVerticalPosition) {
-					return assignment;
-				}
-			}
-	return null;
-	}
+//***DO NOT REMOVE***
+//public BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {
+//		List<BlockAssignment> assignments = getBlockAssignments();					
+//				for (BlockAssignment assignment : assignments) {
+//					int h= assignment.getGridHorizontalPosition();
+//					int v= assignment.getGridVerticalPosition();
+//					if(h == gridHorizontalPosition && v==gridVerticalPosition) {
+//						return assignment;}
+//				}
+//		
+//		return null;
+//		}
