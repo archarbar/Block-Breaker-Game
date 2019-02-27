@@ -114,6 +114,16 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		String error = "";
+		Game game = game.getWithName(name);
+		if (game != null) {
+			block223 = game.getBlock223();
+			game.delete();
+			BlockPersistence.save(block223);
+		}
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
@@ -161,6 +171,27 @@ public class Block223Controller {
 	// Query methods
 	// ****************************
 	public static List<TOGame> getDesignableGames() throws InvalidInputException {
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		Block223 block223 = BlockApplication.getBlock223();
+		Admin admin = BlockApplication.getCurrentUserRole();
+		List<TOGame> result = create();
+		Game games = getGames();
+		for (i=0; i<games.getSize(); i++) {
+			Admin gameAdmin = getAdmin();
+			if (gameAdmin.equals(admin)) {
+				TOGame to = create(game.getName(), game.getLevels().size(), 
+						game.getNrBlocksPerLevel(), 
+						game.getBall().getMinBallSpeedX(), 
+						game.getBall().getMinBallSpeedY(), 
+						game.getBall().getBallSpeedIncreaseFactor(), 
+						game.getPaddle().getMaxPaddleLength(), 
+						game.getPaddle().getMinPaddleLength());
+				result.add(to);
+			}
+		}
+		return result;
 	}
 
 	public static TOGame getCurrentDesignableGame() throws InvalidInputException {
