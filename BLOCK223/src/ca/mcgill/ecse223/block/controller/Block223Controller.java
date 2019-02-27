@@ -2,7 +2,7 @@ package ca.mcgill.ecse223.block.controller;
 
 import java.util.List;
 
-import ca.mcgill.ecse.btms.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.BlockApplication;
 import ca.mcgill.ecse223.block.model.Admin;
 import ca.mcgill.ecse223.block.model.Ball;
@@ -23,16 +23,13 @@ public class Block223Controller {
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
 		String error = "";
+		UserRole currentUser = BlockApplication.getCurrentUserRole();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to create a game.");
+		}
 		Block223 block223 = BlockApplication.getBlock223();
-		Admin admin = BlockApplication.getCurrentUserRole();
-		if (name == null || name == "") {
-			error = "The name of a game must be specified";
-		}
-		if (error.length() > 0) {
-			throw new InvalidInputException(error);
-		}
 		try {
-			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
@@ -46,6 +43,18 @@ public class Block223Controller {
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		String error = "";
+		UserRole currentUser = BlockApplication.getCurrentUserRole();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to define game settings.");
+		}
+		Game currentGame = BlockApplication.getCurrentGame();
+		if (currentGame == null) {
+			throw new InvalidInputException("A game must be selected to define game settings.");
+		}
+		Admin admin = currentGame.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can define its game settings.");
+		}
 		if (nrLevels < 1 || nrLevels > 99) {
 			error = "The number of levels must be between 1 and 99.";
 		}

@@ -115,6 +115,15 @@ public class Block223
     boolean has = games.size() > 0;
     return has;
   }
+  
+  public boolean findGame(String name) {
+	  for (Game game: games) {
+		  if (game.getName() == name) {
+			  return true;
+		  }
+	  }
+	  return false;
+  }
 
   public int indexOfGame(Game aGame)
   {
