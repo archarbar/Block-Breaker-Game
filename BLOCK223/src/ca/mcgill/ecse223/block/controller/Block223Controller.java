@@ -2,6 +2,7 @@ package ca.mcgill.ecse223.block.controller;
 
 import java.util.List;
 
+import ca.mcgill.ecse.btms.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.BlockApplication;
 import ca.mcgill.ecse223.block.model.Admin;
 import ca.mcgill.ecse223.block.model.Ball;
@@ -21,22 +22,75 @@ public class Block223Controller {
 	// Modifier methods
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
+		String error = "";
 		Block223 block223 = BlockApplication.getBlock223();
 		Admin admin = BlockApplication.getCurrentUserRole();
-		Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+		if (name == null || name == "") {
+			error = "The name of a game must be specified";
+		}
+		if (error.length() > 0) {
+			throw new InvalidInputException(error);
+		}
+		try {
+			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+		}
+		catch (RuntimeException e) {
+			error = e.getMessage();
+			if (error.equals("Cannot create due to duplicate name")) {
+				error = "The name of a game must be unique.";
+			}
+			throw new InvalidInputException(error);
+		}
 	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+		String error = "";
+		if (nrLevels < 1 || nrLevels > 99) {
+			error = "The number of levels must be between 1 and 99.";
+		}
 		Game game = BlockApplication.getCurrentGame();
-		game.setNrBlocksPerLevel(nrBlocksPerLevel);
+		try {
+			game.setNrBlocksPerLevel(nrBlocksPerLevel);
+		}
+		catch (RuntimeException e) {
+			error = error + "The number of blocks per level must be greater than zero.";
+		}
 		Ball ball = game.getBall();
-		ball.setMinBallSpeedX(minBallSpeedX);
-		ball.setMinBallSpeedY(minBallSpeedY);
-		ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+		try {
+			ball.setMinBallSpeedX(minBallSpeedX);
+		}
+		catch (RuntimeException e) {
+			error = error + "The minimum speed of the ball must be greater than zero.";
+		}
+		try {
+			ball.setMinBallSpeedY(minBallSpeedY);
+		}
+		catch (RuntimeException e) {
+			error = error + "The minimum speed of the ball must be greater than zero.";
+		}
+		try {
+			ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+		}
+		catch (RuntimeException e) {
+			error = error + "The speed increase factor of the ball must be greater than zero.";
+		}
 		Paddle paddle = game.getPaddle();
-		paddle.setMaxPaddleLength(maxPaddleLength);
-		paddle.setMinPaddleLength(minPaddleLength);
+		try {
+			paddle.setMaxPaddleLength(maxPaddleLength);
+		}
+		catch (RuntimeException e) {
+			error = error + "The maximum length of the paddle must be greater than zero and less than or equal to 400.";
+		}
+		try {
+			paddle.setMinPaddleLength(minPaddleLength);
+		}
+		catch (RuntimeException e) {
+			error = error + "The minimum length of the paddle must be greater than zero.";
+		}
+		if (error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}
 		List<Level> levels = game.getLevels();
 		int size = levels.size();
 		while (nrLevels > size) {
