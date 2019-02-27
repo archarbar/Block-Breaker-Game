@@ -1,6 +1,9 @@
 package ca.mcgill.ecse223.block.application;
 
 import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.view.Block223Page;
 
 public class BlockApplication {
 	
@@ -17,17 +20,22 @@ public class BlockApplication {
 	}
 
 	public static Block223 getBlock223() {
-		if (block223 == null) {
-			// for now, we are just creating an empty Block223
-			block223 = new Block223();
-		}
  		return block223;
 	}
 	
+	public static Block223 resetBlock223() {
+	}
+	
+	public static void setCurrentUserRole(UserRole aUserRole) {
+	}
+	
+	public static UserRole getCurrentUserRole() {
+	}
+	
+	public static void setCurrentGame(Game aGame) {
+	}
+	
 	public static Game getCurrentGame() {
-		if (game == null) {
-			game = new game();
-		}
 	}
 	
 }
