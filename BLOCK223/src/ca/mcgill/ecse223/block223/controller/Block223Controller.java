@@ -163,10 +163,121 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
+		
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		//Check if the user is an admin 
+		
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		//check if the game exists 
+		Game currentGame = Block223Application.getCurrentGame();
+		if (currentGame == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game ***************question
+		Admin admin = currentGame.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.")
+		}
+		
+		if (level < 1 || level >99) {
+			getLevel(…)
+			(catch
+			IndexOutOfBoundsException and rethrow)
+			"Level " + level + " does not exist for the game."
+		}
+		
+//		try {
+//			btms.addRoute(number);
+//		}
+//		catch (RuntimeException e) {
+//			error = e.getMessage();
+//			if (error.equals("Cannot create due to duplicate number")) {
+//				error = "A route with this number already exists. Please use a different number.";
+//			}
+//			throw new InvalidInputException(error);
+//		
+//		try {
+//			btms.addSchedule(shift, driver, assignment);
+//		}
+//		catch (RuntimeException e) {
+//			throw new InvalidInputException(e.getMessage());
+//		}
+//	}
+//	
+//		
+		Game game = Block223Application.getCurrentGame();
+		Level level = game.getLevel(level);
+		
+		//Check if number of blocks in the level of the current game, if its already at the maximum, print the following error
+		if (blocks.size() > nrBlocksPerLevel) {
+			"The number of blocks has reached the maximum number (" + nrBlocksPerLevel + ") allowed for this game.";
+		}
+		//If the position is not empty ((Horizontal/Vertical)gridLocation already occupied), print out error.
+		if() {
+			"A block already exists at location" + gridHorizontalPosition + "/" + gridVerticalPosition + "."
+		}
+		//If block does not exist return null
+		if(findBlock(id) == null) {
+			throw new InvalidInputException("The block does not exist.");
+		}
+		Block block = game.findBlock(id);
+		
+		
+		
+		
+		
+		
+		//or maybe use constructor of block assignment 
+		BlockAssignment position = create(gridHorizontalPosition, gridVerticalPosition, level, block, game); 
 	}
-
+	
+	
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		//Check if the user is an admin 
+		
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		//check if the game exists 
+		Game currentGame = Block223Application.getCurrentGame();
+		if (currentGame == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game ***************question
+		Admin admin = currentGame.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.")
+		}
+		if (level < 1 || level >99) {
+			getLevel(…)
+			(catch
+			IndexOutOfBoundsException and rethrow)
+			"Level " + level + " does not exist for the game."
+		}
+		if (findBlockAssignment() == null) {
+			throw new InvalidInputException("A block does not exist at location" + oldGridHorizontalPosition + "/"+ oldGridVerticalPosition + ".");
+		}
+		
+		
+		Game game = getCurrentGame();
+		Level level = game.getLevel(level);
+		
+		if(BlockAssignment assignment != null) {
+			throw new ("A block already exists at location" + newGridHorizontalPosition + "/"+ gridVerticalPosition + ".");
+		}
+		
+		
+		BlockAssignment assignment = level.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+		
+		assignment.setGridHorizontalPosition(newGridHorizontalPosition);
+		assignment.setGridVerticalPosition(newGridVerticalPosition);
+		
+		
+		
 	}
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -244,9 +355,66 @@ public class Block223Controller {
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+		
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		//Check if the user is an admin 
+		
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		//check if the game exists 
+		Game currentGame = Block223Application.getCurrentGame();
+		if (currentGame == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game ***************question
+		Admin admin = currentGame.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.")
+		}
+		
+		if (level < 1 || level >99) {
+			getLevel(…)
+			(catch
+			IndexOutOfBoundsException and rethrow)
+			"Level " + level + " does not exist for the game."
+		}
+		
+		
+		Game game = Block223Application.getCurrentGame();
+		List<TOGridCell> result = create();
+		
+		Level level = game.getLevel(level);
+		
+		BlockAssignment assignments = level.getBlockAssignments();
+		for (BlockAssignment assignment: assignments) {
+			TOGridCell to = create(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints())
+		
+			result.add(to);
+		}
+		return result;
+		
 	}
-
 	public static TOUserMode getUserMode() {
 	}
 
 }
+
+
+	public static BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {
+	
+	//where do I get currentLevel ??
+	BlockAssignment assignments = currentLevel.getBlockAssignments();
+	
+			
+			
+			for (BlockAssignment assignment : assignments) {
+				h= assignment.getGridHorizontalPosition();
+				v=assignment.getGridVerticalPosition();
+				
+				if(h == gridHorizontalPosition && v==gridVerticalPosition) {
+					return assignment;
+				}
+			}
+	return null;
+	}

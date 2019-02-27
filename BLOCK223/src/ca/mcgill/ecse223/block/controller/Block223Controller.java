@@ -320,20 +320,3 @@ public class Block223Controller {
 
 }
 
-public static BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {
-	
-	//where do I get currentLevel ??
-	BlockAssignment assignments = currentLevel.getBlockAssignments();
-	
-			
-			
-			for (BlockAssignment assignment : assignments) {
-				h= assignment.getGridHorizontalPosition();
-				v=assignment.getGridVerticalPosition();
-				
-				if(h == gridHorizontalPosition && v==gridVerticalPosition) {
-					return assignment;
-				}
-			}
-	return null;
-}
