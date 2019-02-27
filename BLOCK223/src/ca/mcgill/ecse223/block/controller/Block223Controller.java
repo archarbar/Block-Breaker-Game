@@ -105,8 +105,8 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
-		if (BlockApplication.currentUserRole != AdminRole) {
-			error = "Admin privileges are required to delete a game.";
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		String error = "";
 		Game game = game.getWithName(name);
@@ -162,8 +162,8 @@ public class Block223Controller {
 	// Query methods
 	// ****************************
 	public static List<TOGame> getDesignableGames() throws InvalidInputException {
-		if (BlockApplication.currentUserRole != AdminRole) {
-			error = "Admin privileges are required to delete a game.";
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		Block223 block223 = BlockApplication.getBlock223();
 		Admin admin = BlockApplication.getCurrentUserRole();
