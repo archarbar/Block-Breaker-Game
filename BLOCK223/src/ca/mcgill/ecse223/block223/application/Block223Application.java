@@ -5,14 +5,13 @@ import ca.mcgill.ecse223.block223.model.Game;
 import ca.mcgill.ecse223.block223.model.UserRole;
 import ca.mcgill.ecse223.block223.view.Block223Page;
 
-public class BlockApplication {
+public class Block223Application {
 	
 	private static Block223 block223;
 	private static Game aGame;
 	
 	public static void main(String[] args) {
 		
-		privat static Block223 block223;
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -41,8 +40,7 @@ public class BlockApplication {
 	public static void setCurrentGame(Game aGame) {
 	}
 	
-	public static Game getCurrentGame(Game aGame) {
-		Game currentGame = aGame;
+	public static Game getCurrentGame() {
 		return currentGame;
 	}
 	

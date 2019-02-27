@@ -2,19 +2,19 @@ package ca.mcgill.ecse223.block.controller;
 
 import java.util.List;
 
-import ca.mcgill.ecse.btms.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.application.BlockApplication;
-import ca.mcgill.ecse223.block.model.Admin;
-import ca.mcgill.ecse223.block.model.Ball;
-import ca.mcgill.ecse223.block.model.Block;
-import ca.mcgill.ecse223.block.model.Block223;
-import ca.mcgill.ecse223.block.model.BlockAssignment;
-import ca.mcgill.ecse223.block.model.Game;
-import ca.mcgill.ecse223.block.model.Level;
-import ca.mcgill.ecse223.block.model.Paddle;
-import ca.mcgill.ecse223.block.model.Player;
-import ca.mcgill.ecse223.block.model.User;
-import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block223.model.Block223;
+import ca.mcgill.ecse223.block223.application.Block223Application;
+import ca.mcgill.ecse223.block223.model.Admin;
+import ca.mcgill.ecse223.block223.model.Ball;
+import ca.mcgill.ecse223.block223.model.Block;
+import ca.mcgill.ecse223.block223.model.Block223;
+import ca.mcgill.ecse223.block223.model.BlockAssignment;
+import ca.mcgill.ecse223.block223.model.Game;
+import ca.mcgill.ecse223.block223.model.Level;
+import ca.mcgill.ecse223.block223.model.Paddle;
+import ca.mcgill.ecse223.block223.model.Player;
+import ca.mcgill.ecse223.block223.model.User;
+import ca.mcgill.ecse223.block223.model.UserRole;
 
 public class Block223Controller {
 
@@ -124,7 +124,7 @@ public class Block223Controller {
 	}
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
-			throws InvalidInputException {
+			throws InvalidInputException {}
 		
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		//Check if the user is an admin 
