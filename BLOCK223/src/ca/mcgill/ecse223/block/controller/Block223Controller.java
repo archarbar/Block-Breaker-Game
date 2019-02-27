@@ -22,6 +22,7 @@ public class Block223Controller {
 	// Modifier methods
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
+		
 		String error = "";
 		Block223 block223 = BlockApplication.getBlock223();
 		Admin admin = BlockApplication.getCurrentUserRole();
@@ -124,7 +125,7 @@ public class Block223Controller {
 	}
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
-			throws InvalidInputException {}
+			throws InvalidInputException {
 		
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		//Check if the user is an admin 
@@ -275,9 +276,9 @@ public class Block223Controller {
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
 		
-		UserRole currentUser = Block223Application.getCurrentUserRole();
-		//Check if the user is an admin 
 		
+		//Check if the user is an admin 
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -300,7 +301,7 @@ public class Block223Controller {
 		}
 		
 		
-		Game game = Block223Application.getCurrentGame();
+		Game game = Block223Application.getCurrentGame()
 		List<TOGridCell> result = create();
 		
 		Level level = game.getLevel(level);
@@ -312,8 +313,8 @@ public class Block223Controller {
 			result.add(to);
 		}
 		return result;
-		
 	}
+	
 
 	public static TOUserMode getUserMode() {
 	}
