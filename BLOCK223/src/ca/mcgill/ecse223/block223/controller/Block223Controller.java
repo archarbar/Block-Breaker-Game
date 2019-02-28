@@ -122,10 +122,9 @@ public class Block223Controller {
 		if (admin != (Admin) Block223Application.getCurrentUserRole()) {
 			throw new InavlidInputException("Only the admin who created the game can access its information.");
 		}
-		String error = "";
 		Game game = game.getWithName(name);
 		if (game != null) {
-			block223 = game.getBlock223();
+			Game block223 = game.getBlock223();
 			game.delete();
 			Block223Persistence.save(block223);
 		}
@@ -145,11 +144,50 @@ public class Block223Controller {
 		if (game == null) {
 			error = "A game with name" + name + "does not exist.";
 		}
-		BlockApplication.setCurrentGame(game);
+		Block223Application.setCurrentGame(game);
 	}
 
 	public static void updateGame(String name, int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		Game currentgame = Block223Application.getCurrentGame();
+		Admin admin = currentGame.getAdmin();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		if (currentGame == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		if (admin != (Admin) Block223Application.getCurrentUserRole()) {
+			throw new InavlidInputException("Only the admin who created the game can access its information.");
+		}
+		String currentName = game.getName();
+		if (currentName != name) {
+			game.setName(name);
+			
+		}
+		try {
+			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
+		}
+		catch (RuntimeException e) {
+			error = e.getMessage();
+			if (error.equals("Cannot create due to duplicate name")) {
+				error = "The name of a game must be unique.";
+			}
+			throw new InvalidInputException(error);
+		}
+		try {
+			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
+		}
+		catch (RuntimeException e) {
+			if (name == null) {
+				throw new InvalidInputException("The  name  of  a  game  must  be  specified.");
+			}
+		}
+		Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, 
+		minBallSpeedX, minBallSpeedY,
+		ballSpeedIncreaseFactor, 
+		maxPaddleLength, minPaddleLength);
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
