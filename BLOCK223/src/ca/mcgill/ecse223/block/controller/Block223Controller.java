@@ -15,6 +15,8 @@ import ca.mcgill.ecse223.block223.model.Paddle;
 import ca.mcgill.ecse223.block223.model.Player;
 import ca.mcgill.ecse223.block223.model.User;
 import ca.mcgill.ecse223.block223.model.UserRole;
+import ca.mcgill.ecse223.block223.model.UserRole;
+import ca.mcgill.ecse223.block223.controller.InvalidInputException;
 
 public class Block223Controller {
 
@@ -22,9 +24,10 @@ public class Block223Controller {
 	// Modifier methods
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
+		
 		String error = "";
-		Block223 block223 = BlockApplication.getBlock223();
-		Admin admin = BlockApplication.getCurrentUserRole();
+		Block223 block223 = Block223Application.getBlock223();
+		Admin admin = Block223Application.getCurrentUserRole();
 		if (name == null || name == "") {
 			error = "The name of a game must be specified";
 		}
@@ -49,7 +52,7 @@ public class Block223Controller {
 		if (nrLevels < 1 || nrLevels > 99) {
 			error = "The number of levels must be between 1 and 99.";
 		}
-		Game game = BlockApplication.getCurrentGame();
+		Game game = Block223Application.getCurrentGame();
 		try {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
@@ -124,11 +127,11 @@ public class Block223Controller {
 	}
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
-			throws InvalidInputException {}
+			throws InvalidInputException {
 		
-		UserRole currentUser = Block223Application.getCurrentUserRole();
+		
 		//Check if the user is an admin 
-		
+		UserRole currentUser = Block223Application.getCurrentUserRole(); 
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -140,7 +143,7 @@ public class Block223Controller {
 		//check if the admin created the game ***************question
 		Admin admin = currentGame.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.")
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		
 		if (level < 1 || level >99) {
@@ -197,9 +200,9 @@ public class Block223Controller {
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-		UserRole currentUser = Block223Application.getCurrentUserRole();
-		//Check if the user is an admin 
 		
+		//Check if the user is an admin 
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -211,7 +214,7 @@ public class Block223Controller {
 		//check if the admin created the game ***************question
 		Admin admin = currentGame.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.")
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		if (level < 1 || level >99) {
 			getLevel(…)
@@ -224,7 +227,7 @@ public class Block223Controller {
 		}
 		
 		
-		Game game = getCurrentGame();
+		Game game = Block223Application.getCurrentGame();
 		Level level = game.getLevel(level);
 		
 		if(BlockAssignment assignment != null) {
@@ -236,8 +239,6 @@ public class Block223Controller {
 		
 		assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		assignment.setGridVerticalPosition(newGridVerticalPosition);
-		
-		
 		
 	}
 
@@ -275,9 +276,9 @@ public class Block223Controller {
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
 		
-		UserRole currentUser = Block223Application.getCurrentUserRole();
-		//Check if the user is an admin 
 		
+		//Check if the user is an admin 
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -300,7 +301,7 @@ public class Block223Controller {
 		}
 		
 		
-		Game game = Block223Application.getCurrentGame();
+		Game game = Block223Application.getCurrentGame()
 		List<TOGridCell> result = create();
 		
 		Level level = game.getLevel(level);
@@ -312,11 +313,12 @@ public class Block223Controller {
 			result.add(to);
 		}
 		return result;
-		
 	}
+	
 
 	public static TOUserMode getUserMode() {
 	}
 
 }
+
 
