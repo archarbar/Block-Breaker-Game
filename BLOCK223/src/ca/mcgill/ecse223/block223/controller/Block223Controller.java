@@ -4,6 +4,7 @@ import java.util.List;
 
 import ca.mcgill.ecse223.block223.model.Block223;
 import ca.mcgill.ecse223.block223.application.Block223Application;
+import ca.mcgill.ecse223.block223.application.BlockApplication;
 import ca.mcgill.ecse223.block223.model.Admin;
 import ca.mcgill.ecse223.block223.model.Ball;
 import ca.mcgill.ecse223.block223.model.Block;
@@ -121,7 +122,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		if (admin != (Admin) Block223Application.getCurrentUserRole()) {
-			throw new InavlidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		String error = "";
 		Game game = game.getWithName(name);
@@ -157,6 +158,18 @@ public class Block223Controller {
 	}
 
 	public static void deleteBlock(int id) throws InvalidInputException {
+	}
+	
+	public static Block findBlock(int id) throws InvalidInputException {
+		Game currentGame = Block223Application.getCurrentGame();
+		List<Block> blocks = currentGame.getBlocks();
+		for (Block block: blocks) {
+			int blockId = block.getId();
+			if (id == blockId) {
+				return block;
+			}
+		}
+		return null;
 	}
 
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
