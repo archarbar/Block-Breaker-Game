@@ -8,7 +8,8 @@ import ca.mcgill.ecse223.block223.view.Block223Page;
 public class Block223Application {
 	
 	private static Block223 block223;
-	private static Game aGame;
+	private static Game currentGame;
+	private static UserRole currentUserRole;
 	
 	public static void main(String[] args) {
 		
@@ -21,27 +22,25 @@ public class Block223Application {
 	}
 
 	public static Block223 getBlock223() {
-		if (block223 == null) {
-			//creating new Block223
-			block223 = new Block223();
-		}
- 		return block223;
 	}
 	
 	public static Block223 resetBlock223() {
 	}
 	
-	public static void setCurrentUserRole(UserRole aUserRole) {
-	}
-	
 	public static UserRole getCurrentUserRole() {
+		return currentUserRole;
 	}
 	
-	public static void setCurrentGame(Game aGame) {
+	public static void setCurrentUserRole(UserRole aUserRole) {
+		currentUserRole = aUserRole;
 	}
 	
 	public static Game getCurrentGame() {
 		return currentGame;
+	}
+	
+	public static void setCurrentGame(Game aGame) {
+		currentGame = aGame;
 	}
 	
 }

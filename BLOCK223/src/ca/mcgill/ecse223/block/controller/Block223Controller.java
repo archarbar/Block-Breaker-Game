@@ -24,84 +24,83 @@ public class Block223Controller {
 	// Modifier methods
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
-		
-		String error = "";
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to create a game");
+		}
 		Block223 block223 = Block223Application.getBlock223();
-		Admin admin = Block223Application.getCurrentUserRole();
-		if (name == null || name == "") {
-			error = "The name of a game must be specified";
-		}
-		if (error.length() > 0) {
-			throw new InvalidInputException(error);
-		}
+		Admin admin = (Admin) currentUser;
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name")) {
-				error = "The name of a game must be unique.";
-			}
-			throw new InvalidInputException(error);
+			e.getMessage();
 		}
 	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
-		String error = "";
-		if (nrLevels < 1 || nrLevels > 99) {
-			error = "The number of levels must be between 1 and 99.";
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to define game settings");
 		}
-		Game game = Block223Application.getCurrentGame();
+		Game currentGame = Block223Application.getCurrentGame();
+		if(currentGame == null) {
+			throw new InvalidInputException("A game must be selected to define game settings");
+		}
+		Admin admin = currentGame.getAdmin();
+		if(admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can define its game settings");
+		}
+		if (nrLevels < 1 || nrLevels > 99) {
+			throw new InvalidInputException("The number of levels must be between 1 and 99");
+		}
 		try {
-			game.setNrBlocksPerLevel(nrBlocksPerLevel);
+			currentGame.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
-			error = error + "The number of blocks per level must be greater than zero.";
+			e.getMessage();
 		}
-		Ball ball = game.getBall();
+		Ball ball = currentGame.getBall();
 		try {
 			ball.setMinBallSpeedX(minBallSpeedX);
 		}
 		catch (RuntimeException e) {
-			error = error + "The minimum speed of the ball must be greater than zero.";
+			e.getMessage();
 		}
 		try {
 			ball.setMinBallSpeedY(minBallSpeedY);
 		}
 		catch (RuntimeException e) {
-			error = error + "The minimum speed of the ball must be greater than zero.";
+			e.getMessage();
 		}
 		try {
 			ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
 		}
 		catch (RuntimeException e) {
-			error = error + "The speed increase factor of the ball must be greater than zero.";
+			e.getMessage();
 		}
-		Paddle paddle = game.getPaddle();
+		Paddle paddle = currentGame.getPaddle();
 		try {
 			paddle.setMaxPaddleLength(maxPaddleLength);
 		}
 		catch (RuntimeException e) {
-			error = error + "The maximum length of the paddle must be greater than zero and less than or equal to 400.";
+			e.getMessage();
 		}
 		try {
 			paddle.setMinPaddleLength(minPaddleLength);
 		}
 		catch (RuntimeException e) {
-			error = error + "The minimum length of the paddle must be greater than zero.";
+			e.getMessage();
 		}
-		if (error.length() > 0) {
-			throw new InvalidInputException(error.trim());
-		}
-		List<Level> levels = game.getLevels();
+		List<Level> levels = currentGame.getLevels();
 		int size = levels.size();
 		while (nrLevels > size) {
-			game.addLevel();
+			currentGame.addLevel();
 			size = levels.size();
 		}
 		while (nrLevels < size) {
-			Level level = game.getLevel(size-1);
+			Level level = currentGame.getLevel(size-1);
 			level.delete();
 			size = levels.size();
 		}
