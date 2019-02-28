@@ -196,9 +196,12 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
+		
 		Level currentLevel = game.getLevel(level); //*****************QUESTION do we have to put it even if its in the try/catch
 		
-		//Check if number of blocks in the level of the current game, if its already at the maximum, print the following error
+		Block block = game.findBlock(id);
+		
+		//Check if number of blocks in the level of the current game, if its already at the maximum, print the following error ****************QUESTION is the numberofblockassignments equivalent to the number of blocks per level?
 		if (currentLevel.numberOfBlockAssignments() > game.getNrBlocksPerLevel()) {
 			throw new InvalidInputException("The number of blocks has reached the maximum number (" + game.getNrBlocksPerLevel() + ") allowed for this game.");
 		}
@@ -208,15 +211,15 @@ public class Block223Controller {
 			throw new InvalidInputException("A block already exists at location" + gridHorizontalPosition + "/" + gridVerticalPosition + ".");
 		}
 		//If block does not exist return null
-		if(currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition) == null) {
+		if(currentLevel.findBlock(id) == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
-		Block block = game.findBlock(id);	
+			
 		
-		//BlockAssignment constructor InvalidInputException ****************QUESTION what is message suppose to be ?
+		//BlockAssignment constructor InvalidInputException ****************QUESTION what is message suppose to be ? how to fin maxNumberOFHorizontalBlocks?
 		
 		try {
-			BlockAssignment newBlockAssignment = new BlockAssignment(int gridHorizontalPosition, int gridVerticalPosition, Level level, Block block, Game game);
+			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
@@ -227,7 +230,7 @@ public class Block223Controller {
 		}
 
 		try {
-			BlockAssignment newBlockAssignment = new BlockAssignment(int gridHorizontalPosition, int gridVerticalPosition, Level level, Block block, Game game);
+			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
@@ -236,7 +239,7 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
-		BlockAssignment newBlockAssignment = new BlockAssignment(int gridHorizontalPosition, int gridVerticalPosition, Level level, Block block, Game game);
+		BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 		
 	}
 	
@@ -280,17 +283,13 @@ public class Block223Controller {
 		if (assignment == null) {
 			throw new InvalidInputException("A block does not exist at location" + oldGridHorizontalPosition + "/"+ oldGridVerticalPosition + ".");
 		}
-		
-		
-		
-		
-		if(assignment != null) {
+			
+		if(currentLevel.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPosition) != null) {
 			throw new InvalidInputException("A block already exists at location" + newGridHorizontalPosition + "/"+ newGridVerticalPosition + ".");
 		}
 		
 		
-		
-		//We need to calculate maximum number of horizontal and vertical blocks!!! *******QUESTION
+		//We need to calculate maximum number of horizontal and vertical blocks!!! *******QUESTIONhow to put condition that gridHori and gridVerti has to be > 0 , maxNumberof(Verti/Horizontal)Blocks
 		try {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		}
@@ -397,32 +396,31 @@ public class Block223Controller {
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
-		
-		
+				
 		//Check if the user is an admin 
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		//check if the game exists 
-		Game currentGame = Block223Application.getCurrentGame();
-		if (currentGame == null) {
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
 		}
-		//check if the admin created the game 
-		Admin admin = currentGame.getAdmin();
+		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		
-		 
-		Game game = Block223Application.getCurrentGame();	
+		List<TOGridCell> result = new List<TOGridCell>(); //***************QUESTION
+		
 		String error = "";
 		
 		try {
 			Level currentLevel = game.getLevel(level);
 		}
-		catch (IndexOutOfBoundsException e) {//***************QUESTION good?
+		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we know what's the string of the error?
 			
 			error = e.getMessage();
 			if (error.equals("if the index is out of range(index < 0 || index >= size())")) {
@@ -433,7 +431,7 @@ public class Block223Controller {
 		
 		Level currentLevel = game.getLevel(level); //***************QUESTION do we have to put it another time if it's there?
 		
-		List<TOGridCell> result = new List<TOGridCell>(); //***************QUESTION
+		
 		
 		List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
 		
