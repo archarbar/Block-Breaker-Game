@@ -5,12 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * random attribute not needed anymore
- * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
- */
 // line 63 "../../../../../Block223Persistence.ump"
-// line 61 "../../../../../Block223 v2.ump"
 public class Level implements Serializable
 {
 
