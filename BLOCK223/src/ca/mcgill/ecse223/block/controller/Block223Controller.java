@@ -2,6 +2,22 @@ package ca.mcgill.ecse223.block.controller;
 
 import java.util.List;
 
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Ball;
+import ca.mcgill.ecse223.block.model.Block;
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.BlockAssignment;
+import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.Level;
+import ca.mcgill.ecse223.block.model.Paddle;
+import ca.mcgill.ecse223.block.model.Player;
+import ca.mcgill.ecse223.block.model.User;
+import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGridCell;
+
 public class Block223Controller {
 
 	// ****************************
@@ -68,7 +84,25 @@ public class Block223Controller {
 	}
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() throws InvalidInputException {
+		//William 28/02
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		Admin admin = game.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
+		}
+		List<TOBlock> result = new ArrayList<TOBlock>();
+
 	}
+
+
 
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
 	}
