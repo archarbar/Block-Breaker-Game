@@ -1,0 +1,95 @@
+external interface Serializable {}
+
+
+class Admin {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =000;
+}
+class Ball {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =001;
+}
+class Block {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =002;
+	
+	public static void reinitializeBlockuniqueId(List<Block> blocks) {
+    nextId = 0; 
+    for (Block block : blocks) {
+      if (block.getId() > nextId) {
+        nextId = block.getId();
+      }
+    }
+    nextId++;
+  }
+}
+class Block223 {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =003;
+	
+	public void reinitialize() {
+    User.reinitializeUseruniqueUsername(this.getUsers());
+    Game.reinitializeGameuniqueName(this.getGames());
+    List<Game> games = this.getGames();
+    for (Game game : games) {
+    	Block.reinitializeBlockuniqueId(game.getBlocks());
+    }
+  }
+  }
+	
+	
+class BlockAssignment {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =004;
+}
+class Game {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =005;
+	
+	public static void reinitializeGameuniqueName(List<Game> games) {
+    gamesByName = new HashMap<String, Game>();
+    for (Game game : games) {
+        gamesByName.put(game.getName(), game);
+      }
+  }
+}
+
+class Level {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =006;
+}
+class Paddle {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =007;
+}
+class Player {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =-8;
+}
+class User {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =-9;
+	
+	public static void reinitializeUseruniqueUsername(List<User> users) {
+    usersByUsername = new HashMap<String, User>();
+    for (User user : users) {
+        usersByUsername.put(user.getUsername(), user);
+     }
+  	}
+	
+}
+class UserRole {
+	depend java.io.Serializable;
+	isA Serializable;
+	private static final long serialVersionUID =010;
+}
