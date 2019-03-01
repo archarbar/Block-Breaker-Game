@@ -371,6 +371,16 @@ public class Block223 implements Serializable
     	Block.reinitializeBlockuniqueId(game.getBlocks());
     }
   }
+
+  // line 11 "../../../../../Block223 v2.ump"
+   public Game findGame(String name){
+    for (Game game: getGames()) {
+		  if (game.getName() == name) {
+			  return game;
+		  }
+	  }
+	  return null;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
