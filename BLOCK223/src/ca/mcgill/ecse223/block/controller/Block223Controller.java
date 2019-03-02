@@ -129,8 +129,7 @@ public class Block223Controller {
 
 	public static void deleteBlock(int id) throws InvalidInputException {
 		//William 01/03
-		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!currentUser.equals("Admin")) {
+		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		Game game = Block223Application.getCurrentGame();
@@ -311,11 +310,10 @@ public class Block223Controller {
 		//William 01/03
 		Level currentLevel;
 
-		UserRole currentUser = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentUserRole();
-		if (!currentUser.equals("Admin")) {
+		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		Game game = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentGame();
+		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
 		}
