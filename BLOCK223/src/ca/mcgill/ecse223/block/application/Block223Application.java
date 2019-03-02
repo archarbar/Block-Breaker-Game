@@ -11,6 +11,8 @@ import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.view.Block223Page;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
@@ -34,9 +36,16 @@ public class Block223Application {
 	}
 
 	public static Block223 getBlock223() {
+		if (block223 == null) {
+			// load model
+			block223 = Block223Persistence.load();
+		}
+ 		return block223;
 	}
 	
 	public static Block223 resetBlock223() {
+		block223.reinitialize();
+		return block223;
 	}
 	
 	public static UserRole getCurrentUserRole() {
