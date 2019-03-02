@@ -1,5 +1,8 @@
 package ca.mcgill.ecse223.block.controller;
 
+import ca.mcgill.ecse223.block.model.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse223.block.model.Block223;
@@ -125,6 +128,24 @@ public class Block223Controller {
 	}
 
 	public static void deleteBlock(int id) throws InvalidInputException {
+		//William 01/03
+		UserRole currentUser = Block223Application.getCurrentUserRole();
+		if (!currentUser.equals("Admin")) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		Admin admin = game.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
+		}
+		Block block = game.findBlock(id);
+		if (block != null) {
+			block.delete();
+		}
 	}
 
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
@@ -132,13 +153,13 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-		
+
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		//check if the game exists 
+		//check if the game exists
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
@@ -148,30 +169,30 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
-		
+
 		String error = "";
-		
+
 		try {
 			Level currentLevel = game.getLevel(level);
 		}
-		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?					
+		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
 			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
 		}
-		
+
 		Level currentLevel = game.getLevel(level); //*****************QUESTION do we have to put it even if its in the try/catch
-		
+
 		Block block = game.findBlock(id);
-		
+
 		//Check if number of blocks in the level of the current game, if its already at the maximum, print the following error ****************QUESTION is the numberofblockassignments equivalent to the number of blocks per level?
 		if (currentLevel.numberOfBlockAssignments() > game.getNrBlocksPerLevel()) {
 			throw new InvalidInputException("The number of blocks has reached the maximum number (" + game.getNrBlocksPerLevel() + ") allowed for this game.");
 		}
-				
-		//If the position is not empty ((Horizontal/Vertical)gridLocation already occupied), print out error. 
+
+		//If the position is not empty ((Horizontal/Vertical)gridLocation already occupied), print out error.
 		if(currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition) != null) {
 			throw new InvalidInputException("A block already exists at location" + gridHorizontalPosition + "/" + gridVerticalPosition + ".");
 		}
@@ -179,10 +200,10 @@ public class Block223Controller {
 		if(currentLevel.findBlock(id) == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
-			
-		
+
+
 		//BlockAssignment constructor InvalidInputException ****************QUESTION what is message suppose to be ? how to fin maxNumberOFHorizontalBlocks?
-		
+
 		try {
 			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 		}
@@ -205,18 +226,18 @@ public class Block223Controller {
 			throw new InvalidInputException(error);
 		}
 		BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
-		
+
 	}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-		
-		//Check if the user is an admin 
+
+		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		//check if the game exists 
+		//check if the game exists
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
@@ -227,11 +248,11 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		String error = "";
-		
+
 		try {
 			Level currentLevel = game.getLevel(level);
 		}
-		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?					
+		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
 			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
 				error = "Level" + level + "does not exist for the game.";
@@ -239,20 +260,20 @@ public class Block223Controller {
 			throw new InvalidInputException(error);
 		}
 		Level currentLevel = game.getLevel(level);
-		
-		
-		
+
+
+
 		BlockAssignment assignment = currentLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
-		
+
 		if (assignment == null) {
 			throw new InvalidInputException("A block does not exist at location" + oldGridHorizontalPosition + "/"+ oldGridVerticalPosition + ".");
 		}
-			
+
 		if(currentLevel.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPosition) != null) {
 			throw new InvalidInputException("A block already exists at location" + newGridHorizontalPosition + "/"+ newGridVerticalPosition + ".");
 		}
-		
-		
+
+
 		//We need to calculate maximum number of horizontal and vertical blocks!!! *******QUESTIONhow to put condition that gridHori and gridVerti has to be > 0 , maxNumberof(Verti/Horizontal)Blocks
 		try {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
@@ -275,18 +296,48 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
-		
-		
+
+
 		assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		assignment.setGridVerticalPosition(newGridVerticalPosition);
 	}
-		
-		
-		
-	
+
+
+
+
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
+		//William 01/03
+		Level currentLevel;
+
+		UserRole currentUser = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentUserRole();
+		if (!currentUser.equals("Admin")) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		Game game = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		Admin admin = game.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
+		}
+		try {
+			currentLevel = game.getLevel(level);
+		}
+		catch (IndexOutOfBoundsException e) {
+			error = e.getMessage();
+			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
+				error = "Level" + level + "does not exist for the game.";
+			}
+			throw new InvalidInputException(error);
+		}
+		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
+		if(assignment != null){
+			assignment.delete();
+		}
 	}
 
 	public static void saveGame() throws InvalidInputException {
@@ -332,7 +383,7 @@ public class Block223Controller {
 			player.delete();
 			throw new InvalidInputException("The username has already been taken or the username must be specified");
 		}
-		
+
 		if (adminPassword != null && adminPassword != "") {
 			Admin admin = new Admin(adminPassword, block223);
 			user.addRole(admin);
@@ -360,11 +411,10 @@ public class Block223Controller {
 		if (Block223Application.getCurrentUserRole()== null) {//if no one is still not logged in
 			throw new InvalidInputException("The username and password do not match");
 		}
-	
+
 	}
 
 	public static void logout() {
-		Block223Application.setCurrentUserRole(null);
 	}
 
 	// ****************************
@@ -377,19 +427,41 @@ public class Block223Controller {
 	}
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() throws InvalidInputException {
+		//William 28/02
+		UserRole currentUser = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentUserRole();
+		if (!currentUser.equals("Admin")) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
+		Game game = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		Admin admin = game.getAdmin();
+		if (admin != (Admin) currentUser) {
+			throw new InvalidInputException("Only the admin who created the game can access its information.");
+		}
+		List<TOBlock> result = new ArrayList<TOBlock>();
+
+		List<Block> blocks = game.getBlocks();
+		for(Block block: blocks){
+			TOBlock to = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
+			result.add(to);
+		}
+		return result;
 	}
 
 	public static TOBlock getBlockOfCurrentDesignableGame(int id) throws InvalidInputException {
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
-		
-		//Check if the user is an admin 
+
+		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		//check if the game exists 
+		//check if the game exists
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
@@ -399,38 +471,37 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
-		
+
 		List<TOGridCell> result = new List<TOGridCell>(); //***************QUESTION
-		
+
 		String error = "";
-		
+
 		try {
 			Level currentLevel = game.getLevel(level);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we know what's the string of the error?
-			
+
 			error = e.getMessage();
 			if (error.equals("if the index is out of range(index < 0 || index >= size())")) {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
 		}
-		
+
 		Level currentLevel = game.getLevel(level); //***************QUESTION do we have to put it another time if it's there?
-		
-		
-		
+
+
+
 		List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
-		
+
 		for (BlockAssignment assignment: assignments) {
 			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
-		
+
 			result.add(to);
 		}
 		return result;
-		
+
 	}
-	
 
 	public static TOUserMode getUserMode() {
 		UserRole userRole = Block223Application.getCurrentUserRole();
@@ -447,19 +518,19 @@ public class Block223Controller {
 			return to;
 		}
 		return null;
-		
+
 	}
-	
+
 	//***DO NOT REMOVE***
 	//private BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {}
-//			List<BlockAssignment> assignments = Block223Application.getBlock223().getBlockAssignments();					
+//			List<BlockAssignment> assignments = Block223Application.getBlock223().getBlockAssignments();
 //					for (BlockAssignment assignment : assignments) {
 //						int h= assignment.getGridHorizontalPosition();
 //						int v= assignment.getGridVerticalPosition();
 //						if(h == gridHorizontalPosition && v==gridVerticalPosition) {
 //							return assignment;}
 //					}
-//			
+//
 //			return null;
 //			}
 

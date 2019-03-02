@@ -667,5 +667,15 @@ public class Game implements Serializable
   // line 53 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID =005 ;
 
-  
+
+  public Block findBlock(int id) throws InvalidInputException {
+    List<Block> blocks = this.getBlocks();
+    for (Block block: blocks) {
+      int blockId = block.getId();
+      if (id == blockId) {
+        return block;
+      }
+    }
+    return null;
+  }
 }
