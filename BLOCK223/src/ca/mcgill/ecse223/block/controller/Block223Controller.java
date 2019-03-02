@@ -32,6 +32,7 @@ public class Block223Controller {
 	// Modifier methods
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
+		String error = "";
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to create a game");
@@ -42,13 +43,21 @@ public class Block223Controller {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The name of a game must be unique")) {
+				error = "The name of a game must be unique";
+			}
+			if (error.equals("The name of a game must be specified")) {
+				error = "The name of a game must be specified";
+			}
+			throw new InvalidInputException(error);
 		}
 	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
+		String error = "";
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings");
 		}
@@ -67,39 +76,63 @@ public class Block223Controller {
 			currentGame.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The number of blocks per level must be greater than zero")) {
+				error = "The number of blocks per level must be greater than zero";
+			}
+			throw new InvalidInputException(error);
 		}
 		Ball ball = currentGame.getBall();
 		try {
 			ball.setMinBallSpeedX(minBallSpeedX);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The minimum speed of the ball must be greater than zero")) {
+				error = "The minimum speed of the ball must be greater than zero";
+			}
+			throw new InvalidInputException(error);
 		}
 		try {
 			ball.setMinBallSpeedY(minBallSpeedY);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The minimum speed of the ball must be greater than zero")) {
+				error = "The minimum speed of the ball must be greater than zero";
+			}
+			throw new InvalidInputException(error);
 		}
 		try {
 			ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The speed increase factor of the ball must be greater than zero")) {
+				error = "The speed increase factor of the ball must be greater than zero";
+			}
+			throw new InvalidInputException(error);
 		}
 		Paddle paddle = currentGame.getPaddle();
 		try {
 			paddle.setMaxPaddleLength(maxPaddleLength);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The maximum length of the paddle must be greater than zero and less than or equal to 400")) {
+				error = "The maximum length of the paddle must be greater than zero and less than or equal to 400";
+			}
+			throw new InvalidInputException(error);
 		}
 		try {
 			paddle.setMinPaddleLength(minPaddleLength);
 		}
 		catch (RuntimeException e) {
-			e.getMessage();
+			error = e.getMessage();
+			if (error.equals("The minimum length of the paddle must be greater than zero")) {
+				error = "The minimum length of the paddle must be greater than zero";
+			}
+			throw new InvalidInputException(error);
 		}
 		List<Level> levels = currentGame.getLevels();
 		int size = levels.size();

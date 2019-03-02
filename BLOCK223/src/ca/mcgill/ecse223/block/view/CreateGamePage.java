@@ -1,11 +1,20 @@
 package ca.mcgill.ecse223.block.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Properties;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.javafx.event.EventQueue;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
@@ -28,6 +38,8 @@ import javax.swing.JMenu;
 
 public class CreateGamePage extends JFrame {
 
+	//UI elements
+	private JLabel errorMessage;
 	//Initialize Main Panel
 	private JPanel contentPanel;
 	//Initialize Create Game Variables
@@ -43,6 +55,9 @@ public class CreateGamePage extends JFrame {
 	private JTextField MinPaddleLengthTextField;
 	private JTextField MaxPaddleLengthTextField;
 	private JTextField textField;
+	
+	//data elements
+	private String error = null;
 
 	/**
 	 * Launch the application.
@@ -64,6 +79,7 @@ public class CreateGamePage extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateGamePage() {
+		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 457);
 		
@@ -84,7 +100,7 @@ public class CreateGamePage extends JFrame {
 		
 		//Create game parameters
 		
-		JLabel lblMainTitle = new JLabel("BLOCK223 Game Builder");
+		JLabel lblMainTitle = new JLabel("Create New Game");
 		lblMainTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblMainTitle.setBounds(10, 11, 156, 14);
 		contentPanel.add(lblMainTitle);
@@ -101,7 +117,8 @@ public class CreateGamePage extends JFrame {
 		
 		JButton btnCreateGame = new JButton("Create Game");
 		btnCreateGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				createGameActionPerformed(evt);
 			}
 		});
 		btnCreateGame.setBounds(321, 42, 112, 23);
@@ -250,10 +267,34 @@ public class CreateGamePage extends JFrame {
 		
 		JButton btnApplyGameSettings = new JButton("Apply Game Settings");
 		btnApplyGameSettings.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				applySettingsActionPerformed(evt);
 			}
 		});
 		btnApplyGameSettings.setBounds(175, 356, 136, 23);
 		contentPanel.add(btnApplyGameSettings);
+	}
+
+	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		String gameName = null;
+		try {
+			gameName = GameNameTextField.getText();
+		}
+		catch (NullPointerException e) {
+			error = "The name of a game must be specified";
+		}
+		if (error.length() == 0) {
+			try {
+				Block223Controller.createGame(gameName);
+			}
+			catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
+		}
+	}
+
+	private void applySettingsActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
 	}
 }
