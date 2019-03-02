@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 27 "../../../../../Block223 v2.ump"
-public class Game
+// line 50 "../../../../../Block223Persistence.ump"
+// line 38 "../../../../../Block223 v2.ump"
+public class Game implements Serializable
 {
 
   //------------------------
@@ -51,6 +53,19 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
+    // line 47 "../../../../../Block223 v2.ump"
+    if (findGame(aName == null)) {
+       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  }
+    	  if (aName == null || aName.length() == 0) {
+    	     throw new RuntimeException("The name of a game must be specified");
+    	  }
+    // END OF UMPLE BEFORE INJECTION
+    // line 56 "../../../../../Block223 v2.ump"
+    if (aNrBlocksPerLevel <= 0) {
+         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         }
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
@@ -83,6 +98,19 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
+    // line 47 "../../../../../Block223 v2.ump"
+    if (findGame(aName == null)) {
+       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  }
+    	  if (aName == null || aName.length() == 0) {
+    	     throw new RuntimeException("The name of a game must be specified");
+    	  }
+    // END OF UMPLE BEFORE INJECTION
+    // line 56 "../../../../../Block223 v2.ump"
+    if (aNrBlocksPerLevel <= 0) {
+         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         }
+    // END OF UMPLE BEFORE INJECTION
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
     boolean didAddAdmin = setAdmin(aAdmin);
@@ -109,6 +137,14 @@ public class Game
   public boolean setName(String aName)
   {
     boolean wasSet = false;
+    // line 47 "../../../../../Block223 v2.ump"
+    if (findGame(aName == null)) {
+       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  }
+    	  if (aName == null || aName.length() == 0) {
+    	     throw new RuntimeException("The name of a game must be specified");
+    	  }
+    // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
     if (hasWithName(aName)) {
       return wasSet;
@@ -125,6 +161,11 @@ public class Game
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
+    // line 56 "../../../../../Block223 v2.ump"
+    if (aNrBlocksPerLevel <= 0) {
+         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         }
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     wasSet = true;
     return wasSet;
@@ -600,6 +641,14 @@ public class Game
     }
   }
 
+  // line 56 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeGameuniqueName(List<Game> games){
+    gamesByName = new HashMap<String, Game>();
+    for (Game game : games) {
+        gamesByName.put(game.getName(), game);
+      }
+  }
+
 
   public String toString()
   {
@@ -610,5 +659,13 @@ public class Game
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 53 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID =005 ;
+
+  
 }
