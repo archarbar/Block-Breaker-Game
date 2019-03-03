@@ -28,6 +28,14 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
+    // line 92 "../../../../../Block223 v2.ump"
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
+    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+    	    }
+    	if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
+    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
+    	    }
+    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);
@@ -54,6 +62,11 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
+    // line 100 "../../../../../Block223 v2.ump"
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
+    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+    	    }
+    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     wasSet = true;
     return wasSet;
@@ -62,6 +75,11 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
+    // line 105 "../../../../../Block223 v2.ump"
+    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
+    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
+    	    }
+    // END OF UMPLE BEFORE INJECTION
     gridVerticalPosition = aGridVerticalPosition;
     wasSet = true;
     return wasSet;

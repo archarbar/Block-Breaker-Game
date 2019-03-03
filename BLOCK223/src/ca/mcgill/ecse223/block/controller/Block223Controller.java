@@ -299,7 +299,8 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-
+		
+		
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
@@ -346,22 +347,14 @@ public class Block223Controller {
 		if(game.findBlock(id) == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
-
-		//BlockAssignment constructor InvalidInputException ****************QUESTION what is message suppose to be ? how to fin maxNumberOFHorizontalBlocks?
-//		Before statement needs to be put in umple
-//		 if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
-//		    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than"+ maxNumberOfHorizontalBlocks);
-//		    }
-//		    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
-//		    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than"+ maxNumberOfVerticalBlocks);
-//		    }
+		
 		try {
 			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name")) {
-				error = "The horizontal position must be between 1 and " + maxNumberOfHorizontalBlocks + ".";
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks)) {
+				error = "The horizontal position must be between 1 and " + maxNumberOfVerticalBlocks + ".";
 			}
 			throw new InvalidInputException(error);
 		}
@@ -371,15 +364,15 @@ public class Block223Controller {
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name")) {
-				error = "The vertical position must be between 1 and " + maxNumberOfVerticalBlocks + ".";
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks)) {
+				error = "The horizontal position must be between 1 and " + maxNumberOfHorizontalBlocks + ".";
 			}
 			throw new InvalidInputException(error);
 		}
 		BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
 
 	}
-
+	
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
 
@@ -412,8 +405,6 @@ public class Block223Controller {
 		}
 		Level currentLevel = game.getLevel(level - 1);
 		
-		
-		
 		BlockAssignment assignment = currentLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 
 		if (assignment == null) {
@@ -426,12 +417,13 @@ public class Block223Controller {
 
 
 		//We need to calculate maximum number of horizontal and vertical blocks!!! *******QUESTIONhow to put condition that gridHori and gridVerti has to be > 0 , maxNumberof(Verti/Horizontal)Blocks
+		
 		try {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name")) {
+			if (error.equals("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks)) {
 				error = "The horizontal position must be between 1 and " + maxNumberOfHorizontalBlocks + ".";
 			}
 			throw new InvalidInputException(error);
@@ -442,13 +434,11 @@ public class Block223Controller {
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name")) {
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks)) {
 				error = "The vertical position must be between 1 and " + maxNumberOfVerticalBlocks + ".";
 			}
 			throw new InvalidInputException(error);
 		}
-
-
 		assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		assignment.setGridVerticalPosition(newGridVerticalPosition);
 	}
