@@ -47,6 +47,9 @@ public class CreateGamePage extends JFrame {
 	//Initialize Play Area Variables
 	private JTextField WidthTextField;
 	private JTextField HeightTextField;
+	//Initialize Level Variables
+	private JTextField BlocksLevelTextField;
+	private JTextField NumberLevelsTextField;
 	//Initialize Ball Variables
 	private JTextField MinYSpeedTextField;
 	private JTextField MinXSpeedTextField;
@@ -54,7 +57,6 @@ public class CreateGamePage extends JFrame {
 	//Initialize Paddle Variables
 	private JTextField MinPaddleLengthTextField;
 	private JTextField MaxPaddleLengthTextField;
-	private JTextField textField;
 	
 	//data elements
 	private String error = null;
@@ -81,7 +83,7 @@ public class CreateGamePage extends JFrame {
 	public CreateGamePage() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 457);
+		setBounds(100, 100, 500, 500);
 		
 		//Menu Bar Items
 		
@@ -164,18 +166,33 @@ public class CreateGamePage extends JFrame {
 		lblLevel.setBounds(219, 94, 68, 14);
 		contentPanel.add(lblLevel);
 		
+		JLabel lblNumberOfLevels = new JLabel("# of Levels:");
+		lblNumberOfLevels.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNumberOfLevels.setBounds(219, 125, 92, 14);
+		contentPanel.add(lblNumberOfLevels);
+		
+		NumberLevelsTextField = new JTextField();
+		NumberLevelsTextField.setColumns(10);
+		NumberLevelsTextField.setBounds(321, 123, 112, 20);
+		contentPanel.add(NumberLevelsTextField);
+		
 		JLabel lblBlocksPerLevel = new JLabel("Blocks per level:\r\n");
 		lblBlocksPerLevel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBlocksPerLevel.setBounds(219, 127, 92, 14);
+		lblBlocksPerLevel.setBounds(219, 150, 92, 14);
 		contentPanel.add(lblBlocksPerLevel);
+		
+		BlocksLevelTextField = new JTextField();
+		BlocksLevelTextField.setColumns(10);
+		BlocksLevelTextField.setBounds(321, 150, 112, 20);
+		contentPanel.add(BlocksLevelTextField);
 		
 		JLabel lblRandomBlocks = new JLabel("Random Blocks:\r\n");
 		lblRandomBlocks.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblRandomBlocks.setBounds(219, 152, 92, 14);
+		lblRandomBlocks.setBounds(219, 180, 92, 14);
 		contentPanel.add(lblRandomBlocks);
 		
 		JComboBox RandomBlocksComboBox = new JComboBox();
-		RandomBlocksComboBox.setBounds(321, 150, 112, 20);
+		RandomBlocksComboBox.setBounds(321, 178, 112, 20);
 		RandomBlocksComboBox.addItem("Select");
 		RandomBlocksComboBox.addItem("True");
 		RandomBlocksComboBox.addItem("False");
@@ -184,83 +201,78 @@ public class CreateGamePage extends JFrame {
 		//Separator 2
 		
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 190, 464, 14);
+		separator_2.setBounds(10, 220, 464, 14);
 		contentPanel.add(separator_2);
 		
 		//Ball parameters
 		
 		JLabel lblBallParameters = new JLabel("Ball Parameters\r\n");
 		lblBallParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBallParameters.setBounds(10, 215, 92, 14);
+		lblBallParameters.setBounds(10, 245, 92, 14);
 		contentPanel.add(lblBallParameters);
 		
 		JLabel lblMinyspeed = new JLabel("MinYSpeed:\r\n");
 		lblMinyspeed.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinyspeed.setBounds(10, 247, 78, 14);
+		lblMinyspeed.setBounds(10, 284, 78, 14);
 		contentPanel.add(lblMinyspeed);
 		
 		MinYSpeedTextField = new JTextField();
 		MinYSpeedTextField.setColumns(10);
-		MinYSpeedTextField.setBounds(110, 245, 68, 20);
+		MinYSpeedTextField.setBounds(110, 282, 68, 20);
 		contentPanel.add(MinYSpeedTextField);
 		
 		JLabel lblMinxspeed = new JLabel("MinXSpeed:\r\n");
 		lblMinxspeed.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinxspeed.setBounds(10, 272, 78, 14);
+		lblMinxspeed.setBounds(10, 313, 78, 14);
 		contentPanel.add(lblMinxspeed);
 		
 		MinXSpeedTextField = new JTextField();
 		MinXSpeedTextField.setColumns(10);
-		MinXSpeedTextField.setBounds(110, 270, 68, 20);
+		MinXSpeedTextField.setBounds(110, 311, 68, 20);
 		contentPanel.add(MinXSpeedTextField);
 		
 		JLabel lblSpeedIncreaseFactor = new JLabel("Increase Factor:\r\n");
 		lblSpeedIncreaseFactor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSpeedIncreaseFactor.setBounds(10, 297, 97, 14);
+		lblSpeedIncreaseFactor.setBounds(10, 338, 97, 14);
 		contentPanel.add(lblSpeedIncreaseFactor);
 		
 		
 		SpeedIncreaseFactorTextField = new JTextField();
 		SpeedIncreaseFactorTextField.setColumns(10);
-		SpeedIncreaseFactorTextField.setBounds(110, 295, 68, 20);
+		SpeedIncreaseFactorTextField.setBounds(110, 336, 68, 20);
 		contentPanel.add(SpeedIncreaseFactorTextField);
 		
 		//Paddle parameters
 		
 		JLabel lblPaddleParameters = new JLabel("Paddle Parameters\r\n");
 		lblPaddleParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPaddleParameters.setBounds(219, 215, 134, 14);
+		lblPaddleParameters.setBounds(219, 245, 134, 14);
 		contentPanel.add(lblPaddleParameters);
 		
 		JLabel lblMinlength = new JLabel("MinLength: \r\n");
 		lblMinlength.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinlength.setBounds(219, 247, 78, 14);
+		lblMinlength.setBounds(219, 284, 78, 14);
 		contentPanel.add(lblMinlength);
 		
 		MinPaddleLengthTextField = new JTextField();
 		MinPaddleLengthTextField.setColumns(10);
-		MinPaddleLengthTextField.setBounds(321, 245, 112, 20);
+		MinPaddleLengthTextField.setBounds(321, 282, 112, 20);
 		contentPanel.add(MinPaddleLengthTextField);
 		
 		JLabel lblMaxlength = new JLabel("MaxLength:");
 		lblMaxlength.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMaxlength.setBounds(219, 272, 78, 14);
+		lblMaxlength.setBounds(219, 313, 78, 14);
 		contentPanel.add(lblMaxlength);
 		
 		MaxPaddleLengthTextField = new JTextField();
 		MaxPaddleLengthTextField.setColumns(10);
-		MaxPaddleLengthTextField.setBounds(321, 270, 112, 20);
+		MaxPaddleLengthTextField.setBounds(321, 311, 112, 20);
 		contentPanel.add(MaxPaddleLengthTextField);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(321, 125, 112, 20);
-		contentPanel.add(textField);
 		
 		//Separator 3
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 331, 464, 14);
+		separator.setBounds(10, 381, 464, 14);
 		contentPanel.add(separator);
 		
 		//Apply Game Settings
@@ -271,30 +283,86 @@ public class CreateGamePage extends JFrame {
 				applySettingsActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(175, 356, 136, 23);
+		btnApplyGameSettings.setBounds(175, 406, 136, 23);
 		contentPanel.add(btnApplyGameSettings);
 	}
 
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String gameName = null;
+		String name = GameNameTextField.getText();
 		try {
-			gameName = GameNameTextField.getText();
+			Block223Controller.createGame(name);
 		}
-		catch (NullPointerException e) {
-			error = "The name of a game must be specified";
-		}
-		if (error.length() == 0) {
-			try {
-				Block223Controller.createGame(gameName);
-			}
-			catch (InvalidInputException e) {
-				error = e.getMessage();
-			}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
 		}
 	}
 
 	private void applySettingsActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
+		int nrLevels = 0;
+		try {
+			nrLevels = Integer.parseInt(NumberLevelsTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The number of levels needs to be a numerical value!";
+		}
+		
+		int nrBlocksPerLevel = 0;
+		try {
+			nrBlocksPerLevel = Integer.parseInt(BlocksLevelTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The number of blocks per level needs to be a numerical value!";
+		}
+		
+		int minBallSpeedX = 0;
+		try {
+			minBallSpeedX = Integer.parseInt(MinXSpeedTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The minimum speed needs to be a numerical value!";
+		}
+		
+		int minBallSpeedY = 0;
+		try {
+			minBallSpeedY = Integer.parseInt(MinYSpeedTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The minimum speed needs to be a numerical value!";
+		}
+		
+		double ballSpeedIncreaseFactor = 0;
+		try {
+			ballSpeedIncreaseFactor = Double.parseDouble(SpeedIncreaseFactorTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The increase factor needs to be a numerical value!";
+		}
+		
+		int maxPaddleLength = 0;
+		try {
+			maxPaddleLength = Integer.parseInt(MaxPaddleLengthTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The max length needs to be a numerical value!";
+		}
+		
+		int minPaddleLength = 0;
+		try {
+			minPaddleLength = Integer.parseInt(MinPaddleLengthTextField.getText());
+		}
+		catch (NumberFormatException e) {
+			error = "The min length needs to be a numerical value!";
+		}
+		
+		if (error.length() == 0) {
+			try {
+				Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+			}
+			catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
+		}
 	}
 }

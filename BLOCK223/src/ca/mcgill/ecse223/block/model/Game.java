@@ -54,7 +54,7 @@ public class Game implements Serializable
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
@@ -99,7 +99,7 @@ public class Game implements Serializable
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
@@ -138,7 +138,7 @@ public class Game implements Serializable
   {
     boolean wasSet = false;
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
@@ -361,7 +361,7 @@ public class Game implements Serializable
   }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addBlockAt(Block aBlock, int index)
-  {
+  {  
     boolean wasAdded = false;
     if(addBlock(aBlock))
     {
@@ -384,8 +384,8 @@ public class Game implements Serializable
       blocks.remove(aBlock);
       blocks.add(index, aBlock);
       wasAdded = true;
-    }
-    else
+    } 
+    else 
     {
       wasAdded = addBlockAt(aBlock, index);
     }
@@ -469,7 +469,7 @@ public class Game implements Serializable
   }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addLevelAt(Level aLevel, int index)
-  {
+  {  
     boolean wasAdded = false;
     if(addLevel(aLevel))
     {
@@ -492,8 +492,8 @@ public class Game implements Serializable
       levels.remove(aLevel);
       levels.add(index, aLevel);
       wasAdded = true;
-    }
-    else
+    } 
+    else 
     {
       wasAdded = addLevelAt(aLevel, index);
     }
@@ -541,7 +541,7 @@ public class Game implements Serializable
   }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
-  {
+  {  
     boolean wasAdded = false;
     if(addBlockAssignment(aBlockAssignment))
     {
@@ -564,8 +564,8 @@ public class Game implements Serializable
       blockAssignments.remove(aBlockAssignment);
       blockAssignments.add(index, aBlockAssignment);
       wasAdded = true;
-    }
-    else
+    } 
+    else 
     {
       wasAdded = addBlockAssignmentAt(aBlockAssignment, index);
     }
@@ -606,21 +606,21 @@ public class Game implements Serializable
       aBlock.delete();
       blocks.remove(aBlock);
     }
-
+    
     while (levels.size() > 0)
     {
       Level aLevel = levels.get(levels.size() - 1);
       aLevel.delete();
       levels.remove(aLevel);
     }
-
+    
     while (blockAssignments.size() > 0)
     {
       BlockAssignment aBlockAssignment = blockAssignments.get(blockAssignments.size() - 1);
       aBlockAssignment.delete();
       blockAssignments.remove(aBlockAssignment);
     }
-
+    
     Ball existingBall = ball;
     ball = null;
     if (existingBall != null)
@@ -667,15 +667,5 @@ public class Game implements Serializable
   // line 53 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID =005 ;
 
-
-  public Block findBlock(int id) throws InvalidInputException {
-    List<Block> blocks = this.getBlocks();
-    for (Block block: blocks) {
-      int blockId = block.getId();
-      if (id == blockId) {
-        return block;
-      }
-    }
-    return null;
-  }
+  
 }
