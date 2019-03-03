@@ -57,6 +57,12 @@ class Game {
      	throw new RuntimeException("The number of blocks per level must be greater than zero");
      }
    }
+   before getLevel {
+     if (index < 2 || index > 100){
+   	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
+   	  }
+   }
+   
    
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
