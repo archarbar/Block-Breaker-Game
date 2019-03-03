@@ -229,7 +229,7 @@ public class Game implements Serializable
   public Level getLevel(int index)
   {
     // line 61 "../../../../../Block223 v2.ump"
-    if (index < 2 || index > 100){
+    if (index < 0 || index > 98){
        	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
        	  }
     // END OF UMPLE BEFORE INJECTION
@@ -652,6 +652,18 @@ public class Game implements Serializable
     for (Game game : games) {
         gamesByName.put(game.getName(), game);
       }
+  }
+
+  // line 66 "../../../../../Block223 v2.ump"
+   public Block findBlock(int id){
+    List<Block> blocks = this.getBlocks();
+	  for (Block block : blocks) {
+		  int blockId = block.getId();
+		  if (id == blockId) {
+			  return block;
+		  }
+	  }
+	  return null;
   }
 
 
