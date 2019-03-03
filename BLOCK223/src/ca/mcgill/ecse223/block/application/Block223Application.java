@@ -13,6 +13,7 @@ import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223Page;
+import ca.mcgill.ecse223.block.view.RegisterLoginPage;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
@@ -30,7 +31,7 @@ public class Block223Application {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Block223Page().setVisible(true);
+                new RegisterLoginPage().setVisible(true);
             }
         });
 	}

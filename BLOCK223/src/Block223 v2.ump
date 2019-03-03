@@ -58,11 +58,20 @@ class Game {
      }
    }
    before getLevel {
-     if (index < 2 || index > 100){
+     if (index < 0 || index > 98){
    	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
    	  }
    }
-   
+   public Block findBlock(int id) {
+	  List<Block> blocks = this.getBlocks();
+	  for (Block block : blocks) {
+		  int blockId = block.getId();
+		  if (id == blockId) {
+			  return block;
+		  }
+	  }
+	  return null;
+  }
    
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
@@ -83,27 +92,64 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
+
+   before constructor {
+   	if (aRed < 0 || aRed > 255) {
+	  	throw new RuntimeException("Red must be between 0 and 255.");
+	}
+	if (aGreen < 0 || aGreen > 255) {
+	  	throw new RuntimeException("Green must be between 0 and 255.");
+	}
+	if (aBlue < 0 || aBlue > 255) {
+	  	throw new RuntimeException("Blue must be between 0 and 255.");
+	}
+	if(aPoints < 1 || aPoints > 1000){
+		throw new RuntimeException("Points must be between 1 and 1000.");
+	}
+   }
+   before setRed {
+   	if (aRed < 0 || aRed > 255) {
+	  	throw new RuntimeException("Red must be between 0 and 255.");
+	}
+   }
+   before setGreen {
+   	if (aGreen < 0 || aGreen > 255) {
+	  	throw new RuntimeException("Green must be between 0 and 255.");
+	}
+   }
+   before setBlue {
+   	if (aBlue < 0 || aBlue > 255) {
+	  	throw new RuntimeException("Blue must be between 0 and 255.");
+	}
+   }
+   before setPoints {
+   	if (aPoints < 0 || aPoints > 255) {
+	  	throw new RuntimeException("Points must be between 1 and 1000.");
+	}
+   }
 }
 
 class BlockAssignment {
    Integer gridHorizontalPosition;
    Integer gridVerticalPosition;
+   Integer maxVerticalGridPosition = 15;
+   Integer maxHorizontalGridPosition = 15;
    before constructor {
-   	if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
+	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
 	    }
-	if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
-	    }
-   }
-   before setGridHorizontalPosition{
-   	if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
+	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
 	    }
    }
-   before setGridVerticalPosition{
-   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
+   before setGridHorizontalPosition {
+	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
+	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
+	    }
+   }
+   before setGridVerticalPosition {
+	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
+	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
 	    }
    }
    * -- 1 Level level;
@@ -112,7 +158,7 @@ class BlockAssignment {
 
 class Level {
   public BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {	
-		for (BlockAssignment assignment : getBlockAssignments()) {
+		for (BlockAssignment assignment : this.getBlockAssignments()) {
 			int h = assignment.getGridHorizontalPosition();
 			int v = assignment.getGridVerticalPosition();
 			if(h == gridHorizontalPosition && v == gridVerticalPosition)
