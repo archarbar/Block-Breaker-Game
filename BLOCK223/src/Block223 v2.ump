@@ -158,7 +158,7 @@ class BlockAssignment {
 
 class Level {
   public BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {	
-		for (BlockAssignment assignment : getBlockAssignments()) {
+		for (BlockAssignment assignment : this.getBlockAssignments()) {
 			int h = assignment.getGridHorizontalPosition();
 			int v = assignment.getGridVerticalPosition();
 			if(h == gridHorizontalPosition && v == gridVerticalPosition)
