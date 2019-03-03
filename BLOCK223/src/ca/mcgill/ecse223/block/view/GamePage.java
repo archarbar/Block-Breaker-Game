@@ -3,6 +3,7 @@ package ca.mcgill.ecse223.block.view;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,11 +18,18 @@ import javax.swing.JOptionPane;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
 
 public class GamePage extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4722572995217430803L;
 	//UI elements
 	private JLabel errorMessage;
 	//Initialize Main Panel
@@ -79,6 +87,14 @@ public class GamePage extends JFrame {
 
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
+		
+		JMenuItem mntmLogOut = new JMenuItem("Log out");
+		mntmLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				mntmLogOutActionPerformed(evt);
+			}
+		});
+		mnUser.add(mntmLogOut);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
@@ -273,19 +289,59 @@ public class GamePage extends JFrame {
 		lblSaveGame.setBounds(215, 449, 92, 28);
 		contentPanel.add(lblSaveGame);
 		
+		
+		
 		JComboBox savedGamesList = new JComboBox();
+		List<TOGame> games = null;
+		try {
+			games = Block223Controller.getDesignableGames();
+		}
+		catch (InvalidInputException e) {
+			savedGamesList.addItem("No games available for saving");
+		}
+		if (games.isEmpty()) {
+			savedGamesList.addItem("No games available for saving");
+		}
+		for (int i=0; i<games.size(); i++) {
+			savedGamesList.addItem(games.get(i).getName());
+		}
+		
 		savedGamesList.setBounds(91, 489, 134, 23);
 		contentPanel.add(savedGamesList);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				String game = (String) savedGamesList.getSelectedItem();
+				saveGameSettingsActionPerformed(evt, game);
+				
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.setBounds(298, 490, 87, 23);
 		contentPanel.add(btnSave);
 	}
+	
+	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
+		try {
+			Block223Controller.selectGame(game);
+			Block223Controller.saveGame();
+		}
+		catch (InvalidInputException e) {
+			error= e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		
+		
+	}
+
+	private void mntmLogOutActionPerformed(ActionEvent evt) {
+		Block223Controller.logout();
+		RegisterLoginPage loginpage = new RegisterLoginPage();
+		loginpage.setVisible(true);
+		this.setVisible(false);
+	}
+
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = GameNameTextField.getText();
