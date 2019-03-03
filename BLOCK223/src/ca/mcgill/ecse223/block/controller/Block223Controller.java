@@ -59,11 +59,11 @@ public class Block223Controller {
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings");
 		}
-		Game currentGame = Block223Application.getCurrentGame();
-		if(currentGame == null) {
+		Game game = Block223Application.getCurrentGame();
+		if(game == null) {
 			throw new InvalidInputException("A game must be selected to define game settings");
 		}
-		Admin admin = currentGame.getAdmin();
+		Admin admin = game.getAdmin();
 		if(admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can define its game settings");
 		}
@@ -71,7 +71,7 @@ public class Block223Controller {
 			throw new InvalidInputException("The number of levels must be between 1 and 99");
 		}
 		try {
-			currentGame.setNrBlocksPerLevel(nrBlocksPerLevel);
+			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
@@ -80,7 +80,7 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
-		Ball ball = currentGame.getBall();
+		Ball ball = game.getBall();
 		try {
 			ball.setMinBallSpeedX(minBallSpeedX);
 		}
@@ -111,7 +111,7 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
-		Paddle paddle = currentGame.getPaddle();
+		Paddle paddle = game.getPaddle();
 		try {
 			paddle.setMaxPaddleLength(maxPaddleLength);
 		}
@@ -132,14 +132,14 @@ public class Block223Controller {
 			}
 			throw new InvalidInputException(error);
 		}
-		List<Level> levels = currentGame.getLevels();
+		List<Level> levels = game.getLevels();
 		int size = levels.size();
 		while (nrLevels > size) {
-			currentGame.addLevel();
+			game.addLevel();
 			size = levels.size();
 		}
 		while (nrLevels < size) {
-			Level level = currentGame.getLevel(size-1);
+			Level level = game.getLevel(size-1);
 			level.delete();
 			size = levels.size();
 		}
