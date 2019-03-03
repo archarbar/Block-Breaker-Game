@@ -272,6 +272,7 @@ public class Block223Controller {
 
 	public static void deleteBlock(int id) throws InvalidInputException {
 		//William 01/03
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -504,7 +505,7 @@ public class Block223Controller {
 			throws InvalidInputException {
 		//William 01/03
 		Level currentLevel;
-
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
@@ -518,7 +519,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		try {
-			currentLevel = game.getLevel(level);
+			currentLevel = game.getLevel(level-1);
 		}
 		catch (IndexOutOfBoundsException e) {
 			error = e.getMessage();
