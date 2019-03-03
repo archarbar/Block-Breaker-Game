@@ -189,35 +189,16 @@ public class Block223Controller {
 			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 		}
-		
-		//LE FIND BLOCK METHOD JLAI PAS TROUVE DANS LE CONTROLLER QUE TU MAS SEND ET CHU PAS TROP SURE C CA QUE JE DOIS FAIRE
-		Game block = currentGame.findBlock(id);
-		
-		try {
-		    block.setRed(aRed);
-		}
-		catch (RuntimeException e){
-		    throw new invalidInputException("Red must be between 0 and 225");
-		}
-		try {
-		    block.setGed(aGreen);
-		}
-		catch (RuntimeException e){
-		    throw new invalidInputException("Green must be between 0 and 225");
-		}
-		try {
-		    block.setBlue(aBlue);
-		}
-		catch (RuntimeException e){
-		    throw new invalidInputException("Blue must be between 0 and 225");
-		}
-		try {
-		    block.setPoints(aPoints);
-		}
-		catch (RuntimeException e){
-		    throw new invalidInputException("Points must be between 1 and 1000");
-		}
+
+			try{
+			Block block = new Block(aRed, aRreen, aBlue, aPoints, currentGame);
+			
+			}
+			catch (RuntimeException e) {
+			    throw new InvalidInputException(e.getMessage);
+			}
 	}
+		
 
 		public static void addBlock(int aRed, int aGreen, int aBlue, int aPoints) throws InvalidInputException {
 			
