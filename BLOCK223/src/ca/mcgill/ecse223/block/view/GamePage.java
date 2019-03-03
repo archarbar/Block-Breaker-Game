@@ -1,6 +1,5 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -14,13 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import javax.swing.JComboBox;
+import java.awt.event.ActionEvent;
 
 public class GamePage extends JFrame {
-
-	private JPanel contentPane;
 
 	//UI elements
 	private JLabel errorMessage;
@@ -67,7 +67,7 @@ public class GamePage extends JFrame {
 	public GamePage() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 520);
+		setBounds(100, 100, 500, 616);
 
 		//Menu Bar Items
 
@@ -257,8 +257,34 @@ public class GamePage extends JFrame {
 				applySettingsActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(166, 406, 156, 23);
+		btnApplyGameSettings.setBounds(171, 399, 156, 23);
 		contentPanel.add(btnApplyGameSettings);
+		
+		//Separator 4
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(10, 439, 464, 14);
+		contentPanel.add(separator_3);
+		
+		//Save game
+		
+		JLabel lblSaveGame = new JLabel("Save game?\r\n");
+		lblSaveGame.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSaveGame.setBounds(215, 449, 92, 28);
+		contentPanel.add(lblSaveGame);
+		
+		JComboBox savedGamesList = new JComboBox();
+		savedGamesList.setBounds(91, 489, 134, 23);
+		contentPanel.add(savedGamesList);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnSave.setBounds(298, 490, 87, 23);
+		contentPanel.add(btnSave);
 	}
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
@@ -268,6 +294,7 @@ public class GamePage extends JFrame {
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
 		}
 	}
 
@@ -279,6 +306,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The number of levels needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		int nrBlocksPerLevel = 0;
@@ -287,6 +315,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The number of blocks per level needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		int minBallSpeedX = 0;
@@ -295,6 +324,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The minimum speed needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		int minBallSpeedY = 0;
@@ -303,6 +333,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The minimum speed needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		double ballSpeedIncreaseFactor = 0;
@@ -311,6 +342,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The increase factor needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		int maxPaddleLength = 0;
@@ -319,6 +351,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The max length needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		int minPaddleLength = 0;
@@ -327,6 +360,7 @@ public class GamePage extends JFrame {
 		}
 		catch (NumberFormatException e) {
 			error = "The min length needs to be a numerical value!";
+			JOptionPane.showMessageDialog(null, error);
 		}
 
 		if (error.length() == 0) {
@@ -335,6 +369,7 @@ public class GamePage extends JFrame {
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();
+				JOptionPane.showMessageDialog(null, error);
 			}
 		}
 	}
