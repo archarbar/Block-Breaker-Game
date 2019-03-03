@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 63 "../../../../../Block223Persistence.ump"
+// line 89 "../../../../../Block223 v2.ump"
 public class Level implements Serializable
 {
 
@@ -186,6 +187,19 @@ public class Level implements Serializable
       BlockAssignment aBlockAssignment = blockAssignments.get(i - 1);
       aBlockAssignment.delete();
     }
+  }
+
+  // line 91 "../../../../../Block223 v2.ump"
+   public BlockAssignment findBlockAssignment(int gridHorizontalPosition, int gridVerticalPosition){
+    for (BlockAssignment assignment : getBlockAssignments()) {
+			int h = assignment.getGridHorizontalPosition();
+			int v = assignment.getGridVerticalPosition();
+			if(h == gridHorizontalPosition && v == gridVerticalPosition)
+			{
+				return assignment;
+			}
+		}
+	return null;
   }
   
   //------------------------
