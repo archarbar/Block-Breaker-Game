@@ -191,7 +191,7 @@ public class Level implements Serializable
 
   // line 140 "../../../../../Block223 v2.ump"
    public BlockAssignment findBlockAssignment(int gridHorizontalPosition, int gridVerticalPosition){
-    for (BlockAssignment assignment : getBlockAssignments()) {
+    for (BlockAssignment assignment : this.getBlockAssignments()) {
 			int h = assignment.getGridHorizontalPosition();
 			int v = assignment.getGridVerticalPosition();
 			if(h == gridHorizontalPosition && v == gridVerticalPosition)
