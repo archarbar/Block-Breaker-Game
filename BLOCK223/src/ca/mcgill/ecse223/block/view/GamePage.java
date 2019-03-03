@@ -22,8 +22,11 @@ import java.awt.event.ActionEvent;
 
 public class GamePage extends JFrame {
 
-	//UI elements
-	private JLabel errorMessage;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	//Initialize Main Panel
 	private JPanel contentPanel;
 	//Initialize Create Game Variables
@@ -371,29 +374,6 @@ public class GamePage extends JFrame {
 				error = e.getMessage();
 				JOptionPane.showMessageDialog(null, error);
 			}
-		}
-	}
-	private void refreshData() {
-		//error
-		errorMessage.setText(error);
-		if (error == null || error.length() == 0) {
-			//populate page with data
-			//game
-			GameNameTextField.setText("");
-			//play area
-			WidthTextField.setText("");
-			HeightTextField.setText("");
-			//level
-			BlocksLevelTextField.setText("");
-			NumberLevelsTextField.setText("");
-			//ball
-			MinYSpeedTextField.setText("");
-			MinXSpeedTextField.setText("");
-			SpeedIncreaseFactorTextField.setText("");
-			//paddle
-			MinPaddleLengthTextField.setText("");
-			MaxPaddleLengthTextField.setText("");
-
 		}
 	}
 }
