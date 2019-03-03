@@ -30,6 +30,7 @@ public class Block223Controller {
 	// Modifier methods		
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
+		String error = "";
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to create a game");

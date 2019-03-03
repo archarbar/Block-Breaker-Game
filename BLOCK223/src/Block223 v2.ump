@@ -44,7 +44,7 @@ class Game {
    const Integer ROW_PADDING = 2;
    unique name;
    before constructor, setName {
-   	  if (aBlock223.findGame(aName != null)) {
+   	  if (aBlock223.findGame(aName) != null) {
    	  	 throw new RuntimeException("The name of a game must be unique");
    	  }
 	  if (aName == null || aName.length() == 0) {
