@@ -24,7 +24,7 @@ public class Game implements Serializable
   /**
    * play area is now constant
    */
-  public static final int PLAY_AREA_SIDE = 400;
+  public static final int PLAY_AREA_SIDE = 390;
   public static final int WALL_PADDING = 10;
   public static final int COLUMNS_PADDING = 5;
   public static final int ROW_PADDING = 2;
@@ -228,6 +228,11 @@ public class Game implements Serializable
   /* Code from template association_GetMany */
   public Level getLevel(int index)
   {
+    // line 61 "../../../../../Block223 v2.ump"
+    if (index < 2 || index > 100){
+       	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
+       	  }
+    // END OF UMPLE BEFORE INJECTION
     Level aLevel = levels.get(index);
     return aLevel;
   }

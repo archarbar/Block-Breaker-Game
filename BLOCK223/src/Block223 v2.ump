@@ -38,7 +38,7 @@ class Player {
 class Game {
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
-   const Integer PLAY_AREA_SIDE = 400; // play area is now constant
+   const Integer PLAY_AREA_SIDE = 390; // play area is now constant
    const Integer WALL_PADDING = 10;
    const Integer COLUMNS_PADDING = 5;
    const Integer ROW_PADDING = 2;
@@ -57,6 +57,12 @@ class Game {
      	throw new RuntimeException("The number of blocks per level must be greater than zero");
      }
    }
+   before getLevel {
+     if (index < 2 || index > 100){
+   	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
+   	  }
+   }
+   
    
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
@@ -82,6 +88,24 @@ class Block {
 class BlockAssignment {
    Integer gridHorizontalPosition;
    Integer gridVerticalPosition;
+   before constructor {
+   	if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
+	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+	    }
+	if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
+	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
+	    }
+   }
+   before setGridHorizontalPosition{
+   	if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > maxNumberOfHorizontalBlocks) {
+	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks);
+	    }
+   }
+   before setGridVerticalPosition{
+   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > maxNumberOfVerticalBlocks) {
+	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks);
+	    }
+   }
    * -- 1 Level level;
    * -- 1 Block block;
 }
