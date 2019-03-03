@@ -300,8 +300,6 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-		
-		
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
@@ -317,21 +315,18 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can position a block.");
 		}
-
-		String error = "";
-
+		String error;
+		Level currentLevel;
 		try {
-			Level currentLevel = game.getLevel(level - 1);
+			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
 			if (error.equals("Level must be between 1 and 99 inclusively.")) {
-				error = "Level" + (level - 1) + "does not exist for the game.";
+				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
 		}
-		
-		Level currentLevel = game.getLevel(level - 1); //*****************QUESTION do we have to put it even if its in the try/catch
 		
 		Block block = game.findBlock(id);
 
@@ -339,44 +334,36 @@ public class Block223Controller {
 		if (currentLevel.numberOfBlockAssignments() >= game.getNrBlocksPerLevel()) {
 			throw new InvalidInputException("The number of blocks has reached the maximum number (" + game.getNrBlocksPerLevel() + ") allowed for this game.");
 		}
-				
+		
+		//BlockAssignment newPosition = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition)
+		
 		//If the position is not empty ((Horizontal/Vertical)gridLocation already occupied), print out error. 
 		if(currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition) != null) {
 			throw new InvalidInputException("A block already exists at location" + gridHorizontalPosition + "/" + gridVerticalPosition + ".");
 		}
 		//If block does not exist return null
-		if(game.findBlock(id) == null) {
+		if(block == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
-		
+		//Why can't I reference to newBlockAssignment?
+		BlockAssignment newBlockAssignment = null;
 		try {
-			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
+			newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks)) {
-				error = "The horizontal position must be between 1 and " + maxNumberOfVerticalBlocks + ".";
+			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
+				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
+					error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
 			}
+			
 			throw new InvalidInputException(error);
 		}
-
-		try {
-			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
-		}
-		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks)) {
-				error = "The horizontal position must be between 1 and " + maxNumberOfHorizontalBlocks + ".";
-			}
-			throw new InvalidInputException(error);
-		}
-		BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,currentLevel, block, game);
-
 	}
 	
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
@@ -393,21 +380,20 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can move a block.");
 		}
 		String error = "";
-
+		Level currentLevel;
 		try {
-			Level currentLevel = game.getLevel(level - 1);
+			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
 			if (error.equals("Level must be between 1 and 99 inclusively.")) {
-				error = "Level" + (level - 1)+ "does not exist for the game.";
+				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
 		}
-		Level currentLevel = game.getLevel(level - 1);
 		
 		BlockAssignment assignment = currentLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
-
+		
 		if (assignment == null) {
 			throw new InvalidInputException("A block does not exist at location" + oldGridHorizontalPosition + "/"+ oldGridVerticalPosition + ".");
 		}
@@ -415,17 +401,14 @@ public class Block223Controller {
 		if(currentLevel.findBlockAssignment(newGridHorizontalPosition, newGridVerticalPosition) != null) {
 			throw new InvalidInputException("A block already exists at location" + newGridHorizontalPosition + "/"+ newGridVerticalPosition + ".");
 		}
-
-
-		//We need to calculate maximum number of horizontal and vertical blocks!!! *******QUESTIONhow to put condition that gridHori and gridVerti has to be > 0 , maxNumberof(Verti/Horizontal)Blocks
 		
 		try {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("gridHorizontalPosition can't be negative or greater than " + maxNumberOfHorizontalBlocks)) {
-				error = "The horizontal position must be between 1 and " + maxNumberOfHorizontalBlocks + ".";
+			if (error.equals("gridHorizontalPosition can't be negative or greater than " + assignment.getMaxHorizontalGridPosition())) {
+				error = "The horizontal position must be between 1 and " + assignment.getMaxHorizontalGridPosition() + ".";
 			}
 			throw new InvalidInputException(error);
 		}
@@ -435,19 +418,12 @@ public class Block223Controller {
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + maxNumberOfVerticalBlocks)) {
-				error = "The vertical position must be between 1 and " + maxNumberOfVerticalBlocks + ".";
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + assignment.getMaxHorizontalGridPosition())) {
+				error = "The vertical position must be between 1 and " + assignment.getMaxHorizontalGridPosition() + ".";
 			}
 			throw new InvalidInputException(error);
 		}
-		assignment.setGridHorizontalPosition(newGridHorizontalPosition);
-		assignment.setGridVerticalPosition(newGridVerticalPosition);
 	}
-
-
-
-
-
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
 		//William 01/03
@@ -638,7 +614,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		
-		List<TOGridCell> result = new ArrayList<TOGridCell>(); //***************QUESTION &&
+		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
 		
 		String error = "";
 
@@ -646,10 +622,9 @@ public class Block223Controller {
 			Level currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we know what's the string of the error?
-
 			error = e.getMessage();
 			if (error.equals("Level must be between 1 and 99 inclusively.")) {
-				error = "Level" + (level - 1)+ "does not exist for the game.";
+				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
 		}
