@@ -3,6 +3,8 @@ package ca.mcgill.ecse223.block.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import TOUserMode;
+import TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.model.Admin;
@@ -20,8 +22,6 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOUserMode;
-import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 
 public class Block223Controller {
@@ -312,11 +312,11 @@ public class Block223Controller {
 				throw new InvalidInputException("Only the admin who created the game can access its information.");
 			}
 
-			if(Game.findBlock(id) == null){
+			if(currentGame.findBlock(id) == null){
 				throw new InvalidInputException("The block does not exist.");
 			}
 			
-			Block block = Game.findBlock(id);
+			Block block = currentGame.findBlock(id);
 			
 			List<Block> sourceList = currentGame.getBlocks();
 			
