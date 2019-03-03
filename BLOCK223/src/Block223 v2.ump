@@ -109,7 +109,7 @@ class Block {
 	  	throw new RuntimeException("Green must be between 0 and 255.");
 	}
    }
-   before setRed{
+   before setBlue {
    	if (aBlue < 0 || aBlue > 255) {
 	  	throw new RuntimeException("Blue must be between 0 and 255.");
 	}
