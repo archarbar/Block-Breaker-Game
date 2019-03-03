@@ -54,7 +54,7 @@ public class Game implements Serializable
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
@@ -99,7 +99,7 @@ public class Game implements Serializable
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
@@ -138,7 +138,7 @@ public class Game implements Serializable
   {
     boolean wasSet = false;
     // line 47 "../../../../../Block223 v2.ump"
-    if (findGame(aName == null)) {
+    if (aBlock223.findGame(aName != null)) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
     	  if (aName == null || aName.length() == 0) {
