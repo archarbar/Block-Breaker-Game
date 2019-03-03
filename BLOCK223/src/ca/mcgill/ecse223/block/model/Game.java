@@ -36,6 +36,7 @@ public class Game implements Serializable
 
   //Game Attributes
   private String name;
+  private Block223 aBlock223;
   private int nrBlocksPerLevel;
 
   //Game Associations
@@ -53,7 +54,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 47 "../../../../../Block223 v2.ump"
+    // line 48 "../../../../../Block223 v2.ump"
     if (aBlock223.findGame(aName) != null) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
@@ -61,11 +62,12 @@ public class Game implements Serializable
     	     throw new RuntimeException("The name of a game must be specified");
     	  }
     // END OF UMPLE BEFORE INJECTION
-    // line 56 "../../../../../Block223 v2.ump"
+    // line 57 "../../../../../Block223 v2.ump"
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
+    aBlock223 = getBlock223();
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
@@ -98,7 +100,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 47 "../../../../../Block223 v2.ump"
+    // line 48 "../../../../../Block223 v2.ump"
     if (aBlock223.findGame(aName) != null) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
@@ -106,12 +108,13 @@ public class Game implements Serializable
     	     throw new RuntimeException("The name of a game must be specified");
     	  }
     // END OF UMPLE BEFORE INJECTION
-    // line 56 "../../../../../Block223 v2.ump"
+    // line 57 "../../../../../Block223 v2.ump"
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
     name = aName;
+    aBlock223 = getBlock223();
     nrBlocksPerLevel = aNrBlocksPerLevel;
     boolean didAddAdmin = setAdmin(aAdmin);
     if (!didAddAdmin)
@@ -137,7 +140,7 @@ public class Game implements Serializable
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 47 "../../../../../Block223 v2.ump"
+    // line 48 "../../../../../Block223 v2.ump"
     if (aBlock223.findGame(aName) != null) {
        	  	 throw new RuntimeException("The name of a game must be unique");
        	  }
@@ -158,10 +161,18 @@ public class Game implements Serializable
     return wasSet;
   }
 
+  public boolean setABlock223(Block223 aABlock223)
+  {
+    boolean wasSet = false;
+    aBlock223 = aABlock223;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
-    // line 56 "../../../../../Block223 v2.ump"
+    // line 57 "../../../../../Block223 v2.ump"
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero");
          }
@@ -184,6 +195,11 @@ public class Game implements Serializable
   public static boolean hasWithName(String aName)
   {
     return getWithName(aName) != null;
+  }
+
+  public Block223 getABlock223()
+  {
+    return aBlock223;
   }
 
   public int getNrBlocksPerLevel()
@@ -228,7 +244,7 @@ public class Game implements Serializable
   /* Code from template association_GetMany */
   public Level getLevel(int index)
   {
-    // line 61 "../../../../../Block223 v2.ump"
+    // line 62 "../../../../../Block223 v2.ump"
     if (index < 2 || index > 100){
        	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
        	  }
@@ -660,6 +676,7 @@ public class Game implements Serializable
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "nrBlocksPerLevel" + ":" + getNrBlocksPerLevel()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "aBlock223" + "=" + (getABlock223() != null ? !getABlock223().equals(this)  ? getABlock223().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "admin = "+(getAdmin()!=null?Integer.toHexString(System.identityHashCode(getAdmin())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +

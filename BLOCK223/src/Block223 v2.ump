@@ -43,6 +43,7 @@ class Game {
    const Integer COLUMNS_PADDING = 5;
    const Integer ROW_PADDING = 2;
    unique name;
+   Block223 aBlock223 = getBlock223();
    before constructor, setName {
    	  if (aBlock223.findGame(aName) != null) {
    	  	 throw new RuntimeException("The name of a game must be unique");
