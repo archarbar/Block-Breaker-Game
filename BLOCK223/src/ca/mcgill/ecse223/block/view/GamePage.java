@@ -27,7 +27,7 @@ import javax.swing.JMenuItem;
 public class GamePage extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4722572995217430803L;
 	//UI elements
@@ -87,7 +87,7 @@ public class GamePage extends JFrame {
 
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
-		
+
 		JMenuItem mntmLogOut = new JMenuItem("Log out");
 		mntmLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,8 +289,8 @@ public class GamePage extends JFrame {
 		lblSaveGame.setBounds(215, 449, 92, 28);
 		contentPanel.add(lblSaveGame);
 		
-		
-		
+
+
 		JComboBox savedGamesList = new JComboBox();
 		List<TOGame> games = null;
 		try {
@@ -305,7 +305,7 @@ public class GamePage extends JFrame {
 		for (int i=0; i<games.size(); i++) {
 			savedGamesList.addItem(games.get(i).getName());
 		}
-		
+
 		savedGamesList.setBounds(91, 489, 134, 23);
 		contentPanel.add(savedGamesList);
 		
@@ -314,14 +314,14 @@ public class GamePage extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				String game = (String) savedGamesList.getSelectedItem();
 				saveGameSettingsActionPerformed(evt, game);
-				
+
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.setBounds(298, 490, 87, 23);
 		contentPanel.add(btnSave);
 	}
-	
+
 	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
 		try {
 			Block223Controller.selectGame(game);
@@ -331,8 +331,8 @@ public class GamePage extends JFrame {
 			error= e.getMessage();
 			JOptionPane.showMessageDialog(null, error);
 		}
-		
-		
+
+
 	}
 
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
