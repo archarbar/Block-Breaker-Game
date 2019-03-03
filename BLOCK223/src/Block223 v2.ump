@@ -83,6 +83,41 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
+   
+   before constructor {
+   	if (aRed < 0 || aRed > 255) {
+	  	throw new RuntimeException("Red must be between 0 and 255.");
+	}
+	if (aGreen < 0 || aGreen > 255) {
+	  	throw new RuntimeException("Green must be between 0 and 255.");
+	}
+	if (aBlue < 0 || aBlue > 255) {
+	  	throw new RuntimeException("Blue must be between 0 and 255.");
+	}
+	if(aPoints < 1 || aPoints > 1000){
+		throw new RuntimeException("Points must be between 1 and 1000.");
+	}
+   }
+   before setRed {
+   	if (aRed < 0 || aRed > 255) {
+	  	throw new RuntimeException("Red must be between 0 and 255.");
+	}
+   }
+   before setGreen {
+   	if (aGreen < 0 || aGreen > 255) {
+	  	throw new RuntimeException("Green must be between 0 and 255.");
+	}
+   }
+   before setRed{
+   	if (aBlue < 0 || aBlue > 255) {
+	  	throw new RuntimeException("Blue must be between 0 and 255.");
+	}
+   }
+   before setPoints {
+   	if (aPoints < 0 || aPoints > 255) {
+	  	throw new RuntimeException("Points must be between 1 and 1000.");
+	}
+   }
 }
 
 class BlockAssignment {
