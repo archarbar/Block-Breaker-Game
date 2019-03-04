@@ -1,6 +1,9 @@
 package ca.mcgill.ecse223.block.view;
 
 import ca.mcgill.ecse.btms.controller.BtmsController;
+import ca.mcgill.ecse.btms.controller.TODriver;
+import ca.mcgill.ecse.btms.controller.TORoute;
+import ca.mcgill.ecse.btms.controller.TORouteAssignment;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -24,6 +27,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class BlockEditWindow extends JFrame {
@@ -32,7 +36,14 @@ public class BlockEditWindow extends JFrame {
 	private JButton btnCreateBlock;
 	private JButton btnDeleteBlock;
 	private JComboBox cbBlocks;
-
+	// data elements
+	private String error = null;
+	//blocks
+	private HashMap<Integer, TOBlock> blocks;
+	//grid cells
+	private HashMap<Integer, TOGridCell> gridCells;
+	//games
+	private HashMap<Integer, TOGame> games;
 	/**
 	 * Launch the application.
 	 */
@@ -64,7 +75,8 @@ public class BlockEditWindow extends JFrame {
 		btnCreateBlock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "helo");
-				addBlockperformed();
+				addBlockButtonActionPerformed();
+				
 			}
 		});
 
@@ -119,90 +131,164 @@ public class BlockEditWindow extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	private void addBlockButtonActionPerformed() {
-		// TODO Auto-generated method stub
-		
-		
-		Block223Controller.addBlock();
-	}
 	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// clear error message
-		error = "";
-		
+		// clear error message. Enter integer, take these integer as input for a
+		String error="";
 		// call the controller
 		try {
-			BtmsController.addBlock(blockNameTextField.getText());
+			Block223Controller.addBlock(); 	//manque les 4 JTextField de will
+			//addBlock(blockNameTextField.getText());
+
 		} catch (InvalidInputException e) {
-			error = e.getMessage();
+			error = e.getMessage();		
 		}
 		
 		// update visuals
 		refreshData();
 	}
+	
+	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
+		String error = "";
+		TOBlock selectedBlock = (TOBlock) cbBlocks.getSelectedItem();
+	
+		if(selectedBlock == null) {
+		error = "Block needs to be selected for update!";
+		}
+		
+		if(error == null) {
+		Block223Controller.updateBlock(selectedBlock.getId(),
+				selectedBlock.getRed(),
+				selectedBlock.getGreen(), 
+				selectedBlock.getBlue(),
+				selectedBlock.getPoints());
+		
+		}
+	
+	refreshData();
+	}
+	
 	private void deleteBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// clear error message and basic input validation
 		error = "";
-		int selectedBlock = blockToggleList.getSelectedIndex();
-		if (selectedSickDriver < 0) {
-			error = "Driver needs to be selected for deletion!";}
+		
+		int selectedBlock = cbBlocks.getSelectedIndex();
+		
+		if (selectedBlock < 0) {
+			error = "Block needs to be selected for deletion!";}
 		
 		if (error.length() == 0) {
 			// call the controller
-			Block223Controller.deleteBlock(blocks.get(selectedBlock));
+			try{
+				Block223Controller.deleteBlock(blocks.get(selectedBlock).getId()); 	//We need to get the blockId value that is associated with this block index in hashMap
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
 		}
+		
 		
 		// update visuals
 		refreshData();
 	}
-	private void positionBlockButtonActionPerformed( ) {
+	
+	private void removeBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		
-		String error = null;
+		String error = "";
+		TOGridCell selectedBlock = (TOGridCell) cbBlocks.getSelectedItem();
+	
+		if(selectedBlock == null) {
+		error = "Block needs to be selected for update!";
+		}
 		
+		if(error == null) {
+			Block223Controller.removeBlock(selectedBlock.getcurrentLevel(),	//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
+ 
+					selectedBlock.getGridHorizontalPosition(),
+					selectedBlock.getGridVerticalPosition());
+		}
+	
+	}
+	private void positionBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
+		String error = "";
+		int selectedBlock = toBlockComboBox.getSelectedIndex();
+		int level = comboBox.getSelectIndex();
+		int newPosition = JComboBox.getSelectedIndex();
+		
+		List<TOGridCell> newPosition = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(23);//set jpanel 
+		if (selectedBlock == null) {
+		error = "Block needs to be selected in order to placed in the game!";}
+	
+		int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
+		if (selectedAssignment < 0)
+		error = error + "A grid cell needs to be selected for block! ";
+		error = error.trim();
+		
+		if (error == "") {
 		try {
-			Block223Controller.positionBlock();
+			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), level, newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
 			}
 		catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
-		refreshData();
-		
 	}
+		//update visuals
+		refreshData();
+	}
+
 	private void moveBlockButtonActionPerformed( ) {
+		String error = "";
+		
+		TOGridCell oldPosition = //chosed JPanel(Old checkbox)
+		TOGridCell newPosition = //chosed new JPanel (new checkbox)
+		int level = JComboBox.getSelectedIndex();
+		
+		//chose checkbox 
+		
+		//for this checkbox for the second checkbox == newlocation  
+		
+		if (error == "") {
 		try {
-			Block223Controller.positionBlock();
+			Block223Controller.moveBlock(level, oldPosition.getGridHorizontalPosition(), oldPosition.getGridVerticalPosition(),
+					newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();}
-		
+		}		
 		refreshData();
+	}	
+	
+	private void refreshData() {		
+
+		if (error == null || error.length() == 0) {
 		
-	}
-	
-	private void addDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	// clear error message
-	error = null;
-	
-	// call the controller
-	try {
-		BtmsController.createDriver(driverNameTextField.getText());
-	} catch (InvalidInputException e) {
-		error = e.getMessage();
-	}
-	
-	// update visuals
-	refreshData();
-	}
-	
-	private void refreshData() {
-		cells = new HashMap<Integer, Integer>(); 
-		cellToggleList.removeAllItems(); 
-		Integer index = 0; 
-		for (TOGridCell cell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(int currentLevel)) { 
-			availableDrivers.put(index, cell.getId()); 
-			cellToggleList.addItem("#" + cell.getId() + " " + cell.getName());
+			
+		blocks = new HashMap<Integer, TOBlock>();
+		cb.removeAllItems();
+		Integer index = 0;
+		for (TODriver driver : BtmsController.getDrivers()) {
+				drivers.put(index, driver.getId());
+				driverToggleList.addItem("#" + driver.getId() + " " + driver.getName());
+				index++;
+		};
+		driverToggleList.setSelectedIndex(-1);	
+		
+		int level = 1;	
+		gridCells = new HashMap<Integer, TOGridCell>();
+		badsfsfasds(name for jcombobox that has all to grid cells).removeAllItems();
+		Integer index = 0;
+		for (TOGridCell gridCell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level)) {
+			gridCells.put(index, block.getId());
+			badsfsfasds.addItem("Hor Position: "gridCell.getGridHorizontalPosition() + "Ver Position: " gridCell.getGridVerticalPosition() + "ID: " gridCell.getId());
 			index++;
 		};
-		cellList.setSelectedIndex(-1);
+		badsfsfasds.setSelectedIndex(-1);
+		
+		
+		
+		
+		
+		}
 	}
 
 

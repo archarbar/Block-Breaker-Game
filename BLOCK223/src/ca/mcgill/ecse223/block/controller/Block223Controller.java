@@ -3,8 +3,8 @@ package ca.mcgill.ecse223.block.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import TOUserMode;
-import TOUserMode.Mode;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.model.Admin;
@@ -671,11 +671,11 @@ public class Block223Controller {
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() throws InvalidInputException {
 		//William 28/02
-		UserRole currentUser = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentUserRole();
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!currentUser.equals("Admin")) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		Game game = ca.mcgill.ecse223.block223.application.Block223Application.getCurrentGame();
+		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
 		}
