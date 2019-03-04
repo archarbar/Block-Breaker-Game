@@ -64,13 +64,16 @@ public class BlockEditWindow extends JFrame {
 	private JComboBox xPositionComboBox;
 
 	// data elements
-	private String error = null;
+	private String error = "";
 	//blocks
 	private HashMap<Integer, TOBlock> blocks;
 	//grid cells
 	private HashMap<Integer, TOGridCell> gridCells;
 	//games
 	private HashMap<Integer, TOGame> games;
+	private HashMap<Integer, Integer> levels;
+	private HashMap<Integer, Integer> gridHorizontalPosition;
+	private HashMap<Integer, Integer> gridVerticalPosition;
 	/**
 	 * Launch the application.
 	 */
@@ -1772,7 +1775,7 @@ public class BlockEditWindow extends JFrame {
 		// clear error message and basic input validation
 		error = "";
 
-		int selectedBlock = cbBlocks.getSelectedIndex();
+		int selectedBlock = toBlockComboBox.getSelectedIndex();
 
 		if (selectedBlock < 0) {
 			error = "Block needs to be selected for deletion!";}
@@ -1812,21 +1815,26 @@ public class BlockEditWindow extends JFrame {
 
 		String error = "";
 		int selectedBlock = toBlockComboBox.getSelectedIndex();
-		int level = comboBox.getSelectIndex();
-		int newPosition = JComboBox.getSelectedIndex();
+		int level = levelComboBox.getSelectedIndex();
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
 
-		List<TOGridCell> newPosition = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(23);//set jpanel
-		if (selectedBlock == null) {
+		if (selectedBlock < 0) {
 		error = "Block needs to be selected in order to placed in the game!";}
 
-		int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
-		if (selectedAssignment < 0)
-		error = error + "A grid cell needs to be selected for block! ";
+		//int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
+		if (level < 0)
+		error = error + "A level needs to be selected for block! ";
+		if (newGridHorizontalPosition < 0)
+		error = error + "A horizontal grid position needs to be selected for block! ";
+		if (newGridVerticalPosition < 0)
+		error = error + "A vertical grid position needs to be selected for block! ";
+		
 		error = error.trim();
 
 		if (error == "") {
 		try {
-			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), level, newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
+			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
 			}
 		catch (InvalidInputException e) {
 			error = e.getMessage();
@@ -1836,21 +1844,20 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	private void moveBlockButtonActionPerformed( ) {
+	private void moveBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		String error = "";
 
-		TOGridCell oldPosition = //chosed JPanel(Old checkbox)
-		TOGridCell newPosition = //chosed new JPanel (new checkbox)
-		int level = JComboBox.getSelectedIndex();
-
-		//chose checkbox
-
-		//for this checkbox for the second checkbox == newlocation
+		int gridCell = toGridCellComboBox.getSelectedIndex();
+		int level = levelComboBox.getSelectedIndex();
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
+		 
 
 		if (error == "") {
 		try {
-			Block223Controller.moveBlock(level, oldPosition.getGridHorizontalPosition(), oldPosition.getGridVerticalPosition(),
-					newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
+			Block223Controller.moveBlock(level, gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridHorizontalPosition(),
+					newGridHorizontalPosition,  newGridVerticalPosition);
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();}
@@ -1859,8 +1866,27 @@ public class BlockEditWindow extends JFrame {
 	}
 
 	private void refreshData() {
-
+		error = "";
+		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
+			blocks = new HashMap<Integer, TOBlock>();
+			toBlockComboBox.removeAllItems();
+			Integer index = 0;
+			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
+				blocks.put(index, block);
+				toBlockComboBox.addItem(block.getId() + block.getRed() + block.getGreen() + block.getBlue() + block.getPoints());
+			}
+			toBlockComboBox.setSelectedIndex(-1);
+			
+		
+			blocks = new HashMap<Integer, TOBlock>();
+			toBlockComboBox.removeAllItems();
+			Integer index = 0;
+			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
+					blocks.put(index, block);
+					toBlockComboBox.addItem(block.getId() + block.getRed() + block.getGreen() + block.getBlue() + block.getPoints());
+				
+		}
 
 
 		blocks = new HashMap<Integer, TOBlock>();
@@ -1887,8 +1913,10 @@ public class BlockEditWindow extends JFrame {
 
 
 
-
+		
+		}
 		}
 	}
 
-}
+
+
