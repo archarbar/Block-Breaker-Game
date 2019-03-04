@@ -1,6 +1,9 @@
 package ca.mcgill.ecse223.block.view;
 
-
+import ca.mcgill.ecse.btms.controller.BtmsController;
+import ca.mcgill.ecse.btms.controller.TODriver;
+import ca.mcgill.ecse.btms.controller.TORoute;
+import ca.mcgill.ecse.btms.controller.TORouteAssignment;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -29,6 +32,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -76,7 +80,15 @@ public class BlockEditWindow extends JFrame {
 	private JPanel testBlock;
 	private JSlider blockRedSlider;
 
-
+	// data elements
+	private String error = null;
+	//blocks
+	private HashMap<Integer, TOBlock> blocks;
+	//grid cells
+	private HashMap<Integer, TOGridCell> gridCells;
+	//games
+	private HashMap<Integer, TOGame> games;
+	private JSlider pointsSlider;
 	/**
 	 * Launch the application.
 	 */
@@ -99,14 +111,14 @@ public class BlockEditWindow extends JFrame {
 	public BlockEditWindow() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 600);
-		
+		setBounds(100, 100, 710, 574);
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnUser = new JMenu("User");
 		menuBar.add(mnUser);
-		
+
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +131,7 @@ public class BlockEditWindow extends JFrame {
 		setContentPane(contentPane);
 		
 		createBlockButton = new JButton("Create Block");
-		createBlockButton.setBounds(430, 130, 123, 23);
+		createBlockButton.setBounds(432, 191, 123, 23);
 		createBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "helo");
@@ -139,10 +151,10 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		deleteBlockButton.setBounds(561, 224, 123, 23);
+		deleteBlockButton.setBounds(563, 257, 123, 23);
 
 		JLabel lblListOfBlocks = new JLabel("List of Game Blocks:\r\n");
-		lblListOfBlocks.setBounds(419, 449, 139, 14);
+		lblListOfBlocks.setBounds(432, 227, 139, 14);
 		panel.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
@@ -767,7 +779,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_51.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_51.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_51.setLayout(gbl_panel_51);
-		
+
 		JPanel panel_52 = new JPanel();
 		panel_52.setPreferredSize(new Dimension(20, 20));
 		panel_52.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -779,7 +791,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_52.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_52.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_52.setLayout(gbl_panel_52);
-		
+
 		JPanel panel_53 = new JPanel();
 		panel_53.setPreferredSize(new Dimension(20, 20));
 		panel_53.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -791,7 +803,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_53.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_53.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_53.setLayout(gbl_panel_53);
-		
+
 		JPanel panel_54 = new JPanel();
 		panel_54.setPreferredSize(new Dimension(20, 20));
 		panel_54.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -815,7 +827,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_55.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_55.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_55.setLayout(gbl_panel_55);
-		
+
 		JPanel panel_56 = new JPanel();
 		panel_56.setPreferredSize(new Dimension(20, 20));
 		panel_56.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1607,27 +1619,27 @@ public class BlockEditWindow extends JFrame {
 		contentPane.add(deleteBlockButton);
 		contentPane.add(lblListOfBlocks);
 		toBlockComboBox = new JComboBox();
-		toBlockComboBox.setBounds(568, 446, 123, 20);
+		toBlockComboBox.setBounds(563, 224, 123, 20);
 		contentPane.add(toBlockComboBox);
 		toBlockComboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Block1", "2 - Blockred", "3-as;dklja", "4-asdkaod", "5-", "asdasjkd", "5", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1!!1!", "1", "1"}));
 		toBlockComboBox.setToolTipText("Select a block");
 
 		JLabel lblListOfBlocks_1 = new JLabel("List of Level Blocks:");
-		lblListOfBlocks_1.setBounds(430, 344, 146, 14);
+		lblListOfBlocks_1.setBounds(432, 367, 146, 14);
 		contentPane.add(lblListOfBlocks_1);
 
 		JLabel lblListOfLevels = new JLabel("List of Levels:");
-		lblListOfLevels.setBounds(143, 449, 110, 14);
+		lblListOfLevels.setBounds(432, 47, 110, 14);
 		contentPane.add(lblListOfLevels);
 
 		levelComboBox = new JComboBox();
 		levelComboBox.setModel(new DefaultComboBoxModel(new String[] {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14", "Level 15", "Level 16", "Level 17", "Level 18", "Level 19", "Level 20", "Level 21", "Level 22", "Level 23", "Level 24", "Level 25", "Level 26", "Level 27", "Level 28", "Level 29", "Level 30", "Level 31", "Level 32", "Level 33", "Level 34", "Level 35", "Level 36", "Level 37", "Level 38", "Level 39", "Level 40", "Level 41", "Level 42", "Level 43", "Level 44", "Level 45", "Level 46", "Level 47", "Level 48", "Level 49", "Level 50", "Level 51", "Level 52", "Level 53", "Level 54", "Level 55", "Level 56", "Level 57", "Level 58", "Level 59", "Level 60", "Level 61", "Level 62", "Level 63", "Level 64", "Level 65", "Level 66", "Level 67", "Level 68", "Level 69", "Level 70", "Level 71", "Level 72", "Level 73", "Level 74", "Level 75"}));
-		levelComboBox.setBounds(222, 446, 123, 20);
+		levelComboBox.setBounds(563, 44, 123, 20);
 		contentPane.add(levelComboBox);
 
 		toGridCellComboBox = new JComboBox();
 		toGridCellComboBox.setModel(new DefaultComboBoxModel(new String[] {"1- Block1asWELL"}));
-		toGridCellComboBox.setBounds(561, 344, 123, 20);
+		toGridCellComboBox.setBounds(563, 364, 123, 20);
 		contentPane.add(toGridCellComboBox);
 
 		updateBlockButton = new JButton("Update Block");
@@ -1635,7 +1647,7 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		updateBlockButton.setBounds(563, 130, 123, 23);
+		updateBlockButton.setBounds(563, 191, 123, 23);
 		contentPane.add(updateBlockButton);
 		
 		positionBlockButton = new JButton("Position Block");
@@ -1644,10 +1656,13 @@ public class BlockEditWindow extends JFrame {
 			}
 		});
 		positionBlockButton.setBounds(430, 224, 123, 23);
+
+		JButton positionBlockButton = new JButton("Position Block");
+		positionBlockButton.setBounds(432, 257, 123, 23);
 		contentPane.add(positionBlockButton);
-		
+
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(430, 199, 254, 2);
+		separator_1.setBounds(432, 68, 254, 2);
 		contentPane.add(separator_1);
 
 		gameSettingsButton = new JButton("Game Settings");
@@ -1655,7 +1670,7 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		gameSettingsButton.setBounds(10, 445, 123, 23);
+		gameSettingsButton.setBounds(432, 8, 123, 23);
 		contentPane.add(gameSettingsButton);
 		
 		moveBlockButton = new JButton("Move Block");
@@ -1663,7 +1678,7 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		moveBlockButton.setBounds(430, 384, 123, 23);
+		moveBlockButton.setBounds(432, 397, 123, 23);
 		contentPane.add(moveBlockButton);
 		
 		removeBlockButton = new JButton("Remove Block");
@@ -1671,19 +1686,20 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		removeBlockButton.setBounds(561, 384, 123, 23);
+		removeBlockButton.setBounds(563, 397, 123, 23);
 		contentPane.add(removeBlockButton);
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(430, 418, 254, 2);
+		separator_2.setBounds(430, 494, 254, 2);
 		contentPane.add(separator_2);
 
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				saveButtonActionPerformed(evt);
 			}
 		});
-		saveButton.setBounds(10, 485, 123, 23);
+		saveButton.setBounds(563, 8, 123, 23);
 		contentPane.add(saveButton);
 
 		JFormattedTextField txtHorizontalIndex = new JFormattedTextField();
@@ -1757,27 +1773,27 @@ public class BlockEditWindow extends JFrame {
 
 		xPositionComboBox = new JComboBox();
 		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"xPosition"}));
-		xPositionComboBox.setBounds(561, 264, 123, 22);
+		xPositionComboBox.setBounds(563, 293, 123, 22);
 		contentPane.add(xPositionComboBox);
 
 		yPositionComboBox = new JComboBox();
 		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"yPosition"}));
-		yPositionComboBox.setBounds(561, 303, 123, 23);
+		yPositionComboBox.setBounds(563, 328, 123, 23);
 		contentPane.add(yPositionComboBox);
-		
+
 		JLabel lblLevelXposition = new JLabel("Level xPosition:");
-		lblLevelXposition.setBounds(430, 264, 123, 14);
+		lblLevelXposition.setBounds(432, 297, 123, 14);
 		contentPane.add(lblLevelXposition);
-		
+
 		JLabel lblLevelYposition = new JLabel("Level yPosition:");
-		lblLevelYposition.setBounds(430, 304, 110, 14);
+		lblLevelYposition.setBounds(432, 332, 110, 14);
 		contentPane.add(lblLevelYposition);
-		
+
 		blockBlueSlider = new JSlider();
-		
+
 		blockBlueSlider.setValue(128);
 		blockBlueSlider.setMaximum(255);
-		blockBlueSlider.setBounds(467, 105, 175, 14);
+		blockBlueSlider.setBounds(467, 164, 175, 14);
 		contentPane.add(blockBlueSlider);
 		blockBlueSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -1787,17 +1803,17 @@ public class BlockEditWindow extends JFrame {
 			}
 		});
 		JLabel lblBlue = new JLabel("Blue:");
-		lblBlue.setBounds(430, 105, 46, 14);
+		lblBlue.setBounds(430, 164, 46, 14);
 		contentPane.add(lblBlue);
-		
+
 		JLabel lblGreen = new JLabel("Green:");
-		lblGreen.setBounds(430, 80, 46, 14);
+		lblGreen.setBounds(432, 137, 46, 14);
 		contentPane.add(lblGreen);
-		
+
 		blockGreenSlider = new JSlider();
 		blockGreenSlider.setValue(30);
 		blockGreenSlider.setMaximum(255);
-		blockGreenSlider.setBounds(467, 81, 175, 14);
+		blockGreenSlider.setBounds(467, 137, 175, 14);
 		contentPane.add(blockGreenSlider);
 		blockGreenSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -1806,11 +1822,11 @@ public class BlockEditWindow extends JFrame {
 			}
 		});
 		blockRedSlider = new JSlider();
-		
+
 		blockRedSlider.setSnapToTicks(true);
 		blockRedSlider.setValue(150);
 		blockRedSlider.setMaximum(255);
-		blockRedSlider.setBounds(467, 55, 175, 14);
+		blockRedSlider.setBounds(467, 110, 175, 14);
 		contentPane.add(blockRedSlider);
 		blockRedSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -1818,16 +1834,16 @@ public class BlockEditWindow extends JFrame {
 				testBlock.setBackground(new Color(source.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
 			}
 		});
-		
+
 		JLabel lblRed = new JLabel("Red:");
-		lblRed.setBounds(430, 55, 46, 14);
+		lblRed.setBounds(432, 110, 46, 14);
 		contentPane.add(lblRed);
-		
+
 		testBlock = new JPanel();
 		testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
 		testBlock.setPreferredSize(new Dimension(20, 20));
 		testBlock.setBorder(new LineBorder(new Color(0, 0, 0)));
-		testBlock.setBounds(690, 74, 20, 20);
+		testBlock.setBounds(654, 131, 20, 20);
 		contentPane.add(testBlock);
 		GridBagLayout gbl_testBlock = new GridBagLayout();
 		gbl_testBlock.columnWidths = new int[]{0, 0};
@@ -1835,14 +1851,39 @@ public class BlockEditWindow extends JFrame {
 		gbl_testBlock.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_testBlock.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		testBlock.setLayout(gbl_testBlock);
-		
+
 		JLabel lblPoints = new JLabel("Points:");
-		lblPoints.setBounds(430, 30, 46, 14);
+		lblPoints.setBounds(430, 83, 46, 14);
 		contentPane.add(lblPoints);
+
+		pointsSlider = new JSlider();
+		pointsSlider.setMinimum(1);
+		pointsSlider.setMaximum(1000);
 		
-		JSlider slider_3 = new JSlider();
-		slider_3.setBounds(467, 30, 175, 14);
-		contentPane.add(slider_3);
+		contentPane.add(pointsSlider);
+		
+		JLabel pointsLabel = new JLabel(String.valueOf(pointsSlider.getValue()));
+		pointsLabel.setBounds(656, 83, 30, 14);
+		contentPane.add(pointsLabel);
+		pointsSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				pointsLabel.setText(String.valueOf(pointsSlider.getValue()));
+				
+			}
+		});
+		pointsSlider.setBounds(467, 83, 175, 14);
+	}
+
+	private void saveButtonActionPerformed(ActionEvent evt) {
+		try {
+			
+			Block223Controller.saveGame();
+			JOptionPane.showMessageDialog(null, "Game Saved");
+		} catch (InvalidInputException e) {
+			String error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		
 	}
 
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
@@ -1851,4 +1892,164 @@ public class BlockEditWindow extends JFrame {
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
+	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		// clear error message. Enter integer, take these integer as input for a
+		String error="";
+		// call the controller
+		try {
+			Block223Controller.addBlock(); 	//manque les 4 JTextField de will
+			//addBlock(blockNameTextField.getText());
+
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// update visuals
+		refreshData();
+	}
+
+	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+		String error = "";
+		TOBlock selectedBlock = (TOBlock) cbBlocks.getSelectedItem();
+
+		if(selectedBlock == null) {
+		error = "Block needs to be selected for update!";
+		}
+
+		if(error == null) {
+		Block223Controller.updateBlock(selectedBlock.getId(),
+				selectedBlock.getRed(),
+				selectedBlock.getGreen(),
+				selectedBlock.getBlue(),
+				selectedBlock.getPoints());
+
+		}
+
+	refreshData();
+	}
+
+	private void deleteBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		// clear error message and basic input validation
+		error = "";
+
+		int selectedBlock = cbBlocks.getSelectedIndex();
+
+		if (selectedBlock < 0) {
+			error = "Block needs to be selected for deletion!";}
+
+		if (error.length() == 0) {
+			// call the controller
+			try{
+				Block223Controller.deleteBlock(blocks.get(selectedBlock).getId()); 	//We need to get the blockId value that is associated with this block index in hashMap
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
+		}
+
+
+		// update visuals
+		refreshData();
+	}
+
+	private void removeBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+		String error = "";
+		TOGridCell selectedBlock = (TOGridCell) cbBlocks.getSelectedItem();
+
+		if(selectedBlock == null) {
+		error = "Block needs to be selected for update!";
+		}
+
+		if(error == null) {
+			Block223Controller.removeBlock(selectedBlock.getcurrentLevel(),	//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
+
+					selectedBlock.getGridHorizontalPosition(),
+					selectedBlock.getGridVerticalPosition());
+		}
+
+	}
+	private void positionBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+		String error = "";
+		int selectedBlock = toBlockComboBox.getSelectedIndex();
+		int level = comboBox.getSelectIndex();
+		int newPosition = JComboBox.getSelectedIndex();
+
+		List<TOGridCell> newPosition = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(23);//set jpanel
+		if (selectedBlock == null) {
+		error = "Block needs to be selected in order to placed in the game!";}
+
+		int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
+		if (selectedAssignment < 0)
+		error = error + "A grid cell needs to be selected for block! ";
+		error = error.trim();
+
+		if (error == "") {
+		try {
+			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), level, newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
+			}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+	}
+		//update visuals
+		refreshData();
+	}
+
+	private void moveBlockButtonActionPerformed( ) {
+		String error = "";
+
+		TOGridCell oldPosition = //chosed JPanel(Old checkbox)
+		TOGridCell newPosition = //chosed new JPanel (new checkbox)
+		int level = JComboBox.getSelectedIndex();
+
+		//chose checkbox
+
+		//for this checkbox for the second checkbox == newlocation
+
+		if (error == "") {
+		try {
+			Block223Controller.moveBlock(level, oldPosition.getGridHorizontalPosition(), oldPosition.getGridVerticalPosition(),
+					newPosition.getGridHorizontalPosition(), newPosition.getGridVerticalPosition());
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();}
+		}
+		refreshData();
+	}
+
+	private void refreshData() {
+
+		if (error == null || error.length() == 0) {
+
+
+		blocks = new HashMap<Integer, TOBlock>();
+		cb.removeAllItems();
+		Integer index = 0;
+		for (TODriver driver : BtmsController.getDrivers()) {
+				drivers.put(index, driver.getId());
+				driverToggleList.addItem("#" + driver.getId() + " " + driver.getName());
+				index++;
+		};
+		driverToggleList.setSelectedIndex(-1);
+
+		int level = 1;
+		gridCells = new HashMap<Integer, TOGridCell>();
+		badsfsfasds(name for jcombobox that has all to grid cells).removeAllItems();
+		Integer index = 0;
+		for (TOGridCell gridCell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level)) {
+			gridCells.put(index, block.getId());
+			badsfsfasds.addItem("Hor Position: "gridCell.getGridHorizontalPosition() + "Ver Position: " gridCell.getGridVerticalPosition() + "ID: " gridCell.getId());
+			index++;
+		};
+		badsfsfasds.setSelectedIndex(-1);
+
+
+
+
+
+		}
+	}
+
 }
