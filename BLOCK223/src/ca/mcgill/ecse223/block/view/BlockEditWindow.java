@@ -63,10 +63,6 @@ public class BlockEditWindow extends JFrame {
 	private JComboBox yPositionComboBox;
 	private JComboBox xPositionComboBox;
 
-
-	private JButton btnCreateBlock;
-	private JButton btnDeleteBlock;
-	private JComboBox cbBlocks;
 	// data elements
 	private String error = null;
 	//blocks
@@ -1662,6 +1658,79 @@ public class BlockEditWindow extends JFrame {
 		txtHorizontalIndex.setBounds(30, 10, 390, 20);
 		contentPane.add(txtHorizontalIndex);
 		txtHorizontalIndex.setText("     1      2      3      4       5      6      7       8      9     10     11     12    13    14    15 ");
+
+		JPanel panel_121 = new JPanel();
+		panel_121.setBackground(Color.WHITE);
+		panel_121.setBounds(10, 30, 20, 390);
+		contentPane.add(panel_121);
+		panel_121.setLayout(null);
+
+		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
+		formattedTextField_1.setBorder(null);
+		formattedTextField_1.setBounds(0, 10, 20, 20);
+		panel_121.add(formattedTextField_1);
+		formattedTextField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_1.setText("1");
+
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setText("8");
+		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField.setBorder(null);
+		formattedTextField.setBounds(0, 164, 20, 20);
+		panel_121.add(formattedTextField);
+
+		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
+		formattedTextField_2.setText("7");
+		formattedTextField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_2.setBorder(null);
+		formattedTextField_2.setBounds(0, 142, 20, 20);
+		panel_121.add(formattedTextField_2);
+
+		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
+		formattedTextField_3.setText("6");
+		formattedTextField_3.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_3.setBorder(null);
+		formattedTextField_3.setBounds(0, 120, 20, 20);
+		panel_121.add(formattedTextField_3);
+
+		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
+		formattedTextField_4.setText("5");
+		formattedTextField_4.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_4.setBorder(null);
+		formattedTextField_4.setBounds(0, 98, 20, 20);
+		panel_121.add(formattedTextField_4);
+
+		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
+		formattedTextField_5.setText("4");
+		formattedTextField_5.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_5.setBorder(null);
+		formattedTextField_5.setBounds(0, 76, 20, 20);
+		panel_121.add(formattedTextField_5);
+
+		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
+		formattedTextField_6.setText("3");
+		formattedTextField_6.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_6.setBorder(null);
+		formattedTextField_6.setBounds(0, 54, 20, 20);
+		panel_121.add(formattedTextField_6);
+
+		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
+		formattedTextField_7.setText("2");
+		formattedTextField_7.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_7.setBorder(null);
+		formattedTextField_7.setBounds(0, 32, 20, 20);
+		panel_121.add(formattedTextField_7);
+
+		xPositionComboBox = new JComboBox();
+		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"xPosition"}));
+		xPositionComboBox.setBounds(431, 384, 107, 22);
+		contentPane.add(xPositionComboBox);
+
+		yPositionComboBox = new JComboBox();
+		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"yPosition"}));
+		yPositionComboBox.setBounds(430, 433, 110, 23);
+		contentPane.add(yPositionComboBox);
+	}
 	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// clear error message. Enter integer, take these integer as input for a
 		String error="";
@@ -1822,76 +1891,4 @@ public class BlockEditWindow extends JFrame {
 		}
 	}
 
-		JPanel panel_121 = new JPanel();
-		panel_121.setBackground(Color.WHITE);
-		panel_121.setBounds(10, 30, 20, 390);
-		contentPane.add(panel_121);
-		panel_121.setLayout(null);
-
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setBorder(null);
-		formattedTextField_1.setBounds(0, 10, 20, 20);
-		panel_121.add(formattedTextField_1);
-		formattedTextField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_1.setText("1");
-
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setText("8");
-		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setBorder(null);
-		formattedTextField.setBounds(0, 164, 20, 20);
-		panel_121.add(formattedTextField);
-
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setText("7");
-		formattedTextField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_2.setBorder(null);
-		formattedTextField_2.setBounds(0, 142, 20, 20);
-		panel_121.add(formattedTextField_2);
-
-		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
-		formattedTextField_3.setText("6");
-		formattedTextField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_3.setBorder(null);
-		formattedTextField_3.setBounds(0, 120, 20, 20);
-		panel_121.add(formattedTextField_3);
-
-		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
-		formattedTextField_4.setText("5");
-		formattedTextField_4.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_4.setBorder(null);
-		formattedTextField_4.setBounds(0, 98, 20, 20);
-		panel_121.add(formattedTextField_4);
-
-		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
-		formattedTextField_5.setText("4");
-		formattedTextField_5.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_5.setBorder(null);
-		formattedTextField_5.setBounds(0, 76, 20, 20);
-		panel_121.add(formattedTextField_5);
-
-		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
-		formattedTextField_6.setText("3");
-		formattedTextField_6.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_6.setBorder(null);
-		formattedTextField_6.setBounds(0, 54, 20, 20);
-		panel_121.add(formattedTextField_6);
-
-		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
-		formattedTextField_7.setText("2");
-		formattedTextField_7.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField_7.setBorder(null);
-		formattedTextField_7.setBounds(0, 32, 20, 20);
-		panel_121.add(formattedTextField_7);
-
-		xPositionComboBox = new JComboBox();
-		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"xPosition"}));
-		xPositionComboBox.setBounds(431, 384, 107, 22);
-		contentPane.add(xPositionComboBox);
-
-		yPositionComboBox = new JComboBox();
-		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"yPosition"}));
-		yPositionComboBox.setBounds(430, 433, 110, 23);
-		contentPane.add(yPositionComboBox);
-	}
 }
