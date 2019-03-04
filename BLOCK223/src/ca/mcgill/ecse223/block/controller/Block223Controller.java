@@ -150,7 +150,6 @@ public class Block223Controller {
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		//Game currentGame = Block223Application.getCurrentGame();
 		Game currentGame = Block223Application.getCurrentGame();
 		Admin admin = currentGame.getAdmin();
 		if (admin != (Admin) currentUser) {
