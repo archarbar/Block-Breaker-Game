@@ -40,6 +40,7 @@ public class Block223Controller {
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 			block223.addGame(game);
+			Block223Application.setCurrentGame(game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
