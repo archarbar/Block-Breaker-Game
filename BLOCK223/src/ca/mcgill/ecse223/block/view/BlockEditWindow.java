@@ -1,9 +1,6 @@
 package ca.mcgill.ecse223.block.view;
 
-import ca.mcgill.ecse.btms.controller.BtmsController;
-import ca.mcgill.ecse.btms.controller.TODriver;
-import ca.mcgill.ecse.btms.controller.TORoute;
-import ca.mcgill.ecse.btms.controller.TORouteAssignment;
+
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -136,9 +133,11 @@ public class BlockEditWindow extends JFrame {
 		createBlockButton = new JButton("Create Block");
 		createBlockButton.setBounds(432, 191, 123, 23);
 		createBlockButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "helo");
-				//addBlockperformed();
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				createBlockButtonActionPerformed(evt);
+				
+//				JOptionPane.showMessageDialog(null, "helo");
+//				//addBlockperformed();
 			}
 		});
 
@@ -152,6 +151,7 @@ public class BlockEditWindow extends JFrame {
 		deleteBlockButton = new JButton("Delete Block");
 		deleteBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				deleteBlockButtonActionEvent(e);
 			}
 		});
 		deleteBlockButton.setBounds(563, 257, 123, 23);
@@ -1662,6 +1662,10 @@ public class BlockEditWindow extends JFrame {
 		positionBlockButton.setBounds(430, 224, 123, 23);
 
 		JButton positionBlockButton = new JButton("Position Block");
+		positionBlockButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		positionBlockButton.setBounds(432, 257, 123, 23);
 		contentPane.add(positionBlockButton);
 
@@ -1848,7 +1852,7 @@ public class BlockEditWindow extends JFrame {
 		testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
 		testBlock.setPreferredSize(new Dimension(20, 20));
 		testBlock.setBorder(new LineBorder(new Color(0, 0, 0)));
-		testBlock.setBounds(654, 74, 20, 20);
+		testBlock.setBounds(654, 131, 20, 20);
 		contentPane.add(testBlock);
 		GridBagLayout gbl_testBlock = new GridBagLayout();
 		gbl_testBlock.columnWidths = new int[]{0, 0};
@@ -1877,6 +1881,39 @@ public class BlockEditWindow extends JFrame {
 			}
 		});
 		pointsSlider.setBounds(467, 83, 175, 14);
+	}
+
+	public void deleteBlockButtonActionEvent(ActionEvent e) {
+		// TODO Auto-generated method stub
+		TOBlock selectedBlock = (TOBlock) toBlockComboBox.getSelectedItem();
+		toBlockComboBox.removeItem(selectedBlock);
+		try {
+			Block223Controller.deleteBlock(selectedBlock.getId());
+		} catch (InvalidInputException e1) {
+			// TODO Auto-generated catch block
+			//e1.printStackTrace();
+			System.out.println(e1);
+		}
+		refreshData();
+		
+	}
+
+	private void createBlockButtonActionPerformed(ActionEvent evt) {
+		TOBlock newBlock = new TOBlock(toBlockComboBox.getItemCount()+1, blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
+		toBlockComboBox.addItem(String.valueOf(newBlock.getId()));
+		
+		try {
+			//Block223C
+			Block223Controller.addBlock(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
+
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println(e);
+		}
+		refreshData();
+		
+		//NOW HAVE TO ADD THIS BLOCK TO HASHMAP
 	}
 
 	private void saveButtonActionPerformed(ActionEvent evt) {
