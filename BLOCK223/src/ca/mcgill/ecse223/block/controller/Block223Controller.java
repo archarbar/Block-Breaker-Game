@@ -500,8 +500,8 @@ public class Block223Controller {
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + assignment.getMaxHorizontalGridPosition())) {
-				error = "The vertical position must be between 1 and " + assignment.getMaxHorizontalGridPosition() + ".";
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + assignment.getMaxVerticalGridPosition())) {
+				error = "The vertical position must be between 1 and " + assignment.getMaxVerticalGridPosition() + ".";
 			}
 			throw new InvalidInputException(error);
 		}
