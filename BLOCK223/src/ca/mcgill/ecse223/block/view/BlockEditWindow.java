@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -57,7 +58,7 @@ public class BlockEditWindow extends JFrame {
 	private JButton saveButton;
 	private JComboBox yPositionComboBox;
 	private JComboBox xPositionComboBox;
-	
+
 
 	/**
 	 * Launch the application.
@@ -104,11 +105,11 @@ public class BlockEditWindow extends JFrame {
 		
 		deleteBlockButton = new JButton("Delete Block");
 		deleteBlockButton.setBounds(551, 224, 123, 23);
-		
+
 		JLabel lblListOfBlocks = new JLabel("List of Blocks in Game:");
 		lblListOfBlocks.setBounds(420, 126, 139, 14);
 		panel.setLayout(null);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 10, 20, 20);
 		panel_1.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -121,7 +122,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setPreferredSize(new Dimension(20, 20));
@@ -133,7 +134,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_2.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_3.setPreferredSize(new Dimension(20, 20));
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -145,7 +146,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_3.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_3.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
-		
+
 		JPanel panel_4 = new JPanel();
 		panel_4.setPreferredSize(new Dimension(20, 20));
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -157,7 +158,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_4.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
-		
+
 		JPanel panel_5 = new JPanel();
 		panel_5.setPreferredSize(new Dimension(20, 20));
 		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -169,7 +170,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_5.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_5.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_5.setLayout(gbl_panel_5);
-		
+
 		JPanel panel_6 = new JPanel();
 		panel_6.setPreferredSize(new Dimension(20, 20));
 		panel_6.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -181,7 +182,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_6.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_6.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_6.setLayout(gbl_panel_6);
-		
+
 		JPanel panel_7 = new JPanel();
 		panel_7.setPreferredSize(new Dimension(20, 20));
 		panel_7.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -193,7 +194,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_7.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_7.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_7.setLayout(gbl_panel_7);
-		
+
 		JPanel panel_8 = new JPanel();
 		panel_8.setPreferredSize(new Dimension(20, 20));
 		panel_8.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -206,7 +207,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_8.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_8.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_8.setLayout(gbl_panel_8);
-		
+
 		JPanel panel_9 = new JPanel();
 		panel_9.setPreferredSize(new Dimension(20, 20));
 		panel_9.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -218,7 +219,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_9.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_9.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_9.setLayout(gbl_panel_9);
-		
+
 		JPanel panel_10 = new JPanel();
 		panel_10.setPreferredSize(new Dimension(20, 20));
 		panel_10.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -230,7 +231,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_10.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_10.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_10.setLayout(gbl_panel_10);
-		
+
 		JPanel panel_11 = new JPanel();
 		panel_11.setPreferredSize(new Dimension(20, 20));
 		panel_11.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -242,7 +243,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_11.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_11.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_11.setLayout(gbl_panel_11);
-		
+
 		JPanel panel_12 = new JPanel();
 		panel_12.setPreferredSize(new Dimension(20, 20));
 		panel_12.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -254,7 +255,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_12.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_12.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_12.setLayout(gbl_panel_12);
-		
+
 		JPanel panel_13 = new JPanel();
 		panel_13.setPreferredSize(new Dimension(20, 20));
 		panel_13.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -266,7 +267,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_13.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_13.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_13.setLayout(gbl_panel_13);
-		
+
 		JPanel panel_14 = new JPanel();
 		panel_14.setPreferredSize(new Dimension(20, 20));
 		panel_14.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -278,7 +279,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_14.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_14.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_14.setLayout(gbl_panel_14);
-		
+
 		JPanel panel_15 = new JPanel();
 		panel_15.setPreferredSize(new Dimension(20, 20));
 		panel_15.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -290,7 +291,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_15.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_15.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_15.setLayout(gbl_panel_15);
-		
+
 		JPanel panel_16 = new JPanel();
 		panel_16.setPreferredSize(new Dimension(20, 20));
 		panel_16.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -303,7 +304,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_16.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_16.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_16.setLayout(gbl_panel_16);
-		
+
 		JPanel panel_17 = new JPanel();
 		panel_17.setPreferredSize(new Dimension(20, 20));
 		panel_17.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -316,7 +317,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_17.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_17.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_17.setLayout(gbl_panel_17);
-		
+
 		JPanel panel_18 = new JPanel();
 		panel_18.setPreferredSize(new Dimension(20, 20));
 		panel_18.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -329,7 +330,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_18.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_18.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_18.setLayout(gbl_panel_18);
-		
+
 		JPanel panel_19 = new JPanel();
 		panel_19.setPreferredSize(new Dimension(20, 20));
 		panel_19.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -342,7 +343,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_19.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_19.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_19.setLayout(gbl_panel_19);
-		
+
 		JPanel panel_20 = new JPanel();
 		panel_20.setPreferredSize(new Dimension(20, 20));
 		panel_20.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -355,7 +356,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_20.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_20.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_20.setLayout(gbl_panel_20);
-		
+
 		JPanel panel_21 = new JPanel();
 		panel_21.setPreferredSize(new Dimension(20, 20));
 		panel_21.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -368,7 +369,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_21.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_21.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_21.setLayout(gbl_panel_21);
-		
+
 		JPanel panel_22 = new JPanel();
 		panel_22.setPreferredSize(new Dimension(20, 20));
 		panel_22.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -381,7 +382,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_22.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_22.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_22.setLayout(gbl_panel_22);
-		
+
 		JPanel panel_23 = new JPanel();
 		panel_23.setPreferredSize(new Dimension(20, 20));
 		panel_23.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -393,7 +394,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_23.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_23.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_23.setLayout(gbl_panel_23);
-		
+
 		JPanel panel_24 = new JPanel();
 		panel_24.setPreferredSize(new Dimension(20, 20));
 		panel_24.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -405,7 +406,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_24.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_24.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_24.setLayout(gbl_panel_24);
-		
+
 		JPanel panel_25 = new JPanel();
 		panel_25.setPreferredSize(new Dimension(20, 20));
 		panel_25.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -417,7 +418,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_25.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_25.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_25.setLayout(gbl_panel_25);
-		
+
 		JPanel panel_26 = new JPanel();
 		panel_26.setPreferredSize(new Dimension(20, 20));
 		panel_26.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -429,7 +430,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_26.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_26.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_26.setLayout(gbl_panel_26);
-		
+
 		JPanel panel_27 = new JPanel();
 		panel_27.setPreferredSize(new Dimension(20, 20));
 		panel_27.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -441,7 +442,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_27.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_27.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_27.setLayout(gbl_panel_27);
-		
+
 		JPanel panel_28 = new JPanel();
 		panel_28.setPreferredSize(new Dimension(20, 20));
 		panel_28.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -453,7 +454,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_28.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_28.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_28.setLayout(gbl_panel_28);
-		
+
 		JPanel panel_29 = new JPanel();
 		panel_29.setPreferredSize(new Dimension(20, 20));
 		panel_29.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -466,7 +467,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_29.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_29.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_29.setLayout(gbl_panel_29);
-		
+
 		JPanel panel_30 = new JPanel();
 		panel_30.setPreferredSize(new Dimension(20, 20));
 		panel_30.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -478,7 +479,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_30.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_30.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_30.setLayout(gbl_panel_30);
-		
+
 		JPanel panel_31 = new JPanel();
 		panel_31.setPreferredSize(new Dimension(20, 20));
 		panel_31.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -490,7 +491,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_31.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_31.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_31.setLayout(gbl_panel_31);
-		
+
 		JPanel panel_32 = new JPanel();
 		panel_32.setPreferredSize(new Dimension(20, 20));
 		panel_32.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -502,7 +503,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_32.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_32.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_32.setLayout(gbl_panel_32);
-		
+
 		JPanel panel_33 = new JPanel();
 		panel_33.setPreferredSize(new Dimension(20, 20));
 		panel_33.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -514,7 +515,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_33.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_33.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_33.setLayout(gbl_panel_33);
-		
+
 		JPanel panel_34 = new JPanel();
 		panel_34.setPreferredSize(new Dimension(20, 20));
 		panel_34.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -526,7 +527,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_34.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_34.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_34.setLayout(gbl_panel_34);
-		
+
 		JPanel panel_35 = new JPanel();
 		panel_35.setPreferredSize(new Dimension(20, 20));
 		panel_35.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -538,7 +539,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_35.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_35.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_35.setLayout(gbl_panel_35);
-		
+
 		JPanel panel_36 = new JPanel();
 		panel_36.setPreferredSize(new Dimension(20, 20));
 		panel_36.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -550,7 +551,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_36.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_36.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_36.setLayout(gbl_panel_36);
-		
+
 		JPanel panel_37 = new JPanel();
 		panel_37.setPreferredSize(new Dimension(20, 20));
 		panel_37.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -562,7 +563,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_37.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_37.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_37.setLayout(gbl_panel_37);
-		
+
 		JPanel panel_38 = new JPanel();
 		panel_38.setPreferredSize(new Dimension(20, 20));
 		panel_38.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -574,7 +575,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_38.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_38.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_38.setLayout(gbl_panel_38);
-		
+
 		JPanel panel_39 = new JPanel();
 		panel_39.setPreferredSize(new Dimension(20, 20));
 		panel_39.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -586,7 +587,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_39.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_39.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_39.setLayout(gbl_panel_39);
-		
+
 		JPanel panel_40 = new JPanel();
 		panel_40.setPreferredSize(new Dimension(20, 20));
 		panel_40.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -598,7 +599,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_40.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_40.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_40.setLayout(gbl_panel_40);
-		
+
 		JPanel panel_41 = new JPanel();
 		panel_41.setPreferredSize(new Dimension(20, 20));
 		panel_41.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -610,7 +611,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_41.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_41.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_41.setLayout(gbl_panel_41);
-		
+
 		JPanel panel_42 = new JPanel();
 		panel_42.setPreferredSize(new Dimension(20, 20));
 		panel_42.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -622,7 +623,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_42.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_42.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_42.setLayout(gbl_panel_42);
-		
+
 		JPanel panel_43 = new JPanel();
 		panel_43.setPreferredSize(new Dimension(20, 20));
 		panel_43.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -635,7 +636,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_43.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_43.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_43.setLayout(gbl_panel_43);
-		
+
 		JPanel panel_44 = new JPanel();
 		panel_44.setPreferredSize(new Dimension(20, 20));
 		panel_44.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -647,7 +648,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_44.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_44.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_44.setLayout(gbl_panel_44);
-		
+
 		JPanel panel_45 = new JPanel();
 		panel_45.setPreferredSize(new Dimension(20, 20));
 		panel_45.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -659,7 +660,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_45.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_45.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_45.setLayout(gbl_panel_45);
-		
+
 		JPanel panel_46 = new JPanel();
 		panel_46.setPreferredSize(new Dimension(20, 20));
 		panel_46.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -671,7 +672,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_46.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_46.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_46.setLayout(gbl_panel_46);
-		
+
 		JPanel panel_47 = new JPanel();
 		panel_47.setPreferredSize(new Dimension(20, 20));
 		panel_47.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -683,7 +684,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_47.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_47.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_47.setLayout(gbl_panel_47);
-		
+
 		JPanel panel_48 = new JPanel();
 		panel_48.setPreferredSize(new Dimension(20, 20));
 		panel_48.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -695,7 +696,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_48.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_48.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_48.setLayout(gbl_panel_48);
-		
+
 		JPanel panel_49 = new JPanel();
 		panel_49.setPreferredSize(new Dimension(20, 20));
 		panel_49.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -707,7 +708,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_49.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_49.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_49.setLayout(gbl_panel_49);
-		
+
 		JPanel panel_50 = new JPanel();
 		panel_50.setPreferredSize(new Dimension(20, 20));
 		panel_50.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -719,7 +720,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_50.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_50.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_50.setLayout(gbl_panel_50);
-		
+
 		JPanel panel_51 = new JPanel();
 		panel_51.setPreferredSize(new Dimension(20, 20));
 		panel_51.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -767,7 +768,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_54.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_54.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_54.setLayout(gbl_panel_54);
-		
+
 		JPanel panel_55 = new JPanel();
 		panel_55.setPreferredSize(new Dimension(20, 20));
 		panel_55.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -791,7 +792,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_56.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_56.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_56.setLayout(gbl_panel_56);
-		
+
 		JPanel panel_57 = new JPanel();
 		panel_57.setPreferredSize(new Dimension(20, 20));
 		panel_57.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -804,7 +805,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_57.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_57.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_57.setLayout(gbl_panel_57);
-		
+
 		JPanel panel_58 = new JPanel();
 		panel_58.setPreferredSize(new Dimension(20, 20));
 		panel_58.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -816,7 +817,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_58.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_58.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_58.setLayout(gbl_panel_58);
-		
+
 		JPanel panel_59 = new JPanel();
 		panel_59.setPreferredSize(new Dimension(20, 20));
 		panel_59.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -828,7 +829,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_59.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_59.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_59.setLayout(gbl_panel_59);
-		
+
 		JPanel panel_60 = new JPanel();
 		panel_60.setPreferredSize(new Dimension(20, 20));
 		panel_60.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -840,7 +841,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_60.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_60.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_60.setLayout(gbl_panel_60);
-		
+
 		JPanel panel_61 = new JPanel();
 		panel_61.setPreferredSize(new Dimension(20, 20));
 		panel_61.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -852,7 +853,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_61.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_61.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_61.setLayout(gbl_panel_61);
-		
+
 		JPanel panel_62 = new JPanel();
 		panel_62.setPreferredSize(new Dimension(20, 20));
 		panel_62.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -864,7 +865,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_62.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_62.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_62.setLayout(gbl_panel_62);
-		
+
 		JPanel panel_63 = new JPanel();
 		panel_63.setPreferredSize(new Dimension(20, 20));
 		panel_63.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -876,7 +877,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_63.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_63.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_63.setLayout(gbl_panel_63);
-		
+
 		JPanel panel_64 = new JPanel();
 		panel_64.setPreferredSize(new Dimension(20, 20));
 		panel_64.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -888,7 +889,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_64.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_64.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_64.setLayout(gbl_panel_64);
-		
+
 		JPanel panel_65 = new JPanel();
 		panel_65.setPreferredSize(new Dimension(20, 20));
 		panel_65.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -900,7 +901,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_65.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_65.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_65.setLayout(gbl_panel_65);
-		
+
 		JPanel panel_66 = new JPanel();
 		panel_66.setPreferredSize(new Dimension(20, 20));
 		panel_66.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -912,7 +913,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_66.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_66.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_66.setLayout(gbl_panel_66);
-		
+
 		JPanel panel_67 = new JPanel();
 		panel_67.setPreferredSize(new Dimension(20, 20));
 		panel_67.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -924,7 +925,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_67.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_67.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_67.setLayout(gbl_panel_67);
-		
+
 		JPanel panel_68 = new JPanel();
 		panel_68.setBackground(Color.LIGHT_GRAY);
 		panel_68.setPreferredSize(new Dimension(20, 20));
@@ -937,7 +938,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_68.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_68.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_68.setLayout(gbl_panel_68);
-		
+
 		JPanel panel_69 = new JPanel();
 		panel_69.setPreferredSize(new Dimension(20, 20));
 		panel_69.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -949,7 +950,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_69.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_69.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_69.setLayout(gbl_panel_69);
-		
+
 		JPanel panel_70 = new JPanel();
 		panel_70.setPreferredSize(new Dimension(20, 20));
 		panel_70.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -961,7 +962,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_70.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_70.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_70.setLayout(gbl_panel_70);
-		
+
 		JPanel panel_71 = new JPanel();
 		panel_71.setPreferredSize(new Dimension(20, 20));
 		panel_71.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -974,7 +975,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_71.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_71.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_71.setLayout(gbl_panel_71);
-		
+
 		JPanel panel_72 = new JPanel();
 		panel_72.setPreferredSize(new Dimension(20, 20));
 		panel_72.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -986,7 +987,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_72.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_72.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_72.setLayout(gbl_panel_72);
-		
+
 		JPanel panel_73 = new JPanel();
 		panel_73.setPreferredSize(new Dimension(20, 20));
 		panel_73.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -998,7 +999,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_73.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_73.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_73.setLayout(gbl_panel_73);
-		
+
 		JPanel panel_74 = new JPanel();
 		panel_74.setPreferredSize(new Dimension(20, 20));
 		panel_74.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1010,7 +1011,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_74.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_74.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_74.setLayout(gbl_panel_74);
-		
+
 		JPanel panel_75 = new JPanel();
 		panel_75.setPreferredSize(new Dimension(20, 20));
 		panel_75.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1022,7 +1023,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_75.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_75.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_75.setLayout(gbl_panel_75);
-		
+
 		JPanel panel_76 = new JPanel();
 		panel_76.setPreferredSize(new Dimension(20, 20));
 		panel_76.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1034,7 +1035,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_76.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_76.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_76.setLayout(gbl_panel_76);
-		
+
 		JPanel panel_77 = new JPanel();
 		panel_77.setPreferredSize(new Dimension(20, 20));
 		panel_77.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1046,7 +1047,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_77.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_77.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_77.setLayout(gbl_panel_77);
-		
+
 		JPanel panel_78 = new JPanel();
 		panel_78.setPreferredSize(new Dimension(20, 20));
 		panel_78.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1058,7 +1059,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_78.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_78.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_78.setLayout(gbl_panel_78);
-		
+
 		JPanel panel_79 = new JPanel();
 		panel_79.setPreferredSize(new Dimension(20, 20));
 		panel_79.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1070,7 +1071,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_79.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_79.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_79.setLayout(gbl_panel_79);
-		
+
 		JPanel panel_80 = new JPanel();
 		panel_80.setPreferredSize(new Dimension(20, 20));
 		panel_80.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1082,7 +1083,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_80.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_80.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_80.setLayout(gbl_panel_80);
-		
+
 		JPanel panel_81 = new JPanel();
 		panel_81.setPreferredSize(new Dimension(20, 20));
 		panel_81.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1094,7 +1095,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_81.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_81.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_81.setLayout(gbl_panel_81);
-		
+
 		JPanel panel_82 = new JPanel();
 		panel_82.setPreferredSize(new Dimension(20, 20));
 		panel_82.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1106,7 +1107,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_82.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_82.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_82.setLayout(gbl_panel_82);
-		
+
 		JPanel panel_83 = new JPanel();
 		panel_83.setPreferredSize(new Dimension(20, 20));
 		panel_83.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1118,7 +1119,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_83.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_83.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_83.setLayout(gbl_panel_83);
-		
+
 		JPanel panel_84 = new JPanel();
 		panel_84.setPreferredSize(new Dimension(20, 20));
 		panel_84.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1130,7 +1131,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_84.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_84.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_84.setLayout(gbl_panel_84);
-		
+
 		JPanel panel_85 = new JPanel();
 		panel_85.setPreferredSize(new Dimension(20, 20));
 		panel_85.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1143,7 +1144,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_85.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_85.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_85.setLayout(gbl_panel_85);
-		
+
 		JPanel panel_86 = new JPanel();
 		panel_86.setPreferredSize(new Dimension(20, 20));
 		panel_86.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1155,7 +1156,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_86.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_86.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_86.setLayout(gbl_panel_86);
-		
+
 		JPanel panel_87 = new JPanel();
 		panel_87.setPreferredSize(new Dimension(20, 20));
 		panel_87.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1167,7 +1168,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_87.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_87.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_87.setLayout(gbl_panel_87);
-		
+
 		JPanel panel_88 = new JPanel();
 		panel_88.setPreferredSize(new Dimension(20, 20));
 		panel_88.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1179,7 +1180,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_88.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_88.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_88.setLayout(gbl_panel_88);
-		
+
 		JPanel panel_89 = new JPanel();
 		panel_89.setPreferredSize(new Dimension(20, 20));
 		panel_89.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1191,7 +1192,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_89.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_89.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_89.setLayout(gbl_panel_89);
-		
+
 		JPanel panel_90 = new JPanel();
 		panel_90.setPreferredSize(new Dimension(20, 20));
 		panel_90.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1203,7 +1204,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_90.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_90.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_90.setLayout(gbl_panel_90);
-		
+
 		JPanel panel_91 = new JPanel();
 		panel_91.setPreferredSize(new Dimension(20, 20));
 		panel_91.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1215,7 +1216,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_91.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_91.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_91.setLayout(gbl_panel_91);
-		
+
 		JPanel panel_92 = new JPanel();
 		panel_92.setPreferredSize(new Dimension(20, 20));
 		panel_92.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1227,7 +1228,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_92.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_92.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_92.setLayout(gbl_panel_92);
-		
+
 		JPanel panel_93 = new JPanel();
 		panel_93.setPreferredSize(new Dimension(20, 20));
 		panel_93.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1239,7 +1240,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_93.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_93.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_93.setLayout(gbl_panel_93);
-		
+
 		JPanel panel_94 = new JPanel();
 		panel_94.setPreferredSize(new Dimension(20, 20));
 		panel_94.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1251,7 +1252,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_94.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_94.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_94.setLayout(gbl_panel_94);
-		
+
 		JPanel panel_95 = new JPanel();
 		panel_95.setPreferredSize(new Dimension(20, 20));
 		panel_95.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1263,7 +1264,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_95.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_95.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_95.setLayout(gbl_panel_95);
-		
+
 		JPanel panel_96 = new JPanel();
 		panel_96.setPreferredSize(new Dimension(20, 20));
 		panel_96.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1275,7 +1276,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_96.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_96.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_96.setLayout(gbl_panel_96);
-		
+
 		JPanel panel_97 = new JPanel();
 		panel_97.setPreferredSize(new Dimension(20, 20));
 		panel_97.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1287,7 +1288,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_97.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_97.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_97.setLayout(gbl_panel_97);
-		
+
 		JPanel panel_98 = new JPanel();
 		panel_98.setPreferredSize(new Dimension(20, 20));
 		panel_98.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1299,7 +1300,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_98.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_98.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_98.setLayout(gbl_panel_98);
-		
+
 		JPanel panel_99 = new JPanel();
 		panel_99.setPreferredSize(new Dimension(20, 20));
 		panel_99.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1312,7 +1313,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_99.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_99.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_99.setLayout(gbl_panel_99);
-		
+
 		JPanel panel_100 = new JPanel();
 		panel_100.setPreferredSize(new Dimension(20, 20));
 		panel_100.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1324,7 +1325,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_100.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_100.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_100.setLayout(gbl_panel_100);
-		
+
 		JPanel panel_101 = new JPanel();
 		panel_101.setPreferredSize(new Dimension(20, 20));
 		panel_101.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1336,7 +1337,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_101.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_101.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_101.setLayout(gbl_panel_101);
-		
+
 		JPanel panel_102 = new JPanel();
 		panel_102.setPreferredSize(new Dimension(20, 20));
 		panel_102.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1348,7 +1349,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_102.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_102.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_102.setLayout(gbl_panel_102);
-		
+
 		JPanel panel_103 = new JPanel();
 		panel_103.setPreferredSize(new Dimension(20, 20));
 		panel_103.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1360,7 +1361,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_103.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_103.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_103.setLayout(gbl_panel_103);
-		
+
 		JPanel panel_104 = new JPanel();
 		panel_104.setPreferredSize(new Dimension(20, 20));
 		panel_104.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1372,7 +1373,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_104.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_104.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_104.setLayout(gbl_panel_104);
-		
+
 		JPanel panel_105 = new JPanel();
 		panel_105.setPreferredSize(new Dimension(20, 20));
 		panel_105.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1384,7 +1385,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_105.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_105.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_105.setLayout(gbl_panel_105);
-		
+
 		JPanel panel_106 = new JPanel();
 		panel_106.setPreferredSize(new Dimension(20, 20));
 		panel_106.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1396,7 +1397,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_106.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_106.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_106.setLayout(gbl_panel_106);
-		
+
 		JPanel panel_107 = new JPanel();
 		panel_107.setPreferredSize(new Dimension(20, 20));
 		panel_107.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1408,7 +1409,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_107.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_107.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_107.setLayout(gbl_panel_107);
-		
+
 		JPanel panel_108 = new JPanel();
 		panel_108.setPreferredSize(new Dimension(20, 20));
 		panel_108.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1420,7 +1421,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_108.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_108.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_108.setLayout(gbl_panel_108);
-		
+
 		JPanel panel_109 = new JPanel();
 		panel_109.setPreferredSize(new Dimension(20, 20));
 		panel_109.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1432,7 +1433,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_109.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_109.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_109.setLayout(gbl_panel_109);
-		
+
 		JPanel panel_110 = new JPanel();
 		panel_110.setPreferredSize(new Dimension(20, 20));
 		panel_110.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1444,7 +1445,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_110.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_110.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_110.setLayout(gbl_panel_110);
-		
+
 		JPanel panel_111 = new JPanel();
 		panel_111.setPreferredSize(new Dimension(20, 20));
 		panel_111.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1456,7 +1457,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_111.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_111.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_111.setLayout(gbl_panel_111);
-		
+
 		JPanel panel_112 = new JPanel();
 		panel_112.setPreferredSize(new Dimension(20, 20));
 		panel_112.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1468,7 +1469,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_112.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_112.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_112.setLayout(gbl_panel_112);
-		
+
 		JPanel panel_113 = new JPanel();
 		panel_113.setPreferredSize(new Dimension(20, 20));
 		panel_113.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1481,7 +1482,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_113.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_113.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_113.setLayout(gbl_panel_113);
-		
+
 		JPanel panel_114 = new JPanel();
 		panel_114.setPreferredSize(new Dimension(20, 20));
 		panel_114.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1493,7 +1494,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_114.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_114.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_114.setLayout(gbl_panel_114);
-		
+
 		JPanel panel_115 = new JPanel();
 		panel_115.setPreferredSize(new Dimension(20, 20));
 		panel_115.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1505,7 +1506,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_115.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_115.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_115.setLayout(gbl_panel_115);
-		
+
 		JPanel panel_116 = new JPanel();
 		panel_116.setPreferredSize(new Dimension(20, 20));
 		panel_116.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1517,7 +1518,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_116.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_116.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_116.setLayout(gbl_panel_116);
-		
+
 		JPanel panel_117 = new JPanel();
 		panel_117.setPreferredSize(new Dimension(20, 20));
 		panel_117.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1529,7 +1530,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_117.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_117.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_117.setLayout(gbl_panel_117);
-		
+
 		JPanel panel_118 = new JPanel();
 		panel_118.setPreferredSize(new Dimension(20, 20));
 		panel_118.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1541,7 +1542,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_118.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_118.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_118.setLayout(gbl_panel_118);
-		
+
 		JPanel panel_119 = new JPanel();
 		panel_119.setPreferredSize(new Dimension(20, 20));
 		panel_119.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1553,7 +1554,7 @@ public class BlockEditWindow extends JFrame {
 		gbl_panel_119.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_119.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_119.setLayout(gbl_panel_119);
-		
+
 		JPanel panel_120 = new JPanel();
 		panel_120.setPreferredSize(new Dimension(20, 20));
 		panel_120.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1575,25 +1576,25 @@ public class BlockEditWindow extends JFrame {
 		contentPane.add(toBlockComboBox);
 		toBlockComboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Block1", "2 - Blockred", "3-as;dklja", "4-asdkaod", "5-", "asdasjkd", "5", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1!!1!", "1", "1"}));
 		toBlockComboBox.setToolTipText("Select a block");
-		
+
 		JLabel lblListOfBlocks_1 = new JLabel("List of Blocks in Level:");
 		lblListOfBlocks_1.setBounds(415, 271, 180, 14);
 		contentPane.add(lblListOfBlocks_1);
-		
+
 		JLabel lblListOfLevels = new JLabel("List of Levels:");
 		lblListOfLevels.setBounds(421, 42, 110, 14);
 		contentPane.add(lblListOfLevels);
-		
+
 		levelComboBox = new JComboBox();
 		levelComboBox.setModel(new DefaultComboBoxModel(new String[] {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14", "Level 15", "Level 16", "Level 17", "Level 18", "Level 19", "Level 20", "Level 21", "Level 22", "Level 23", "Level 24", "Level 25", "Level 26", "Level 27", "Level 28", "Level 29", "Level 30", "Level 31", "Level 32", "Level 33", "Level 34", "Level 35", "Level 36", "Level 37", "Level 38", "Level 39", "Level 40", "Level 41", "Level 42", "Level 43", "Level 44", "Level 45", "Level 46", "Level 47", "Level 48", "Level 49", "Level 50", "Level 51", "Level 52", "Level 53", "Level 54", "Level 55", "Level 56", "Level 57", "Level 58", "Level 59", "Level 60", "Level 61", "Level 62", "Level 63", "Level 64", "Level 65", "Level 66", "Level 67", "Level 68", "Level 69", "Level 70", "Level 71", "Level 72", "Level 73", "Level 74", "Level 75"}));
 		levelComboBox.setBounds(421, 67, 123, 20);
 		contentPane.add(levelComboBox);
-		
+
 		toGridCellComboBox = new JComboBox();
 		toGridCellComboBox.setModel(new DefaultComboBoxModel(new String[] {"1- Block1asWELL"}));
 		toGridCellComboBox.setBounds(421, 296, 123, 20);
 		contentPane.add(toGridCellComboBox);
-		
+
 		JButton updateBlockButton = new JButton("Update Block");
 		updateBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1613,7 +1614,7 @@ public class BlockEditWindow extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(405, 98, 269, 2);
 		contentPane.add(separator_1);
-		
+
 		gameSettingsButton = new JButton("Game Settings");
 		gameSettingsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1629,11 +1630,11 @@ public class BlockEditWindow extends JFrame {
 		JButton removeBlockButton = new JButton("Remove Block");
 		removeBlockButton.setBounds(551, 329, 123, 23);
 		contentPane.add(removeBlockButton);
-		
+
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(405, 366, 269, 2);
 		contentPane.add(separator_2);
-		
+
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1641,79 +1642,79 @@ public class BlockEditWindow extends JFrame {
 		});
 		saveButton.setBounds(551, 383, 123, 23);
 		contentPane.add(saveButton);
-		
+
 		JFormattedTextField txtHorizontalIndex = new JFormattedTextField();
 		txtHorizontalIndex.setBounds(30, 10, 390, 20);
 		contentPane.add(txtHorizontalIndex);
 		txtHorizontalIndex.setText("     1      2      3      4       5      6      7       8      9     10     11     12    13    14    15 ");
-		
+
 		JPanel panel_121 = new JPanel();
 		panel_121.setBackground(Color.WHITE);
 		panel_121.setBounds(10, 30, 20, 390);
 		contentPane.add(panel_121);
 		panel_121.setLayout(null);
-		
+
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
 		formattedTextField_1.setBorder(null);
 		formattedTextField_1.setBounds(0, 10, 20, 20);
 		panel_121.add(formattedTextField_1);
 		formattedTextField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_1.setText("1");
-		
+
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setText("8");
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField.setBorder(null);
 		formattedTextField.setBounds(0, 164, 20, 20);
 		panel_121.add(formattedTextField);
-		
+
 		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
 		formattedTextField_2.setText("7");
 		formattedTextField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_2.setBorder(null);
 		formattedTextField_2.setBounds(0, 142, 20, 20);
 		panel_121.add(formattedTextField_2);
-		
+
 		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
 		formattedTextField_3.setText("6");
 		formattedTextField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_3.setBorder(null);
 		formattedTextField_3.setBounds(0, 120, 20, 20);
 		panel_121.add(formattedTextField_3);
-		
+
 		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
 		formattedTextField_4.setText("5");
 		formattedTextField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_4.setBorder(null);
 		formattedTextField_4.setBounds(0, 98, 20, 20);
 		panel_121.add(formattedTextField_4);
-		
+
 		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
 		formattedTextField_5.setText("4");
 		formattedTextField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_5.setBorder(null);
 		formattedTextField_5.setBounds(0, 76, 20, 20);
 		panel_121.add(formattedTextField_5);
-		
+
 		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
 		formattedTextField_6.setText("3");
 		formattedTextField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_6.setBorder(null);
 		formattedTextField_6.setBounds(0, 54, 20, 20);
 		panel_121.add(formattedTextField_6);
-		
+
 		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
 		formattedTextField_7.setText("2");
 		formattedTextField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_7.setBorder(null);
 		formattedTextField_7.setBounds(0, 32, 20, 20);
 		panel_121.add(formattedTextField_7);
-		
+
 		xPositionComboBox = new JComboBox();
 		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"xPosition"}));
 		xPositionComboBox.setBounds(431, 384, 107, 22);
 		contentPane.add(xPositionComboBox);
-		
+
 		yPositionComboBox = new JComboBox();
 		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"yPosition"}));
 		yPositionComboBox.setBounds(430, 433, 110, 23);

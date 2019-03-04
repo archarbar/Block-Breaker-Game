@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 14 "../../../../../Block223Persistence.ump"
-// line 84 "../../../../../Block223 v2.ump"
+// line 85 "../../../../../Block223 v2.ump"
 public class Block implements Serializable
 {
 
@@ -44,7 +44,7 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 97 "../../../../../Block223 v2.ump"
+    // line 98 "../../../../../Block223 v2.ump"
     if (aRed < 0 || aRed > 255) {
     	  	throw new RuntimeException("Red must be between 0 and 255.");
     	}
@@ -78,14 +78,9 @@ public class Block implements Serializable
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 111 "../../../../../Block223 v2.ump"
+    // line 112 "../../../../../Block223 v2.ump"
     if (aRed < 0 || aRed > 255) {
     	  	throw new RuntimeException("Red must be between 0 and 255.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
-    // line 121 "../../../../../Block223 v2.ump"
-    if (aBlue < 0 || aBlue > 255) {
-    	  	throw new RuntimeException("Blue must be between 0 and 255.");
     	}
     // END OF UMPLE BEFORE INJECTION
     red = aRed;
@@ -96,7 +91,7 @@ public class Block implements Serializable
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 116 "../../../../../Block223 v2.ump"
+    // line 117 "../../../../../Block223 v2.ump"
     if (aGreen < 0 || aGreen > 255) {
     	  	throw new RuntimeException("Green must be between 0 and 255.");
     	}
@@ -109,6 +104,11 @@ public class Block implements Serializable
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
+    // line 122 "../../../../../Block223 v2.ump"
+    if (aBlue < 0 || aBlue > 255) {
+    	  	throw new RuntimeException("Blue must be between 0 and 255.");
+    	}
+    // END OF UMPLE BEFORE INJECTION
     blue = aBlue;
     wasSet = true;
     return wasSet;
@@ -117,7 +117,7 @@ public class Block implements Serializable
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 126 "../../../../../Block223 v2.ump"
+    // line 127 "../../../../../Block223 v2.ump"
     if (aPoints < 0 || aPoints > 255) {
     	  	throw new RuntimeException("Points must be between 1 and 1000.");
     	}

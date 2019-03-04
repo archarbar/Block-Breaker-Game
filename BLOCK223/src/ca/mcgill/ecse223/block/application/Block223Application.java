@@ -42,7 +42,6 @@ public class Block223Application {
 		}
  		return block223;
 	}
-	
 	public static Block223 resetBlock223() {
 		block223.reinitialize();
 		return block223;
