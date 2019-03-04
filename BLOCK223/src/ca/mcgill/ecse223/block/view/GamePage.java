@@ -126,6 +126,7 @@ public class GamePage extends JFrame {
 		btnCreateGame.setBounds(199, 50, 112, 23);
 		contentPanel.add(btnCreateGame);
 		
+		/*
 		JButton btnUpdateGame = new JButton("Update Game");
 		btnUpdateGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCreateGame.addActionListener(new ActionListener() {
@@ -145,6 +146,7 @@ public class GamePage extends JFrame {
 		});
 		btnDeleteGame.setBounds(341, 50, 112, 23);
 		contentPanel.add(btnDeleteGame);
+		*/
 
 		//Separator 1
 
@@ -364,6 +366,8 @@ public class GamePage extends JFrame {
 		String name = GameNameTextField.getText();
 		try {
 			Block223Controller.createGame(name);
+			Block223Controller.selectGame(name);
+			JOptionPane.showMessageDialog(null, "New game created successfully!");
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();
@@ -371,6 +375,7 @@ public class GamePage extends JFrame {
 		}
 	}
 	
+	/*
 	private void updateGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = GameNameTextField.getText();
@@ -394,6 +399,7 @@ public class GamePage extends JFrame {
 			JOptionPane.showMessageDialog(null, error);
 		}
 	}
+	*/
 
 	private void applySettingsActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
