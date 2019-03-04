@@ -88,6 +88,7 @@ public class BlockEditWindow extends JFrame {
 	private HashMap<Integer, TOGridCell> gridCells;
 	//games
 	private HashMap<Integer, TOGame> games;
+	private JSlider pointsSlider;
 	/**
 	 * Launch the application.
 	 */
@@ -1845,7 +1846,7 @@ public class BlockEditWindow extends JFrame {
 		testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
 		testBlock.setPreferredSize(new Dimension(20, 20));
 		testBlock.setBorder(new LineBorder(new Color(0, 0, 0)));
-		testBlock.setBounds(690, 74, 20, 20);
+		testBlock.setBounds(654, 74, 20, 20);
 		contentPane.add(testBlock);
 		GridBagLayout gbl_testBlock = new GridBagLayout();
 		gbl_testBlock.columnWidths = new int[]{0, 0};
@@ -1858,9 +1859,21 @@ public class BlockEditWindow extends JFrame {
 		lblPoints.setBounds(430, 30, 46, 14);
 		contentPane.add(lblPoints);
 
-		JSlider slider_3 = new JSlider();
-		slider_3.setBounds(467, 30, 175, 14);
-		contentPane.add(slider_3);
+		pointsSlider = new JSlider();
+		pointsSlider.setMaximum(1000);
+		
+		contentPane.add(pointsSlider);
+		
+		JLabel pointsLabel = new JLabel(String.valueOf(pointsSlider.getValue()));
+		pointsLabel.setBounds(654, 30, 30, 14);
+		contentPane.add(pointsLabel);
+		pointsSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				pointsLabel.setText(String.valueOf(pointsSlider.getValue()));
+				
+			}
+		});
+		pointsSlider.setBounds(467, 30, 175, 14);
 	}
 
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
