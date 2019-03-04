@@ -1925,7 +1925,7 @@ public class BlockEditWindow extends JFrame {
 	refreshData();
 	}
 
-	private void deleteBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void deleteBlockButtonActionPerformed(ActionEvent evt) {
 		// clear error message and basic input validation
 		error = "";
 
@@ -1998,7 +1998,7 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	private void moveBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void moveBlockButtonActionPerformed(ActionEvent evt) {
 
 		String error = "";
 
@@ -2025,6 +2025,7 @@ public class BlockEditWindow extends JFrame {
 		error = "";
 		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
+			
 			blocks = new HashMap<Integer, TOBlock>();
 			toBlockComboBox.removeAllItems();
 			Integer index = 0;
@@ -2036,10 +2037,25 @@ public class BlockEditWindow extends JFrame {
 			}
 			for (TOBlock block : toBlocks) {
 				blocks.put(index, block);
-				toBlockComboBox.addItem(block.getId() + block.getRed() + block.getGreen() + block.getBlue() + block.getPoints());
+				toBlockComboBox.addItem("Block ID/BlockPoints: " + block.getId() + "/" + block.getPoints());
 			}
 			toBlockComboBox.setSelectedIndex(-1);
-
+			
+			
+			levels = new HashMap<Integer, Integer>();
+			levelComboBox.removeAllItems();
+			index = 0;
+			int level = 0;
+			try {
+				level = Block223Controller.getCurrentDesignableGame().getNrLevels();
+			} catch (InvalidInputException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			for (int i = 1; i <= level; i++, index++) {
+				levels.put(index, i);
+				levelComboBox.addItem("Level : " + i );
+			}
 
 			gridCells = new HashMap<Integer, TOGridCell>();
 			toGridCellComboBox.removeAllItems();
@@ -2053,7 +2069,7 @@ public class BlockEditWindow extends JFrame {
 			}
 			for (TOGridCell gridCell : toGridCells) {
 			gridCells.put(index, gridCell);
-			toGridCellComboBox.addItem( gridCell.getGridHorizontalPosition() + gridCell.getGridVerticalPosition() + gridCell.getId() + gridCell.getBlue() + gridCell.getPoints());
+			toGridCellComboBox.addItem( "HPosition : " + gridCell.getGridHorizontalPosition() + gridCell.getGridVerticalPosition() + gridCell.getId() + gridCell.getBlue() + gridCell.getPoints());
 		
 			
 			}
