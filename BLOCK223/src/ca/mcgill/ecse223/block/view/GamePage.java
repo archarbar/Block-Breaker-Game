@@ -73,7 +73,7 @@ public class GamePage extends JFrame {
 	public GamePage() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 700);
+		setBounds(100, 100, 500, 520);
 
 		//Menu Bar Items
 
@@ -99,32 +99,6 @@ public class GamePage extends JFrame {
 		contentPanel.setLayout(null);
 
 		//Create game parameters
-
-		JLabel lblMainTitle = new JLabel("Edit Game");
-		lblMainTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMainTitle.setBounds(10, 11, 156, 14);
-		contentPanel.add(lblMainTitle);
-
-		GameNameTextField = new JTextField();
-		GameNameTextField.setColumns(10);
-		GameNameTextField.setBounds(101, 53, 87, 20);
-		contentPanel.add(GameNameTextField);
-
-		JLabel lblGameName = new JLabel("Game name:");
-		lblGameName.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblGameName.setBounds(20, 55, 92, 14);
-		contentPanel.add(lblGameName);
-		
-
-		JButton btnCreateGame = new JButton("Create Game");
-		btnCreateGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCreateGame.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				createGameActionPerformed(evt);
-			}
-		});
-		btnCreateGame.setBounds(199, 50, 112, 23);
-		contentPanel.add(btnCreateGame);
 		
 		/*
 		JButton btnUpdateGame = new JButton("Update Game");
@@ -158,131 +132,131 @@ public class GamePage extends JFrame {
 
 		JLabel lblPlayArea = new JLabel("Play Area");
 		lblPlayArea.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPlayArea.setBounds(10, 149, 68, 14);
+		lblPlayArea.setBounds(10, 11, 68, 14);
 		contentPanel.add(lblPlayArea);
 
 		JLabel lblWidth = new JLabel("Width:");
 		lblWidth.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblWidth.setBounds(10, 182, 46, 14);
+		lblWidth.setBounds(10, 44, 46, 14);
 		contentPanel.add(lblWidth);
 
 		WidthTextField = new JTextField();
-		WidthTextField.setBounds(66, 180, 112, 20);
+		WidthTextField.setBounds(66, 42, 112, 20);
 		contentPanel.add(WidthTextField);
 		WidthTextField.setColumns(10);
 
 		JLabel lblHeight = new JLabel("Height:");
 		lblHeight.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHeight.setBounds(10, 207, 46, 14);
+		lblHeight.setBounds(10, 69, 46, 14);
 		contentPanel.add(lblHeight);
 
 		HeightTextField = new JTextField();
 		HeightTextField.setColumns(10);
-		HeightTextField.setBounds(66, 205, 112, 20);
+		HeightTextField.setBounds(66, 67, 112, 20);
 		contentPanel.add(HeightTextField);
 
 		//Level parameters
 
 		JLabel lblLevel = new JLabel("Level\r\n");
 		lblLevel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblLevel.setBounds(219, 149, 68, 14);
+		lblLevel.setBounds(219, 11, 68, 14);
 		contentPanel.add(lblLevel);
 
 		JLabel lblNumberOfLevels = new JLabel("# of Levels:");
 		lblNumberOfLevels.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNumberOfLevels.setBounds(219, 180, 92, 14);
+		lblNumberOfLevels.setBounds(219, 42, 92, 14);
 		contentPanel.add(lblNumberOfLevels);
 
 		NumberLevelsTextField = new JTextField();
 		NumberLevelsTextField.setColumns(10);
-		NumberLevelsTextField.setBounds(321, 178, 112, 20);
+		NumberLevelsTextField.setBounds(321, 40, 112, 20);
 		contentPanel.add(NumberLevelsTextField);
 
 		JLabel lblBlocksPerLevel = new JLabel("Blocks per level:\r\n");
 		lblBlocksPerLevel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBlocksPerLevel.setBounds(219, 205, 92, 14);
+		lblBlocksPerLevel.setBounds(219, 67, 92, 14);
 		contentPanel.add(lblBlocksPerLevel);
 
 		BlocksLevelTextField = new JTextField();
 		BlocksLevelTextField.setColumns(10);
-		BlocksLevelTextField.setBounds(321, 205, 112, 20);
+		BlocksLevelTextField.setBounds(321, 67, 112, 20);
 		contentPanel.add(BlocksLevelTextField);
 
 		//Separator 2
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 275, 464, 14);
+		separator_2.setBounds(10, 137, 464, 14);
 		contentPanel.add(separator_2);
 
 		//Ball parameters
 
 		JLabel lblBallParameters = new JLabel("Ball Parameters\r\n");
 		lblBallParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblBallParameters.setBounds(10, 300, 112, 14);
+		lblBallParameters.setBounds(10, 162, 112, 14);
 		contentPanel.add(lblBallParameters);
 
 		JLabel lblMinyspeed = new JLabel("MinYSpeed:\r\n");
 		lblMinyspeed.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinyspeed.setBounds(10, 339, 78, 14);
+		lblMinyspeed.setBounds(10, 201, 78, 14);
 		contentPanel.add(lblMinyspeed);
 
 		MinYSpeedTextField = new JTextField();
 		MinYSpeedTextField.setColumns(10);
-		MinYSpeedTextField.setBounds(110, 337, 68, 20);
+		MinYSpeedTextField.setBounds(110, 199, 68, 20);
 		contentPanel.add(MinYSpeedTextField);
 
 		JLabel lblMinxspeed = new JLabel("MinXSpeed:\r\n");
 		lblMinxspeed.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinxspeed.setBounds(10, 368, 78, 14);
+		lblMinxspeed.setBounds(10, 230, 78, 14);
 		contentPanel.add(lblMinxspeed);
 
 		MinXSpeedTextField = new JTextField();
 		MinXSpeedTextField.setColumns(10);
-		MinXSpeedTextField.setBounds(110, 366, 68, 20);
+		MinXSpeedTextField.setBounds(110, 228, 68, 20);
 		contentPanel.add(MinXSpeedTextField);
 
 		JLabel lblSpeedIncreaseFactor = new JLabel("Increase Factor:\r\n");
 		lblSpeedIncreaseFactor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSpeedIncreaseFactor.setBounds(10, 393, 97, 14);
+		lblSpeedIncreaseFactor.setBounds(10, 255, 97, 14);
 		contentPanel.add(lblSpeedIncreaseFactor);
 
 
 		SpeedIncreaseFactorTextField = new JTextField();
 		SpeedIncreaseFactorTextField.setColumns(10);
-		SpeedIncreaseFactorTextField.setBounds(110, 391, 68, 20);
+		SpeedIncreaseFactorTextField.setBounds(110, 253, 68, 20);
 		contentPanel.add(SpeedIncreaseFactorTextField);
 
 		//Paddle parameters
 
 		JLabel lblPaddleParameters = new JLabel("Paddle Parameters\r\n");
 		lblPaddleParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPaddleParameters.setBounds(219, 300, 134, 14);
+		lblPaddleParameters.setBounds(219, 162, 134, 14);
 		contentPanel.add(lblPaddleParameters);
 
 		JLabel lblMinlength = new JLabel("MinLength: \r\n");
 		lblMinlength.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMinlength.setBounds(219, 339, 78, 14);
+		lblMinlength.setBounds(219, 201, 78, 14);
 		contentPanel.add(lblMinlength);
 
 		MinPaddleLengthTextField = new JTextField();
 		MinPaddleLengthTextField.setColumns(10);
-		MinPaddleLengthTextField.setBounds(321, 337, 112, 20);
+		MinPaddleLengthTextField.setBounds(321, 199, 112, 20);
 		contentPanel.add(MinPaddleLengthTextField);
 
 		JLabel lblMaxlength = new JLabel("MaxLength:");
 		lblMaxlength.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMaxlength.setBounds(219, 368, 78, 14);
+		lblMaxlength.setBounds(219, 230, 78, 14);
 		contentPanel.add(lblMaxlength);
 
 		MaxPaddleLengthTextField = new JTextField();
 		MaxPaddleLengthTextField.setColumns(10);
-		MaxPaddleLengthTextField.setBounds(321, 366, 112, 20);
+		MaxPaddleLengthTextField.setBounds(321, 228, 112, 20);
 		contentPanel.add(MaxPaddleLengthTextField);
 
 		//Separator 3
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 436, 464, 14);
+		separator.setBounds(10, 298, 464, 14);
 		contentPanel.add(separator);
 
 		//Apply Game Settings
@@ -294,20 +268,20 @@ public class GamePage extends JFrame {
 				applySettingsActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(171, 454, 156, 23);
+		btnApplyGameSettings.setBounds(171, 316, 156, 23);
 		contentPanel.add(btnApplyGameSettings);
 
 		//Separator 4
 
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(10, 494, 464, 14);
+		separator_3.setBounds(10, 356, 464, 14);
 		contentPanel.add(separator_3);
 
 		//Save game
 
 		JLabel lblSaveGame = new JLabel("Save game?\r\n");
 		lblSaveGame.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSaveGame.setBounds(215, 504, 92, 28);
+		lblSaveGame.setBounds(215, 366, 92, 28);
 		contentPanel.add(lblSaveGame);
 
 		JComboBox savedGamesList = new JComboBox();
@@ -325,7 +299,7 @@ public class GamePage extends JFrame {
 			savedGamesList.addItem(games.get(i).getName());
 		}
 
-		savedGamesList.setBounds(91, 544, 134, 23);
+		savedGamesList.setBounds(91, 406, 134, 23);
 		contentPanel.add(savedGamesList);
 
 		JButton btnSave = new JButton("Save");
@@ -337,7 +311,7 @@ public class GamePage extends JFrame {
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSave.setBounds(298, 545, 87, 23);
+		btnSave.setBounds(298, 407, 87, 23);
 		contentPanel.add(btnSave);
 	}
 	
@@ -359,20 +333,6 @@ public class GamePage extends JFrame {
 		RegisterLoginPage loginpage = new RegisterLoginPage();
 		loginpage.setVisible(true);
 		this.setVisible(false);
-	}
-
-	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		String name = GameNameTextField.getText();
-		try {
-			Block223Controller.createGame(name);
-			Block223Controller.selectGame(name);
-			JOptionPane.showMessageDialog(null, "New game created successfully!");
-		}
-		catch (InvalidInputException e) {
-			error = e.getMessage();
-			JOptionPane.showMessageDialog(null, error);
-		}
 	}
 	
 	/*
