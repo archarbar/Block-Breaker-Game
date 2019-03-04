@@ -12,19 +12,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.Game;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 
 public class CreateGamePage extends JFrame {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6791018688197203010L;
 	private JPanel contentPane;
 	private JTextField GameNameTextField;
 	
@@ -50,9 +61,9 @@ public class CreateGamePage extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateGamePage() {
-		setTitle("Create Game Page");
+		setTitle("Edit Game Page");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 250);
+		setBounds(100, 100, 519, 322);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,19 +87,15 @@ public class CreateGamePage extends JFrame {
 			}
 		});
 		mnUser.add(mntmLogOut);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 
 		//Header 1
 
-		JLabel lblCreateNewGame = new JLabel("Create New Game");
+		JLabel lblCreateNewGame = new JLabel("Create or Delete Game");
 		lblCreateNewGame.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCreateNewGame.setBounds(10, 11, 124, 14);
+		lblCreateNewGame.setBounds(10, 11, 157, 14);
 		contentPane.add(lblCreateNewGame);
-		
-		//Create game section
+
+		//Create or delete game section
 		
 		JLabel lblGameName = new JLabel("Game name:");
 		lblGameName.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -110,31 +117,48 @@ public class CreateGamePage extends JFrame {
 		btnNewButton.setBounds(234, 42, 114, 23);
 		contentPane.add(btnNewButton);
 		
+		JButton btnDeleteGame = new JButton("Delete Game");
+		btnDeleteGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnDeleteGame.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				deleteGameActionPerformed(evt);
+			}
+		});
+		btnDeleteGame.setBounds(360, 42, 112, 23);
+		contentPane.add(btnDeleteGame);
+
 		//Separator 1
-		
+
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 87, 414, 14);
+		separator.setBounds(10, 87, 483, 14);
 		contentPane.add(separator);
 		
 		//Select existing game section
 		
-		JLabel lblNewLabel = new JLabel("Select Existing Game");
+		JLabel lblNewLabel = new JLabel("Update Game");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 106, 157, 20);
+		lblNewLabel.setBounds(10, 106, 98, 20);
 		contentPane.add(lblNewLabel);
-		
+
 		JComboBox gamesList = new JComboBox();
-		gamesList.setBounds(20, 148, 114, 20);
+		gamesList.setBounds(20, 148, 114, 32);
 		contentPane.add(gamesList);
-		
-		JButton btnSelectGame = new JButton("Select Game");
-		btnSelectGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSelectGame.addActionListener(new ActionListener() {
+		Block223 block223 = Block223Application.getBlock223();
+		List<Game> games = block223.getGames();
+		gamesList.addItem("select");
+		for (Game game : games) {
+			gamesList.addItem(game);
+		}
+
+		JButton btnUpdateGame = new JButton("Update Game");
+		btnUpdateGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnUpdateGame.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				updateGameActionPerformed(evt);
 			}
 		});
-		btnSelectGame.setBounds(173, 147, 124, 23);
-		contentPane.add(btnSelectGame);
+		btnUpdateGame.setBounds(173, 156, 114, 23);
+		contentPane.add(btnUpdateGame);
 	}
 	
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +176,33 @@ public class CreateGamePage extends JFrame {
 		}
 	}
 	
+	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		String name = GameNameTextField.getText();
+		try {
+			Block223Controller.deleteGame(name);
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+	}
+
+	private void updateGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		String name = GameNameTextField.getText();
+		try {
+			Block223Controller.selectGame(name);
+			GamePage adminpage = new GamePage();
+			adminpage.setVisible(true);
+			this.setVisible(false);
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+	}
+
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
