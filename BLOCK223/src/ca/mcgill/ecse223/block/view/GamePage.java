@@ -73,7 +73,7 @@ public class GamePage extends JFrame {
 	public GamePage() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 520);
+		setBounds(100, 100, 500, 560);
 
 		//Menu Bar Items
 
@@ -111,15 +111,6 @@ public class GamePage extends JFrame {
 		btnUpdateGame.setBounds(199, 90, 112, 23);
 		contentPanel.add(btnUpdateGame);
 		
-		JButton btnDeleteGame = new JButton("Delete Game");
-		btnDeleteGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCreateGame.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				deleteGameActionPerformed(evt);
-			}
-		});
-		btnDeleteGame.setBounds(341, 50, 112, 23);
-		contentPanel.add(btnDeleteGame);
 		*/
 
 		//Separator 1
@@ -286,6 +277,7 @@ public class GamePage extends JFrame {
 
 		JComboBox savedGamesList = new JComboBox();
 		List<TOGame> games = null;
+		savedGamesList.addItem("select");
 		try {
 			games = Block223Controller.getDesignableGames();
 		}
@@ -314,7 +306,7 @@ public class GamePage extends JFrame {
 		btnSave.setBounds(298, 407, 87, 23);
 		contentPanel.add(btnSave);
 	}
-	
+
 	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
 		try {
 			Block223Controller.selectGame(game);
@@ -348,17 +340,6 @@ public class GamePage extends JFrame {
 		}
 	}
 	
-	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		String name = GameNameTextField.getText();
-		try {
-			Block223Controller.deleteGame(name);
-		}
-		catch (InvalidInputException e) {
-			error = e.getMessage();
-			JOptionPane.showMessageDialog(null, error);
-		}
-	}
 	*/
 
 	private void applySettingsActionPerformed(java.awt.event.ActionEvent evt) {
