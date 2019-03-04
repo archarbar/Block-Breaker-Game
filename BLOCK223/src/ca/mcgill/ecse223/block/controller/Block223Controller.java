@@ -739,8 +739,9 @@ public class Block223Controller {
 		
 		String error = "";
 
+		Level currentLevel; 
 		try {
-			Level currentLevel = game.getLevel(level - 1);
+			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we know what's the string of the error?
 			error = e.getMessage();
@@ -748,11 +749,7 @@ public class Block223Controller {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
-		}
-		
-		Level currentLevel = game.getLevel(level - 1); //***************QUESTION do we have to put it another time if it's there?
-		
-		
+		}		
 		
 		List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
 

@@ -1,5 +1,11 @@
 package ca.mcgill.ecse223.block.view;
 
+import ca.mcgill.ecse.btms.controller.BtmsController;
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.TOBlock;
+import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -57,8 +63,10 @@ public class BlockEditWindow extends JFrame {
 		btnCreateBlock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "helo");
+				addBlockperformed();
 			}
 		});
+
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -109,4 +117,53 @@ public class BlockEditWindow extends JFrame {
 		scrollPane.setViewportView(cbBlocks);
 		contentPane.setLayout(gl_contentPane);
 	}
+
+	private void addBlockButtonActionPerformed() {
+		// TODO Auto-generated method stub
+		
+		
+		Block223Controller.addBlock();
+	}
+	private void positionBlockButtonActionPerformed( ) {
+		
+		String error = null;
+		
+		try {
+			Block223Controller.positionBlock();
+			}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		refreshData();
+		
+	}
+	private void moveBlockButtonActionPerformed( ) {
+		try {
+			Block223Controller.positionBlock();
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();}
+		
+		refreshData();
+		
+	}
+	
+private void addDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	// clear error message
+	error = null;
+	
+	// call the controller
+	try {
+		BtmsController.createDriver(driverNameTextField.getText());
+	} catch (InvalidInputException e) {
+		error = e.getMessage();
+	}
+	
+	// update visuals
+	refreshData();
+}
+
+
+
+	
 }
