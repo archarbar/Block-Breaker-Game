@@ -509,6 +509,7 @@ public class Block223Controller {
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
 		//William 01/03
+		String error = "";
 		Level currentLevel;
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
