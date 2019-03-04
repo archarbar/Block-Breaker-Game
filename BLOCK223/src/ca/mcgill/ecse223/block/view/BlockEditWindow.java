@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class BlockEditWindow extends JFrame {
@@ -124,6 +125,35 @@ public class BlockEditWindow extends JFrame {
 		
 		Block223Controller.addBlock();
 	}
+	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		// clear error message
+		error = "";
+		
+		// call the controller
+		try {
+			BtmsController.addBlock(blockNameTextField.getText());
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		
+		// update visuals
+		refreshData();
+	}
+	private void deleteBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		// clear error message and basic input validation
+		error = "";
+		int selectedBlock = blockToggleList.getSelectedIndex();
+		if (selectedSickDriver < 0) {
+			error = "Driver needs to be selected for deletion!";}
+		
+		if (error.length() == 0) {
+			// call the controller
+			Block223Controller.deleteBlock(blocks.get(selectedBlock));
+		}
+		
+		// update visuals
+		refreshData();
+	}
 	private void positionBlockButtonActionPerformed( ) {
 		
 		String error = null;
@@ -148,7 +178,7 @@ public class BlockEditWindow extends JFrame {
 		
 	}
 	
-private void addDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void addDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	// clear error message
 	error = null;
 	
@@ -161,8 +191,19 @@ private void addDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	
 	// update visuals
 	refreshData();
-}
-
+	}
+	
+	private void refreshData() {
+		cells = new HashMap<Integer, Integer>(); 
+		cellToggleList.removeAllItems(); 
+		Integer index = 0; 
+		for (TOGridCell cell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(int currentLevel)) { 
+			availableDrivers.put(index, cell.getId()); 
+			cellToggleList.addItem("#" + cell.getId() + " " + cell.getName());
+			index++;
+		};
+		cellList.setSelectedIndex(-1);
+	}
 
 
 	
