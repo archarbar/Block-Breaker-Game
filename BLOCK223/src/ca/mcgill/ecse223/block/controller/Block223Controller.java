@@ -37,6 +37,7 @@ public class Block223Controller {
 		Admin admin = (Admin) currentUser;
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
+			block223.addGame(game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
