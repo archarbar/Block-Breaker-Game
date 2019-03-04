@@ -1655,7 +1655,8 @@ public class BlockEditWindow extends JFrame {
 
 		positionBlockButton = new JButton("Position Block");
 		positionBlockButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent evt) {
+				positionBlockButtonActionPerformed(evt);
 			}
 		});
 		positionBlockButton.setBounds(430, 224, 123, 23);
@@ -1682,7 +1683,8 @@ public class BlockEditWindow extends JFrame {
 
 		moveBlockButton = new JButton("Move Block");
 		moveBlockButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent evt) {
+				moveBlockButtonActionPerformed(evt);
 			}
 		});
 		moveBlockButton.setBounds(430, 384, 123, 23);
@@ -1879,6 +1881,7 @@ public class BlockEditWindow extends JFrame {
 		pointsSlider.setBounds(467, 30, 175, 14);
 	}
 
+
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
@@ -1962,7 +1965,7 @@ public class BlockEditWindow extends JFrame {
 		}
 
 	}
-	private void positionBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void positionBlockButtonActionPerformed(ActionEvent evt) {
 
 		String error = "";
 		int selectedBlock = toBlockComboBox.getSelectedIndex();
@@ -2017,57 +2020,47 @@ public class BlockEditWindow extends JFrame {
 	}
 
 	private void refreshData() {
+		
+		
 		error = "";
 		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
 			blocks = new HashMap<Integer, TOBlock>();
 			toBlockComboBox.removeAllItems();
 			Integer index = 0;
-			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
+			List<TOBlock> toBlocks = null;
+			try {
+				toBlocks = Block223Controller.getBlocksOfCurrentDesignableGame();
+			}catch (InvalidInputException e) {
+				error = e.getMessage();
+			}
+			for (TOBlock block : toBlocks) {
 				blocks.put(index, block);
 				toBlockComboBox.addItem(block.getId() + block.getRed() + block.getGreen() + block.getBlue() + block.getPoints());
 			}
 			toBlockComboBox.setSelectedIndex(-1);
 
 
-			blocks = new HashMap<Integer, TOBlock>();
-			toBlockComboBox.removeAllItems();
-			Integer index = 0;
-			for (TOBlock block : Block223Controller.getBlocksOfCurrentDesignableGame()) {
-					blocks.put(index, block);
-					toBlockComboBox.addItem(block.getId() + block.getRed() + block.getGreen() + block.getBlue() + block.getPoints());
+			gridCells = new HashMap<Integer, TOGridCell>();
+			toGridCellComboBox.removeAllItems();
+			index = 0;
+			List<TOGridCell> toGridCells = null;
+			try {
+				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex()));
 
-		}
-
-
-		blocks = new HashMap<Integer, TOBlock>();
-		cb.removeAllItems();
-		Integer index = 0;
-		for (TODriver driver : BtmsController.getDrivers()) {
-				drivers.put(index, driver.getId());
-				driverToggleList.addItem("#" + driver.getId() + " " + driver.getName());
-				index++;
-		};
-		driverToggleList.setSelectedIndex(-1);
-
-		int level = 1;
-		gridCells = new HashMap<Integer, TOGridCell>();
-		badsfsfasds(name for jcombobox that has all to grid cells).removeAllItems();
-		Integer index = 0;
-		for (TOGridCell gridCell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level)) {
-			gridCells.put(index, block.getId());
-			badsfsfasds.addItem("Hor Position: "gridCell.getGridHorizontalPosition() + "Ver Position: " gridCell.getGridVerticalPosition() + "ID: " gridCell.getId());
-			index++;
-		};
-		badsfsfasds.setSelectedIndex(-1);
-
-
-
-
-
+			} catch(InvalidInputException e) {
+				error = e.getMessage();
+			}
+			for (TOGridCell gridCell : toGridCells) {
+			gridCells.put(index, gridCell);
+			toGridCellComboBox.addItem( gridCell.getGridHorizontalPosition() + gridCell.getGridVerticalPosition() + gridCell.getId() + gridCell.getBlue() + gridCell.getPoints());
+		
+			
+			}
 		}
 		}
-	}
+}
+	
 
 
 
