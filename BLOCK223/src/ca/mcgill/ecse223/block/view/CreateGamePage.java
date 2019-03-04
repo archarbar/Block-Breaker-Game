@@ -166,8 +166,8 @@ public class CreateGamePage extends JFrame {
 		String name = GameNameTextField.getText();
 		try {
 			Block223Controller.createGame(name);
-			GamePage adminpage = new GamePage();
-			adminpage.setVisible(true);
+			GamePage gameSettings = new GamePage();
+			gameSettings.setVisible(true);
 			this.setVisible(false);
 		}
 		catch (InvalidInputException e) {
