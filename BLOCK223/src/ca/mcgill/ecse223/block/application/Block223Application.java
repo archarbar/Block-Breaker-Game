@@ -18,7 +18,6 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOUserMode;
 
 public class Block223Application {
 	

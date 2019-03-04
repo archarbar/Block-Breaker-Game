@@ -23,11 +23,11 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
-import ca.mcgill.ecse223.block.controller.TOUserMode;
 
 public class Block223Page extends JFrame {
 
@@ -44,5 +44,14 @@ public class Block223Page extends JFrame {
 	}
 
 	private void refreshData() {
+		cells = new HashMap<Integer, Integer>(); 
+		cellToggleList.removeAllItems(); 
+		Integer index = 0; 
+		for (TOGridCell cell : Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(int currentLevel)) { 
+			availableDrivers.put(index, cell.getId()); 
+			cellToggleList.addItem("#" + cell.getId() + " " + cell.getName());
+			index++;
+		};
+		cellList.setSelectedIndex(-1);
 	}
 }
