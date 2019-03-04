@@ -30,8 +30,6 @@ public class GamePage extends JFrame {
 	 *
 	 */
 	private static final long serialVersionUID = 4722572995217430803L;
-	//UI elements
-	private JLabel errorMessage;
 	//Initialize Main Panel
 	private JPanel contentPanel;
 	//Initialize Create Game Variables
@@ -275,21 +273,19 @@ public class GamePage extends JFrame {
 		});
 		btnApplyGameSettings.setBounds(171, 399, 156, 23);
 		contentPanel.add(btnApplyGameSettings);
-		
+
 		//Separator 4
-		
+
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(10, 439, 464, 14);
 		contentPanel.add(separator_3);
-		
+
 		//Save game
-		
+
 		JLabel lblSaveGame = new JLabel("Save game?\r\n");
 		lblSaveGame.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSaveGame.setBounds(215, 449, 92, 28);
 		contentPanel.add(lblSaveGame);
-		
-
 
 		JComboBox savedGamesList = new JComboBox();
 		List<TOGame> games = null;
@@ -308,7 +304,7 @@ public class GamePage extends JFrame {
 
 		savedGamesList.setBounds(91, 489, 134, 23);
 		contentPanel.add(savedGamesList);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,7 +317,7 @@ public class GamePage extends JFrame {
 		btnSave.setBounds(298, 490, 87, 23);
 		contentPanel.add(btnSave);
 	}
-
+	
 	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
 		try {
 			Block223Controller.selectGame(game);
@@ -429,27 +425,5 @@ public class GamePage extends JFrame {
 			}
 		}
 	}
-	private void refreshData() {
-		//error
-		errorMessage.setText(error);
-		if (error == null || error.length() == 0) {
-			//populate page with data
-			//game
-			GameNameTextField.setText("");
-			//play area
-			WidthTextField.setText("");
-			HeightTextField.setText("");
-			//level
-			BlocksLevelTextField.setText("");
-			NumberLevelsTextField.setText("");
-			//ball
-			MinYSpeedTextField.setText("");
-			MinXSpeedTextField.setText("");
-			SpeedIncreaseFactorTextField.setText("");
-			//paddle
-			MinPaddleLengthTextField.setText("");
-			MaxPaddleLengthTextField.setText("");
-
-		}
-	}
 }
+
