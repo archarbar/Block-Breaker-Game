@@ -142,7 +142,6 @@ public class CreateGamePage extends JFrame {
 		String name = GameNameTextField.getText();
 		try {
 			Block223Controller.createGame(name);
-			Block223Controller.selectGame(name);
 			GamePage adminpage = new GamePage();
 			adminpage.setVisible(true);
 			this.setVisible(false);
