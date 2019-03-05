@@ -245,7 +245,7 @@ public class GamePage extends JFrame {
 				applySettingsActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(171, 316, 156, 23);
+		btnApplyGameSettings.setBounds(171, 316, 157, 23);
 		contentPanel.add(btnApplyGameSettings);
 
 		//Separator 4
@@ -381,6 +381,9 @@ public class GamePage extends JFrame {
 		if (error.length() == 0) {
 			try {
 				Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				BlockEditWindow blockpage = new BlockEditWindow();
+				blockpage.setVisible(true);
+				this.setVisible(false);
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();

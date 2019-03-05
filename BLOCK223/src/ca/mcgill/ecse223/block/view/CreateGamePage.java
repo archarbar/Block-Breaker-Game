@@ -39,9 +39,8 @@ public class CreateGamePage extends JFrame {
 	private JPanel contentPane;
 	private JTextField GameNameTextField;
 	private JTextField GameName;
-	
+
 	private String error = null;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -92,7 +91,7 @@ public class CreateGamePage extends JFrame {
 
 		//Header 1
 
-		JLabel lblCreateNewGame = new JLabel("Create Game");
+		JLabel lblCreateNewGame = new JLabel("Create or Delete Game");
 		lblCreateNewGame.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreateNewGame.setBounds(10, 11, 157, 14);
 		contentPane.add(lblCreateNewGame);
@@ -142,7 +141,7 @@ public class CreateGamePage extends JFrame {
 		});
 		btnUpdateGame.setBounds(234, 144, 114, 23);
 		contentPane.add(btnUpdateGame);
-		
+
 		JButton btnDeleteGame = new JButton("Delete Game");
 		btnDeleteGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnDeleteGame.addActionListener(new ActionListener() {
@@ -152,12 +151,12 @@ public class CreateGamePage extends JFrame {
 		});
 		btnDeleteGame.setBounds(360, 144, 112, 23);
 		contentPane.add(btnDeleteGame);
-		
+
 		GameName = new JTextField();
 		GameName.setColumns(10);
 		GameName.setBounds(127, 147, 86, 20);
 		contentPane.add(GameName);
-		
+
 		JLabel lblSearchForA = new JLabel("Search for a game:");
 		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSearchForA.setBounds(20, 147, 114, 14);
@@ -184,7 +183,7 @@ public class CreateGamePage extends JFrame {
 		String name = GameName.getText();
 		try {
 			Block223Controller.selectGame(name);
-			UpdateGame gameSettings = new UpdateGame(name);
+			UpdateGame gameSettings = new UpdateGame();
 			gameSettings.setVisible(true);
 			this.setVisible(false);
 		}
