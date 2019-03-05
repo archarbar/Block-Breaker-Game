@@ -3,6 +3,8 @@ package ca.mcgill.ecse223.block.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.model.Admin;
@@ -38,6 +40,7 @@ public class Block223Controller {
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 			block223.addGame(game);
+			Block223Application.setCurrentGame(game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
@@ -191,7 +194,7 @@ public class Block223Controller {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		Game currentGame = Block223Application.getCurrentGame();
 		String error = "";
-		// check if current iser is an admin
+		// check if current user is an admin
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings.");
 		}
@@ -446,7 +449,7 @@ public class Block223Controller {
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
 				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
-				error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
+					error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
 			}
 
 			throw new InvalidInputException(error);
@@ -672,23 +675,23 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		// return current game
-		TOGame to = new TOGame(currentGame.getName(), currentGame.getLevels().size(), 
-				currentGame.getNrBlocksPerLevel(), 
-				currentGame.getBall().getMinBallSpeedX(), 
-				currentGame.getBall().getMinBallSpeedY(), 
-				currentGame.getBall().getBallSpeedIncreaseFactor(), 
-				currentGame.getPaddle().getMaxPaddleLength(), 
+		TOGame to = new TOGame(currentGame.getName(), currentGame.getLevels().size(),
+				currentGame.getNrBlocksPerLevel(),
+				currentGame.getBall().getMinBallSpeedX(),
+				currentGame.getBall().getMinBallSpeedY(),
+				currentGame.getBall().getBallSpeedIncreaseFactor(),
+				currentGame.getPaddle().getMaxPaddleLength(),
 				currentGame.getPaddle().getMinPaddleLength());
 		return to;
 	}
 
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() throws InvalidInputException {
 		//William 28/02
-		UserRole currentUser = ca.mcgill.ecse223.block.application.Block223Application.getCurrentUserRole();
+		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!currentUser.equals("Admin")) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
-		Game game = ca.mcgill.ecse223.block.application.Block223Application.getCurrentGame();
+		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
 			throw new InvalidInputException("A game must be selected to access its information.");
 		}
