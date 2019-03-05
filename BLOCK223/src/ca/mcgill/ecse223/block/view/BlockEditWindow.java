@@ -30,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -211,6 +212,7 @@ public class BlockEditWindow extends JFrame {
 	private JPanel panel_8_13;
 	private JPanel panel_8_14;
 	private JPanel panel_8_15;
+	ArrayList<JPanel> panelList;
 	/**
 	 * Launch the application.
 	 */
@@ -1899,7 +1901,7 @@ public class BlockEditWindow extends JFrame {
 		panel_121.add(formattedTextField_7);
 
 		xPositionComboBox = new JComboBox();
-		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "8", "9", "10", "11", "12", "13", "14", "15"}));
+		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "6", "7", "8", "8", "9", "10", "11", "12", "13", "14", "15"}));
 		xPositionComboBox.setBounds(563, 293, 123, 22);
 		contentPane.add(xPositionComboBox);
 
@@ -1927,6 +1929,7 @@ public class BlockEditWindow extends JFrame {
 				//JSlider source = (JSlider) e.getSource();
 				//testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), source.getValue()));
 				testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
+				System.out.println(blockBlueSlider.getValue());
 			}
 		});
 		JLabel lblBlue = new JLabel("Blue:");
@@ -2096,6 +2099,57 @@ public class BlockEditWindow extends JFrame {
 		label_14.setHorizontalAlignment(SwingConstants.CENTER);
 		label_14.setBounds(360, 0, 20, 20);
 		panel_122.add(label_14);
+		
+		
+		
+		panelList = new ArrayList<>();
+		panelList.add(panel_1_1);
+		panelList.add(panel_1_2);
+		panelList.add(panel_1_3);
+		panelList.add(panel_1_4);
+		panelList.add(panel_1_5);
+		panelList.add(panel_1_6);
+		panelList.add(panel_1_7);
+		panelList.add(panel_1_8);
+		panelList.add(panel_1_9);
+		panelList.add(panel_1_10);
+		panelList.add(panel_1_11);
+		panelList.add(panel_1_12);
+		panelList.add(panel_1_13);
+		panelList.add(panel_1_14);
+		panelList.add(panel_1_15);
+		panelList.add(panel_2_1);
+		panelList.add(panel_2_2);
+		panelList.add(panel_2_3);
+		panelList.add(panel_2_4);
+		panelList.add(panel_2_5);
+		panelList.add(panel_2_6);
+		panelList.add(panel_2_7);
+		panelList.add(panel_2_8);
+		panelList.add(panel_2_9);
+		panelList.add(panel_2_10);
+		panelList.add(panel_2_11);
+		panelList.add(panel_2_12);
+		panelList.add(panel_2_13);
+		panelList.add(panel_2_14);
+		panelList.add(panel_2_15);
+		panelList.add(panel_3_1);
+		panelList.add(panel_3_2);
+		panelList.add(panel_3_3);
+		panelList.add(panel_3_4);
+		panelList.add(panel_3_5);
+		panelList.add(panel_3_6);
+		panelList.add(panel_3_7);
+		panelList.add(panel_3_8);
+		panelList.add(panel_3_9);
+		panelList.add(panel_3_10);
+		panelList.add(panel_3_11);
+		panelList.add(panel_3_12);
+		panelList.add(panel_3_13);
+		panelList.add(panel_3_14);
+		panelList.add(panel_3_15);
+		panelList.add(panel_4_1);
+		
 	}
 
 	public void deleteBlockButtonActionEvent(ActionEvent e) {
@@ -2114,8 +2168,6 @@ public class BlockEditWindow extends JFrame {
 	}
 
 	private void createBlockButtonActionPerformed(ActionEvent evt) {
-		//System.out.println(String.valueOf(currentUser));
-		System.out.println(Block223Application.getCurrentUserRole());
 		try {
 			//Block223C
 			Block223Controller.addBlock(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
@@ -2232,18 +2284,22 @@ public class BlockEditWindow extends JFrame {
 		error = error.trim();
 
 		if (error == "") {
-		try {
-			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
-			System.out.println("succesfully positioned block");
-			
-			}
-		catch (InvalidInputException e) {
-			System.out.println(e);
+			System.out.println("placed block! PLEASE COME BACK AND UNCOMMENT");
+//			try {
+//				//Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
+//				//Block223Controller.positionBlock(1, 1, 1, 1);
+//				System.out.println("succesfully positioned block");
+//				
+//				}
+//			catch (InvalidInputException e) {
+//				System.out.println(e);
+//			}
 		}
-	}
 		//update visuals
 		refreshData();
 	}
+	
+	
 
 	private void moveBlockButtonActionPerformed(ActionEvent evt) {
 
@@ -2320,13 +2376,22 @@ public class BlockEditWindow extends JFrame {
 			List<TOGridCell> toGridCells = null;
 			try {
 				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex()));
+				System.out.println("BLOCKS AT CURRENT LEVEL OF DESIGNABLE GAME: "+ toGridCells);
 
 			} catch(InvalidInputException e) {
 				System.out.println(e);
 			}
 			for (TOGridCell gridCell : toGridCells) {
-			gridCells.put(index, gridCell);
-			toGridCellComboBox.addItem("Grid ID:" + gridCell.getId() + "x : " + gridCell.getGridHorizontalPosition() + "y : " + gridCell.getGridVerticalPosition());
+				gridCells.put(index, gridCell);
+				toGridCellComboBox.addItem("Grid ID:" + gridCell.getId() + "x : " + gridCell.getGridHorizontalPosition() + "y : " + gridCell.getGridVerticalPosition());
+				String xPosition = Integer.toString(gridCell.getGridHorizontalPosition());
+				String yPosition = Integer.toString(gridCell.getGridVerticalPosition());
+				String panelLocation = ("panel_" + yPosition + "_" + xPosition);
+				for(JPanel panel: panelList) {
+					if (panelLocation.equals(panel)) {
+						System.out.println("okay");
+					}
+				}
 			}
 		
 			gridHorizontalPosition = new HashMap<Integer, Integer>();
@@ -2340,11 +2405,17 @@ public class BlockEditWindow extends JFrame {
 			gridVerticalPosition = new HashMap<Integer, Integer>();
 			yPositionComboBox.removeAllItems();
 			index = 0;
-			for (int i = 1; i <= 15 ; i++, index++) {
+			for (int i = 1; i <= 8 ; i++, index++) {
 				gridHorizontalPosition.put(index,i);
 				yPositionComboBox.addItem(i);
 			}
-			
+//			int xPosition;
+//			xPosition = grid
+//			
+//			for(JPanel panel: panelList) {
+//				
+//			}
+//			
 			
 			}
 		}

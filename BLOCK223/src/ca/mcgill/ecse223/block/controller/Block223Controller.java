@@ -714,7 +714,6 @@ public class Block223Controller {
 		List<TOBlock> result = new ArrayList<TOBlock>();
 
 		List<Block> blocks = game.getBlocks();
-		System.out.println("game.getBlocks returns:" + blocks);
 		for(Block block: blocks){
 			TOBlock to = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
 			result.add(to);
