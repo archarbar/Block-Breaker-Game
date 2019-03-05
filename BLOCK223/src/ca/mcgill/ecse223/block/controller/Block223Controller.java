@@ -688,7 +688,7 @@ public class Block223Controller {
 	public static List<TOBlock> getBlocksOfCurrentDesignableGame() throws InvalidInputException {
 		//William 28/02
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!currentUser.equals("Admin")) {
+		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		Game game = Block223Application.getCurrentGame();
