@@ -258,30 +258,32 @@ public class Block223Controller {
 
 		Admin admin = currentGame.getAdmin();
 
-		if (admin.equals((Admin) currentUser)) {
+		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 
 		List<Block> sourceList = currentGame.getBlocks();
+		Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
 
-		for(Block specificBlock : sourceList) {
-			int colorRed = specificBlock.getRed();
-			int colorGreen = specificBlock.getGreen();
-			int colorBlue = specificBlock.getBlue();
-
-			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
-				throw new InvalidInputException("A block with the same color already exists for the game.");
-			}
-
-			try {
-				Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
-				currentGame.addBlock(block);
-
-			}
-			catch (RuntimeException e) {
-				throw new InvalidInputException(e.getMessage());
-			}
-		}
+//		for(Block specificBlock : sourceList) {
+//			int colorRed = specificBlock.getRed();
+//			int colorGreen = specificBlock.getGreen();
+//			int colorBlue = specificBlock.getBlue();
+//
+//			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
+//				throw new InvalidInputException("A block with the same color already exists for the game.");
+//			}
+//
+//			try {
+//				Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
+//				System.out.println("TRIED IN ADD BLOCK TO ADD");
+//				//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
+//
+//			}
+//			catch (RuntimeException e) {
+//				throw new InvalidInputException(e.getMessage());
+//			}
+//		}
 	}
 
 
@@ -704,6 +706,7 @@ public class Block223Controller {
 		List<TOBlock> result = new ArrayList<TOBlock>();
 
 		List<Block> blocks = game.getBlocks();
+		System.out.println("game.getBlocks returns:" + blocks);
 		for(Block block: blocks){
 			TOBlock to = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
 			result.add(to);
