@@ -1951,42 +1951,6 @@ public class BlockEditWindow extends JFrame {
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
-		// clear error message. Enter integer, take these integer as input for a
-		String error="";
-		// call the controller
-		try {
-			Block223Controller.addBlock(); 	//manque les 4 JTextField de will
-			//addBlock(blockNameTextField.getText());
-
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
-		}
-
-		// update visuals
-		refreshData();
-	}
-
-	private void updateBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-		String error = "";
-		TOBlock selectedBlock = (TOBlock) cbBlocks.getSelectedItem();
-
-		if(selectedBlock == null) {
-		error = "Block needs to be selected for update!";
-		}
-
-		if(error == null) {
-		Block223Controller.updateBlock(selectedBlock.getId(),
-				selectedBlock.getRed(),
-				selectedBlock.getGreen(),
-				selectedBlock.getBlue(),
-				selectedBlock.getPoints());
-
-		}
-
-	refreshData();
-	}
 
 	private void deleteBlockButtonActionPerformed(ActionEvent evt) {
 		// clear error message and basic input validation
@@ -2096,7 +2060,7 @@ public class BlockEditWindow extends JFrame {
 
 	private void refreshData() {
 
-
+		System.out.println(error.length());
 		error = "";
 		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
@@ -2149,7 +2113,7 @@ public class BlockEditWindow extends JFrame {
 			
 			}
 		}
-		}
+	}
 }
 
 
