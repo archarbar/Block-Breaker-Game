@@ -194,7 +194,7 @@ public class Block223Controller {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		Game currentGame = Block223Application.getCurrentGame();
 		String error = "";
-		// check if current iser is an admin
+		// check if current user is an admin
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings.");
 		}
