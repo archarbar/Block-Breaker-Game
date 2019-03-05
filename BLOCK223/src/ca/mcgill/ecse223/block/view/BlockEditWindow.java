@@ -5,6 +5,7 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -131,12 +132,12 @@ public class BlockEditWindow extends JFrame {
 		setContentPane(contentPane);
 		
 		createBlockButton = new JButton("Create Block");
-		createBlockButton.setBounds(432, 191, 123, 23);
+		pButton.setBounds(432, 191, 123, 23);
 		createBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				createBlockButtonActionPerformed(evt);
 				
-//				JOptionPane.showMessageDialog(null, "helo");
+//			JOptionPane.showMessageDialog(null, "helo");
 //				//addBlockperformed();
 			}
 		});
@@ -1901,7 +1902,8 @@ public class BlockEditWindow extends JFrame {
 	private void createBlockButtonActionPerformed(ActionEvent evt) {
 		TOBlock newBlock = new TOBlock(toBlockComboBox.getItemCount()+1, blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
 		toBlockComboBox.addItem(String.valueOf(newBlock.getId()));
-		
+		TOUserMode currentUser = Block223Controller.getUserMode();
+		System.out.println(String.valueOf(currentUser));
 		try {
 			//Block223C
 			Block223Controller.addBlock(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
