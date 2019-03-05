@@ -410,6 +410,9 @@ public class GamePage extends JFrame {
 		if (error.length() == 0) {
 			try {
 				Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				BlockEditWindow blockpage = new BlockEditWindow();
+				blockpage.setVisible(true);
+				this.setVisible(false);
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();
