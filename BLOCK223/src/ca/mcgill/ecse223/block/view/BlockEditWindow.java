@@ -2215,8 +2215,8 @@ public class BlockEditWindow extends JFrame {
 		String error = "";
 		int selectedBlock = toBlockComboBox.getSelectedIndex();
 		int level = levelComboBox.getSelectedIndex();
-		int newGridHorizontalPosition = (xPositionComboBox.getSelectedIndex()+1);
-		int newGridVerticalPosition = (yPositionComboBox.getSelectedIndex()+1);
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
 
 		if (selectedBlock < 0) {
 		error = "Block needs to be selected in order to placed in the game!";}
@@ -2233,7 +2233,7 @@ public class BlockEditWindow extends JFrame {
 
 		if (error == "") {
 		try {
-			Block223Controller.positionBlock(blocks.get(selectedBlock).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
+			Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
 			System.out.println("succesfully positioned block");
 			
 			}
