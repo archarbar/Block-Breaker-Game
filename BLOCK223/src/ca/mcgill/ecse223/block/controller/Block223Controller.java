@@ -169,6 +169,7 @@ public class Block223Controller {
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
+		String error = "";
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		// check if current iser is an admin
 		if (!(currentUser instanceof Admin)) {
@@ -180,12 +181,19 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can select the game.");
 		}
+		
 		Game game = Game.getWithName(name);
 		// check if specified game exists
 		if (game == null) {
 			throw new InvalidInputException("A game with name " + name + " does not exist.");
 		}
-		Block223Application.setCurrentGame(game);
+		try {
+			Block223Application.setCurrentGame(game);
+		}
+		catch (RuntimeException e) {
+			error = e.getMessage();
+			throw new InvalidInputException(error);
+		}
 	}
 
 

@@ -26,12 +26,16 @@ import javax.swing.JMenuItem;
 
 public class UpdateGame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2627457159078328353L;
+
 	private JPanel contentPane;
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 4722572995217430803L;
 	//Initialize Main Panel
 	private JPanel contentPanel;
 	//Initialize Create Game Variables
@@ -72,7 +76,7 @@ public class UpdateGame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UpdateGame(String name) {
+	public UpdateGame() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 560);
@@ -240,14 +244,14 @@ public class UpdateGame extends JFrame {
 
 		//Apply Game Settings
 
-		JButton btnApplyGameSettings = new JButton("Apply Game Update to " + name);
+		JButton btnApplyGameSettings = new JButton("Apply Game Update");
 		btnApplyGameSettings.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnApplyGameSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				applyUpdateActionPerformed(evt, name);
+				applyUpdateActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(110, 316, 262, 23);
+		btnApplyGameSettings.setBounds(160, 318, 170, 23);
 		contentPanel.add(btnApplyGameSettings);
 
 		//Separator 4
@@ -313,7 +317,7 @@ public class UpdateGame extends JFrame {
 		this.setVisible(false);
 	}
 	
-	private void applyUpdateActionPerformed(java.awt.event.ActionEvent evt, String name) {
+	private void applyUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		int nrLevels = 0;
 		try {
@@ -380,7 +384,10 @@ public class UpdateGame extends JFrame {
 
 		if (error.length() == 0) {
 			try {
-				Block223Controller.updateGame(name, nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				BlockEditWindow blockpage = new BlockEditWindow();
+				blockpage.setVisible(true);
+				this.setVisible(false);
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();

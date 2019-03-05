@@ -183,7 +183,7 @@ public class CreateGamePage extends JFrame {
 		String name = GameName.getText();
 		try {
 			Block223Controller.selectGame(name);
-			UpdateGame gameSettings = new UpdateGame(name);
+			UpdateGame gameSettings = new UpdateGame();
 			gameSettings.setVisible(true);
 			this.setVisible(false);
 		}
