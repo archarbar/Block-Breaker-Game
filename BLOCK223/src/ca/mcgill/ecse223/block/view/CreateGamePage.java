@@ -197,6 +197,7 @@ public class CreateGamePage extends JFrame {
 		error = "";
 		String name = GameName.getText();
 		try {
+			Block223Controller.selectGame(name);
 			Block223Controller.deleteGame(name);
 		}
 		catch (InvalidInputException e) {
