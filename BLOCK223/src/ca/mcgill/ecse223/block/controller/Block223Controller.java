@@ -451,20 +451,22 @@ public class Block223Controller {
 		}
 		//Why can't I reference to newBlockAssignment?
 		BlockAssignment newBlockAssignment = null;
+		//System.out.println(newBlockAssignment.getMaxHorizontalGridPosition());
 		try {
 			newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
+			error = e.getMessage();			
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
 				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
 					error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
-			}
+		}
+		
 
 			throw new InvalidInputException(error);
 		}
-	}
+}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {

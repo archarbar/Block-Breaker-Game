@@ -34,7 +34,7 @@ public class BlockAssignment implements Serializable
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
     	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
     	    }
-    	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
+    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
     	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
     	    }
     // END OF UMPLE BEFORE INJECTION

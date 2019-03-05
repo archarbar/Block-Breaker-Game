@@ -1929,7 +1929,6 @@ public class BlockEditWindow extends JFrame {
 				//JSlider source = (JSlider) e.getSource();
 				//testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), source.getValue()));
 				testBlock.setBackground(new Color(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue()));
-				System.out.println(blockBlueSlider.getValue());
 			}
 		});
 		JLabel lblBlue = new JLabel("Blue:");
@@ -2099,9 +2098,9 @@ public class BlockEditWindow extends JFrame {
 		label_14.setHorizontalAlignment(SwingConstants.CENTER);
 		label_14.setBounds(360, 0, 20, 20);
 		panel_122.add(label_14);
-		
-		
-		
+
+
+
 		panelList = new ArrayList<>();
 		panelList.add(panel_1_1);
 		panelList.add(panel_1_2);
@@ -2149,7 +2148,7 @@ public class BlockEditWindow extends JFrame {
 		panelList.add(panel_3_14);
 		panelList.add(panel_3_15);
 		panelList.add(panel_4_1);
-		
+
 	}
 
 	public void deleteBlockButtonActionEvent(ActionEvent e) {
@@ -2267,8 +2266,8 @@ public class BlockEditWindow extends JFrame {
 		String error = "";
 		int selectedBlock = toBlockComboBox.getSelectedIndex();
 		int level = levelComboBox.getSelectedIndex();
-		int newGridHorizontalPosition = (xPositionComboBox.getSelectedIndex()+1);
-		int newGridVerticalPosition = (yPositionComboBox.getSelectedIndex()+1);
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
 
 		if (selectedBlock < 0) {
 		error = "Block needs to be selected in order to placed in the game!";}
@@ -2284,22 +2283,20 @@ public class BlockEditWindow extends JFrame {
 		error = error.trim();
 
 		if (error == "") {
-			System.out.println("placed block! PLEASE COME BACK AND UNCOMMENT");
-//			try {
-//				//Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
-//				//Block223Controller.positionBlock(1, 1, 1, 1);
-//				System.out.println("succesfully positioned block");
-//				
-//				}
-//			catch (InvalidInputException e) {
-//				System.out.println(e);
-//			}
+		try {
+			Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
+			System.out.println("succesfully positioned block");
+			
+			}
+		catch (InvalidInputException e) {
+			System.out.println(e);
 		}
+	}
 		//update visuals
 		refreshData();
 	}
-	
-	
+
+
 
 	private void moveBlockButtonActionPerformed(ActionEvent evt) {
 
@@ -2376,22 +2373,13 @@ public class BlockEditWindow extends JFrame {
 			List<TOGridCell> toGridCells = null;
 			try {
 				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex()));
-				System.out.println("BLOCKS AT CURRENT LEVEL OF DESIGNABLE GAME: "+ toGridCells);
 
 			} catch(InvalidInputException e) {
 				System.out.println(e);
 			}
 			for (TOGridCell gridCell : toGridCells) {
-				gridCells.put(index, gridCell);
-				toGridCellComboBox.addItem("Grid ID:" + gridCell.getId() + "x : " + gridCell.getGridHorizontalPosition() + "y : " + gridCell.getGridVerticalPosition());
-				String xPosition = Integer.toString(gridCell.getGridHorizontalPosition());
-				String yPosition = Integer.toString(gridCell.getGridVerticalPosition());
-				String panelLocation = ("panel_" + yPosition + "_" + xPosition);
-				for(JPanel panel: panelList) {
-					if (panelLocation.equals(panel)) {
-						System.out.println("okay");
-					}
-				}
+			gridCells.put(index, gridCell);
+			toGridCellComboBox.addItem("Grid ID:" + gridCell.getId() + "x : " + gridCell.getGridHorizontalPosition() + "y : " + gridCell.getGridVerticalPosition());
 			}
 		
 			gridHorizontalPosition = new HashMap<Integer, Integer>();
@@ -2405,17 +2393,11 @@ public class BlockEditWindow extends JFrame {
 			gridVerticalPosition = new HashMap<Integer, Integer>();
 			yPositionComboBox.removeAllItems();
 			index = 0;
-			for (int i = 1; i <= 8 ; i++, index++) {
+			for (int i = 1; i <= 15 ; i++, index++) {
 				gridHorizontalPosition.put(index,i);
 				yPositionComboBox.addItem(i);
 			}
-//			int xPosition;
-//			xPosition = grid
-//			
-//			for(JPanel panel: panelList) {
-//				
-//			}
-//			
+			
 			
 			}
 		}
