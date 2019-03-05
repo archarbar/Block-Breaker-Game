@@ -627,6 +627,7 @@ public class Block223Controller {
 	}
 
 	public static void logout() {
+		Block223Application.setCurrentUserRole(null);
 	}
 
 	// ****************************
