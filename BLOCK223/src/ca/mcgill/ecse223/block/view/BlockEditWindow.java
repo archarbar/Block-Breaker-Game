@@ -2016,17 +2016,21 @@ public class BlockEditWindow extends JFrame {
 	private void removeBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
 		String error = "";
-		TOGridCell selectedBlock = (TOGridCell) cbBlocks.getSelectedItem();
+		int level = levelComboBox.getSelectedIndex();
+		int gridCell = toGridCellComboBox.getSelectedIndex();
 
-		if(selectedBlock == null) {
-		error = "Block needs to be selected for update!";
+		if(gridCell < 0) {
+		error = "An existing block needs to be selected to be removed!";
 		}
 
-		if(error == null) {
-			Block223Controller.removeBlock(selectedBlock.getcurrentLevel(),	//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
-
-					selectedBlock.getGridHorizontalPosition(),
-					selectedBlock.getGridVerticalPosition());
+		if(error == "") {
+			try {
+				Block223Controller.removeBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridHorizontalPosition());
+			} catch (InvalidInputException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e);
+			}
+			//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
 		}
 
 	}
@@ -2042,8 +2046,8 @@ public class BlockEditWindow extends JFrame {
 		error = "Block needs to be selected in order to placed in the game!";}
 
 		//int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
-		if (level < 0)
-		error = error + "A level needs to be selected for block! ";
+		if (level < 0) {
+		error = error + "A level needs to be selected for block! ";}
 		if (newGridHorizontalPosition < 0)
 		error = error + "A horizontal grid position needs to be selected for block! ";
 		if (newGridVerticalPosition < 0)
@@ -2071,7 +2075,15 @@ public class BlockEditWindow extends JFrame {
 		int level = levelComboBox.getSelectedIndex();
 		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
 		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
-
+		if (gridCell < 0) {
+		error = "An object needs to be selected in order to move it in the game!";}
+		
+		if (level < 0) {
+		error = error + "A level needs to be selected for block! ";}
+		
+		if (newGridVerticalPosition < 0){
+		error = error + "A new vertical position must be selected.";
+		}
 
 		if (error == "") {
 		try {
@@ -2097,7 +2109,7 @@ public class BlockEditWindow extends JFrame {
 			List<TOBlock> toBlocks = null;
 			try {
 				toBlocks = Block223Controller.getBlocksOfCurrentDesignableGame();
-			}catch (InvalidInputException e) {
+			} catch (InvalidInputException e) {
 				error = e.getMessage();
 			}
 			for (TOBlock block : toBlocks) {
