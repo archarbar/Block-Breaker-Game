@@ -2058,7 +2058,7 @@ public class BlockEditWindow extends JFrame {
 			List<TOBlock> toBlocks = null;
 			try {
 				toBlocks = Block223Controller.getBlocksOfCurrentDesignableGame();
-			}catch (InvalidInputException e) {
+			} catch (InvalidInputException e) {
 				error = e.getMessage();
 			}
 			for (TOBlock block : toBlocks) {
