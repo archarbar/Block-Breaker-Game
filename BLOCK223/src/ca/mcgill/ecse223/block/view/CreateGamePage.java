@@ -91,7 +91,7 @@ public class CreateGamePage extends JFrame {
 
 		//Header 1
 
-		JLabel lblCreateNewGame = new JLabel("Create or Delete Game");
+		JLabel lblCreateNewGame = new JLabel("Create Game");
 		lblCreateNewGame.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreateNewGame.setBounds(10, 11, 157, 14);
 		contentPane.add(lblCreateNewGame);
