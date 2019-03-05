@@ -1,10 +1,12 @@
 package ca.mcgill.ecse223.block.view;
 
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -136,7 +138,7 @@ public class BlockEditWindow extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				createBlockButtonActionPerformed(evt);
 				
-//				JOptionPane.showMessageDialog(null, "helo");
+//			JOptionPane.showMessageDialog(null, "helo");
 //				//addBlockperformed();
 			}
 		});
@@ -151,7 +153,7 @@ public class BlockEditWindow extends JFrame {
 		deleteBlockButton = new JButton("Delete Block");
 		deleteBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deleteBlockButtonActionEvent(e);
+				deleteBlockButtonActionPerformed(e);
 			}
 		});
 		deleteBlockButton.setBounds(563, 257, 123, 23);
@@ -1693,6 +1695,7 @@ public class BlockEditWindow extends JFrame {
 		removeBlockButton = new JButton("Remove Block");
 		removeBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				removeBlockButtonActionPerformed(arg0);
 			}
 		});
 		removeBlockButton.setBounds(563, 397, 123, 23);
@@ -1899,9 +1902,8 @@ public class BlockEditWindow extends JFrame {
 	}
 
 	private void createBlockButtonActionPerformed(ActionEvent evt) {
-		TOBlock newBlock = new TOBlock(toBlockComboBox.getItemCount()+1, blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
-		toBlockComboBox.addItem(String.valueOf(newBlock.getId()));
-		
+		//System.out.println(String.valueOf(currentUser));
+		System.out.println(Block223Application.getCurrentUserRole());
 		try {
 			//Block223C
 			Block223Controller.addBlock(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
@@ -2071,12 +2073,14 @@ public class BlockEditWindow extends JFrame {
 			List<TOBlock> toBlocks = null;
 			try {
 				toBlocks = Block223Controller.getBlocksOfCurrentDesignableGame();
+				System.out.println(toBlocks);
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
+				System.out.println(error);
 			}
 			for (TOBlock block : toBlocks) {
 				blocks.put(index, block);
-				toBlockComboBox.addItem("Block ID/BlockPoints: " + block.getId() + "/" + block.getPoints());
+				toBlockComboBox.addItem("Block ID: " + block.getId());
 			}
 			toBlockComboBox.setSelectedIndex(-1);
 

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
@@ -141,6 +142,7 @@ public class RegisterLoginPage extends JFrame {
 			CreateGamePage adminpage = new CreateGamePage();
 			adminpage.setVisible(true);
 			this.setVisible(false);
+			System.out.println(Block223Application.getCurrentUserRole());
 		} catch (InvalidInputException e) {
 			String error = e.getMessage();
 			JOptionPane.showMessageDialog(null, error);
