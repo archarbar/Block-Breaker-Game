@@ -24,7 +24,6 @@ public class Block223Application {
 	private static Block223 block223;
 	private static Game currentGame;
 	private static UserRole currentUserRole;
-	
 	public static void main(String[] args) {
 		
 		// start UI
@@ -42,7 +41,6 @@ public class Block223Application {
 		}
  		return block223;
 	}
-	
 	public static Block223 resetBlock223() {
 		block223.reinitialize();
 		return block223;
