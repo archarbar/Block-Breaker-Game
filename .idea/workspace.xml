@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1170e0fd-cdce-4fa2-be83-2db3f3cf1e20" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BLOCK223/data.block223" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/data.block223" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/BLOCK223/bin/" />
@@ -18,10 +17,8 @@
         <entry file="file://$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="801" column="9" lean-forward="true" selection-start-line="801" selection-start-column="9" selection-end-line="801" selection-end-column="9" />
+              <caret line="805" column="9" selection-start-line="805" selection-start-column="9" selection-end-line="805" selection-end-column="9" />
               <folding>
-                <element signature="e#24074#24082#0" expanded="true" />
-                <element signature="e#25696#25705#0" expanded="true" />
                 <element signature="e#27706#27718#0" expanded="true" />
               </folding>
             </state>
@@ -32,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="987">
-              <caret line="64" column="38" lean-forward="true" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+              <caret line="64" column="38" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -87,7 +84,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="50" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -156,7 +153,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551735769961" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551739754032" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Desktop/block 2019 time/BLOCK223 0103/src/ca/mcgill/ecse223/block223/controller/Block223Controller.java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -184,17 +181,17 @@
       <option name="presentableId" value="Default" />
       <updated>1551469053848</updated>
       <workItem from="1551469055575" duration="5971000" />
-      <workItem from="1551728498908" duration="2616000" />
+      <workItem from="1551728498908" duration="3211000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8587000" />
+    <option name="totallyTimeSpent" value="9182000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <frame x="-6" y="-6" width="1513" height="973" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19587629" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19587629" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -215,7 +212,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32977462" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="13" visible="true" weight="0.32977462" />
+      <window_info anchor="bottom" id="Version Control" order="13" visible="true" weight="0.32977462" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -297,17 +294,15 @@
     <entry file="file://$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="987">
-          <caret line="64" column="38" lean-forward="true" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+          <caret line="64" column="38" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="801" column="9" lean-forward="true" selection-start-line="801" selection-start-column="9" selection-end-line="801" selection-end-column="9" />
+          <caret line="805" column="9" selection-start-line="805" selection-start-column="9" selection-end-line="805" selection-end-column="9" />
           <folding>
-            <element signature="e#24074#24082#0" expanded="true" />
-            <element signature="e#25696#25705#0" expanded="true" />
             <element signature="e#27706#27718#0" expanded="true" />
           </folding>
         </state>
