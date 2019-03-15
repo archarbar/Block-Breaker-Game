@@ -1,18 +1,20 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse223.block.model;
-import java.io.Serializable;
+
 import java.util.*;
 
-// line 63 "../../../../../Block223Persistence.ump"
-// line 160 "../../../../../Block223 v2.ump"
-public class Level implements Serializable
+// line 57 "main.ump"
+// line 144 "main.ump"
+public class Level
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
+
+  //Level Attributes
+  private boolean isRandom;
 
   //Level Associations
   private Game game;
@@ -22,8 +24,9 @@ public class Level implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Level(Game aGame)
+  public Level(boolean aIsRandom, Game aGame)
   {
+    isRandom = aIsRandom;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -35,6 +38,24 @@ public class Level implements Serializable
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setIsRandom(boolean aIsRandom)
+  {
+    boolean wasSet = false;
+    isRandom = aIsRandom;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean getIsRandom()
+  {
+    return isRandom;
+  }
+  /* Code from template attribute_IsBoolean */
+  public boolean isIsRandom()
+  {
+    return isRandom;
+  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -107,9 +128,9 @@ public class Level implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Block aBlock, Game aGame)
+  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Game aGame, Block aBlock)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, this, aBlock, aGame);
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, this, aGame, aBlock);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
@@ -189,25 +210,11 @@ public class Level implements Serializable
     }
   }
 
-  // line 162 "../../../../../Block223 v2.ump"
-   public BlockAssignment findBlockAssignment(int gridHorizontalPosition, int gridVerticalPosition){
-    for (BlockAssignment assignment : this.getBlockAssignments()) {
-			int h = assignment.getGridHorizontalPosition();
-			int v = assignment.getGridVerticalPosition();
-			if(h == gridHorizontalPosition && v == gridVerticalPosition)
-			{
-				return assignment;
-			}
-		}
-	return null;
-  }
-  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 66 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =006 ;
 
-  
+  public String toString()
+  {
+    return super.toString() + "["+
+            "isRandom" + ":" + getIsRandom()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
+  }
 }

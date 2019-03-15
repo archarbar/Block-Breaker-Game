@@ -1,38 +1,24 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse223.block.model;
-import java.io.Serializable;
+
 import java.util.*;
 
-// line 14 "../../../../../Block223Persistence.ump"
-// line 85 "../../../../../Block223 v2.ump"
-public class Block implements Serializable
+// line 70 "main.ump"
+// line 156 "main.ump"
+public class Block
 {
-
-  //------------------------
-  // STATIC VARIABLES
-  //------------------------
-
-  public static final int MIN_COLOR = 0;
-  public static final int MAX_COLOR = 255;
-  public static final int MIN_POINTS = 1;
-  public static final int MAX_POINTS = 1000;
-  public static final int SIZE = 20;
-  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Block Attributes
+  private int id;
   private int red;
   private int green;
   private int blue;
   private int points;
-
-  //Autounique Attributes
-  private int id;
 
   //Block Associations
   private Game game;
@@ -42,27 +28,13 @@ public class Block implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
+  public Block(int aId, int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 98 "../../../../../Block223 v2.ump"
-    if (aRed < 0 || aRed > 255) {
-    	  	throw new RuntimeException("Red must be between 0 and 255.");
-    	}
-    	if (aGreen < 0 || aGreen > 255) {
-    	  	throw new RuntimeException("Green must be between 0 and 255.");
-    	}
-    	if (aBlue < 0 || aBlue > 255) {
-    	  	throw new RuntimeException("Blue must be between 0 and 255.");
-    	}
-    	if(aPoints < 1 || aPoints > 1000){
-    		throw new RuntimeException("Points must be between 1 and 1000.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
+    id = aId;
     red = aRed;
     green = aGreen;
     blue = aBlue;
     points = aPoints;
-    id = nextId++;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -75,14 +47,17 @@ public class Block implements Serializable
   // INTERFACE
   //------------------------
 
+  public boolean setId(int aId)
+  {
+    boolean wasSet = false;
+    id = aId;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 112 "../../../../../Block223 v2.ump"
-    if (aRed < 0 || aRed > 255) {
-    	  	throw new RuntimeException("Red must be between 0 and 255.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     wasSet = true;
     return wasSet;
@@ -91,11 +66,6 @@ public class Block implements Serializable
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 117 "../../../../../Block223 v2.ump"
-    if (aGreen < 0 || aGreen > 255) {
-    	  	throw new RuntimeException("Green must be between 0 and 255.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
     green = aGreen;
     wasSet = true;
     return wasSet;
@@ -104,11 +74,6 @@ public class Block implements Serializable
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
-    // line 122 "../../../../../Block223 v2.ump"
-    if (aBlue < 0 || aBlue > 255) {
-    	  	throw new RuntimeException("Blue must be between 0 and 255.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
     blue = aBlue;
     wasSet = true;
     return wasSet;
@@ -117,14 +82,14 @@ public class Block implements Serializable
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 127 "../../../../../Block223 v2.ump"
-    if (aPoints < 0 || aPoints > 255) {
-    	  	throw new RuntimeException("Points must be between 1 and 1000.");
-    	}
-    // END OF UMPLE BEFORE INJECTION
     points = aPoints;
     wasSet = true;
     return wasSet;
+  }
+
+  public int getId()
+  {
+    return id;
   }
 
   public int getRed()
@@ -145,11 +110,6 @@ public class Block implements Serializable
   public int getPoints()
   {
     return points;
-  }
-
-  public int getId()
-  {
-    return id;
   }
   /* Code from template association_GetOne */
   public Game getGame()
@@ -213,7 +173,7 @@ public class Block implements Serializable
   /* Code from template association_AddManyToOne */
   public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Game aGame)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, this, aGame);
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, aGame, this);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
@@ -293,17 +253,6 @@ public class Block implements Serializable
     }
   }
 
-  // line 20 "../../../../../Block223Persistence.ump"
-   public static  void reinitializeBlockuniqueId(List<Block> blocks){
-    nextId = 0; 
-    for (Block block : blocks) {
-      if (block.getId() > nextId) {
-        nextId = block.getId();
-      }
-    }
-    nextId++;
-  }
-
 
   public String toString()
   {
@@ -314,13 +263,5 @@ public class Block implements Serializable
             "blue" + ":" + getBlue()+ "," +
             "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 17 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =002 ;
-
-  
+  }
 }

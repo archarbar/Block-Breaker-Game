@@ -1,0 +1,97 @@
+class User {
+   unique username;
+   1 -> 1..2 UserRole roles;
+}
+
+class UserRole
+{
+  abstract;
+  password;
+}
+
+class Admin
+{
+  isA UserRole;
+}
+
+class Player
+{
+  Integer live;
+  isA UserRole;
+}
+
+class Game
+{
+  name;
+  Integer nrBlocksPerLevel;
+  Integer widthPlayArea;
+  Integer heightPlayArea;
+  Integer widthHallOfFame;
+  Integer heightHallOfFame;
+  Boolean isPublished;
+Boolean isTested;
+1 <@>- 1..99 Level;
+  1 <@>- 1 Ball;
+  * -- 0..1 Admin;
+  1 <@>- 1 Paddle;
+}
+
+class Ball
+{
+  Integer minBallSpeedX;
+  Integer minBallSpeedY;
+  Double ballSpeedIncreaseFactor;
+  Integer ballPositionX;
+  Integer ballPositionY;
+}
+
+class Paddle
+{
+  Integer maxPaddleLength;
+  Integer minPaddleLength;
+  Integer paddlePositionX;
+  Integer paddlePositionY;
+}
+
+class Level
+{
+  Boolean isRandom;
+}
+
+class BlockAssignment
+{
+  Integer gridHorizontalPosition;
+  Integer gridVerticalPosition;
+  * -- 1 Level;
+  * -<@> 1 Game;
+}
+
+class Block
+{
+  Integer id;
+  Integer red;
+  Integer green;
+  Integer blue;
+  Integer points;
+  * -<@> 1 Game;
+  1 -- * BlockAssignment;
+}
+
+enum GameStatus {Idle, inGame, Paused, Ended}
+
+class GameOccurence
+{
+  isA Game;
+  GameStatus gameStatus;
+  autounique gameId;
+  Integer currentScore;
+}
+
+
+class Entry
+{
+  Integer finalScore;
+  * -- 1 Game;
+  * -- 1 Player;
+}
+
