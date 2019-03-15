@@ -38,7 +38,8 @@ public class CreateGamePage extends JFrame {
 	private static final long serialVersionUID = 6791018688197203010L;
 	private JPanel contentPane;
 	private JTextField GameNameTextField;
-	
+	private JTextField GameName;
+
 	private String error = null;
 
 	/**
@@ -90,7 +91,7 @@ public class CreateGamePage extends JFrame {
 
 		//Header 1
 
-		JLabel lblCreateNewGame = new JLabel("Create or Delete Game");
+		JLabel lblCreateNewGame = new JLabel("Create Game");
 		lblCreateNewGame.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCreateNewGame.setBounds(10, 11, 157, 14);
 		contentPane.add(lblCreateNewGame);
@@ -117,15 +118,6 @@ public class CreateGamePage extends JFrame {
 		btnNewButton.setBounds(234, 42, 114, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton btnDeleteGame = new JButton("Delete Game");
-		btnDeleteGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnDeleteGame.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				deleteGameActionPerformed(evt);
-			}
-		});
-		btnDeleteGame.setBounds(360, 42, 112, 23);
-		contentPane.add(btnDeleteGame);
 
 		//Separator 1
 
@@ -135,20 +127,10 @@ public class CreateGamePage extends JFrame {
 		
 		//Select existing game section
 		
-		JLabel lblNewLabel = new JLabel("Update Game");
+		JLabel lblNewLabel = new JLabel("Update or Delete Game");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 106, 98, 20);
+		lblNewLabel.setBounds(10, 106, 165, 20);
 		contentPane.add(lblNewLabel);
-
-		JComboBox gamesList = new JComboBox();
-		gamesList.setBounds(20, 148, 114, 32);
-		contentPane.add(gamesList);
-		Block223 block223 = Block223Application.getBlock223();
-		List<Game> games = block223.getGames();
-		gamesList.addItem("select");
-		for (Game game : games) {
-			gamesList.addItem(game);
-		}
 
 		JButton btnUpdateGame = new JButton("Update Game");
 		btnUpdateGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -157,8 +139,28 @@ public class CreateGamePage extends JFrame {
 				updateGameActionPerformed(evt);
 			}
 		});
-		btnUpdateGame.setBounds(173, 156, 114, 23);
+		btnUpdateGame.setBounds(234, 144, 114, 23);
 		contentPane.add(btnUpdateGame);
+
+		JButton btnDeleteGame = new JButton("Delete Game");
+		btnDeleteGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnDeleteGame.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				deleteGameActionPerformed(evt);
+			}
+		});
+		btnDeleteGame.setBounds(360, 144, 112, 23);
+		contentPane.add(btnDeleteGame);
+
+		GameName = new JTextField();
+		GameName.setColumns(10);
+		GameName.setBounds(127, 147, 86, 20);
+		contentPane.add(GameName);
+
+		JLabel lblSearchForA = new JLabel("Search for a game:");
+		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSearchForA.setBounds(20, 147, 114, 14);
+		contentPane.add(lblSearchForA);
 	}
 	
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,10 +178,26 @@ public class CreateGamePage extends JFrame {
 		}
 	}
 	
+	private void updateGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		String name = GameName.getText();
+		try {
+			Block223Controller.selectGame(name);
+			UpdateGame gameSettings = new UpdateGame();
+			gameSettings.setVisible(true);
+			this.setVisible(false);
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+	}
+	
 	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String name = GameNameTextField.getText();
+		String name = GameName.getText();
 		try {
+			Block223Controller.selectGame(name);
 			Block223Controller.deleteGame(name);
 		}
 		catch (InvalidInputException e) {
@@ -188,20 +206,6 @@ public class CreateGamePage extends JFrame {
 		}
 	}
 
-	private void updateGameActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		String name = GameNameTextField.getText();
-		try {
-			Block223Controller.selectGame(name);
-			GamePage adminpage = new GamePage();
-			adminpage.setVisible(true);
-			this.setVisible(false);
-		}
-		catch (InvalidInputException e) {
-			error = e.getMessage();
-			JOptionPane.showMessageDialog(null, error);
-		}
-	}
 
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();

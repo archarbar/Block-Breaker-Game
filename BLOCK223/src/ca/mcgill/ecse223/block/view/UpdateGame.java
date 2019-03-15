@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -25,12 +24,18 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
 
-public class GamePage extends JFrame {
+public class UpdateGame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2627457159078328353L;
+
+	private JPanel contentPane;
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 4722572995217430803L;
 	//Initialize Main Panel
 	private JPanel contentPanel;
 	//Initialize Create Game Variables
@@ -51,7 +56,7 @@ public class GamePage extends JFrame {
 
 	//data elements
 	private String error = null;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +64,7 @@ public class GamePage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GamePage frame = new GamePage();
+					UpdateGame frame = new UpdateGame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,7 +76,7 @@ public class GamePage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GamePage() {
+	public UpdateGame() {
 		setTitle("Block223 Builder");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 560);
@@ -239,14 +244,14 @@ public class GamePage extends JFrame {
 
 		//Apply Game Settings
 
-		JButton btnApplyGameSettings = new JButton("Apply Game Settings");
+		JButton btnApplyGameSettings = new JButton("Apply Game Update");
 		btnApplyGameSettings.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnApplyGameSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				applySettingsActionPerformed(evt);
+				applyUpdateActionPerformed(evt);
 			}
 		});
-		btnApplyGameSettings.setBounds(171, 316, 157, 23);
+		btnApplyGameSettings.setBounds(160, 318, 170, 23);
 		contentPanel.add(btnApplyGameSettings);
 
 		//Separator 4
@@ -292,7 +297,8 @@ public class GamePage extends JFrame {
 		btnSave.setBounds(298, 407, 87, 23);
 		contentPanel.add(btnSave);
 	}
-
+	
+	
 	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
 		try {
 			Block223Controller.selectGame(game);
@@ -302,10 +308,8 @@ public class GamePage extends JFrame {
 			error= e.getMessage();
 			JOptionPane.showMessageDialog(null, error);
 		}
-
-
 	}
-
+	
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
@@ -313,8 +317,7 @@ public class GamePage extends JFrame {
 		this.setVisible(false);
 	}
 	
-
-	private void applySettingsActionPerformed(java.awt.event.ActionEvent evt) {
+	private void applyUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		int nrLevels = 0;
 		try {
@@ -385,7 +388,6 @@ public class GamePage extends JFrame {
 				BlockEditWindow blockpage = new BlockEditWindow();
 				blockpage.setVisible(true);
 				this.setVisible(false);
-				System.out.println(Block223Application.getCurrentUserRole());
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();
@@ -394,4 +396,3 @@ public class GamePage extends JFrame {
 		}
 	}
 }
-
