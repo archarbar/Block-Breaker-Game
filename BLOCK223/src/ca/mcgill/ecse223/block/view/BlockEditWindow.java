@@ -1889,9 +1889,12 @@ public class BlockEditWindow extends JFrame {
 		this.setVisible(false);
 	}
 	private void addBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		// clear error message. Enter integer, take these integer as input for a
 		String error="";
+		
 		// call the controller
+		
 		try {
 			Block223Controller.addBlock(); 	//manque les 4 JTextField de will
 			//addBlock(blockNameTextField.getText());
