@@ -2,10 +2,10 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 
+import java.util.*;
 
-// line 83 "main.ump"
-// line 163 "main.ump"
-public class GameOccurence
+// line 82 "main.ump"
+public class GameOccurence extends Game
 {
 
   //------------------------
@@ -31,23 +31,16 @@ public class GameOccurence
   //Autounique Attributes
   private int gameId;
 
-  //GameOccurence Associations
-  private Game game;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public GameOccurence(GameStatus aGameStatus, int aCurrentScore, Game aGame)
+  public GameOccurence(String aName, int aNrBlocksPerLevel, int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, Ball aBall, Paddle aPaddle, GameStatus aGameStatus, int aCurrentScore)
   {
+    super(aName, aNrBlocksPerLevel, aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aBall, aPaddle);
     gameStatus = aGameStatus;
     currentScore = aCurrentScore;
     gameId = nextGameId++;
-    boolean didAddGame = setGame(aGame);
-    if (!didAddGame)
-    {
-      throw new RuntimeException("Unable to create gameOccurence due to game");
-    }
   }
 
   //------------------------
@@ -84,39 +77,10 @@ public class GameOccurence
   {
     return gameId;
   }
-  /* Code from template association_GetOne */
-  public Game getGame()
-  {
-    return game;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setGame(Game aGame)
-  {
-    boolean wasSet = false;
-    if (aGame == null)
-    {
-      return wasSet;
-    }
-
-    Game existingGame = game;
-    game = aGame;
-    if (existingGame != null && !existingGame.equals(aGame))
-    {
-      existingGame.removeGameOccurence(this);
-    }
-    game.addGameOccurence(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
-    Game placeholderGame = game;
-    this.game = null;
-    if(placeholderGame != null)
-    {
-      placeholderGame.removeGameOccurence(this);
-    }
+    super.delete();
   }
 
 
@@ -125,7 +89,6 @@ public class GameOccurence
     return super.toString() + "["+
             "gameId" + ":" + getGameId()+ "," +
             "currentScore" + ":" + getCurrentScore()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "gameStatus" + "=" + (getGameStatus() != null ? !getGameStatus().equals(this)  ? getGameStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
+            "  " + "gameStatus" + "=" + (getGameStatus() != null ? !getGameStatus().equals(this)  ? getGameStatus().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

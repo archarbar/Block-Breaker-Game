@@ -5,15 +5,8 @@
 import java.util.*;
 
 // line 23 "main.ump"
-// line 122 "main.ump"
 public class Game
 {
-
-  //------------------------
-  // ENUMERATIONS
-  //------------------------
-
-  public enum GameStatus { Idle, InGame, Paused, Ended }
 
   //------------------------
   // MEMBER VARIABLES
@@ -33,7 +26,6 @@ public class Game
   private List<Level> levels;
   private Ball ball;
   private Admin admin;
-  private List<GameOccurence> gameOccurences;
   private Paddle paddle;
   private List<BlockAssignment> blockAssignments;
   private List<Block> blocks;
@@ -59,7 +51,6 @@ public class Game
       throw new RuntimeException("Unable to create Game due to aBall");
     }
     ball = aBall;
-    gameOccurences = new ArrayList<GameOccurence>();
     if (aPaddle == null || aPaddle.getGame() != null)
     {
       throw new RuntimeException("Unable to create Game due to aPaddle");
@@ -82,7 +73,6 @@ public class Game
     isTested = aIsTested;
     levels = new ArrayList<Level>();
     ball = new Ball(aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, aBallPositionXForBall, aBallPositionYForBall, this);
-    gameOccurences = new ArrayList<GameOccurence>();
     paddle = new Paddle(aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, aPaddlePositionXForPaddle, aPaddlePositionYForPaddle, this);
     blockAssignments = new ArrayList<BlockAssignment>();
     blocks = new ArrayList<Block>();
@@ -251,36 +241,6 @@ public class Game
   {
     boolean has = admin != null;
     return has;
-  }
-  /* Code from template association_GetMany */
-  public GameOccurence getGameOccurence(int index)
-  {
-    GameOccurence aGameOccurence = gameOccurences.get(index);
-    return aGameOccurence;
-  }
-
-  public List<GameOccurence> getGameOccurences()
-  {
-    List<GameOccurence> newGameOccurences = Collections.unmodifiableList(gameOccurences);
-    return newGameOccurences;
-  }
-
-  public int numberOfGameOccurences()
-  {
-    int number = gameOccurences.size();
-    return number;
-  }
-
-  public boolean hasGameOccurences()
-  {
-    boolean has = gameOccurences.size() > 0;
-    return has;
-  }
-
-  public int indexOfGameOccurence(GameOccurence aGameOccurence)
-  {
-    int index = gameOccurences.indexOf(aGameOccurence);
-    return index;
   }
   /* Code from template association_GetOne */
   public Paddle getPaddle()
@@ -503,78 +463,6 @@ public class Game
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfGameOccurences()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public GameOccurence addGameOccurence(GameStatus aGameStatus, int aCurrentScore)
-  {
-    return new GameOccurence(aGameStatus, aCurrentScore, this);
-  }
-
-  public boolean addGameOccurence(GameOccurence aGameOccurence)
-  {
-    boolean wasAdded = false;
-    if (gameOccurences.contains(aGameOccurence)) { return false; }
-    Game existingGame = aGameOccurence.getGame();
-    boolean isNewGame = existingGame != null && !this.equals(existingGame);
-    if (isNewGame)
-    {
-      aGameOccurence.setGame(this);
-    }
-    else
-    {
-      gameOccurences.add(aGameOccurence);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeGameOccurence(GameOccurence aGameOccurence)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aGameOccurence, as it must always have a game
-    if (!this.equals(aGameOccurence.getGame()))
-    {
-      gameOccurences.remove(aGameOccurence);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addGameOccurenceAt(GameOccurence aGameOccurence, int index)
-  {  
-    boolean wasAdded = false;
-    if(addGameOccurence(aGameOccurence))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfGameOccurences()) { index = numberOfGameOccurences() - 1; }
-      gameOccurences.remove(aGameOccurence);
-      gameOccurences.add(index, aGameOccurence);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveGameOccurenceAt(GameOccurence aGameOccurence, int index)
-  {
-    boolean wasAdded = false;
-    if(gameOccurences.contains(aGameOccurence))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfGameOccurences()) { index = numberOfGameOccurences() - 1; }
-      gameOccurences.remove(aGameOccurence);
-      gameOccurences.add(index, aGameOccurence);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addGameOccurenceAt(aGameOccurence, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfBlockAssignments()
   {
     return 0;
@@ -724,9 +612,9 @@ public class Game
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aFinalScore, Player aPlayer)
+  public Entry addEntry(int aFinalScore, String aName, Player aPlayer)
   {
-    return new Entry(aFinalScore, this, aPlayer);
+    return new Entry(aFinalScore, aName, this, aPlayer);
   }
 
   public boolean addEntry(Entry aEntry)
@@ -812,13 +700,6 @@ public class Game
       this.admin = null;
       placeholderAdmin.removeGame(this);
     }
-    while (gameOccurences.size() > 0)
-    {
-      GameOccurence aGameOccurence = gameOccurences.get(gameOccurences.size() - 1);
-      aGameOccurence.delete();
-      gameOccurences.remove(aGameOccurence);
-    }
-    
     Paddle existingPaddle = paddle;
     paddle = null;
     if (existingPaddle != null)

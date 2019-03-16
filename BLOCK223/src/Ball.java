@@ -3,8 +3,7 @@
 
 
 
-// line 40 "main.ump"
-// line 133 "main.ump"
+// line 39 "main.ump"
 public class Ball
 {
 

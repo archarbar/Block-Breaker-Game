@@ -4,8 +4,7 @@
 
 import java.util.*;
 
-// line 57 "main.ump"
-// line 144 "main.ump"
+// line 56 "main.ump"
 public class Level
 {
 

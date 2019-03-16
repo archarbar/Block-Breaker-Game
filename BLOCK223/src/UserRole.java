@@ -4,7 +4,6 @@
 
 
 // line 7 "main.ump"
-// line 106 "main.ump"
 public class UserRole
 {
 

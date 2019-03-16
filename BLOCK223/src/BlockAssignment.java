@@ -3,8 +3,7 @@
 
 
 
-// line 62 "main.ump"
-// line 149 "main.ump"
+// line 61 "main.ump"
 public class BlockAssignment
 {
 

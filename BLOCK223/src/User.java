@@ -5,8 +5,6 @@
 import java.util.*;
 
 // line 1 "main.ump"
-// line 100 "main.ump"
-// line 168 "main.ump"
 public class User
 {
 

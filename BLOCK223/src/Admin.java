@@ -5,7 +5,6 @@
 import java.util.*;
 
 // line 12 "main.ump"
-// line 111 "main.ump"
 public class Admin extends UserRole
 {
 
