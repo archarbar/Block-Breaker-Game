@@ -1,7 +1,8 @@
 namespace ca.mcgill.ecse223.block.model;
 
 use Block223Persistence.ump;
-use main.ump;
+use Block223 v3.ump;
+use Block223StateMachine.ump;
 
 class Block223 {
    1 <@>- * User users;

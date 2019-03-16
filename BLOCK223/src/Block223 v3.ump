@@ -30,6 +30,7 @@ class Game
   Integer heightHallOfFame;
   Boolean isPublished;
 Boolean isTested;
+Integer waitTime;
 1 <@>- 1..99 Level;
   1 <@>- 1 Ball;
   * -- 0..1 Admin;
@@ -93,7 +94,8 @@ class Entry
 {
   
   Integer finalScore;
-  String name;
+  name;
   * -- 1 Game;
   * -- 1 Player;
 }
+
