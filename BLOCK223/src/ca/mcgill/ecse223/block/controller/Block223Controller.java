@@ -798,7 +798,6 @@ public class Block223Controller {
 
 	}
 
-
 	public static TOUserMode getUserMode() {
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole==null) {

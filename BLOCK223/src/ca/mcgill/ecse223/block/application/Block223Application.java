@@ -20,18 +20,18 @@ import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 
 public class Block223Application {
-	
+
 	private static Block223 block223;
 	private static Game currentGame;
 	private static UserRole currentUserRole;
 	public static void main(String[] args) {
-		
+
 		// start UI
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterLoginPage().setVisible(true);
-            }
-        });
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new RegisterLoginPage().setVisible(true);
+			}
+		});
 	}
 
 	public static Block223 getBlock223() {
@@ -39,27 +39,27 @@ public class Block223Application {
 			// load model
 			block223 = Block223Persistence.load();
 		}
- 		return block223;
+		return block223;
 	}
 	public static Block223 resetBlock223() {
 		block223.reinitialize();
 		return block223;
 	}
-	
+
 	public static UserRole getCurrentUserRole() {
 		return currentUserRole;
 	}
-	
+
 	public static void setCurrentUserRole(UserRole aUserRole) {
 		currentUserRole = aUserRole;
 	}
-	
+
 	public static Game getCurrentGame() {
 		return currentGame;
 	}
-	
+
 	public static void setCurrentGame(Game aGame) {
 		currentGame = aGame;
 	}
-	
+
 }
