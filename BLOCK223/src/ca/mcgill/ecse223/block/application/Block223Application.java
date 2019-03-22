@@ -61,5 +61,9 @@ public class Block223Application {
 	public static void setCurrentGame(Game aGame) {
 		currentGame = aGame;
 	}
+	
+	public static void setCurrentPlayableGame(PlayedGame aGame) {
+		
+	}
 
 }
