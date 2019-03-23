@@ -118,17 +118,17 @@ public class Game implements Serializable
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 55 "../../../../../Block223 v3.ump"
-    Block223 block223 = getBlock223();
-       	  if (block223.findGame(aName) != null) {
-       	  	 throw new RuntimeException("The name of a game must be unique.");
-       	  }
-    	  if (aName == null || aName.length() == 0) {
-    	     throw new RuntimeException("The name of a game must be specified.");
-    	  }
+//    Block223 block223 = getBlock223();
+//       	  if (block223.findGame(aName) != null) {
+//       	  	 throw new RuntimeException("The name of a game must be unique.");
+//       	  }
+//    	  if (aName == null || aName.length() == 0) {
+//    	     throw new RuntimeException("The name of a game must be specified.");
+//    	  }
     // END OF UMPLE BEFORE INJECTION
     // line 65 "../../../../../Block223 v3.ump"
     if (aNrBlocksPerLevel <= 0) {
-         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         	throw new RuntimeException("The number of blocks per level must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     published = false;
