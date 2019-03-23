@@ -25,18 +25,18 @@ class User {
    unique username;
    1 -> 1..2 UserRole roles;
    
-   public String findUsername(UserRole admin) {
-	  for (String username: getRoles()) {
-		  if (admin.getName() == name) {
-			  return username;
-		  }
-	  }
-	  return null;
+   public static String findUsername(UserRole admin) {
+      return admin.getUsername();
+  }
 }
 
 class UserRole {
    abstract;
    password;
+   
+   public String getUsername() {
+      return super.toString();
+   }
 }
 
 class Admin {

@@ -795,9 +795,16 @@ public class PlayedGame
   // line 89 "../../../../../Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
     // TODO implement
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+	double x = currentPlayedGame.getCurrentBallX();
+	double y = currentPlayedGame.getCurrentBallY();
+	double dx = currentPlayedGame.getBallDirectionX();
+	double dy = currentPlayedGame.getBallDirectionY();
+	currentPlayedGame.setCurrentBallX(x + dx);
+	currentPlayedGame.setCurrentBallY(y + dy);
   }
 
-  // line 93 "../../../../../Block223States.ump"
+  // line 100 "../../../../../Block223States.ump"
    private void doGameOver(){
     // TODO implement
   }

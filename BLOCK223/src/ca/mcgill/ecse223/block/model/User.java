@@ -255,6 +255,11 @@ public class User implements Serializable
      }
   }
 
+  // line 29 "../../../../../Block223v2.ump"
+   public static  String findUsername(UserRole admin){
+    return admin.getUsername();
+  }
+
 
   public String toString()
   {
