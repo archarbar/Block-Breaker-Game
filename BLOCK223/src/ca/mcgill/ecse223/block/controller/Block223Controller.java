@@ -23,6 +23,7 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 
 
@@ -32,27 +33,26 @@ public class Block223Controller {
 	// Modifier methods		
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
-		String error = "";
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to create a game.");
 		}
 		Block223 block223 = Block223Application.getBlock223();
 		Admin admin = (Admin) currentUser;
+		List<Game> games = block223.getGames();
+		for (Game g : games) {
+			if (g.getName().equals(name)) {
+				throw new InvalidInputException("The name of a game must be unique.");
+			}
+		}
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 			block223.addGame(game);
+			((Admin) Block223Application.getCurrentUserRole()).addGame(game);
 			Block223Application.setCurrentGame(game);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The name of a game must be unique.")) {
-				error = "The name of a game must be unique.";
-			}
-			if (error.equals("The name of a game must be specified.")) {
-				error = "The name of a game must be specified.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 	}
 
@@ -78,63 +78,39 @@ public class Block223Controller {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The number of blocks per level must be greater than zero.")) {
-				error = "The number of blocks per level must be greater than zero.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		Ball ball = game.getBall();
 		try {
 			ball.setMinBallSpeedX(minBallSpeedX);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The minimum speed of the ball must be greater than zero.")) {
-				error = "The minimum speed of the ball must be greater than zero.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			ball.setMinBallSpeedY(minBallSpeedY);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The minimum speed of the ball must be greater than zero.")) {
-				error = "The minimum speed of the ball must be greater than zero.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			ball.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The speed increase factor of the ball must be greater than zero.")) {
-				error = "The speed increase factor of the ball must be greater than zero.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		Paddle paddle = game.getPaddle();
 		try {
 			paddle.setMaxPaddleLength(maxPaddleLength);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The maximum length of the paddle must be greater than zero and less than or equal to 400.")) {
-				error = "The maximum length of the paddle must be greater than zero and less than or equal to 400.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			paddle.setMinPaddleLength(minPaddleLength);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("The minimum length of the paddle must be greater than zero.")) {
-				error = "The minimum length of the paddle must be greater than zero.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		List<Level> levels = game.getLevels();
 		int size = levels.size();
@@ -470,7 +446,7 @@ public class Block223Controller {
 			newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();			
+			error = e.getMessage();
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks())) {
 				throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
 				}
@@ -873,6 +849,7 @@ public class Block223Controller {
 			result.add(to);
 		}
 		return result;
+
 	}
 
 	public static void selectPlayableGames(String name, int id) throws InvalidInputException {
@@ -981,47 +958,6 @@ public class Block223Controller {
 	// P7. Test game
 	// ****************************
 
-	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
-		UserRole admin = Block223Application.getCurrentUserRole();
-		if (!(admin instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to test a game");
-		}
-		Game game = Block223Application.getCurrentGame();
-		if (game == null) {
-			throw new InvalidInputException("A game must be selected to test it");
-		}
-		Admin testAdmin = game.getAdmin();
-		if (testAdmin != (Admin) admin) {
-			throw new InvalidInputException("Only the admin who created the game can test it");
-		}
-		String username = User.findUsername(admin);
-		Block223 block223 = Block223Application.getBlock223();
-		PlayedGame pgame = new PlayedGame(username, game, block223);
-		pgame.setPlayer(null);
-		Block223Application.setCurrentPlayableGame(pgame);
-		Block223Controller.startGame(ui);
-	}
-
-	// ****************************
-	// P8. Publish game
-	// ****************************
-
-	public static void publishGame () throws InvalidInputException {
-		UserRole userRole = Block223Application.getCurrentUserRole();
-		if (!(userRole instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to publish a game");
-		}
-		Game game = Block223Application.getCurrentGame();
-		if (game == null) {
-			throw new InvalidInputException("A game must be selected to publish it");
-		}
-		if (game.getAdmin() != (Admin) userRole) {
-			throw new InvalidInputException("Only the admin who created the game can publish it");
-		}
-		if (game.getBlocks().size() < 1) {
-			throw new InvalidInputException("At least one block must be defined for a game to be published");
-		}
-		game.setPublished(true);
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
 		UserRole admin = Block223Application.getCurrentUserRole();
 		if (!(admin instanceof Admin)) {
