@@ -4,8 +4,8 @@
 
 import java.io.Serializable;
 
-// line 45 "Block223Persistence.ump"
-public class Player implements Serializable
+// line 110 "Block223Persistence.ump"
+public class PlayedBlockAssignment implements Serializable
 {
 
   //------------------------
@@ -16,7 +16,7 @@ public class Player implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Player()
+  public PlayedBlockAssignment()
   {}
 
   //------------------------
@@ -30,8 +30,8 @@ public class Player implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 48 "Block223Persistence.ump"
-  private static final long serialVersionUID = 4495546738870249064L ;
+  // line 113 "Block223Persistence.ump"
+  private static final long serialVersionUID = 939001747760934442L ;
 
   
 }

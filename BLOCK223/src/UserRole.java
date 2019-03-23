@@ -2,51 +2,36 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 
+import java.io.Serializable;
 
-// line 7 "Block223 v3.ump"
-public class UserRole
+// line 33 "Block223Persistence.ump"
+public class UserRole implements Serializable
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //UserRole Attributes
-  private String password;
-
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public UserRole(String aPassword)
-  {
-    password = aPassword;
-  }
+  public UserRole()
+  {}
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setPassword(String aPassword)
-  {
-    boolean wasSet = false;
-    password = aPassword;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public String getPassword()
-  {
-    return password;
-  }
-
   public void delete()
   {}
+  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 36 "Block223Persistence.ump"
+  private static final long serialVersionUID = 3389752283403781197L ;
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "password" + ":" + getPassword()+ "]";
-  }
+  
 }
