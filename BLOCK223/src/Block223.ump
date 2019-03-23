@@ -62,6 +62,9 @@ class Game {
      if (aNrBlocksPerLevel <= 0) {
      	throw new RuntimeException("The number of blocks per level must be greater than zero.");
      }
+     if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
+     	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+     }
    }
    before getLevel {
    if (index < 0 || index > numberOfLevels()){
