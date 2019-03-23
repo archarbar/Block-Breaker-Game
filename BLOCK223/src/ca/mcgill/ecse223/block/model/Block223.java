@@ -5,8 +5,11 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * the reinitialize methods need to be added
+ */
 // line 1 "../../../../../Block223PlayMode.ump"
-// line 29 "../../../../../Block223Persistence.ump"
+// line 5 "../../../../../Block223Persistence.ump"
 // line 8 "../../../../../Block223 v3.ump"
 public class Block223 implements Serializable
 {
@@ -585,7 +588,7 @@ public class Block223 implements Serializable
     
   }
 
-  // line 35 "../../../../../Block223Persistence.ump"
+  // line 11 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
     User.reinitializeUseruniqueUsername(this.getUsers());
     Game.reinitializeGameuniqueName(this.getGames());
@@ -609,8 +612,8 @@ public class Block223 implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 32 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =003 ;
+  // line 8 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 6181302407834705923L ;
 
   
 }

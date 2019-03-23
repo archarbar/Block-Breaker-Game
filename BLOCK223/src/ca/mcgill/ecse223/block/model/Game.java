@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 6 "../../../../../Block223PlayMode.ump"
-// line 50 "../../../../../Block223Persistence.ump"
+// line 51 "../../../../../Block223Persistence.ump"
 // line 46 "../../../../../Block223 v3.ump"
 public class Game implements Serializable
 {
@@ -62,15 +62,15 @@ public class Game implements Serializable
     // line 55 "../../../../../Block223 v3.ump"
     Block223 block223 = getBlock223();
        	  if (block223.findGame(aName) != null) {
-       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  	 throw new RuntimeException("The name of a game must be unique.");
        	  }
     	  if (aName == null || aName.length() == 0) {
-    	     throw new RuntimeException("The name of a game must be specified");
+    	     throw new RuntimeException("The name of a game must be specified.");
     	  }
     // END OF UMPLE BEFORE INJECTION
     // line 65 "../../../../../Block223 v3.ump"
     if (aNrBlocksPerLevel <= 0) {
-         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         	throw new RuntimeException("The number of blocks per level must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -120,15 +120,15 @@ public class Game implements Serializable
     // line 55 "../../../../../Block223 v3.ump"
     Block223 block223 = getBlock223();
        	  if (block223.findGame(aName) != null) {
-       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  	 throw new RuntimeException("The name of a game must be unique.");
        	  }
     	  if (aName == null || aName.length() == 0) {
-    	     throw new RuntimeException("The name of a game must be specified");
+    	     throw new RuntimeException("The name of a game must be specified.");
     	  }
     // END OF UMPLE BEFORE INJECTION
     // line 65 "../../../../../Block223 v3.ump"
     if (aNrBlocksPerLevel <= 0) {
-         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         	throw new RuntimeException("The number of blocks per level must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -180,10 +180,10 @@ public class Game implements Serializable
     // line 55 "../../../../../Block223 v3.ump"
     Block223 block223 = getBlock223();
        	  if (block223.findGame(aName) != null) {
-       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  	 throw new RuntimeException("The name of a game must be unique.");
        	  }
     	  if (aName == null || aName.length() == 0) {
-    	     throw new RuntimeException("The name of a game must be specified");
+    	     throw new RuntimeException("The name of a game must be specified.");
     	  }
     // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
@@ -204,7 +204,7 @@ public class Game implements Serializable
     boolean wasSet = false;
     // line 65 "../../../../../Block223 v3.ump"
     if (aNrBlocksPerLevel <= 0) {
-         	throw new RuntimeException("The number of blocks per level must be greater than zero");
+         	throw new RuntimeException("The number of blocks per level must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
@@ -916,7 +916,7 @@ public class Game implements Serializable
     }
   }
 
-  // line 56 "../../../../../Block223Persistence.ump"
+  // line 57 "../../../../../Block223Persistence.ump"
    public static  void reinitializeGameuniqueName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
     for (Game game : games) {
@@ -954,8 +954,8 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 53 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =005 ;
+  // line 54 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = -210105651472293481L ;
 
   
 }

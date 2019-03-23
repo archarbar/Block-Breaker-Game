@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 9 "../../../../../Block223Persistence.ump"
+// line 92 "../../../../../Block223Persistence.ump"
 // line 181 "../../../../../Block223 v3.ump"
 public class Ball implements Serializable
 {
@@ -36,17 +36,17 @@ public class Ball implements Serializable
   {
     // line 185 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     // line 191 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedY <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     // line 197 "../../../../../Block223 v3.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
-         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
+         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     minBallSpeedX = aMinBallSpeedX;
@@ -63,17 +63,17 @@ public class Ball implements Serializable
   {
     // line 185 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     // line 191 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedY <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     // line 197 "../../../../../Block223 v3.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
-         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
+         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     minBallSpeedX = aMinBallSpeedX;
@@ -91,7 +91,7 @@ public class Ball implements Serializable
     boolean wasSet = false;
     // line 185 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     minBallSpeedX = aMinBallSpeedX;
@@ -104,7 +104,7 @@ public class Ball implements Serializable
     boolean wasSet = false;
     // line 191 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedY <= 0) {
-         	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
+         	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     minBallSpeedY = aMinBallSpeedY;
@@ -117,7 +117,7 @@ public class Ball implements Serializable
     boolean wasSet = false;
     // line 197 "../../../../../Block223 v3.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
-         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
+         	throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
@@ -168,8 +168,8 @@ public class Ball implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 12 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =001 ;
+  // line 95 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 7342002601644000501L ;
 
   
 }
