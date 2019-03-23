@@ -1,24 +1,18 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-package ca.mcgill.ecse223.block.model;
-import java.io.Serializable;
+
 import java.util.*;
 
-/**
- * random attribute not needed anymore
- * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
- */
-// line 63 "../../../../../Block223Persistence.ump"
-// line 142 "../../../../../Block223 v3.ump"
-public class Level implements Serializable
+// line 55 "Block223v3.ump"
+public class Block
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Level Associations
+  //Block Associations
   private Game game;
   private List<BlockAssignment> blockAssignments;
 
@@ -26,12 +20,12 @@ public class Level implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Level(Game aGame)
+  public Block(Game aGame)
   {
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
-      throw new RuntimeException("Unable to create level due to game");
+      throw new RuntimeException("Unable to create block due to game");
     }
     blockAssignments = new ArrayList<BlockAssignment>();
   }
@@ -74,34 +68,22 @@ public class Level implements Serializable
     int index = blockAssignments.indexOf(aBlockAssignment);
     return index;
   }
-  /* Code from template association_SetOneToAtMostN */
+  /* Code from template association_SetOneToMany */
   public boolean setGame(Game aGame)
   {
     boolean wasSet = false;
-    //Must provide game to level
     if (aGame == null)
     {
       return wasSet;
     }
 
-    //game already at maximum (99)
-    if (aGame.numberOfLevels() >= Game.maximumNumberOfLevels())
-    {
-      return wasSet;
-    }
-    
     Game existingGame = game;
     game = aGame;
     if (existingGame != null && !existingGame.equals(aGame))
     {
-      boolean didRemove = existingGame.removeLevel(this);
-      if (!didRemove)
-      {
-        game = existingGame;
-        return wasSet;
-      }
+      existingGame.removeBlock(this);
     }
-    game.addLevel(this);
+    game.addBlock(this);
     wasSet = true;
     return wasSet;
   }
@@ -111,20 +93,20 @@ public class Level implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Block aBlock, Game aGame)
+  public BlockAssignment addBlockAssignment(Level aLevel, Game aGame)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, this, aBlock, aGame);
+    return new BlockAssignment(aLevel, aGame, this);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
   {
     boolean wasAdded = false;
     if (blockAssignments.contains(aBlockAssignment)) { return false; }
-    Level existingLevel = aBlockAssignment.getLevel();
-    boolean isNewLevel = existingLevel != null && !this.equals(existingLevel);
-    if (isNewLevel)
+    Block existingBlock = aBlockAssignment.getBlock();
+    boolean isNewBlock = existingBlock != null && !this.equals(existingBlock);
+    if (isNewBlock)
     {
-      aBlockAssignment.setLevel(this);
+      aBlockAssignment.setBlock(this);
     }
     else
     {
@@ -137,8 +119,8 @@ public class Level implements Serializable
   public boolean removeBlockAssignment(BlockAssignment aBlockAssignment)
   {
     boolean wasRemoved = false;
-    //Unable to remove aBlockAssignment, as it must always have a level
-    if (!this.equals(aBlockAssignment.getLevel()))
+    //Unable to remove aBlockAssignment, as it must always have a block
+    if (!this.equals(aBlockAssignment.getBlock()))
     {
       blockAssignments.remove(aBlockAssignment);
       wasRemoved = true;
@@ -184,7 +166,7 @@ public class Level implements Serializable
     this.game = null;
     if(placeholderGame != null)
     {
-      placeholderGame.removeLevel(this);
+      placeholderGame.removeBlock(this);
     }
     for(int i=blockAssignments.size(); i > 0; i--)
     {
@@ -193,25 +175,4 @@ public class Level implements Serializable
     }
   }
 
-  // line 144 "../../../../../Block223 v3.ump"
-   public BlockAssignment findBlockAssignment(int gridHorizontalPosition, int gridVerticalPosition){
-    for (BlockAssignment assignment : this.getBlockAssignments()) {
-			int h = assignment.getGridHorizontalPosition();
-			int v = assignment.getGridVerticalPosition();
-			if(h == gridHorizontalPosition && v == gridVerticalPosition)
-			{
-				return assignment;
-			}
-		}
-	return null;
-  }
-  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 66 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =006 ;
-
-  
 }

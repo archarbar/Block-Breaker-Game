@@ -17,11 +17,13 @@ import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 
 
 public class Block223Controller {
@@ -273,29 +275,26 @@ public class Block223Controller {
 		List<Block> sourceList = currentGame.getBlocks();
 		Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
 
-//		for(Block specificBlock : sourceList) {
-//			int colorRed = specificBlock.getRed();
-//			int colorGreen = specificBlock.getGreen();
-//			int colorBlue = specificBlock.getBlue();
-//
-//			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
-//				throw new InvalidInputException("A block with the same color already exists for the game.");
-//			}
-//
-//			try {
-//				Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
-//				System.out.println("TRIED IN ADD BLOCK TO ADD");
-//				//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
-//
-//			}
-//			catch (RuntimeException e) {
-//				throw new InvalidInputException(e.getMessage());
-//			}
-//		}
+		//		for(Block specificBlock : sourceList) {
+		//			int colorRed = specificBlock.getRed();
+		//			int colorGreen = specificBlock.getGreen();
+		//			int colorBlue = specificBlock.getBlue();
+		//
+		//			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
+		//				throw new InvalidInputException("A block with the same color already exists for the game.");
+		//			}
+		//
+		//			try {
+		//				Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
+		//				System.out.println("TRIED IN ADD BLOCK TO ADD");
+		//				//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
+		//
+		//			}
+		//			catch (RuntimeException e) {
+		//				throw new InvalidInputException(e.getMessage());
+		//			}
+		//		}
 	}
-
-
-
 
 	public static void deleteBlock(int id) throws InvalidInputException {
 		//William 01/03
@@ -460,13 +459,13 @@ public class Block223Controller {
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
 				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
-					error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
-		}
-		
+				error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
+			}
+
 
 			throw new InvalidInputException(error);
 		}
-}
+	}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
@@ -798,7 +797,6 @@ public class Block223Controller {
 
 	}
 
-
 	public static TOUserMode getUserMode() {
 		UserRole userRole = Block223Application.getCurrentUserRole();
 		if (userRole==null) {
@@ -814,7 +812,163 @@ public class Block223Controller {
 			return to;
 		}
 		return null;
+	}
 
+	// ****************************
+	// P1. Start/pause/resume game		
+	// ****************************
+
+	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+
+	}
+
+	public static void selectPlayableGames(String name, int id) throws InvalidInputException {
+
+	}
+
+	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+
+	}
+
+	private void doSetup() {
+
+	}
+
+	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
+
+	}
+
+	// ****************************
+	// P2. Move ball	
+	// ****************************
+
+	private void doHitNothingAndNotOutOfBounds() {
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		double x = currentPlayedGame.getCurrentBallX();
+		double y = currentPlayedGame.getCurrentBallY();
+		double dx = currentPlayedGame.getBallDirectionX();
+		double dy = currentPlayedGame.getBallDirectionY();
+		currentPlayedGame.setCurrentBallX(x + dx);
+		currentPlayedGame.setCurrentBallY(y + dy);
+	}
+	
+	// ****************************
+	// P3. Ball hits paddle or wall	
+	// ****************************
+
+	private boolean hitPaddle() {
+
+	}
+
+	private void doHitPaddleOrWall() {
+
+	}
+
+	private boolean hitWall() {
+
+	}
+	
+	// ****************************
+	// P4. Ball hits block
+	// ****************************
+
+	private boolean hitLastBlockAndLastLevel() {
+
+	}
+
+	private void doHitBlock() {
+
+	}
+
+	private boolean hitLastBlock() {
+
+	}
+
+	private void doHitBlockNextLevel() {
+
+	}
+
+	private boolean hitBlock() {
+
+	}
+	
+	// ****************************
+	// P5. Ball is out of bounds
+	// ****************************
+
+	private boolean isOutOfBoundsAndLastLife() {
+
+	}
+
+	private void doOutOfBounds() {
+
+	}
+
+	private boolean isOutOfBounds() {
+
+	}
+
+	private void doGameOver() {
+
+	}
+	
+	// ****************************
+	// P6. View hall of fame
+	// ****************************
+
+	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
+
+	}
+
+	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
+
+	}
+	
+	// ****************************
+	// P7. Test game
+	// ****************************
+
+	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+		UserRole admin = Block223Application.getCurrentUserRole();
+		if (!(admin instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to test a game");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to test it");
+		}
+		Admin testAdmin = game.getAdmin();
+		if (testAdmin != (Admin) admin) {
+			throw new InvalidInputException("Only the admin who created the game can test it");
+		}
+		String username = User.findUsername(admin);
+		Block223 block223 = Block223Application.getBlock223();
+		PlayedGame pgame = new PlayedGame(username, game, block223);
+		pgame.setPlayer(null);
+		Block223Application.setCurrentPlayableGame(pgame);
+		Block223Controller.startGame(ui);
+	}
+	
+	// ****************************
+	// P8. Publish game
+	// ****************************
+
+	public static void publishGame () throws InvalidInputException {
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if (!(userRole instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to publish a game");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to publish it");
+		}
+		if (game.getAdmin() != (Admin) userRole) {
+			throw new InvalidInputException("Only the admin who created the game can publish it");
+		}
+		if (game.getBlocks().size() < 1) {
+			throw new InvalidInputException("At least one block must be defined for a game to be published");
+		}
+		game.setPublished(true);
 	}
 
 }
