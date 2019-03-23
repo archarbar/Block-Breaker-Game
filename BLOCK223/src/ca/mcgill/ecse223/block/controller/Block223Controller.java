@@ -278,17 +278,16 @@ public class Block223Controller {
 	public static void deleteBlock(int id) throws InvalidInputException {
 		//William 01/03
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to access game information.");
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to delete a block.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to delete a block.");
 		}
-		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
 		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can delete a block.");
 		}
 		Block block = game.findBlock(id);
 		if (block != null) {
@@ -530,36 +529,53 @@ public class Block223Controller {
 	}
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-		//William 01/03
-		String error = "";
-		Level currentLevel;
+//		//William 01/03
+//		String error = "";
+//		Level currentLevel;
+//		UserRole currentUser = Block223Application.getCurrentUserRole();
+//		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
+//			throw new InvalidInputException("Admin privileges are required to access game information.");
+//		}
+//		Game game = Block223Application.getCurrentGame();
+//		if (game == null) {
+//			throw new InvalidInputException("A game must be selected to access its information.");
+//		}
+//		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+//		Admin admin = game.getAdmin();
+//		if (admin != (Admin) currentUser) {
+//			throw new InvalidInputException("Only the admin who created the game can access its information.");
+//		}
+//		try {
+//			currentLevel = game.getLevel(level-1);
+//		}
+//		catch (IndexOutOfBoundsException e) {
+//			error = e.getMessage();
+//			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
+//				error = "Level" + level + "does not exist for the game.";
+//			}
+//			throw new InvalidInputException(error);
+//		}
+//		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
+//		if(assignment != null){
+//			assignment.delete();
+//		}
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to access game information.");
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to remove a block.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to remove a block.");
 		}
-		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
 		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can remove a block.");
 		}
-		try {
-			currentLevel = game.getLevel(level-1);
-		}
-		catch (IndexOutOfBoundsException e) {
-			error = e.getMessage();
-			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
-				error = "Level" + level + "does not exist for the game.";
-			}
-			throw new InvalidInputException(error);
-		}
-		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
-		if(assignment != null){
-			assignment.delete();
-		}
+//		Block block = game.findBlock(id);
+//		if (block != null) {
+//			block.delete();
+//		}
+		
 	}
 
 	public static void saveGame() throws InvalidInputException {
