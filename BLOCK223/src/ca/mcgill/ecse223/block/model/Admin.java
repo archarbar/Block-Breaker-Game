@@ -6,8 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 4 "../../../../../Block223Persistence.ump"
-// line 1 "../../../../../Block223v3.ump"
-// line 42 "../../../../../Block223v2.ump"
+// line 38 "../../../../../Block223 v3.ump"
 public class Admin extends UserRole implements Serializable
 {
 
@@ -66,20 +65,21 @@ public class Admin extends UserRole implements Serializable
   {
     return 0;
   }
-  /* Code from template association_AddManyToOptionalOne */
+  /* Code from template association_AddManyToOne */
+  public Game addGame(String aName, int aNrBlocksPerLevel, Ball aBall, Paddle aPaddle, Block223 aBlock223)
+  {
+    return new Game(aName, aNrBlocksPerLevel, this, aBall, aPaddle, aBlock223);
+  }
+
   public boolean addGame(Game aGame)
   {
     boolean wasAdded = false;
     if (games.contains(aGame)) { return false; }
     Admin existingAdmin = aGame.getAdmin();
-    if (existingAdmin == null)
+    boolean isNewAdmin = existingAdmin != null && !this.equals(existingAdmin);
+    if (isNewAdmin)
     {
       aGame.setAdmin(this);
-    }
-    else if (!this.equals(existingAdmin))
-    {
-      existingAdmin.removeGame(aGame);
-      addGame(aGame);
     }
     else
     {
@@ -92,10 +92,10 @@ public class Admin extends UserRole implements Serializable
   public boolean removeGame(Game aGame)
   {
     boolean wasRemoved = false;
-    if (games.contains(aGame))
+    //Unable to remove aGame, as it must always have a admin
+    if (!this.equals(aGame.getAdmin()))
     {
       games.remove(aGame);
-      aGame.setAdmin(null);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -135,9 +135,10 @@ public class Admin extends UserRole implements Serializable
 
   public void delete()
   {
-    while( !games.isEmpty() )
+    for(int i=games.size(); i > 0; i--)
     {
-      games.get(0).setAdmin(null);
+      Game aGame = games.get(i - 1);
+      aGame.delete();
     }
     super.delete();
   }

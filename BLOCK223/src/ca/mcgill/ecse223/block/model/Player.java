@@ -6,8 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 73 "../../../../../Block223Persistence.ump"
-// line 6 "../../../../../Block223v3.ump"
-// line 46 "../../../../../Block223v2.ump"
+// line 42 "../../../../../Block223 v3.ump"
 public class Player extends UserRole implements Serializable
 {
 
@@ -15,11 +14,7 @@ public class Player extends UserRole implements Serializable
   // MEMBER VARIABLES
   //------------------------
 
-  //Player Attributes
-  private int life;
-
   //Player Associations
-  private List<Entry> entries;
   private List<PlayedGame> playedGames;
   private List<HallOfFameEntry> hallOfFameEntries;
 
@@ -27,11 +22,9 @@ public class Player extends UserRole implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Player(String aPassword, Block223 aBlock223, int aLife)
+  public Player(String aPassword, Block223 aBlock223)
   {
     super(aPassword, aBlock223);
-    life = aLife;
-    entries = new ArrayList<Entry>();
     playedGames = new ArrayList<PlayedGame>();
     hallOfFameEntries = new ArrayList<HallOfFameEntry>();
   }
@@ -39,49 +32,6 @@ public class Player extends UserRole implements Serializable
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setLife(int aLife)
-  {
-    boolean wasSet = false;
-    life = aLife;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public int getLife()
-  {
-    return life;
-  }
-  /* Code from template association_GetMany */
-  public Entry getEntry(int index)
-  {
-    Entry aEntry = entries.get(index);
-    return aEntry;
-  }
-
-  public List<Entry> getEntries()
-  {
-    List<Entry> newEntries = Collections.unmodifiableList(entries);
-    return newEntries;
-  }
-
-  public int numberOfEntries()
-  {
-    int number = entries.size();
-    return number;
-  }
-
-  public boolean hasEntries()
-  {
-    boolean has = entries.size() > 0;
-    return has;
-  }
-
-  public int indexOfEntry(Entry aEntry)
-  {
-    int index = entries.indexOf(aEntry);
-    return index;
-  }
   /* Code from template association_GetMany */
   public PlayedGame getPlayedGame(int index)
   {
@@ -141,78 +91,6 @@ public class Player extends UserRole implements Serializable
   {
     int index = hallOfFameEntries.indexOf(aHallOfFameEntry);
     return index;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfEntries()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aFinalScore, String aName, Game aGame)
-  {
-    return new Entry(aFinalScore, aName, aGame, this);
-  }
-
-  public boolean addEntry(Entry aEntry)
-  {
-    boolean wasAdded = false;
-    if (entries.contains(aEntry)) { return false; }
-    Player existingPlayer = aEntry.getPlayer();
-    boolean isNewPlayer = existingPlayer != null && !this.equals(existingPlayer);
-    if (isNewPlayer)
-    {
-      aEntry.setPlayer(this);
-    }
-    else
-    {
-      entries.add(aEntry);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeEntry(Entry aEntry)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aEntry, as it must always have a player
-    if (!this.equals(aEntry.getPlayer()))
-    {
-      entries.remove(aEntry);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addEntryAt(Entry aEntry, int index)
-  {  
-    boolean wasAdded = false;
-    if(addEntry(aEntry))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
-      entries.remove(aEntry);
-      entries.add(index, aEntry);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveEntryAt(Entry aEntry, int index)
-  {
-    boolean wasAdded = false;
-    if(entries.contains(aEntry))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
-      entries.remove(aEntry);
-      entries.add(index, aEntry);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addEntryAt(aEntry, index);
-    }
-    return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfPlayedGames()
@@ -360,11 +238,6 @@ public class Player extends UserRole implements Serializable
 
   public void delete()
   {
-    for(int i=entries.size(); i > 0; i--)
-    {
-      Entry aEntry = entries.get(i - 1);
-      aEntry.delete();
-    }
     while( !playedGames.isEmpty() )
     {
       playedGames.get(0).setPlayer(null);
@@ -376,13 +249,7 @@ public class Player extends UserRole implements Serializable
     }
     super.delete();
   }
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "life" + ":" + getLife()+ "]";
-  }  
+  
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------

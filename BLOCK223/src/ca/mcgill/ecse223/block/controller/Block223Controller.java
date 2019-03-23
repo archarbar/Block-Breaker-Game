@@ -753,48 +753,64 @@ public class Block223Controller {
 	}
 
 	public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
-
+		String error = "";
 		//Check if the user is an admin 
-		UserRole currentUser = Block223Application.getCurrentUserRole();
+		UserRole currentUser = Block223Application.getCurrentUserRole();		
 		if (!(currentUser instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to access game information.");
+			error += "Admin privileges are required to access game information.";
 		}
 		//check if the game exists
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			error += "A game must be selected to access its information.";
 		}
 		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
 		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			error += "Only the admin who created the game can access its information.";
 		}
 
-		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
+		if(currentUser instanceof Admin) {
+			boolean isAdminCreator = false;
+			List<Game> games = ((Admin) currentUser).getGames();
+			
+			for(Game instanceOfGame : games) {
+				if(instanceOfGame.getName().equals(game.getName())) {
+					isAdminCreator = true;
+				}
+			}
+			if(isAdminCreator == false) {
+				error += "Only the admin who created the game can access its information. ";
+			}
+		}		
 		
-		String error = "";
+		if(error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}
+		
 
 		Level currentLevel;		
 		try {
 			currentLevel = game.getLevel(level - 1);
 		}
-		catch (IndexOutOfBoundsException e) {
-			error = e.getMessage();
-			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
-				error = "Level" + level + "does not exist for the game.";
+		catch (IndexOutOfBoundsException e) {			
+			throw new InvalidInputException("Level" + level + "does not exist for the game.");
 			}
-			throw new InvalidInputException(error);
-		}
-
-		List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
-
+		
+		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
+		if (game != null)
+			{
+			List<BlockAssignment> assignments = currentLevel.getBlockAssignments();		
 		for (BlockAssignment assignment: assignments) {
 			
 			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
 
 			result.add(to);
 		}
+			}
+		
 		return result;
+			
 
 	}
 

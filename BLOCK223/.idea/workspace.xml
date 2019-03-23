@@ -2,43 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Block223.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Block223PlayMode.ump" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Block223States.ump" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Block223TransferObjectsPlayMode.ump" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PlayedGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOCurrentBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOCurrentlyPlayedGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOHallOfFame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOHallOfFameEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/TOPlayableGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BouncePoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Entry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/GameOccurence.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/HallOfFameEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedBlockAssignment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayModeInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project-tests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block223 v2.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223v2.ump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block223 v3.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223v3.ump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block223StateMachine.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223StateMachine.ump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block223TransferObjects.ump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BlockAssignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameOccurence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameOccurence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Paddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/application/Block223Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223ControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223v2.ump" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223v2.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223 v3.ump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223v3.ump" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java" afterDir="false" />
@@ -47,6 +13,7 @@
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/UserRole.java" afterDir="false" />
@@ -155,16 +122,17 @@
       <workItem from="1551752774314" duration="183000" />
       <workItem from="1551759771666" duration="218000" />
       <workItem from="1553304955939" duration="61000" />
+      <workItem from="1553359824211" duration="338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5269000" />
+    <option name="totallyTimeSpent" value="5607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25973153" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26308724" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
