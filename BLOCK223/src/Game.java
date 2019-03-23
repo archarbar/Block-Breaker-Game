@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 23 "main.ump"
+// line 23 "Block223StateMachine.ump"
 public class Game
 {
 
@@ -612,9 +612,9 @@ public class Game
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aFinalScore, String aName, Player aPlayer)
+  public Entry addEntry(int aFinalScore, Player aPlayer)
   {
-    return new Entry(aFinalScore, aName, this, aPlayer);
+    return new Entry(aFinalScore, this, aPlayer);
   }
 
   public boolean addEntry(Entry aEntry)

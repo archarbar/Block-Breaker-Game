@@ -96,15 +96,15 @@ class GameOccurence
        
        removeBlock(Block aBlock) [blocksAlmostEmpty()] / 
        {BlockAssignment aBlock = getBlockAssignment();
-          doRemoveBlock(aBlock);} -> GameEnded;
+       doRemoveBlock(aBlock);} -> GameEnded;
          
        removeBlockFromLevel(Block aBlock) [levelBlocksAlmostEmpty()] /
        {BlockAssignment aBlock = getBlockAssignment();
-          doRemoveBlock(aBlock);} -> Idle;
+       doRemoveBlock(aBlock);} -> Idle;
        
        removeLife(Player aLife) [lifesAlmostEmpty()] /
        {Player aLife = get
-          doRemoveLife(aLife)} -> GameEnded;
+       doRemoveLife(aLife)} -> GameEnded;
        
        removeLife(Player aLife) [!lifesAlmostEmpty()] / {doRemoveLife(aLife)} -> Idle;
        
@@ -116,13 +116,13 @@ class GameOccurence
         
     Paused{
       
-        logOutFromGame(Block223Application currentGame) [isSpacebarPressed()] / 
+       logOutFromGame(Block223Application currentGame) [isSpacebarPressed()] / 
        {Game currentGame = Block223Application.getCurrentGame(); 
-          doLogOut(currentGame)} -> Idle;
+       doLogOut(currentGame)} -> Idle;
         
-        resumeGame(Block223Application currentGame) [isSpacebarPressed()] / 
-        {Game currentGame = Block223Application.getCurrentGame();
-         doResume(currentGame)} -> InGame;
+       resumeGame(Block223Application currentGame) [isSpacebarPressed()] / 
+       {Game currentGame = Block223Application.getCurrentGame();
+       doResume(currentGame)} -> InGame;
    
     }
      
@@ -144,11 +144,14 @@ class GameOccurence
        private boolean lifesAlmostEmpty(){
        return numberofLifes() == 1;
        }
-        
+       
+       private boolean levelBlocksAlmostEmpty(){
+       }
+
        private boolean isStartButtonPressed(){
        }
   
-        private boolean isSpacebarPressed(){
+       private boolean isSpacebarPressed(){
        }
     
            

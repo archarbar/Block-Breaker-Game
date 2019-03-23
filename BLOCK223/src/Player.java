@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-// line 17 "main.ump"
+// line 17 "Block223StateMachine.ump"
 public class Player extends UserRole
 {
 
@@ -13,7 +13,7 @@ public class Player extends UserRole
   //------------------------
 
   //Player Attributes
-  private int life;
+  private int live;
 
   //Player Associations
   private List<Entry> entries;
@@ -22,10 +22,10 @@ public class Player extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Player(String aPassword, int aLife)
+  public Player(String aPassword, int aLive)
   {
     super(aPassword);
-    life = aLife;
+    live = aLive;
     entries = new ArrayList<Entry>();
   }
 
@@ -33,17 +33,17 @@ public class Player extends UserRole
   // INTERFACE
   //------------------------
 
-  public boolean setLife(int aLife)
+  public boolean setLive(int aLive)
   {
     boolean wasSet = false;
-    life = aLife;
+    live = aLive;
     wasSet = true;
     return wasSet;
   }
 
-  public int getLife()
+  public int getLive()
   {
-    return life;
+    return live;
   }
   /* Code from template association_GetMany */
   public Entry getEntry(int index)
@@ -81,9 +81,9 @@ public class Player extends UserRole
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aFinalScore, String aName, Game aGame)
+  public Entry addEntry(int aFinalScore, Game aGame)
   {
-    return new Entry(aFinalScore, aName, aGame, this);
+    return new Entry(aFinalScore, aGame, this);
   }
 
   public boolean addEntry(Entry aEntry)
@@ -162,6 +162,6 @@ public class Player extends UserRole
   public String toString()
   {
     return super.toString() + "["+
-            "life" + ":" + getLife()+ "]";
+            "live" + ":" + getLive()+ "]";
   }
 }
