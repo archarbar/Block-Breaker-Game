@@ -455,7 +455,7 @@ public class Block223Controller {
 			newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();			
+			error = e.getMessage();
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
 				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
@@ -815,11 +815,30 @@ public class Block223Controller {
 	}
 
 	// ****************************
-	// P1. Start/pause/resume game		
+	// P1. Start/pause/resume game
 	// ****************************
 
 	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
-
+		Block223 block223 = Block223Application.getBlock223();
+		UserRole player = Block223Application.getCurrentUserRole();
+		if (!(player instanceof Player)) {
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		}
+		List<TOPlayableGame> result = new ArrayList<ToPlayableGame>();
+		List<Game> games = Block223.getGames();
+		for (Game game: games) {
+			boolean published = Game.isPublished();
+			if (published) {
+				TOPlayableGame to = new TOPlayableGame(game.getName(), -1, 0);
+				result.add(to);
+			}
+		}
+		List<Game> games = Player.getPlayedGames();
+		for (Game game: games) {
+			TOPlayableGame to = new TOPlayableGame(game.getGame().getName(), game.getId(), game.getCurrentLevel());
+			result.add(to);
+		}
+		return result;
 	}
 
 	public static void selectPlayableGames(String name, int id) throws InvalidInputException {
@@ -839,7 +858,7 @@ public class Block223Controller {
 	}
 
 	// ****************************
-	// P2. Move ball	
+	// P2. Move ball
 	// ****************************
 
 	private void doHitNothingAndNotOutOfBounds() {
@@ -851,9 +870,9 @@ public class Block223Controller {
 		currentPlayedGame.setCurrentBallX(x + dx);
 		currentPlayedGame.setCurrentBallY(y + dy);
 	}
-	
+
 	// ****************************
-	// P3. Ball hits paddle or wall	
+	// P3. Ball hits paddle or wall
 	// ****************************
 
 	private boolean hitPaddle() {
@@ -867,7 +886,7 @@ public class Block223Controller {
 	private boolean hitWall() {
 
 	}
-	
+
 	// ****************************
 	// P4. Ball hits block
 	// ****************************
@@ -891,7 +910,7 @@ public class Block223Controller {
 	private boolean hitBlock() {
 
 	}
-	
+
 	// ****************************
 	// P5. Ball is out of bounds
 	// ****************************
@@ -911,7 +930,7 @@ public class Block223Controller {
 	private void doGameOver() {
 
 	}
-	
+
 	// ****************************
 	// P6. View hall of fame
 	// ****************************
@@ -923,11 +942,52 @@ public class Block223Controller {
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
 
 	}
-	
+
 	// ****************************
 	// P7. Test game
 	// ****************************
 
+	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+		UserRole admin = Block223Application.getCurrentUserRole();
+		if (!(admin instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to test a game");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to test it");
+		}
+		Admin testAdmin = game.getAdmin();
+		if (testAdmin != (Admin) admin) {
+			throw new InvalidInputException("Only the admin who created the game can test it");
+		}
+		String username = User.findUsername(admin);
+		Block223 block223 = Block223Application.getBlock223();
+		PlayedGame pgame = new PlayedGame(username, game, block223);
+		pgame.setPlayer(null);
+		Block223Application.setCurrentPlayableGame(pgame);
+		Block223Controller.startGame(ui);
+	}
+
+	// ****************************
+	// P8. Publish game
+	// ****************************
+
+	public static void publishGame () throws InvalidInputException {
+		UserRole userRole = Block223Application.getCurrentUserRole();
+		if (!(userRole instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to publish a game");
+		}
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to publish it");
+		}
+		if (game.getAdmin() != (Admin) userRole) {
+			throw new InvalidInputException("Only the admin who created the game can publish it");
+		}
+		if (game.getBlocks().size() < 1) {
+			throw new InvalidInputException("At least one block must be defined for a game to be published");
+		}
+		game.setPublished(true);
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
 		UserRole admin = Block223Application.getCurrentUserRole();
 		if (!(admin instanceof Admin)) {
@@ -948,7 +1008,7 @@ public class Block223Controller {
 		Block223Application.setCurrentPlayableGame(pgame);
 		Block223Controller.startGame(ui);
 	}
-	
+
 	// ****************************
 	// P8. Publish game
 	// ****************************
