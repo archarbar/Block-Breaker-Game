@@ -4,8 +4,8 @@
 
 import java.util.*;
 
-// line 17 "Block223 v3.ump"
-public class Player extends UserRole
+// line 6 "Block223v3.ump"
+public class Player
 {
 
   //------------------------
@@ -22,9 +22,8 @@ public class Player extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Player(String aPassword, int aLife)
+  public Player(int aLife)
   {
-    super(aPassword);
     life = aLife;
     entries = new ArrayList<Entry>();
   }
@@ -155,7 +154,6 @@ public class Player extends UserRole
       Entry aEntry = entries.get(i - 1);
       aEntry.delete();
     }
-    super.delete();
   }
 
 

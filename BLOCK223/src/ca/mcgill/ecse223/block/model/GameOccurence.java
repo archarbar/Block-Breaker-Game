@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-
+package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 63 "Block223v3.ump"
+// line 56 "../../../../../Block223v3.ump"
 public class GameOccurence extends Game
 {
 
@@ -35,9 +35,9 @@ public class GameOccurence extends Game
   // CONSTRUCTOR
   //------------------------
 
-  public GameOccurence(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, Ball aBall, Paddle aPaddle, GameStatus aGameStatus, int aCurrentScore)
+  public GameOccurence(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, String aName, int aNrBlocksPerLevel, Paddle aPaddle, Ball aBall, Block223 aBlock223, GameStatus aGameStatus, int aCurrentScore)
   {
-    super(aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aWaitTime, aBall, aPaddle);
+    super(aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aWaitTime, aName, aNrBlocksPerLevel, aPaddle, aBall, aBlock223);
     gameStatus = aGameStatus;
     currentScore = aCurrentScore;
     gameId = nextGameId++;

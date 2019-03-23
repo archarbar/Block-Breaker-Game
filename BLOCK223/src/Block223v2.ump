@@ -24,6 +24,14 @@ class Block223 {
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
+   
+   public String findUsername(UserRole admin) {
+	  for (String username: getRoles()) {
+		  if (admin.getName() == name) {
+			  return username;
+		  }
+	  }
+	  return null;
 }
 
 class UserRole {
@@ -78,12 +86,9 @@ class Game {
 	  return null;
   }
    
-   * -- 1 Admin admin;
    1 <@>- * Block blocks;
-   1 <@>- 1..99 Level levels;
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
-   1 <@>- 1 Paddle paddle;
 }
 
 class Block {

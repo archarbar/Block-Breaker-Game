@@ -87,6 +87,13 @@ class PlayedGame {
 
   private void doHitNothingAndNotOutOfBounds() {
     // TODO implement
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+	double x = currentPlayedGame.getCurrentBallX();
+	double y = currentPlayedGame.getCurrentBallY();
+	double dx = currentPlayedGame.getBallDirectionX();
+	double dy = currentPlayedGame.getBallDirectionY();
+	currentPlayedGame.setCurrentBallX(x + dx);
+	currentPlayedGame.setCurrentBallY(y + dy);
   }
 
   private void doGameOver() {

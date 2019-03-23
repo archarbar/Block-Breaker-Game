@@ -11,6 +11,7 @@ import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.Block223Page;
 import ca.mcgill.ecse223.block.view.RegisterLoginPage;
@@ -24,6 +25,7 @@ public class Block223Application {
 	private static Block223 block223;
 	private static Game currentGame;
 	private static UserRole currentUserRole;
+	private static PlayedGame currentPlayedGame;
 	public static void main(String[] args) {
 
 		// start UI
@@ -62,8 +64,12 @@ public class Block223Application {
 		currentGame = aGame;
 	}
 	
+	public static PlayedGame getCurrentPlayableGame() {
+		return currentPlayedGame;
+	}
+	
 	public static void setCurrentPlayableGame(PlayedGame aGame) {
-		
+		currentPlayedGame = aGame;
 	}
 
 }
