@@ -5,9 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 29 "../../../../../Block223Persistence.ump"
 // line 1 "../../../../../Block223PlayMode.ump"
-// line 9 "../../../../../Block223v2.ump"
+// line 29 "../../../../../Block223Persistence.ump"
+// line 8 "../../../../../Block223 v3.ump"
 public class Block223 implements Serializable
 {
 
@@ -479,9 +479,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, String aName, int aNrBlocksPerLevel, Paddle aPaddle, Ball aBall)
+  public Game addGame(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle)
   {
-    return new Game(aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aWaitTime, aName, aNrBlocksPerLevel, aPaddle, aBall, this);
+    return new Game(aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, this);
   }
 
   public boolean addGame(Game aGame)
@@ -595,7 +595,7 @@ public class Block223 implements Serializable
     }
   }
 
-  // line 15 "../../../../../Block223v2.ump"
+  // line 13 "../../../../../Block223 v3.ump"
    public Game findGame(String name){
     for (Game game: getGames()) {
 		  if (game.getName() == name) {

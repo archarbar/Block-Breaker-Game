@@ -1,16 +1,14 @@
 namespace ca.mcgill.ecse223.block.model;
 
-use Block223Persistence.ump;
-use Block223v3.ump;
-use Block223States.ump;
 use Block223PlayMode.ump;
+use Block223Persistence.ump;
+use Block223States.ump;
 use Block223TransferObjectsPlayMode.ump;
 
 class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
-   1 <@>- * Game games;
-   
+   1 <@>- * Game games; 
    public Game findGame(String name) {
 	  for (Game game: getGames()) {
 		  if (game.getName() == name) {
@@ -24,7 +22,6 @@ class Block223 {
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
-   
    public static String findUsername(UserRole admin) {
       return admin.getUsername();
   }
@@ -33,7 +30,6 @@ class User {
 class UserRole {
    abstract;
    password;
-   
    public String getUsername() {
       return super.toString();
    }
@@ -55,7 +51,7 @@ class Game {
    const Integer COLUMNS_PADDING = 5;
    const Integer ROW_PADDING = 2;
    unique name;
-      before constructor, setName {
+   before constructor, setName {
    	  Block223 block223 = getBlock223();
    	  if (block223.findGame(aName) != null) {
    	  	 throw new RuntimeException("The name of a game must be unique");
@@ -85,10 +81,12 @@ class Game {
 	  }
 	  return null;
   }
-   
+   * -- 1 Admin admin;
    1 <@>- * Block blocks;
+   1 <@>- 1..99 Level levels;
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
+   1 <@>- 1 Paddle paddle;
 }
 
 class Block {
@@ -102,7 +100,7 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
-
+   
    before constructor {
    	if (aRed < 0 || aRed > 255) {
 	  	throw new RuntimeException("Red must be between 0 and 255.");
@@ -139,11 +137,27 @@ class Block {
    }
 }
 
+// random attribute not needed anymore
+// Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
+class Level {
+	public BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {	
+		for (BlockAssignment assignment : this.getBlockAssignments()) {
+			int h = assignment.getGridHorizontalPosition();
+			int v = assignment.getGridVerticalPosition();
+			if(h == gridHorizontalPosition && v == gridVerticalPosition)
+			{
+				return assignment;
+			}
+		}
+	return null;
+  } 
+}
+
 class BlockAssignment {
    Integer gridHorizontalPosition;
    Integer gridVerticalPosition;
-   Integer maxVerticalGridPosition = 15;
-   Integer maxHorizontalGridPosition = 15;
+   * -- 1 Level level;
+   * -- 1 Block block;
    before constructor {
 	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
 	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
@@ -162,22 +176,6 @@ class BlockAssignment {
 	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
 	    }
    }
-   * -- 1 Level level;
-   * -- 1 Block block;
-}
-
-class Level {
-  public BlockAssignment findBlockAssignment (int gridHorizontalPosition, int gridVerticalPosition) {	
-		for (BlockAssignment assignment : this.getBlockAssignments()) {
-			int h = assignment.getGridHorizontalPosition();
-			int v = assignment.getGridVerticalPosition();
-			if(h == gridHorizontalPosition && v == gridVerticalPosition)
-			{
-				return assignment;
-			}
-		}
-	return null;
-  } 	
 }
 
 class Ball {
