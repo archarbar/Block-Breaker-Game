@@ -561,7 +561,7 @@ public class Block223Controller {
 //		}
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to remove a block.");
+			throw new InvalidInputException("Admin privileges are required to  a block.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
