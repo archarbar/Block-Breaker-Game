@@ -74,6 +74,9 @@ public class Block223Controller {
 		if (nrLevels < 1 || nrLevels > 99) {
 			throw new InvalidInputException("The number of levels must be between 1 and 99.");
 		}
+		if (minBallSpeedX == 0 && minBallSpeedY == 0) {
+			throw new InvalidInputException("The minimum speed of the ball must be greater than zero.");
+		}
 		try {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}

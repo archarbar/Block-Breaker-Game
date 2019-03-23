@@ -155,37 +155,19 @@ class BlockAssignment {
    Integer gridVerticalPosition;
    * -- 1 Level level;
    * -- 1 Block block;
-   before constructor {
-	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-	    }
-	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-	    }
-   }
-   before setGridHorizontalPosition {
-	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-	    }
-   }
-   before setGridVerticalPosition {
-	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-	    }
-   }
 }
 
 class Ball {
    const Integer BALL_DIAMETER = 10;
    Integer minBallSpeedX;
+   Integer minBallSpeedY;
    before constructor, setMinBallSpeedX {
-     if (aMinBallSpeedX <= 0) {
+     if (aMinBallSpeedX < 0) {
      	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
      }
    } 
-   Integer minBallSpeedY;
    before constructor, setMinBallSpeedY {
-     if (aMinBallSpeedY <= 0) {
+     if (aMinBallSpeedY < 0) {
      	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
      }
    }
@@ -202,8 +184,8 @@ class Paddle {
    const Integer VERTICAL_DISTANCE = 30;
    Integer maxPaddleLength;
    before constructor, setMaxPaddleLength {
-     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400) {
-     	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390) {
+     	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
      }
    }
    Integer minPaddleLength;

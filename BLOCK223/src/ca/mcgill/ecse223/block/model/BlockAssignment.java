@@ -28,14 +28,6 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 159 "../../../../../Block223.ump"
-    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-    	    }
-    	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-    	    }
-    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);
@@ -62,11 +54,6 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 167 "../../../../../Block223.ump"
-    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-    	    }
-    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     wasSet = true;
     return wasSet;
@@ -75,11 +62,6 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 172 "../../../../../Block223.ump"
-    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-    	    }
-    // END OF UMPLE BEFORE INJECTION
     gridVerticalPosition = aGridVerticalPosition;
     wasSet = true;
     return wasSet;
