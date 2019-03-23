@@ -120,10 +120,10 @@ public class Game implements Serializable
     // line 55 "../../../../../Block223 v3.ump"
     Block223 block223 = getBlock223();
        	  if (block223.findGame(aName) != null) {
-       	  	 throw new RuntimeException("The name of a game must be unique");
+       	  	 throw new RuntimeException("The name of a game must be unique.");
        	  }
     	  if (aName == null || aName.length() == 0) {
-    	     throw new RuntimeException("The name of a game must be specified");
+    	     throw new RuntimeException("The name of a game must be specified.");
     	  }
     // END OF UMPLE BEFORE INJECTION
     // line 65 "../../../../../Block223 v3.ump"

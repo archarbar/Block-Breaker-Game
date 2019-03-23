@@ -506,7 +506,7 @@ public class Block223Controller {
 				}
 			}
 			if(isAdminCurrentGameCreator == false) {
-				error += "Only the admin who created the game can move a block";
+				error += "Only the admin who created the game can move a block.";
 			}
 		}		
 		
