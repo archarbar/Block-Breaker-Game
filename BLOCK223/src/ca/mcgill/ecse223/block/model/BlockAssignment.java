@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
 // line 86 "../../../../../Block223Persistence.ump"
-// line 153 "../../../../../Block223.ump"
+// line 194 "../../../../../Block223.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -28,17 +28,6 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-<<<<<<< HEAD
-=======
-    // line 203 "../../../../../Block223 v3.ump"
-    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
-            	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
-            	    }
-            if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
-            	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
-            	    }
-    // END OF UMPLE BEFORE INJECTION
->>>>>>> 0c91d6dd556a425c65d935787b5b82653696e557
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);
@@ -65,14 +54,11 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-<<<<<<< HEAD
-=======
-    // line 211 "../../../../../Block223 v3.ump"
+    // line 210 "../../../../../Block223.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
         	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
         	    }
     // END OF UMPLE BEFORE INJECTION
->>>>>>> 0c91d6dd556a425c65d935787b5b82653696e557
     gridHorizontalPosition = aGridHorizontalPosition;
     wasSet = true;
     return wasSet;
@@ -81,14 +67,11 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-<<<<<<< HEAD
-=======
-    // line 216 "../../../../../Block223 v3.ump"
+    // line 215 "../../../../../Block223.ump"
     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
         	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
         	    }
     // END OF UMPLE BEFORE INJECTION
->>>>>>> 0c91d6dd556a425c65d935787b5b82653696e557
     gridVerticalPosition = aGridVerticalPosition;
     wasSet = true;
     return wasSet;
@@ -215,5 +198,20 @@ public class BlockAssignment implements Serializable
   // line 89 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -6011556325373584641L ;
 
+// line 199 "../../../../../Block223.ump"
+  <<<<<<< HEAD
+=======
+   before constructor 
+  {
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
+        	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
+        	    }
+        if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
+        	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
+        	    }
+  }
+
+// line 219 ../../../../../Block223.ump
+  >>>>>>> 0c91d6dd556a425c65d935787b5b82653696e557
   
 }
