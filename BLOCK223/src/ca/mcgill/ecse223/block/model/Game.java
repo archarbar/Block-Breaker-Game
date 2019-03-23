@@ -937,7 +937,7 @@ public class Game implements Serializable
   }
 
   // line 86 "../../../../../Block223 v3.ump"
-   public static  int maxNumberOfHorizontalBlocks(){
+   public int maxNumberOfHorizontalBlocks(){
     int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
                   int wallPadding = Game.WALL_PADDING;             
                   int columnPadding = Game.COLUMNS_PADDING;

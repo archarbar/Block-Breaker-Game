@@ -403,33 +403,48 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
+		
+		String error = "";
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to position a block.");
+			error = "Admin privileges are required to position a block.";
 		}
 		//check if the game exists 
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to position a block.");
+			error = "A game must be selected to position a block.";
 		}
 		//check if the admin created the game ***************question
-		Admin admin = game.getAdmin();
-		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can position a block.");
-		}
-		String error;
-		Level currentLevel;
+		if(currentUser instanceof Admin) {
+			boolean isAdminCurrentGameCreator = false;
+			List<Game> games = ((Admin) currentUser).getGames();
+			
+			for(Game instanceOfGame : games) {
+				if(instanceOfGame.getName().equals(game.getName())) {
+					isAdminCurrentGameCreator = true;
+				}
+			}
+			if(isAdminCurrentGameCreator == false) {
+				error += "Only the admin who created the game can position a block.";
+			}
+		}		
+		
+		if(error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}		
+
+		Level currentLevel = null;
 		try {
 			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
-			error = e.getMessage();
-			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
-				error = "Level" + level + "does not exist for the game.";
-			}
-			throw new InvalidInputException(error);
+//			error = e.getMessage();
+//			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
+				throw new InvalidInputException("Level " + level + " does not exist for the game.");
+//			}
 		}
+
 
 		Block block = game.findBlock(id);
 
@@ -449,26 +464,27 @@ public class Block223Controller {
 			throw new InvalidInputException("The block does not exist.");
 		}
 		//Why can't I reference to newBlockAssignment?
-		BlockAssignment newBlockAssignment = null;
+		BlockAssignment newBlockAssignment;
 		//System.out.println(newBlockAssignment.getMaxHorizontalGridPosition());
 		try {
 			newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();			
-			if (error.equals("GridHorizontalPosition can't be negative or greater than " + newBlockAssignment.getMaxHorizontalGridPosition())) {
-				error = "The horizontal position must be between 1 and " + newBlockAssignment.getMaxHorizontalGridPosition() + ".";}
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + newBlockAssignment.getMaxVerticalGridPosition())) {
-				error = "The vertical position must be between 1 and " + newBlockAssignment.getMaxVerticalGridPosition() + ".";
-			}
-
-
-			throw new InvalidInputException(error);
+			if (error.equals("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks())) {
+				throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
+				}
+			if (error.equals("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks())) {
+				throw new InvalidInputException("The vertical position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
+				}
+			
 		}
+				
 	}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
+		String error = "";
 		//Check if the user is an admin
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
@@ -480,21 +496,31 @@ public class Block223Controller {
 			throw new InvalidInputException("A game must be selected to move a block.");
 		}
 		//check if the admin created the game ***************question
-		Admin admin = game.getAdmin();
-		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can move a block.");
-		}
-		String error = "";
+		if(currentUser instanceof Admin) {
+			boolean isAdminCurrentGameCreator = false;
+			List<Game> games = ((Admin) currentUser).getGames();
+			
+			for(Game instanceOfGame : games) {
+				if(instanceOfGame.getName().equals(game.getName())) {
+					isAdminCurrentGameCreator = true;
+				}
+			}
+			if(isAdminCurrentGameCreator == false) {
+				error += "Only the admin who created the game can move a block";
+			}
+		}		
+		
+		if(error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}		
+
 		Level currentLevel;
 		try {
 			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
-			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
-				error = "Level" + level + "does not exist for the game.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException("Level" + level + "does not exist for the game.");
 		}
 
 		BlockAssignment assignment = currentLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
@@ -507,26 +533,20 @@ public class Block223Controller {
 			throw new InvalidInputException("A block already exists at location" + newGridHorizontalPosition + "/"+ newGridVerticalPosition + ".");
 		}
 
+		
 		try {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("gridHorizontalPosition can't be negative or greater than " + assignment.getMaxHorizontalGridPosition())) {
-				error = "The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
+
 		}
 
 		try {
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("GridVerticalPosition can't be negative or greater than " + assignment.getMaxVerticalGridPosition())) {
-				error = "The vertical position must be between 1 and " + assignment.getMaxVerticalGridPosition() + ".";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
 		}
 	}
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -764,23 +784,19 @@ public class Block223Controller {
 		if (game == null) {
 			error += "A game must be selected to access its information.";
 		}
-		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
-		Admin admin = game.getAdmin();
-		if (admin != (Admin) currentUser) {
-			error += "Only the admin who created the game can access its information.";
-		}
-
+		
+		//check if admin is creator of the game 
 		if(currentUser instanceof Admin) {
-			boolean isAdminCreator = false;
+			boolean isAdminCurrentGameCreator = false;
 			List<Game> games = ((Admin) currentUser).getGames();
 			
 			for(Game instanceOfGame : games) {
 				if(instanceOfGame.getName().equals(game.getName())) {
-					isAdminCreator = true;
+					isAdminCurrentGameCreator = true;
 				}
 			}
-			if(isAdminCreator == false) {
-				error += "Only the admin who created the game can access its information. ";
+			if(isAdminCurrentGameCreator == false) {
+				error += "Only the admin who created the game can access its information.";
 			}
 		}		
 		
@@ -788,7 +804,8 @@ public class Block223Controller {
 			throw new InvalidInputException(error.trim());
 		}
 		
-
+		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
+		
 		Level currentLevel;		
 		try {
 			currentLevel = game.getLevel(level - 1);
@@ -797,17 +814,17 @@ public class Block223Controller {
 			throw new InvalidInputException("Level" + level + "does not exist for the game.");
 			}
 		
-		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
-		if (game != null)
+		
+		if (currentLevel != null)
 			{
 			List<BlockAssignment> assignments = currentLevel.getBlockAssignments();		
-		for (BlockAssignment assignment: assignments) {
+			for (BlockAssignment assignment: assignments) {
 			
 			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
 
 			result.add(to);
-		}
 			}
+		}
 		
 		return result;
 			

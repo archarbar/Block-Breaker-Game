@@ -82,8 +82,8 @@ class Game {
 	  return null;
   }
   
-  public static int maxNumberOfHorizontalBlocks() {
-                  int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
+   public int maxNumberOfHorizontalBlocks(){
+    int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
                   int wallPadding = Game.WALL_PADDING;             
                   int columnPadding = Game.COLUMNS_PADDING;
                   int blockSize = Block.SIZE;             
@@ -99,9 +99,9 @@ class Game {
                                   spaceForBlocks -= columnPadding;            
                   }  
                   return maxNumberOfHorizontalBlocks;
-  }  
-  public int maxNumberOfVerticalBlocks() {
-                  int verticalPlayAreaSize = Game.PLAY_AREA_SIDE;
+  }
+   public int maxNumberOfVerticalBlocks(){
+    int verticalPlayAreaSize = Game.PLAY_AREA_SIDE;
                   int wallPadding = Game.WALL_PADDING;             
                   int rowPadding = Game.ROW_PADDING;
                   int blockSize = Block.SIZE;             
@@ -201,21 +201,21 @@ class BlockAssignment {
    * -- 1 Block block;
    before constructor {
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
-    	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
-    	    }
-    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
-    	    }
+        	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
+        	    }
+        if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
+        	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
+        	    }
    }
    before setGridHorizontalPosition {
-	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
-	    }
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
+    	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
+    	    }
    }
    before setGridVerticalPosition {
-	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
-	    }
+  if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
+    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
+    	    }
    }
 }
 

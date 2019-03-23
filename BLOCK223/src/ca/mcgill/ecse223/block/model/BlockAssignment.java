@@ -30,11 +30,11 @@ public class BlockAssignment implements Serializable
   {
     // line 203 "../../../../../Block223 v3.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
-        	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
-        	    }
-        if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
-        	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
-        	    }
+            	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
+            	    }
+            if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
+            	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
+            	    }
     // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
@@ -64,8 +64,8 @@ public class BlockAssignment implements Serializable
     boolean wasSet = false;
     // line 211 "../../../../../Block223 v3.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
-    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
-    	    }
+        	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
+        	    }
     // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     wasSet = true;
@@ -77,8 +77,8 @@ public class BlockAssignment implements Serializable
     boolean wasSet = false;
     // line 216 "../../../../../Block223 v3.ump"
     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
-    	    }
+        	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
+        	    }
     // END OF UMPLE BEFORE INJECTION
     gridVerticalPosition = aGridVerticalPosition;
     wasSet = true;
