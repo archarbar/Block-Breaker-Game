@@ -417,10 +417,10 @@ public class Block223Controller {
 			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
-//			error = e.getMessage();
-//			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
-				throw new InvalidInputException("Level " + level + " does not exist for the game.");
-//			}
+			//			error = e.getMessage();
+			//			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
+			throw new InvalidInputException("Level " + level + " does not exist for the game.");
+			//			}
 		}
 
 
@@ -451,10 +451,10 @@ public class Block223Controller {
 			error = e.getMessage();
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks())) {
 				throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
-				}
+			}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks())) {
 				throw new InvalidInputException("The vertical position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
-				}
+			}
 
 		}
 
@@ -529,36 +529,36 @@ public class Block223Controller {
 	}
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-//		//William 01/03
-//		String error = "";
-//		Level currentLevel;
-//		UserRole currentUser = Block223Application.getCurrentUserRole();
-//		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
-//			throw new InvalidInputException("Admin privileges are required to access game information.");
-//		}
-//		Game game = Block223Application.getCurrentGame();
-//		if (game == null) {
-//			throw new InvalidInputException("A game must be selected to access its information.");
-//		}
-//		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
-//		Admin admin = game.getAdmin();
-//		if (admin != (Admin) currentUser) {
-//			throw new InvalidInputException("Only the admin who created the game can access its information.");
-//		}
-//		try {
-//			currentLevel = game.getLevel(level-1);
-//		}
-//		catch (IndexOutOfBoundsException e) {
-//			error = e.getMessage();
-//			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
-//				error = "Level" + level + "does not exist for the game.";
-//			}
-//			throw new InvalidInputException(error);
-//		}
-//		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
-//		if(assignment != null){
-//			assignment.delete();
-//		}
+		//		//William 01/03
+		//		String error = "";
+		//		Level currentLevel;
+		//		UserRole currentUser = Block223Application.getCurrentUserRole();
+		//		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
+		//			throw new InvalidInputException("Admin privileges are required to access game information.");
+		//		}
+		//		Game game = Block223Application.getCurrentGame();
+		//		if (game == null) {
+		//			throw new InvalidInputException("A game must be selected to access its information.");
+		//		}
+		//		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
+		//		Admin admin = game.getAdmin();
+		//		if (admin != (Admin) currentUser) {
+		//			throw new InvalidInputException("Only the admin who created the game can access its information.");
+		//		}
+		//		try {
+		//			currentLevel = game.getLevel(level-1);
+		//		}
+		//		catch (IndexOutOfBoundsException e) {
+		//			error = e.getMessage();
+		//			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
+		//				error = "Level" + level + "does not exist for the game.";
+		//			}
+		//			throw new InvalidInputException(error);
+		//		}
+		//		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
+		//		if(assignment != null){
+		//			assignment.delete();
+		//		}
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to remove a block.");
@@ -571,11 +571,11 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can remove a block.");
 		}
-//		Block block = game.findBlock(id);
-//		if (block != null) {
-//			block.delete();
-//		}
-		
+		//		Block block = game.findBlock(id);
+		//		if (block != null) {
+		//			block.delete();
+		//		}
+
 	}
 
 	public static void saveGame() throws InvalidInputException {
@@ -807,17 +807,17 @@ public class Block223Controller {
 		}
 		catch (IndexOutOfBoundsException e) {
 			throw new InvalidInputException("Level" + level + "does not exist for the game.");
-			}
+		}
 
 
 		if (currentLevel != null)
-			{
+		{
 			List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
 			for (BlockAssignment assignment: assignments) {
 
-			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
+				TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
 
-			result.add(to);
+				result.add(to);
 			}
 		}
 
@@ -967,10 +967,21 @@ public class Block223Controller {
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+
+		Game game = PlayedGame.getGame();
+
+		TOHallOfFame result = new TOHallOfFame(game.getName());
+
+		for (int i = start; i <= end ; i++ ) {
+			TOHallOfFameEntry to = new TOHallOfFameEntry(index +1, game.getHallOfFameEntry(index).getPlayername(), game.getHallOfFameEntry(index).getScore(), result);
+		}
+		return result;
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
-
+		PlayedGame pgame = getCurrentPlayableGame();
+		Game game = pgame.getGame();
 	}
 
 	// ****************************
