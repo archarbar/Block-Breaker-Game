@@ -5,8 +5,8 @@ class Admin
 
 class Player
 {
-  Integer life;
-isA UserRole;
+	Integer life;
+	isA UserRole;
 }
 
 class Game

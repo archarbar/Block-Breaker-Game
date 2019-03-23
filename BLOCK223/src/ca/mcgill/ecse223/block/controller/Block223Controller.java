@@ -425,7 +425,7 @@ public class Block223Controller {
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
-			if (error.equals("Level must be between 1 and 99 inclusively.")) {
+			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
@@ -491,7 +491,7 @@ public class Block223Controller {
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
 			error = e.getMessage();
-			if (error.equals("Level must be between 1 and 99 inclusively.")) {
+			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
@@ -513,7 +513,7 @@ public class Block223Controller {
 		catch (RuntimeException e) {
 			error = e.getMessage();
 			if (error.equals("gridHorizontalPosition can't be negative or greater than " + assignment.getMaxHorizontalGridPosition())) {
-				error = "The horizontal position must be between 1 and " + assignment.getMaxHorizontalGridPosition() + ".";
+				error = "The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".";
 			}
 			throw new InvalidInputException(error);
 		}
@@ -771,16 +771,16 @@ public class Block223Controller {
 		}
 
 		List<TOGridCell> result = new ArrayList<TOGridCell>(); 
-
+		
 		String error = "";
 
-		Level currentLevel;
+		Level currentLevel;		
 		try {
 			currentLevel = game.getLevel(level - 1);
 		}
-		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we know what's the string of the error?
+		catch (IndexOutOfBoundsException e) {
 			error = e.getMessage();
-			if (error.equals("Level must be between 1 and 99 inclusively.")) {
+			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
 				error = "Level" + level + "does not exist for the game.";
 			}
 			throw new InvalidInputException(error);
@@ -789,6 +789,7 @@ public class Block223Controller {
 		List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
 
 		for (BlockAssignment assignment: assignments) {
+			
 			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
 
 			result.add(to);

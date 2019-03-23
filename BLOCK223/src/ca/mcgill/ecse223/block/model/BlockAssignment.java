@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 // line 45 "../../../../../Block223Persistence.ump"
 // line 43 "../../../../../Block223v3.ump"
-// line 142 "../../../../../Block223v2.ump"
+// line 185 "../../../../../Block223v2.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -17,8 +17,6 @@ public class BlockAssignment implements Serializable
   //BlockAssignment Attributes
   private int gridHorizontalPosition;
   private int gridVerticalPosition;
-  private int maxVerticalGridPosition;
-  private int maxHorizontalGridPosition;
 
   //BlockAssignment Associations
   private Game game;
@@ -29,31 +27,29 @@ public class BlockAssignment implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Game aGame, Level aLevel, Block aBlock)
+  public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level level, Block testBlock, Game aGame)
   {
-    // line 148 "../../../../../Block223v2.ump"
-    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-    	    }
-    	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-    	    }
+    // line 189 "../../../../../Block223v2.ump"
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfVerticalBlocks()) {
+        	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
+        	    }
+    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfHorizontalBlocks()) {
+        	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
+        	    }
     // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
-    maxVerticalGridPosition = 15;
-    maxHorizontalGridPosition = 15;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
       throw new RuntimeException("Unable to create blockAssignment due to game");
     }
-    boolean didAddLevel = setLevel(aLevel);
+    boolean didAddLevel = setLevel(level);
     if (!didAddLevel)
     {
       throw new RuntimeException("Unable to create blockAssignment due to level");
     }
-    boolean didAddBlock = setBlock(aBlock);
+    boolean didAddBlock = setBlock(testBlock);
     if (!didAddBlock)
     {
       throw new RuntimeException("Unable to create blockAssignment due to block");
@@ -67,9 +63,9 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 156 "../../../../../Block223v2.ump"
-    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-    	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
+    // line 197 "../../../../../Block223v2.ump"
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
+    	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
     	    }
     // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
@@ -80,28 +76,12 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 161 "../../../../../Block223v2.ump"
-    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
+    // line 202 "../../../../../Block223v2.ump"
+    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
+    	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
     	    }
     // END OF UMPLE BEFORE INJECTION
     gridVerticalPosition = aGridVerticalPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setMaxVerticalGridPosition(int aMaxVerticalGridPosition)
-  {
-    boolean wasSet = false;
-    maxVerticalGridPosition = aMaxVerticalGridPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setMaxHorizontalGridPosition(int aMaxHorizontalGridPosition)
-  {
-    boolean wasSet = false;
-    maxHorizontalGridPosition = aMaxHorizontalGridPosition;
     wasSet = true;
     return wasSet;
   }
@@ -114,16 +94,6 @@ public class BlockAssignment implements Serializable
   public int getGridVerticalPosition()
   {
     return gridVerticalPosition;
-  }
-
-  public int getMaxVerticalGridPosition()
-  {
-    return maxVerticalGridPosition;
-  }
-
-  public int getMaxHorizontalGridPosition()
-  {
-    return maxHorizontalGridPosition;
   }
   /* Code from template association_GetOne */
   public Game getGame()
@@ -283,9 +253,7 @@ public class BlockAssignment implements Serializable
   {
     return super.toString() + "["+
             "gridHorizontalPosition" + ":" + getGridHorizontalPosition()+ "," +
-            "gridVerticalPosition" + ":" + getGridVerticalPosition()+ "," +
-            "maxVerticalGridPosition" + ":" + getMaxVerticalGridPosition()+ "," +
-            "maxHorizontalGridPosition" + ":" + getMaxHorizontalGridPosition()+ "]" + System.getProperties().getProperty("line.separator") +
+            "gridVerticalPosition" + ":" + getGridVerticalPosition()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block = "+(getBlock()!=null?Integer.toHexString(System.identityHashCode(getBlock())):"null") + System.getProperties().getProperty("line.separator") +
