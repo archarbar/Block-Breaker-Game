@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 9 "../../../../../Block223Persistence.ump"
-// line 174 "../../../../../Block223 v2.ump"
+// line 26 "../../../../../Block223v3.ump"
+// line 183 "../../../../../Block223v2.ump"
 public class Ball implements Serializable
 {
 
@@ -21,6 +22,8 @@ public class Ball implements Serializable
   //------------------------
 
   //Ball Attributes
+  private int ballPositionX;
+  private int ballPositionY;
   private int minBallSpeedX;
   private int minBallSpeedY;
   private double ballSpeedIncreaseFactor;
@@ -32,23 +35,25 @@ public class Ball implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
+  public Ball(int aBallPositionX, int aBallPositionY, int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
-    // line 178 "../../../../../Block223 v2.ump"
+    // line 187 "../../../../../Block223v2.ump"
     if (aMinBallSpeedX <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 184 "../../../../../Block223 v2.ump"
+    // line 193 "../../../../../Block223v2.ump"
     if (aMinBallSpeedY <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 190 "../../../../../Block223 v2.ump"
+    // line 199 "../../../../../Block223v2.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
          	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
+    ballPositionX = aBallPositionX;
+    ballPositionY = aBallPositionY;
     minBallSpeedX = aMinBallSpeedX;
     minBallSpeedY = aMinBallSpeedY;
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
@@ -59,37 +64,55 @@ public class Ball implements Serializable
     game = aGame;
   }
 
-  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
+  public Ball(int aBallPositionX, int aBallPositionY, int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, int aWidthPlayAreaForGame, int aHeightPlayAreaForGame, int aWidthHallOfFameForGame, int aHeightHallOfFameForGame, boolean aIsPublishedForGame, boolean aIsTestedForGame, int aWaitTimeForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
-    // line 178 "../../../../../Block223 v2.ump"
+    // line 187 "../../../../../Block223v2.ump"
     if (aMinBallSpeedX <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 184 "../../../../../Block223 v2.ump"
+    // line 193 "../../../../../Block223v2.ump"
     if (aMinBallSpeedY <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 190 "../../../../../Block223 v2.ump"
+    // line 199 "../../../../../Block223v2.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
          	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
          }
     // END OF UMPLE BEFORE INJECTION
+    ballPositionX = aBallPositionX;
+    ballPositionY = aBallPositionY;
     minBallSpeedX = aMinBallSpeedX;
     minBallSpeedY = aMinBallSpeedY;
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
-    game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, this, aPaddleForGame, aBlock223ForGame);
+    game = new Game(aWidthPlayAreaForGame, aHeightPlayAreaForGame, aWidthHallOfFameForGame, aHeightHallOfFameForGame, aIsPublishedForGame, aIsTestedForGame, aWaitTimeForGame, aNameForGame, aNrBlocksPerLevelForGame, aPaddleForGame, this, aBlock223ForGame);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
+  public boolean setBallPositionX(int aBallPositionX)
+  {
+    boolean wasSet = false;
+    ballPositionX = aBallPositionX;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setBallPositionY(int aBallPositionY)
+  {
+    boolean wasSet = false;
+    ballPositionY = aBallPositionY;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setMinBallSpeedX(int aMinBallSpeedX)
   {
     boolean wasSet = false;
-    // line 178 "../../../../../Block223 v2.ump"
+    // line 187 "../../../../../Block223v2.ump"
     if (aMinBallSpeedX <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
@@ -102,7 +125,7 @@ public class Ball implements Serializable
   public boolean setMinBallSpeedY(int aMinBallSpeedY)
   {
     boolean wasSet = false;
-    // line 184 "../../../../../Block223 v2.ump"
+    // line 193 "../../../../../Block223v2.ump"
     if (aMinBallSpeedY <= 0) {
          	throw new RuntimeException("The minimum speed of the ball must be greater than zero");
          }
@@ -115,7 +138,7 @@ public class Ball implements Serializable
   public boolean setBallSpeedIncreaseFactor(double aBallSpeedIncreaseFactor)
   {
     boolean wasSet = false;
-    // line 190 "../../../../../Block223 v2.ump"
+    // line 199 "../../../../../Block223v2.ump"
     if (aBallSpeedIncreaseFactor <= 0) {
          	throw new RuntimeException("The speed increase factor of the ball must be greater than zero");
          }
@@ -123,6 +146,16 @@ public class Ball implements Serializable
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
     wasSet = true;
     return wasSet;
+  }
+
+  public int getBallPositionX()
+  {
+    return ballPositionX;
+  }
+
+  public int getBallPositionY()
+  {
+    return ballPositionY;
   }
 
   public int getMinBallSpeedX()
@@ -159,6 +192,8 @@ public class Ball implements Serializable
   public String toString()
   {
     return super.toString() + "["+
+            "ballPositionX" + ":" + getBallPositionX()+ "," +
+            "ballPositionY" + ":" + getBallPositionY()+ "," +
             "minBallSpeedX" + ":" + getMinBallSpeedX()+ "," +
             "minBallSpeedY" + ":" + getMinBallSpeedY()+ "," +
             "ballSpeedIncreaseFactor" + ":" + getBallSpeedIncreaseFactor()+ "]" + System.getProperties().getProperty("line.separator") +

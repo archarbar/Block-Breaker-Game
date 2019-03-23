@@ -4,7 +4,11 @@
 
 import java.util.*;
 
+<<<<<<< HEAD
 // line 82 "Block223StateMachine.ump"
+=======
+// line 63 "Block223v3.ump"
+>>>>>>> master
 public class GameOccurence extends Game
 {
 
@@ -39,9 +43,9 @@ public class GameOccurence extends Game
   // CONSTRUCTOR
   //------------------------
 
-  public GameOccurence(String aName, int aNrBlocksPerLevel, int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, Ball aBall, Paddle aPaddle, GameStatus aGameStatus, int aCurrentScore)
+  public GameOccurence(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, Ball aBall, Paddle aPaddle, GameStatus aGameStatus, int aCurrentScore)
   {
-    super(aName, aNrBlocksPerLevel, aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aBall, aPaddle);
+    super(aWidthPlayArea, aHeightPlayArea, aWidthHallOfFame, aHeightHallOfFame, aIsPublished, aIsTested, aWaitTime, aBall, aPaddle);
     gameStatus = aGameStatus;
     currentScore = aCurrentScore;
     gameId = nextGameId++;

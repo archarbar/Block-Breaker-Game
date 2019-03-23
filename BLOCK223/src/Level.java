@@ -4,7 +4,11 @@
 
 import java.util.*;
 
+<<<<<<< HEAD
 // line 56 "Block223StateMachine.ump"
+=======
+// line 44 "Block223v3.ump"
+>>>>>>> master
 public class Level
 {
 
@@ -127,9 +131,9 @@ public class Level
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Game aGame, Block aBlock)
+  public BlockAssignment addBlockAssignment(Game aGame, Block aBlock)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, this, aGame, aBlock);
+    return new BlockAssignment(this, aGame, aBlock);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)

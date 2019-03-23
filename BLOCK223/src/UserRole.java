@@ -3,7 +3,11 @@
 
 
 
+<<<<<<< HEAD
 // line 7 "Block223StateMachine.ump"
+=======
+// line 7 "Block223 v3.ump"
+>>>>>>> master
 public class UserRole
 {
 

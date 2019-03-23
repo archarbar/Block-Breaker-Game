@@ -4,8 +4,8 @@
 
 import java.util.*;
 
-// line 12 "Block223StateMachine.ump"
-public class Admin extends UserRole
+// line 1 "Block223v3.ump"
+public class Admin
 {
 
   //------------------------
@@ -19,9 +19,8 @@ public class Admin extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Admin(String aPassword)
+  public Admin()
   {
-    super(aPassword);
     games = new ArrayList<Game>();
   }
 
@@ -136,7 +135,6 @@ public class Admin extends UserRole
     {
       games.get(0).setAdmin(null);
     }
-    super.delete();
   }
 
 }

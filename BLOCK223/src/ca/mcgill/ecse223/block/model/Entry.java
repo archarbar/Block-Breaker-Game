@@ -1,13 +1,9 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
+package ca.mcgill.ecse223.block.model;
 
-
-<<<<<<< HEAD
-// line 161 "Block223StateMachine.ump"
-=======
-// line 73 "Block223v3.ump"
->>>>>>> master
+// line 66 "../../../../../Block223v3.ump"
 public class Entry
 {
 
@@ -17,6 +13,7 @@ public class Entry
 
   //Entry Attributes
   private int finalScore;
+  private String name;
 
   //Entry Associations
   private Game game;
@@ -26,9 +23,10 @@ public class Entry
   // CONSTRUCTOR
   //------------------------
 
-  public Entry(int aFinalScore, Game aGame, Player aPlayer)
+  public Entry(int aFinalScore, String aName, Game aGame, Player aPlayer)
   {
     finalScore = aFinalScore;
+    name = aName;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -53,9 +51,22 @@ public class Entry
     return wasSet;
   }
 
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
   public int getFinalScore()
   {
     return finalScore;
+  }
+
+  public String getName()
+  {
+    return name;
   }
   /* Code from template association_GetOne */
   public Game getGame()
@@ -126,7 +137,8 @@ public class Entry
   public String toString()
   {
     return super.toString() + "["+
-            "finalScore" + ":" + getFinalScore()+ "]" + System.getProperties().getProperty("line.separator") +
+            "finalScore" + ":" + getFinalScore()+ "," +
+            "name" + ":" + getName()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null");
   }

@@ -1,14 +1,3 @@
-class User
-{
-  username;
-  1 -> 1..2 UserRole;
-}
-
-class UserRole
-{
-  password;
-}
-
 class Admin
 {
   isA UserRole;
@@ -22,34 +11,26 @@ isA UserRole;
 
 class Game
 {
-  name;
-  Integer nrBlocksPerLevel;
   Integer widthPlayArea;
   Integer heightPlayArea;
   Integer widthHallOfFame;
   Integer heightHallOfFame;
   Boolean isPublished;
-Boolean isTested;
-Integer waitTime;
-1 <@>- 1..99 Level;
-  1 <@>- 1 Ball;
+  Boolean isTested;
+  Integer waitTime;
+  1 <@>- 1..99 Level;
   * -- 0..1 Admin;
   1 <@>- 1 Paddle;
 }
 
 class Ball
 {
-  Integer minBallSpeedX;
-  Integer minBallSpeedY;
-  Double ballSpeedIncreaseFactor;
   Integer ballPositionX;
   Integer ballPositionY;
 }
 
 class Paddle
 {
-  Integer maxPaddleLength;
-  Integer minPaddleLength;
   Integer paddlePositionX;
   Integer paddlePositionY;
 }
@@ -61,19 +42,11 @@ class Level
 
 class BlockAssignment
 {
-  Integer gridHorizontalPosition;
-  Integer gridVerticalPosition;
-  * -- 1 Level;
   * -<@> 1 Game;
 }
 
 class Block
 {
-  Integer id;
-  Integer red;
-  Integer green;
-  Integer blue;
-  Integer points;
   * -<@> 1 Game;
   1 -- * BlockAssignment;
 }

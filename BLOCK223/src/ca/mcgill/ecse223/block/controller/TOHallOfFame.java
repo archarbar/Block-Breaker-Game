@@ -1,71 +1,59 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-
+package ca.mcgill.ecse223.block.controller;
 import java.util.*;
 
-<<<<<<< HEAD
-// line 17 "Block223StateMachine.ump"
-public class Player extends UserRole
-=======
-// line 6 "Block223v3.ump"
-public class Player
->>>>>>> master
+// line 32 "../../../../../Block223TransferObjectsPlayMode.ump"
+public class TOHallOfFame
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Player Attributes
-  private int live;
+  //TOHallOfFame Attributes
+  private String gamename;
 
-  //Player Associations
-  private List<Entry> entries;
+  //TOHallOfFame Associations
+  private List<TOHallOfFameEntry> entries;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-<<<<<<< HEAD
-  public Player(String aPassword, int aLive)
+  public TOHallOfFame(String aGamename)
   {
-    super(aPassword);
-    live = aLive;
-=======
-  public Player(int aLife)
-  {
-    life = aLife;
->>>>>>> master
-    entries = new ArrayList<Entry>();
+    gamename = aGamename;
+    entries = new ArrayList<TOHallOfFameEntry>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setLive(int aLive)
+  public boolean setGamename(String aGamename)
   {
     boolean wasSet = false;
-    live = aLive;
+    gamename = aGamename;
     wasSet = true;
     return wasSet;
   }
 
-  public int getLive()
+  public String getGamename()
   {
-    return live;
+    return gamename;
   }
   /* Code from template association_GetMany */
-  public Entry getEntry(int index)
+  public TOHallOfFameEntry getEntry(int index)
   {
-    Entry aEntry = entries.get(index);
+    TOHallOfFameEntry aEntry = entries.get(index);
     return aEntry;
   }
 
-  public List<Entry> getEntries()
+  public List<TOHallOfFameEntry> getEntries()
   {
-    List<Entry> newEntries = Collections.unmodifiableList(entries);
+    List<TOHallOfFameEntry> newEntries = Collections.unmodifiableList(entries);
     return newEntries;
   }
 
@@ -81,7 +69,7 @@ public class Player
     return has;
   }
 
-  public int indexOfEntry(Entry aEntry)
+  public int indexOfEntry(TOHallOfFameEntry aEntry)
   {
     int index = entries.indexOf(aEntry);
     return index;
@@ -92,20 +80,20 @@ public class Player
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aFinalScore, Game aGame)
+  public TOHallOfFameEntry addEntry(int aPosition, String aPlayername, int aScore)
   {
-    return new Entry(aFinalScore, aGame, this);
+    return new TOHallOfFameEntry(aPosition, aPlayername, aScore, this);
   }
 
-  public boolean addEntry(Entry aEntry)
+  public boolean addEntry(TOHallOfFameEntry aEntry)
   {
     boolean wasAdded = false;
     if (entries.contains(aEntry)) { return false; }
-    Player existingPlayer = aEntry.getPlayer();
-    boolean isNewPlayer = existingPlayer != null && !this.equals(existingPlayer);
-    if (isNewPlayer)
+    TOHallOfFame existingTOHallOfFame = aEntry.getTOHallOfFame();
+    boolean isNewTOHallOfFame = existingTOHallOfFame != null && !this.equals(existingTOHallOfFame);
+    if (isNewTOHallOfFame)
     {
-      aEntry.setPlayer(this);
+      aEntry.setTOHallOfFame(this);
     }
     else
     {
@@ -115,11 +103,11 @@ public class Player
     return wasAdded;
   }
 
-  public boolean removeEntry(Entry aEntry)
+  public boolean removeEntry(TOHallOfFameEntry aEntry)
   {
     boolean wasRemoved = false;
-    //Unable to remove aEntry, as it must always have a player
-    if (!this.equals(aEntry.getPlayer()))
+    //Unable to remove aEntry, as it must always have a tOHallOfFame
+    if (!this.equals(aEntry.getTOHallOfFame()))
     {
       entries.remove(aEntry);
       wasRemoved = true;
@@ -127,7 +115,7 @@ public class Player
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addEntryAt(Entry aEntry, int index)
+  public boolean addEntryAt(TOHallOfFameEntry aEntry, int index)
   {  
     boolean wasAdded = false;
     if(addEntry(aEntry))
@@ -141,7 +129,7 @@ public class Player
     return wasAdded;
   }
 
-  public boolean addOrMoveEntryAt(Entry aEntry, int index)
+  public boolean addOrMoveEntryAt(TOHallOfFameEntry aEntry, int index)
   {
     boolean wasAdded = false;
     if(entries.contains(aEntry))
@@ -163,7 +151,7 @@ public class Player
   {
     for(int i=entries.size(); i > 0; i--)
     {
-      Entry aEntry = entries.get(i - 1);
+      TOHallOfFameEntry aEntry = entries.get(i - 1);
       aEntry.delete();
     }
   }
@@ -172,6 +160,6 @@ public class Player
   public String toString()
   {
     return super.toString() + "["+
-            "live" + ":" + getLive()+ "]";
+            "gamename" + ":" + getGamename()+ "]";
   }
 }

@@ -3,17 +3,17 @@
 
 
 
+<<<<<<< HEAD
 // line 61 "Block223StateMachine.ump"
+=======
+// line 49 "Block223v3.ump"
+>>>>>>> master
 public class BlockAssignment
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
-  //BlockAssignment Attributes
-  private int gridHorizontalPosition;
-  private int gridVerticalPosition;
 
   //BlockAssignment Associations
   private Level level;
@@ -24,10 +24,8 @@ public class BlockAssignment
   // CONSTRUCTOR
   //------------------------
 
-  public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Game aGame, Block aBlock)
+  public BlockAssignment(Level aLevel, Game aGame, Block aBlock)
   {
-    gridHorizontalPosition = aGridHorizontalPosition;
-    gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);
     if (!didAddLevel)
     {
@@ -48,32 +46,6 @@ public class BlockAssignment
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
-  {
-    boolean wasSet = false;
-    gridHorizontalPosition = aGridHorizontalPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setGridVerticalPosition(int aGridVerticalPosition)
-  {
-    boolean wasSet = false;
-    gridVerticalPosition = aGridVerticalPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public int getGridHorizontalPosition()
-  {
-    return gridHorizontalPosition;
-  }
-
-  public int getGridVerticalPosition()
-  {
-    return gridVerticalPosition;
-  }
   /* Code from template association_GetOne */
   public Level getLevel()
   {
@@ -169,14 +141,4 @@ public class BlockAssignment
     }
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "gridHorizontalPosition" + ":" + getGridHorizontalPosition()+ "," +
-            "gridVerticalPosition" + ":" + getGridVerticalPosition()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "level = "+(getLevel()!=null?Integer.toHexString(System.identityHashCode(getLevel())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "block = "+(getBlock()!=null?Integer.toHexString(System.identityHashCode(getBlock())):"null");
-  }
 }

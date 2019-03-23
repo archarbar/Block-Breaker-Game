@@ -3,7 +3,11 @@
 
 
 
+<<<<<<< HEAD
 // line 48 "Block223StateMachine.ump"
+=======
+// line 36 "Block223v3.ump"
+>>>>>>> master
 public class Paddle
 {
 
@@ -37,13 +41,13 @@ public class Paddle
     game = aGame;
   }
 
-  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, int aPaddlePositionX, int aPaddlePositionY, String aNameForGame, int aNrBlocksPerLevelForGame, int aWidthPlayAreaForGame, int aHeightPlayAreaForGame, int aWidthHallOfFameForGame, int aHeightHallOfFameForGame, boolean aIsPublishedForGame, boolean aIsTestedForGame, Ball aBallForGame)
+  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, int aPaddlePositionX, int aPaddlePositionY, int aWidthPlayAreaForGame, int aHeightPlayAreaForGame, int aWidthHallOfFameForGame, int aHeightHallOfFameForGame, boolean aIsPublishedForGame, boolean aIsTestedForGame, int aWaitTimeForGame, Ball aBallForGame)
   {
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     paddlePositionX = aPaddlePositionX;
     paddlePositionY = aPaddlePositionY;
-    game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aWidthPlayAreaForGame, aHeightPlayAreaForGame, aWidthHallOfFameForGame, aHeightHallOfFameForGame, aIsPublishedForGame, aIsTestedForGame, aBallForGame, this);
+    game = new Game(aWidthPlayAreaForGame, aHeightPlayAreaForGame, aWidthHallOfFameForGame, aHeightHallOfFameForGame, aIsPublishedForGame, aIsTestedForGame, aWaitTimeForGame, aBallForGame, this);
   }
 
   //------------------------

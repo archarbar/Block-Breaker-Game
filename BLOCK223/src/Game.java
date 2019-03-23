@@ -4,7 +4,11 @@
 
 import java.util.*;
 
+<<<<<<< HEAD
 // line 23 "Block223StateMachine.ump"
+=======
+// line 12 "Block223v3.ump"
+>>>>>>> master
 public class Game
 {
 
@@ -13,14 +17,13 @@ public class Game
   //------------------------
 
   //Game Attributes
-  private String name;
-  private int nrBlocksPerLevel;
   private int widthPlayArea;
   private int heightPlayArea;
   private int widthHallOfFame;
   private int heightHallOfFame;
   private boolean isPublished;
   private boolean isTested;
+  private int waitTime;
 
   //Game Associations
   private List<Level> levels;
@@ -35,16 +38,15 @@ public class Game
   // CONSTRUCTOR
   //------------------------
 
-  public Game(String aName, int aNrBlocksPerLevel, int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, Ball aBall, Paddle aPaddle)
+  public Game(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, Ball aBall, Paddle aPaddle)
   {
-    name = aName;
-    nrBlocksPerLevel = aNrBlocksPerLevel;
     widthPlayArea = aWidthPlayArea;
     heightPlayArea = aHeightPlayArea;
     widthHallOfFame = aWidthHallOfFame;
     heightHallOfFame = aHeightHallOfFame;
     isPublished = aIsPublished;
     isTested = aIsTested;
+    waitTime = aWaitTime;
     levels = new ArrayList<Level>();
     if (aBall == null || aBall.getGame() != null)
     {
@@ -61,16 +63,15 @@ public class Game
     entries = new ArrayList<Entry>();
   }
 
-  public Game(String aName, int aNrBlocksPerLevel, int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aBallPositionXForBall, int aBallPositionYForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, int aPaddlePositionXForPaddle, int aPaddlePositionYForPaddle)
+  public Game(int aWidthPlayArea, int aHeightPlayArea, int aWidthHallOfFame, int aHeightHallOfFame, boolean aIsPublished, boolean aIsTested, int aWaitTime, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aBallPositionXForBall, int aBallPositionYForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, int aPaddlePositionXForPaddle, int aPaddlePositionYForPaddle)
   {
-    name = aName;
-    nrBlocksPerLevel = aNrBlocksPerLevel;
     widthPlayArea = aWidthPlayArea;
     heightPlayArea = aHeightPlayArea;
     widthHallOfFame = aWidthHallOfFame;
     heightHallOfFame = aHeightHallOfFame;
     isPublished = aIsPublished;
     isTested = aIsTested;
+    waitTime = aWaitTime;
     levels = new ArrayList<Level>();
     ball = new Ball(aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, aBallPositionXForBall, aBallPositionYForBall, this);
     paddle = new Paddle(aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, aPaddlePositionXForPaddle, aPaddlePositionYForPaddle, this);
@@ -82,22 +83,6 @@ public class Game
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
-  {
-    boolean wasSet = false;
-    nrBlocksPerLevel = aNrBlocksPerLevel;
-    wasSet = true;
-    return wasSet;
-  }
 
   public boolean setWidthPlayArea(int aWidthPlayArea)
   {
@@ -147,14 +132,12 @@ public class Game
     return wasSet;
   }
 
-  public String getName()
+  public boolean setWaitTime(int aWaitTime)
   {
-    return name;
-  }
-
-  public int getNrBlocksPerLevel()
-  {
-    return nrBlocksPerLevel;
+    boolean wasSet = false;
+    waitTime = aWaitTime;
+    wasSet = true;
+    return wasSet;
   }
 
   public int getWidthPlayArea()
@@ -185,6 +168,11 @@ public class Game
   public boolean getIsTested()
   {
     return isTested;
+  }
+
+  public int getWaitTime()
+  {
+    return waitTime;
   }
   /* Code from template attribute_IsBoolean */
   public boolean isIsPublished()
@@ -468,9 +456,9 @@ public class Game
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock)
+  public BlockAssignment addBlockAssignment(Level aLevel, Block aBlock)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, this, aBlock);
+    return new BlockAssignment(aLevel, this, aBlock);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
@@ -540,9 +528,9 @@ public class Game
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Block addBlock(int aId, int aRed, int aGreen, int aBlue, int aPoints)
+  public Block addBlock()
   {
-    return new Block(aId, aRed, aGreen, aBlue, aPoints, this);
+    return new Block(this);
   }
 
   public boolean addBlock(Block aBlock)
@@ -731,14 +719,13 @@ public class Game
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
-            "nrBlocksPerLevel" + ":" + getNrBlocksPerLevel()+ "," +
             "widthPlayArea" + ":" + getWidthPlayArea()+ "," +
             "heightPlayArea" + ":" + getHeightPlayArea()+ "," +
             "widthHallOfFame" + ":" + getWidthHallOfFame()+ "," +
             "heightHallOfFame" + ":" + getHeightHallOfFame()+ "," +
             "isPublished" + ":" + getIsPublished()+ "," +
-            "isTested" + ":" + getIsTested()+ "]" + System.getProperties().getProperty("line.separator") +
+            "isTested" + ":" + getIsTested()+ "," +
+            "waitTime" + ":" + getWaitTime()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "admin = "+(getAdmin()!=null?Integer.toHexString(System.identityHashCode(getAdmin())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null");

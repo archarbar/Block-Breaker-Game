@@ -1,8 +1,10 @@
 namespace ca.mcgill.ecse223.block.model;
 
 use Block223Persistence.ump;
-use Block223 v3.ump;
-use Block223StateMachine.ump;
+use Block223v3.ump;
+use Block223States.ump;
+use Block223PlayMode.ump;
+use Block223TransferObjectsPlayMode.ump;
 
 class Block223 {
    1 <@>- * User users;
@@ -22,11 +24,19 @@ class Block223 {
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
+   
+   public static String findUsername(UserRole admin) {
+      return admin.getUsername();
+  }
 }
 
 class UserRole {
    abstract;
    password;
+   
+   public String getUsername() {
+      return super.toString();
+   }
 }
 
 class Admin {
@@ -76,12 +86,9 @@ class Game {
 	  return null;
   }
    
-   * -- 1 Admin admin;
    1 <@>- * Block blocks;
-   1 <@>- 1..99 Level levels;
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
-   1 <@>- 1 Paddle paddle;
 }
 
 class Block {

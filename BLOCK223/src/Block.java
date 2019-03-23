@@ -4,20 +4,17 @@
 
 import java.util.*;
 
+<<<<<<< HEAD
 // line 69 "Block223StateMachine.ump"
+=======
+// line 55 "Block223v3.ump"
+>>>>>>> master
 public class Block
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
-  //Block Attributes
-  private int id;
-  private int red;
-  private int green;
-  private int blue;
-  private int points;
 
   //Block Associations
   private Game game;
@@ -27,13 +24,8 @@ public class Block
   // CONSTRUCTOR
   //------------------------
 
-  public Block(int aId, int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
+  public Block(Game aGame)
   {
-    id = aId;
-    red = aRed;
-    green = aGreen;
-    blue = aBlue;
-    points = aPoints;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -45,71 +37,6 @@ public class Block
   //------------------------
   // INTERFACE
   //------------------------
-
-  public boolean setId(int aId)
-  {
-    boolean wasSet = false;
-    id = aId;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setRed(int aRed)
-  {
-    boolean wasSet = false;
-    red = aRed;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setGreen(int aGreen)
-  {
-    boolean wasSet = false;
-    green = aGreen;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setBlue(int aBlue)
-  {
-    boolean wasSet = false;
-    blue = aBlue;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPoints(int aPoints)
-  {
-    boolean wasSet = false;
-    points = aPoints;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public int getId()
-  {
-    return id;
-  }
-
-  public int getRed()
-  {
-    return red;
-  }
-
-  public int getGreen()
-  {
-    return green;
-  }
-
-  public int getBlue()
-  {
-    return blue;
-  }
-
-  public int getPoints()
-  {
-    return points;
-  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -170,9 +97,9 @@ public class Block
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Game aGame)
+  public BlockAssignment addBlockAssignment(Level aLevel, Game aGame)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, aGame, this);
+    return new BlockAssignment(aLevel, aGame, this);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
@@ -252,15 +179,4 @@ public class Block
     }
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "id" + ":" + getId()+ "," +
-            "red" + ":" + getRed()+ "," +
-            "green" + ":" + getGreen()+ "," +
-            "blue" + ":" + getBlue()+ "," +
-            "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }
 }

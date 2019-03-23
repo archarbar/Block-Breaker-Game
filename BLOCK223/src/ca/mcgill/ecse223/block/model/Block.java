@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 14 "../../../../../Block223Persistence.ump"
-// line 85 "../../../../../Block223 v2.ump"
+// line 48 "../../../../../Block223v3.ump"
+// line 94 "../../../../../Block223v2.ump"
 public class Block implements Serializable
 {
 
@@ -37,6 +38,7 @@ public class Block implements Serializable
   //Block Associations
   private Game game;
   private List<BlockAssignment> blockAssignments;
+  private List<PlayedBlockAssignment> playedBlockAssignments;
 
   //------------------------
   // CONSTRUCTOR
@@ -44,7 +46,7 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 98 "../../../../../Block223 v2.ump"
+    // line 107 "../../../../../Block223v2.ump"
     if (aRed < 0 || aRed > 255) {
     	  	throw new RuntimeException("Red must be between 0 and 255.");
     	}
@@ -69,6 +71,7 @@ public class Block implements Serializable
       throw new RuntimeException("Unable to create block due to game");
     }
     blockAssignments = new ArrayList<BlockAssignment>();
+    playedBlockAssignments = new ArrayList<PlayedBlockAssignment>();
   }
 
   //------------------------
@@ -78,7 +81,7 @@ public class Block implements Serializable
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
-    // line 112 "../../../../../Block223 v2.ump"
+    // line 121 "../../../../../Block223v2.ump"
     if (aRed < 0 || aRed > 255) {
     	  	throw new RuntimeException("Red must be between 0 and 255.");
     	}
@@ -91,7 +94,7 @@ public class Block implements Serializable
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
-    // line 117 "../../../../../Block223 v2.ump"
+    // line 126 "../../../../../Block223v2.ump"
     if (aGreen < 0 || aGreen > 255) {
     	  	throw new RuntimeException("Green must be between 0 and 255.");
     	}
@@ -104,7 +107,7 @@ public class Block implements Serializable
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
-    // line 122 "../../../../../Block223 v2.ump"
+    // line 131 "../../../../../Block223v2.ump"
     if (aBlue < 0 || aBlue > 255) {
     	  	throw new RuntimeException("Blue must be between 0 and 255.");
     	}
@@ -117,7 +120,7 @@ public class Block implements Serializable
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
-    // line 127 "../../../../../Block223 v2.ump"
+    // line 136 "../../../../../Block223v2.ump"
     if (aPoints < 0 || aPoints > 255) {
     	  	throw new RuntimeException("Points must be between 1 and 1000.");
     	}
@@ -156,6 +159,11 @@ public class Block implements Serializable
   {
     return game;
   }
+  /* Code from template association_GetOne_clear */
+  protected void clear_game()
+  {
+    game = null;
+  }
   /* Code from template association_GetMany */
   public BlockAssignment getBlockAssignment(int index)
   {
@@ -186,6 +194,60 @@ public class Block implements Serializable
     int index = blockAssignments.indexOf(aBlockAssignment);
     return index;
   }
+  /* Code from template association_GetMany_clear */
+  protected void clear_blockAssignments()
+  {
+    blockAssignments.clear();
+  }
+  /* Code from template association_GetMany */
+  public PlayedBlockAssignment getPlayedBlockAssignment(int index)
+  {
+    PlayedBlockAssignment aPlayedBlockAssignment = playedBlockAssignments.get(index);
+    return aPlayedBlockAssignment;
+  }
+
+  public List<PlayedBlockAssignment> getPlayedBlockAssignments()
+  {
+    List<PlayedBlockAssignment> newPlayedBlockAssignments = Collections.unmodifiableList(playedBlockAssignments);
+    return newPlayedBlockAssignments;
+  }
+
+  public int numberOfPlayedBlockAssignments()
+  {
+    int number = playedBlockAssignments.size();
+    return number;
+  }
+
+  public boolean hasPlayedBlockAssignments()
+  {
+    boolean has = playedBlockAssignments.size() > 0;
+    return has;
+  }
+
+  public int indexOfPlayedBlockAssignment(PlayedBlockAssignment aPlayedBlockAssignment)
+  {
+    int index = playedBlockAssignments.indexOf(aPlayedBlockAssignment);
+    return index;
+  }
+  /* Code from template association_GetOne_relatedSpecialization */
+  public Game getGame_OneGame()
+  {
+    return (Game)game;
+  } 
+  /* Code from template association_GetMany_relatedSpecialization */
+  public BlockAssignment getBlockAssignment_BlockAssignment(int index)
+  {
+    BlockAssignment aBlockAssignment = (BlockAssignment)blockAssignments.get(index);
+    return aBlockAssignment;
+  }
+
+  /* required for Java 7. */
+  @SuppressWarnings("unchecked")
+  public List<BlockAssignment> getBlockAssignments_BlockAssignment()
+  {
+    List<? extends BlockAssignment> newBlockAssignments = Collections.unmodifiableList(blockAssignments);
+    return (List<BlockAssignment>)newBlockAssignments;
+  }
   /* Code from template association_SetOneToMany */
   public boolean setGame(Game aGame)
   {
@@ -211,14 +273,15 @@ public class Block implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Game aGame)
+  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Game aGame, Level aLevel)
   {
-    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aLevel, this, aGame);
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aGame, aLevel, this);
   }
 
   public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
   {
     boolean wasAdded = false;
+    if (blockAssignments.contains(aBlockAssignment)) { return false; }
     if (blockAssignments.contains(aBlockAssignment)) { return false; }
     Block existingBlock = aBlockAssignment.getBlock();
     boolean isNewBlock = existingBlock != null && !this.equals(existingBlock);
@@ -277,6 +340,170 @@ public class Block implements Serializable
     }
     return wasAdded;
   }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfPlayedBlockAssignments()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public PlayedBlockAssignment addPlayedBlockAssignment(int aX, int aY, PlayedGame aPlayedGame)
+  {
+    return new PlayedBlockAssignment(aX, aY, this, aPlayedGame);
+  }
+
+  public boolean addPlayedBlockAssignment(PlayedBlockAssignment aPlayedBlockAssignment)
+  {
+    boolean wasAdded = false;
+    if (playedBlockAssignments.contains(aPlayedBlockAssignment)) { return false; }
+    Block existingBlock = aPlayedBlockAssignment.getBlock();
+    boolean isNewBlock = existingBlock != null && !this.equals(existingBlock);
+    if (isNewBlock)
+    {
+      aPlayedBlockAssignment.setBlock(this);
+    }
+    else
+    {
+      playedBlockAssignments.add(aPlayedBlockAssignment);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removePlayedBlockAssignment(PlayedBlockAssignment aPlayedBlockAssignment)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aPlayedBlockAssignment, as it must always have a block
+    if (!this.equals(aPlayedBlockAssignment.getBlock()))
+    {
+      playedBlockAssignments.remove(aPlayedBlockAssignment);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addPlayedBlockAssignmentAt(PlayedBlockAssignment aPlayedBlockAssignment, int index)
+  {  
+    boolean wasAdded = false;
+    if(addPlayedBlockAssignment(aPlayedBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfPlayedBlockAssignments()) { index = numberOfPlayedBlockAssignments() - 1; }
+      playedBlockAssignments.remove(aPlayedBlockAssignment);
+      playedBlockAssignments.add(index, aPlayedBlockAssignment);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMovePlayedBlockAssignmentAt(PlayedBlockAssignment aPlayedBlockAssignment, int index)
+  {
+    boolean wasAdded = false;
+    if(playedBlockAssignments.contains(aPlayedBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfPlayedBlockAssignments()) { index = numberOfPlayedBlockAssignments() - 1; }
+      playedBlockAssignments.remove(aPlayedBlockAssignment);
+      playedBlockAssignments.add(index, aPlayedBlockAssignment);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addPlayedBlockAssignmentAt(aPlayedBlockAssignment, index);
+    }
+    return wasAdded;
+  }
+  /* Code from template association_set_specialization_reqCommonCode */  /* Code from template association_SetOneToMany_relatedSpecialization */
+  public boolean setGame_Game(Game aGame)
+  {
+    boolean wasSet = false;
+    if (aGame == null)
+    {
+      return wasSet;
+    }
+
+    Game existingGame = (Game)game;
+    game = aGame;
+    if (existingGame != null && !existingGame.equals(aGame))
+    {
+      existingGame.removeBlock(this);
+    }
+    game.addBlock(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_set_specialization_reqCommonCode */  /* Code from template association_MinimumNumberOfMethod_relatedSpecialization */
+  public static int minimumNumberOfBlockAssignments_BlockAssignment()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne_relatedSpecialization */
+  public BlockAssignment addBlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Game aGame, Level aLevel)
+  {
+    return new BlockAssignment(aGridHorizontalPosition, aGridVerticalPosition, aGame, aLevel, this);
+  }
+
+  public boolean addBlockAssignment(BlockAssignment aBlockAssignment)
+  {
+    boolean wasAdded = false;
+    if (blockAssignments.contains(aBlockAssignment)) { return false; }
+    if (blockAssignments.contains(aBlockAssignment)) { return false; }
+    Block existingBlock = aBlockAssignment.getBlock();
+    boolean isNewBlock = existingBlock != null && !this.equals(existingBlock);
+    if (isNewBlock)
+    {
+      aBlockAssignment.setBlock(this);
+    }
+    else
+    {
+      blockAssignments.add(aBlockAssignment);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeBlockAssignment(BlockAssignment aBlockAssignment)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aBlockAssignment, as it must always have a block
+    if (!this.equals(aBlockAssignment.getBlock()))
+    {
+      blockAssignments.remove(aBlockAssignment);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions_relatedSpecialization */
+  public boolean addBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
+  {  
+    boolean wasAdded = false;
+    if(addBlockAssignment(aBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveBlockAssignmentAt(BlockAssignment aBlockAssignment, int index)
+  {
+    boolean wasAdded = false;
+    if(blockAssignments.contains(aBlockAssignment))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssignments()) { index = numberOfBlockAssignments() - 1; }
+      blockAssignments.remove(aBlockAssignment);
+      blockAssignments.add(index, aBlockAssignment);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addBlockAssignmentAt(aBlockAssignment, index);
+    }
+    return wasAdded;
+  }
 
   public void delete()
   {
@@ -290,6 +517,11 @@ public class Block implements Serializable
     {
       BlockAssignment aBlockAssignment = blockAssignments.get(i - 1);
       aBlockAssignment.delete();
+    }
+    for(int i=playedBlockAssignments.size(); i > 0; i--)
+    {
+      PlayedBlockAssignment aPlayedBlockAssignment = playedBlockAssignments.get(i - 1);
+      aPlayedBlockAssignment.delete();
     }
   }
 
@@ -313,6 +545,7 @@ public class Block implements Serializable
             "green" + ":" + getGreen()+ "," +
             "blue" + ":" + getBlue()+ "," +
             "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
   }  
   //------------------------
