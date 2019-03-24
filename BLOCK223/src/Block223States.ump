@@ -117,4 +117,27 @@ class PlayedGame {
     this.delete();
   }
 
+  	private void doSetup() {
+		PlayedGame playedGame= Block223Application.getCurrentPlayableGame();
+		playedGame.resetCurrentBallX();
+		playedGame.resetBallDirectionY();
+		playedGame.resetBallDirectionX();
+		playedGame.resetBallDirectionY();
+		playedGame.resetCurrentPaddleX();
+		playedGame.getGame();
+		Integer currentLevel = playedGame.getCurrentLevel();
+		Game game = Block223Application.getCurrentGame();
+		Level level = game.getLevel(currentLevel-1);
+		List<BlockAssignment> assignments = level.getBlockAssignments();
+		for (BlockAssignment a: assignments) {
+			PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING)*
+			(a.getGridHorizontalPosition() -1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING)*
+			(a.getGridVerticalPosition() -1), a.getBlock(), playedGame);
+		}
+		while (playedGame.numberOfBlocks() < game.getNrBlocksPerLevel()) {
+			int x, y;
+			PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
+		}
+	}
+
 }

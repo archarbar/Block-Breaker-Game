@@ -447,7 +447,7 @@ public class Block223Controller {
 			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
 		}
 		catch (RuntimeException e) {
-			error = e.getMessage();			
+			error = e.getMessage();
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks())) {
 				throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
 				}
@@ -821,20 +821,21 @@ public class Block223Controller {
 
 	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
 		Block223 block223 = Block223Application.getBlock223();
-		UserRole player = Block223Application.getCurrentUserRole();
-		if (!(player instanceof Player)) {
+		UserRole role = Block223Application.getCurrentUserRole();
+		if (!(role instanceof Player)) {
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
-		List<TOPlayableGame> result = new ArrayList<ToPlayableGame>();
-		List<Game> games = Block223.getGames();
+		List<TOPlayableGame> result = new ArrayList<TOPlayableGame>();
+		List<Game> games = block223.getGames();
 		for (Game game: games) {
-			boolean published = Game.isPublished();
+			boolean published = game.isPublished();
 			if (published) {
 				TOPlayableGame to = new TOPlayableGame(game.getName(), -1, 0);
 				result.add(to);
 			}
 		}
-		List<PlayedGame> playedGames = Player.getPlayedGames();
+		Player player = (Player) role;
+		List<PlayedGame> playedGames = player.getPlayedGames();
 		for (PlayedGame game: playedGames) {
 			TOPlayableGame to = new TOPlayableGame(game.getGame().getName(), game.getId(), game.getCurrentLevel());
 			result.add(to);
@@ -844,9 +845,9 @@ public class Block223Controller {
 	}
 
 	public static void selectPlayableGames(String name, int id) throws InvalidInputException {
-		Game game = Block223.findGame(name);
 		PlayedGame pgame = null;
 		Block223 block223 = Block223Application.getBlock223();
+		Game game = block223.findGame(name);
 		UserRole player = Block223Application.getCurrentUserRole();
 		if (!(player instanceof Player)) {
 			throw new InvalidInputException("Player privileges are required to play a game.");
@@ -854,16 +855,16 @@ public class Block223Controller {
 		if (game != null) {
 			String username = User.findUsername(player);
 			pgame = new PlayedGame(username, game, block223);
-			PlayedGame.setPlayer((Player) player);
+			pgame.setPlayer((Player) player);
 		}
 		else {
-			pgame = Block223.findPlayableGame(id);
+			pgame = block223.findPlayableGame(id);
 			if (pgame == null) {
 				throw new InvalidInputException("The game does not exist.");
 			}
-		//	else if (player != ) {
-		//		throw new InvalidInputException("Only the player that started a game can continue the game.");
-		//	}
+			else if (player != pgame.getPlayer()) {
+				throw new InvalidInputException("Only the player that started a game can continue the game.");
+			}
 		}
 		Block223Application.setCurrentPlayableGame(pgame);
 	}
@@ -909,33 +910,44 @@ public class Block223Controller {
 		}
 	}
 
-	private void doSetup() {
-		PlayedGame playedGame= Block223Application.getCurrentPlayableGame();
-		playedGame.resetCurrentBallX();
-		playedGame.resetBallDirectionY();
-		playedGame.resetBallDirectionX();
-		playedGame.resetBallDirectionY();
-		playedGame.resetCurrentPaddleX();
-		playedGame.getGame();
-		Integer currentLevel = playedGame.getCurrentLevel();
-		Game game = Block223Application.getCurrentGame();
-		Level level = game.getLevel(currentLevel-1);
-		List<BlockAssignment> assignments = level.getBlockAssignments();
-		for (BlockAssignment a: assignments) {
-			PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING)*
-			(a.getGridHorizontalPosition() -1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING)*
-			(a.getGridVerticalPosition() -1), a.getBlock(), this);
-		}
-		while (numberOfBlocks() < game.getNrBlocksPerLevel()) {
-			int x, y;
-			PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
-		}
-	}
 
 	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
+		UserRole player = Block223Application.getCurrentUserRole();
+		if (player == null) {
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		}
+		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to play it.");
+		}
+		Player currentPlayer = game.getPlayer();
+		if (player instanceof Admin && currentPlayer != null) {
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		}
+		Game currentGame = game.getGame();
+		if (player instanceof Admin && player != currentGame.getAdmin()) {
+			throw new InvalidInputException("Only the admin of a game can test the game.");
+		}
+		if (player instanceof Player && currentPlayer == null) {
+			throw new InvalidInputException("Admin privileges are required to test a game.");
+		}
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-
 		boolean paused = (pgame.getPlayStatus() == PlayStatus.Ready || pgame.getPlayStatus() == PlayStatus.Paused);
+		TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(),
+				pgame.getLives(),pgame.getCurrentLevel(), pgame.getPlayername(), pgame.getCurrentBallX(), pgame.getCurrentBallY(),
+				pgame.getCurrentPaddleLength(), pgame.getCurrentPaddleX());
+		List<PlayedBlockAssignment> blocks = pgame.getBlocks();
+		for (PlayedBlockAssignment pblock: blocks) {
+			TOCurrentBlock to = new TOCurrentBlock(pblock.getBlock().getRed(),pblock.getBlock().getGreen(),
+					pblock.getBlock().getBlue(),
+					pblock.getBlock().getPoints(),
+					pblock.getX(),
+					pblock.getY(),
+					result);
+					}
+		return result;
+		}
+
 
 		TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(),
 				pgame.getLives(),pgame.getCurrentLevel(), pgame.getPlayername(), pgame.getCurrentBallX(), pgame.getCurrentBallY(),
