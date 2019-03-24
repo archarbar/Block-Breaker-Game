@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BLOCK223.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block223 v3.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223.ump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" afterDir="false" />
@@ -43,14 +37,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/Block223.ump" />
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="50" />
     <option name="y" value="20" />
@@ -63,6 +49,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -80,7 +67,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -119,16 +105,17 @@
       <workItem from="1551752774314" duration="183000" />
       <workItem from="1551759771666" duration="218000" />
       <workItem from="1553374799191" duration="401000" />
+      <workItem from="1553403713091" duration="206000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5758000" />
+    <option name="totallyTimeSpent" value="5907000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2751678" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27919462" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -167,7 +154,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java</url>
-          <line>55</line>
+          <line>56</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
