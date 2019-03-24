@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/CreateGamePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.block223" beforeDir="false" afterPath="$PROJECT_DIR$/data.block223" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/GamePage.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +13,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state relative-caret-position="85">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+              <folding>
+                <element signature="e#22972#22973#0" expanded="true" />
+                <element signature="e#23023#23024#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -30,6 +39,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="50" />
@@ -44,36 +60,8 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="block" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="block" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -107,17 +95,21 @@
       <workItem from="1551566901096" duration="192000" />
       <workItem from="1551567286837" duration="621000" />
       <workItem from="1551644854523" duration="641000" />
-      <workItem from="1551726476965" duration="1030000" />
+      <workItem from="1551736534985" duration="128000" />
+      <workItem from="1551739109104" duration="2002000" />
+      <workItem from="1551752774314" duration="183000" />
+      <workItem from="1551759771666" duration="218000" />
+      <workItem from="1553374799191" duration="401000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3426000" />
+    <option name="totallyTimeSpent" value="6520000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25292096" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2563574" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -156,7 +148,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java</url>
-          <line>52</line>
+          <line>54</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -164,20 +156,22 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bin/ca/mcgill/ecse223/block/controller/Block223Controller.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
+    <entry file="file://$PROJECT_DIR$/bin/ca/mcgill/ecse223/block/controller/Block223Controller.class" />
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state relative-caret-position="85">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        <state relative-caret-position="153">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <element signature="e#22972#22973#0" expanded="true" />
+            <element signature="e#23023#23024#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

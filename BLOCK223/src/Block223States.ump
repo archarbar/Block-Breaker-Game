@@ -1,0 +1,143 @@
+class PlayedGame {
+	depend ca.mcgill.ecse223.block.application.*;
+
+  // State Machine
+  
+  playStatus {
+    Ready {
+      entry / { doSetup(); }
+      play -> Moving;
+    }
+    Moving {
+      pause -> Paused;
+      move [hitPaddle()] / { doHitPaddleOrWall(); } -> Moving;
+      move [isOutOfBoundsAndLastLife()] / { doOutOfBounds(); } -> GameOver;
+      move [isOutOfBounds()] / { doOutOfBounds(); } -> Paused;
+      move [hitLastBlockAndLastLevel()] / { doHitBlock(); } -> GameOver;
+      move [hitLastBlock()] / { doHitBlockNextLevel(); } -> Ready;
+      move [hitBlock()] / { doHitBlock(); } -> Moving;
+      move [hitWall()] / { doHitPaddleOrWall(); } -> Moving;
+      move / { doHitNothingAndNotOutOfBounds(); } -> Moving;
+    }
+    Paused {
+      play -> Moving;
+    }
+    GameOver {
+      entry / { doGameOver(); }
+    }
+  }
+  
+  // Guards
+  
+  private boolean hitPaddle() {
+   	
+    return false;
+  }
+
+  private boolean isOutOfBoundsAndLastLife() {
+    boolean outOfBounds = false;
+    
+    if (lives == 1){
+    	outOfBounds = this.isBallOutOfBounds();
+    }	
+    return outOfBounds;
+  }
+  
+  private boolean isOutOfBounds() {
+    boolean outOfBounds = this.isBallOutOfBounds();
+    return outOfBounds;
+  }
+  
+  private boolean hitLastBlockAndLastLevel() {
+    // TODO implement
+    return false;
+  }
+  
+  private boolean hitLastBlock(){
+    // TODO implement
+    return false;
+  }
+  
+  private boolean hitBlock() {
+    // TODO implement
+    return false;
+  }
+  
+  private boolean hitWall() {
+    // TODO implement
+    return false;
+  }
+  
+  // Actions
+  
+  private void doSetup() {
+    // TODO implement
+  }
+  
+  private void doHitPaddleOrWall() {
+    // TODO implement
+  }
+
+  private void doOutOfBounds() {
+		this.setLives(lives-1);
+		this.resetCurrentBallX();
+		this.resetCurrentBallY();
+		this.resetBallDirectionX();
+		this.resetBallDirectionY();
+		this.resetCurrentPaddleX();
+  }
+
+  private void doHitBlock() {
+    // TODO implement
+  }
+
+  private void doHitBlockNextLevel() {
+    // TODO implement
+  }
+
+  private void doHitNothingAndNotOutOfBounds() {
+    // TODO implement
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+	double x = currentPlayedGame.getCurrentBallX();
+	double y = currentPlayedGame.getCurrentBallY();
+	double dx = currentPlayedGame.getBallDirectionX();
+	double dy = currentPlayedGame.getBallDirectionY();
+	currentPlayedGame.setCurrentBallX(x + dx);
+	currentPlayedGame.setCurrentBallY(y + dy);
+  }
+
+  private void doGameOver() {
+    Block223 block223 = this.getBlock223();
+    Player p = this.getPlayer();
+    if (p != null){
+    	game = this.getGame();
+    	HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+    	game.setMostRecentEntry(hof);
+    }
+    this.delete();
+  }
+  
+  	private void doSetup() {
+		PlayedGame playedGame= Block223Application.getCurrentPlayableGame();
+		playedGame.resetCurrentBallX();
+		playedGame.resetBallDirectionY();
+		playedGame.resetBallDirectionX();
+		playedGame.resetBallDirectionY();
+		playedGame.resetCurrentPaddleX();
+		playedGame.getGame();
+		Integer currentLevel = playedGame.getCurrentLevel();
+		Game game = Block223Application.getCurrentGame();
+		Level level = game.getLevel(currentLevel-1);
+		List<BlockAssignment> assignments = level.getBlockAssignments();
+		for (BlockAssignment a: assignments) {
+			PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING)*
+			(a.getGridHorizontalPosition() -1), Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING)*
+			(a.getGridVerticalPosition() -1), a.getBlock(), playedGame);
+		}
+		while (playedGame.numberOfBlocks() < game.getNrBlocksPerLevel()) {
+			int x, y;
+			PlayedBlockAssignment pblock = new PlayedBlockAssignment(x, y, game.getRandomBlock(), this);
+		}
+	}
+
+}
