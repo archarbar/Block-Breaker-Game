@@ -74,6 +74,9 @@ public class Block223Controller {
 		if (nrLevels < 1 || nrLevels > 99) {
 			throw new InvalidInputException("The number of levels must be between 1 and 99.");
 		}
+		if (minBallSpeedX == 0 && minBallSpeedY == 0) {
+			throw new InvalidInputException("The minimum speed of the ball must be greater than zero.");
+		}
 		try {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
@@ -275,17 +278,16 @@ public class Block223Controller {
 	public static void deleteBlock(int id) throws InvalidInputException {
 		//William 01/03
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to access game information.");
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to delete a block.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to delete a block.");
 		}
-		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
 		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can delete a block.");
 		}
 		Block block = game.findBlock(id);
 		if (block != null) {
@@ -415,10 +417,10 @@ public class Block223Controller {
 			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {//***************QUESTION good? how do we add the condition that it has to be between 1 and 99?/What is the error message suppose to be?
-//			error = e.getMessage();
-//			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
-				throw new InvalidInputException("Level " + level + " does not exist for the game.");
-//			}
+			//			error = e.getMessage();
+			//			if (error.equals("Level must be between 1 and the number of levels in the current game.")) {
+			throw new InvalidInputException("Level " + level + " does not exist for the game.");
+			//			}
 		}
 
 
@@ -449,10 +451,10 @@ public class Block223Controller {
 			error = e.getMessage();			
 			if (error.equals("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks())) {
 				throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
-				}
+			}
 			if (error.equals("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks())) {
 				throw new InvalidInputException("The vertical position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
-				}
+			}
 
 		}
 
@@ -527,22 +529,22 @@ public class Block223Controller {
 	}
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-		//William 01/03
+		//		//William 01/03
+		//FINISHED 03/23
 		String error = "";
-		Level currentLevel;
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
-			throw new InvalidInputException("Admin privileges are required to access game information.");
+		if (!(currentUser instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to remove a block.");
 		}
 		Game game = Block223Application.getCurrentGame();
 		if (game == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to remove a block.");
 		}
-		//check if the admin created the game *****************QUESTION is this (admin) notation fine?
 		Admin admin = game.getAdmin();
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can remove a block.");
 		}
+		Level currentLevel;
 		try {
 			currentLevel = game.getLevel(level-1);
 		}
@@ -557,6 +559,8 @@ public class Block223Controller {
 		if(assignment != null){
 			assignment.delete();
 		}
+
+
 	}
 
 	public static void saveGame() throws InvalidInputException {
@@ -788,17 +792,17 @@ public class Block223Controller {
 		}
 		catch (IndexOutOfBoundsException e) {
 			throw new InvalidInputException("Level" + level + "does not exist for the game.");
-			}
+		}
 
 
 		if (currentLevel != null)
-			{
+		{
 			List<BlockAssignment> assignments = currentLevel.getBlockAssignments();
 			for (BlockAssignment assignment: assignments) {
 
-			TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
+				TOGridCell to = new TOGridCell(assignment.getGridHorizontalPosition(), assignment.getGridVerticalPosition(), assignment.getBlock().getId(), assignment.getBlock().getRed(), assignment.getBlock().getGreen(), assignment.getBlock().getBlue(), assignment.getBlock().getPoints());
 
-			result.add(to);
+				result.add(to);
 			}
 		}
 
@@ -948,10 +952,21 @@ public class Block223Controller {
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+
+		Game game = PlayedGame.getGame();
+
+		TOHallOfFame result = new TOHallOfFame(game.getName());
+
+		for (int i = start; i <= end ; i++ ) {
+			TOHallOfFameEntry to = new TOHallOfFameEntry(index +1, game.getHallOfFameEntry(index).getPlayername(), game.getHallOfFameEntry(index).getScore(), result);
+		}
+		return result;
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
-
+		PlayedGame pgame = getCurrentPlayableGame();
+		Game game = pgame.getGame();
 	}
 
 	// ****************************
