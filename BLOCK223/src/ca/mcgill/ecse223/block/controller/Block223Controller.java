@@ -1030,5 +1030,4 @@ public class Block223Controller {
 		}
 		game.setPublished(true);
 	}
-
 }

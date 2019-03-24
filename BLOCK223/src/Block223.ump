@@ -17,6 +17,14 @@ class Block223 {
 	  }
 	  return null;
   }
+  public PlayedGame findPlayableGame(int id) {
+		for (PlayedGame playableGame: getPlayedGames()) {
+			if (playableGame.getId() == id) {
+				return playableGame;
+			}
+		}
+		return null;
+  }
 }
 
 class User {
