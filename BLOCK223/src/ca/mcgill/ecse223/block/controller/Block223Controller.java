@@ -954,21 +954,6 @@ public class Block223Controller {
 		return result;
 		}
 
-
-	// ****************************
-	// P2. Move ball
-	// ****************************
-
-	private void doHitNothingAndNotOutOfBounds() {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		double x = currentPlayedGame.getCurrentBallX();
-		double y = currentPlayedGame.getCurrentBallY();
-		double dx = currentPlayedGame.getBallDirectionX();
-		double dy = currentPlayedGame.getBallDirectionY();
-		currentPlayedGame.setCurrentBallX(x + dx);
-		currentPlayedGame.setCurrentBallY(y + dy);
-	}
-
 	// ****************************
 	// P3. Ball hits paddle or wall
 	// ****************************
