@@ -947,34 +947,7 @@ public class Block223Controller {
 	// ****************************
 
 	//all methods in Block223States.ump
-	private boolean isOutOfBoundsAndLastLife() {
-
-	}
-
-	
-	private boolean isBallOutOfBounds() {
-		
-	}
-
-	public boolean isBallOutOfBounds() {
-		double yball = this.currentBallY;
-		double 
-		
-	}
-		   
-		   
-		   
-	
-
-	private void doGameOver() {
-		Player p = currentPlayedGame.getPlayer();
-		if(p!= null) {
-			Game game = currentPlayedGame.getGame();
-			HallOfFameEntry hof = new HallOfFameEntry(currentPlayedGame.getScore(), currentPlayedGame.getPlayername(), p, game, block223);
-			game.setMostRecentEntry(hof);
-		}
-		currentPlayedGame.delete();
-	}
+	//isBalloutofbound in block223playmode.ump
 
 	// ****************************
 	// P6. View hall of fame
