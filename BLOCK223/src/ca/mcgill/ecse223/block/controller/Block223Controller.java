@@ -15,10 +15,12 @@ import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.HallOfFameEntry;
 import ca.mcgill.ecse223.block.model.Level;
 import ca.mcgill.ecse223.block.model.Paddle;
+import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.model.PlayedGame.PlayStatus;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
@@ -852,8 +854,27 @@ public class Block223Controller {
 	}
 
 	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
-
-	}
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		
+		boolean paused = (pgame.getPlayStatus() == PlayStatus.Ready || pgame.getPlayStatus() == PlayStatus.Paused);
+		
+		TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(), 
+				pgame.getLives(),pgame.getCurrentLevel(), pgame.getPlayername(), pgame.getCurrentBallX(), pgame.getCurrentBallY(),
+				pgame.getCurrentPaddleLength(), pgame.getCurrentPaddleX());
+		
+		List<PlayedBlockAssignment> blocks = pgame.getBlocks();
+		
+		for (PlayedBlockAssignment pblock: blocks) {
+			TOCurrentBlock to = new TOCurrentBlock(pblock.getBlock().getRed(),pblock.getBlock().getGreen(),
+					pblock.getBlock().getBlue(),
+					pblock.getBlock().getPoints(),
+					pblock.getX(),
+					pblock.getY(),
+					result);
+					}
+		return result;
+		}
+	
 
 	// ****************************
 	// P2. Move ball
@@ -913,21 +934,8 @@ public class Block223Controller {
 	// P5. Ball is out of bounds
 	// ****************************
 
-	private boolean isOutOfBoundsAndLastLife() {
-
-	}
-
-	private void doOutOfBounds() {
-
-	}
-
-	private boolean isOutOfBounds() {
-
-	}
-
-	private void doGameOver() {
-
-	}
+	//all methods in Block223States.ump
+	//isBalloutofbound in block223playmode.ump
 
 	// ****************************
 	// P6. View hall of fame
