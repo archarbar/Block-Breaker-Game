@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
-import ca.mcgill.ecse223.block.application.*;
+import ca.mcgill.ecse223.block.application.*git;
 import java.util.*;
 
 // line 11 "../../../../../Block223PlayMode.ump"
@@ -727,9 +727,9 @@ public class PlayedGame implements Serializable
    		double xballfuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
    		double yballfuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
    		double xwallleft= 0;
-   		double ywallleft = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		double ywallleft = Game.PLAY_AREA_SIDE;
    		double xwallright = Game.PLAY_AREA_SIDE;
-   		double ywallright = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		double ywallright = Game.PLAY_AREA_SIDE;
    		
    		return java.awt.geom.Line2D.linesIntersect(xball, yball, xballfuture, yballfuture, xwallleft, ywallleft, xwallright, ywallright);
   }
