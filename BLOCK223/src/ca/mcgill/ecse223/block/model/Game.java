@@ -938,45 +938,33 @@ public class Game implements Serializable
 
   // line 86 "../../../../../Block223.ump"
    public int maxNumberOfHorizontalBlocks(){
-    int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
-                  int wallPadding = Game.WALL_PADDING;             
-                  int columnPadding = Game.COLUMNS_PADDING;
-                  int blockSize = Block.SIZE;             
-                  int maxNumberOfHorizontalBlocks = 0;   
-                  int spaceForBlocks = horizontalPlayAreaSize - 2* wallPadding;
-                  
-                  while(true) {                      
-                                  spaceForBlocks -= blockSize;
-                                  if(spaceForBlocks <= 0) {
-                                                  break;
-                                  }
-                                  maxNumberOfHorizontalBlocks++;                            
-                                  spaceForBlocks -= columnPadding;            
-                  }  
-                  return maxNumberOfHorizontalBlocks;
+    int maxNumberOfHorizontalBlocks = 0;   
+	                  int spaceForBlocks = Game.PLAY_AREA_SIDE - 2* Game.WALL_PADDING;	                  
+	                  while(true) {                      
+	                	  spaceForBlocks -= Block.SIZE;
+	                                  if(spaceForBlocks <= 0) {
+	                                                  break;
+	                                  }
+	                                  maxNumberOfHorizontalBlocks++;                            
+	                                  spaceForBlocks -= Game.COLUMNS_PADDING;            
+	                  }  
+	                  return maxNumberOfHorizontalBlocks;
   }
 
-  // line 104 "../../../../../Block223.ump"
+  // line 101 "../../../../../Block223.ump"
    public int maxNumberOfVerticalBlocks(){
-    int verticalPlayAreaSize = Game.PLAY_AREA_SIDE;
-                  int wallPadding = Game.WALL_PADDING;             
-                  int rowPadding = Game.ROW_PADDING;
-                  int blockSize = Block.SIZE;             
-                  int verticalPaddleLocation = Paddle.VERTICAL_DISTANCE;
-                  int widthOfPaddle = Paddle.PADDLE_WIDTH;
-                  int spaceForBlocks = verticalPlayAreaSize - wallPadding - verticalPaddleLocation - widthOfPaddle;
-                  int maxNumberOfVerticalBlocks = 0;      
-                   
-                  while(true) {
-                                  spaceForBlocks -= blockSize;
-                                  if(spaceForBlocks <= 0) {
-                                                                  break;
-                                  }
-                                  maxNumberOfVerticalBlocks++;
-                                  spaceForBlocks -= rowPadding;                  
-                
-                  }
-                  return maxNumberOfVerticalBlocks;
+    int spaceForBlocks = Game.PLAY_AREA_SIDE - Game.WALL_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH;
+	                  int maxNumberOfVerticalBlocks = 0;                    
+	                  while(true) {
+	                                  spaceForBlocks -= Block.SIZE;
+	                                  if(spaceForBlocks <= 0) {
+	                                     break;
+	                                  }
+	                                  maxNumberOfVerticalBlocks++;
+	                                  spaceForBlocks -= Game.ROW_PADDING;                  
+	                
+	                  }
+	                  return maxNumberOfVerticalBlocks;
   }
 
 
