@@ -2,7 +2,7 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 
-import java.awt.geom.*;
+import ca.mcgill.ecse223.block.application.*;
 
 // line 1 "Block223States.ump"
 public class PlayedGame

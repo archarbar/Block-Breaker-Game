@@ -59,18 +59,15 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 63 "../../../../../Block223.ump"
+    // line 55 "../../../../../Block223.ump"
     Block223 block223 = getBlock223();
     	  if (aName == null || aName.length() == 0) {
     	     throw new RuntimeException("The name of a game must be specified.");
     	  }
     // END OF UMPLE BEFORE INJECTION
-    // line 70 "../../../../../Block223.ump"
+    // line 62 "../../../../../Block223.ump"
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero.");
-         }
-         if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-         	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
          }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -126,9 +123,6 @@ public class Game implements Serializable
     // line 70 "../../../../../Block223.ump"
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero.");
-         }
-         if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-         	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
          }
     // END OF UMPLE BEFORE INJECTION
     published = false;
@@ -203,8 +197,12 @@ public class Game implements Serializable
     if (aNrBlocksPerLevel <= 0) {
          	throw new RuntimeException("The number of blocks per level must be greater than zero.");
          }
-         if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-         	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+    // END OF UMPLE BEFORE INJECTION
+    // line 75 "../../../../../Block223.ump"
+    for (Level level: getLevels()) {
+         	if (aNrBlocksPerLevel < level.numberOfBlockAssignments()) {
+         		throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+         	}
          }
     // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
@@ -938,45 +936,33 @@ public class Game implements Serializable
 
   // line 94 "../../../../../Block223.ump"
    public int maxNumberOfHorizontalBlocks(){
-    int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
-                  int wallPadding = Game.WALL_PADDING;             
-                  int columnPadding = Game.COLUMNS_PADDING;
-                  int blockSize = Block.SIZE;             
-                  int maxNumberOfHorizontalBlocks = 0;   
-                  int spaceForBlocks = horizontalPlayAreaSize - 2* wallPadding;
-                  
-                  while(true) {                      
-                                  spaceForBlocks -= blockSize;
-                                  if(spaceForBlocks <= 0) {
-                                                  break;
-                                  }
-                                  maxNumberOfHorizontalBlocks++;                            
-                                  spaceForBlocks -= columnPadding;            
-                  }  
-                  return maxNumberOfHorizontalBlocks;
+    int maxNumberOfHorizontalBlocks = 0;
+ 	                  int spaceForBlocks = Game.PLAY_AREA_SIDE - 2* Game.WALL_PADDING;
+ 	                  while(true) {
+ 	                	  			  spaceForBlocks -= Block.SIZE;
+ 	                                  if(spaceForBlocks < 0) {
+ 	                                                  break;
+ 	                                  }
+ 	                                  maxNumberOfHorizontalBlocks++;
+ 	                                  spaceForBlocks -= Game.COLUMNS_PADDING;
+ 	                  }
+ 	                  return maxNumberOfHorizontalBlocks;
   }
 
-  // line 112 "../../../../../Block223.ump"
+  // line 108 "../../../../../Block223.ump"
    public int maxNumberOfVerticalBlocks(){
-    int verticalPlayAreaSize = Game.PLAY_AREA_SIDE;
-                  int wallPadding = Game.WALL_PADDING;             
-                  int rowPadding = Game.ROW_PADDING;
-                  int blockSize = Block.SIZE;             
-                  int verticalPaddleLocation = Paddle.VERTICAL_DISTANCE;
-                  int widthOfPaddle = Paddle.PADDLE_WIDTH;
-                  int spaceForBlocks = verticalPlayAreaSize - wallPadding - verticalPaddleLocation - widthOfPaddle;
-                  int maxNumberOfVerticalBlocks = 0;      
-                   
-                  while(true) {
-                                  spaceForBlocks -= blockSize;
-                                  if(spaceForBlocks <= 0) {
-                                                                  break;
-                                  }
-                                  maxNumberOfVerticalBlocks++;
-                                  spaceForBlocks -= rowPadding;                  
-                
-                  }
-                  return maxNumberOfVerticalBlocks;
+    int spaceForBlocks = Game.PLAY_AREA_SIDE - Game.WALL_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH;
+     	    int maxNumberOfVerticalBlocks = 0;
+     	    while(true) {
+                       spaceForBlocks -= Block.SIZE;
+                       if(spaceForBlocks < 0) {
+                          break;
+                       }
+                       maxNumberOfVerticalBlocks++;
+                       spaceForBlocks -= Game.ROW_PADDING;
+
+      	 	}
+       		return maxNumberOfVerticalBlocks;
   }
 
 
