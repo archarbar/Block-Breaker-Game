@@ -949,23 +949,6 @@ public class Block223Controller {
 		}
 
 
-		TOCurrentlyPlayedGame result = new TOCurrentlyPlayedGame(pgame.getGame().getName(), paused, pgame.getScore(),
-				pgame.getLives(),pgame.getCurrentLevel(), pgame.getPlayername(), pgame.getCurrentBallX(), pgame.getCurrentBallY(),
-				pgame.getCurrentPaddleLength(), pgame.getCurrentPaddleX());
-
-		List<PlayedBlockAssignment> blocks = pgame.getBlocks();
-
-		for (PlayedBlockAssignment pblock: blocks) {
-			TOCurrentBlock to = new TOCurrentBlock(pblock.getBlock().getRed(),pblock.getBlock().getGreen(),
-					pblock.getBlock().getBlue(),
-					pblock.getBlock().getPoints(),
-					pblock.getX(),
-					pblock.getY(),
-					result);
-					}
-		return result;
-		}
-
 	// ****************************
 	// P3. Ball hits paddle or wall
 	// ****************************
