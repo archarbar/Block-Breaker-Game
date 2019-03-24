@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
 // line 33 "../../../../../Block223Persistence.ump"
-// line 30 "../../../../../Block223.ump"
+// line 38 "../../../../../Block223.ump"
 public abstract class UserRole implements Serializable
 {
 
@@ -84,7 +84,7 @@ public abstract class UserRole implements Serializable
     }
   }
 
-  // line 34 "../../../../../Block223.ump"
+  // line 42 "../../../../../Block223.ump"
    public String getUsername(){
     return super.toString();
   }
