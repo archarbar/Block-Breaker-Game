@@ -12,6 +12,7 @@ import ca.mcgill.ecse223.block.model.Ball;
 import ca.mcgill.ecse223.block.model.Block;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.HallOfFameEntry;
 import ca.mcgill.ecse223.block.model.Level;
 import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
@@ -930,21 +931,8 @@ public class Block223Controller {
 	// P5. Ball is out of bounds
 	// ****************************
 
-	private boolean isOutOfBoundsAndLastLife() {
-
-	}
-
-	private void doOutOfBounds() {
-
-	}
-
-	private boolean isOutOfBounds() {
-
-	}
-
-	private void doGameOver() {
-
-	}
+	//all methods in Block223States.ump
+	//isBalloutofbound in block223playmode.ump
 
 	// ****************************
 	// P6. View hall of fame
