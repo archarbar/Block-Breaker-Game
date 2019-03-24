@@ -91,34 +91,33 @@ class Game {
   }
   
    public int maxNumberOfHorizontalBlocks(){            	                     
-	                  int maxNumberOfHorizontalBlocks = 0;   
-	                  int spaceForBlocks = Game.PLAY_AREA_SIDE - 2* Game.WALL_PADDING;	                  
-	                  while(true) {                      
-	                	  spaceForBlocks -= Block.SIZE;
-	                                  if(spaceForBlocks <= 0) {
-	                                                  break;
-	                                  }
-	                                  maxNumberOfHorizontalBlocks++;                            
-	                                  spaceForBlocks -= Game.COLUMNS_PADDING;            
-	                  }  
-	                  return maxNumberOfHorizontalBlocks;
-	  }
+ 	                  int maxNumberOfHorizontalBlocks = 0;   
+ 	                  int spaceForBlocks = Game.PLAY_AREA_SIDE - 2* Game.WALL_PADDING;	                  
+ 	                  while(true) {                      
+ 	                	  			  spaceForBlocks -= Block.SIZE;
+ 	                                  if(spaceForBlocks < 0) {
+ 	                                                  break;
+ 	                                  }
+ 	                                  maxNumberOfHorizontalBlocks++;                            
+ 	                                  spaceForBlocks -= Game.COLUMNS_PADDING;            
+ 	                  }  
+ 	                  return maxNumberOfHorizontalBlocks;
+ 	  }
 
-
-  public int maxNumberOfVerticalBlocks(){
-		   			  int spaceForBlocks = Game.PLAY_AREA_SIDE - Game.WALL_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH;
-	                  int maxNumberOfVerticalBlocks = 0;                    
-	                  while(true) {
-	                                  spaceForBlocks -= Block.SIZE;
-	                                  if(spaceForBlocks <= 0) {
-	                                     break;
-	                                  }
-	                                  maxNumberOfVerticalBlocks++;
-	                                  spaceForBlocks -= Game.ROW_PADDING;                  
-	                
-	                  }
-	                  return maxNumberOfVerticalBlocks;
-	  }
+   public int maxNumberOfVerticalBlocks(){
+	  	    int spaceForBlocks = Game.PLAY_AREA_SIDE - Game.WALL_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH;
+     	    int maxNumberOfVerticalBlocks = 0;                    
+     	    while(true) {
+                       spaceForBlocks -= Block.SIZE;
+                       if(spaceForBlocks < 0) {
+                          break;
+                       }
+                       maxNumberOfVerticalBlocks++;
+                       spaceForBlocks -= Game.ROW_PADDING;                  
+     
+      	 	}
+       		return maxNumberOfVerticalBlocks;
+}
   
   
    * -- 1 Admin admin;

@@ -506,14 +506,14 @@ public class Block223Controller {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 		}
 		catch (RuntimeException e) {
-			throw new InvalidInputException("The horizontal position must be between 1 and " + 15 + ".");
+			throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfHorizontalBlocks() + ".");
 		}
 
 		try {
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
 		catch (RuntimeException e) {
-			throw new InvalidInputException("The horizontal position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
+			throw new InvalidInputException("The vertical position must be between 1 and " + game.maxNumberOfVerticalBlocks() + ".");
 		}
 	}
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -935,19 +935,16 @@ public class Block223Controller {
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 		//Verify if user is a player
-		String error = "";
+
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			error += "Player privileges are required to access a game�s hall of fame.";
+			throw new InvalidInputException("Player privileges are required to access a game�s hall of fame.");
 		}
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		if (pgame == null) {
-			error += "A game must be selected to view its hall of fame.";
+			throw new InvalidInputException("A game must be selected to view its hall of fame.");
 		}
 
-		if(error.length() > 0) {
-			throw new InvalidInputException(error.trim());
-		}
 		Game game = pgame.getGame();
 
 		TOHallOfFame result = new TOHallOfFame(game.getName());
@@ -972,21 +969,15 @@ public class Block223Controller {
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
-		String error = "";
-
 		//Check if user is a player
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			error += "Player privileges are required to access a game�s hall of fame.";
+			throw new InvalidInputException("Player privileges are required to access a game�s hall of fame.");
 		}
 
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		if (pgame == null) {
-			error += "A game must be selected to view its hall of fame.";
-		}
-
-		if(error.length() > 0) {
-			throw new InvalidInputException(error.trim());
+			throw new InvalidInputException("A game must be selected to view its hall of fame.");
 		}
 
 		Game game = pgame.getGame();
