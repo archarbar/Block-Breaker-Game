@@ -946,28 +946,27 @@ public class Block223Controller {
 	// P5. Ball is out of bounds
 	// ****************************
 
+	//all methods in Block223States.ump
 	private boolean isOutOfBoundsAndLastLife() {
 
 	}
 
-	private void doOutOfBounds() {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		currentPlayedGame.setLives(currentPlayedGame.getLives()-1);
-		currentPlayedGame.resetCurrentBallX();
-		currentPlayedGame.resetCurrentBallY();
-		currentPlayedGame.resetBallDirectionX();
-		currentPlayedGame.resetBallDirectionY();
-		currentPlayedGame.resetCurrentPaddleX();
+	
+	private boolean isBallOutOfBounds() {
+		
 	}
 
-	private boolean isOutOfBounds() {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		boolean outOfBounds = currentPlayedGame.isBallOutofBounds();
+	public boolean isBallOutOfBounds() {
+		double yball = this.currentBallY;
+		double 
+		
 	}
+		   
+		   
+		   
+	
 
 	private void doGameOver() {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		Block223 block223 = currentPlayedGame.getBlock223();
 		Player p = currentPlayedGame.getPlayer();
 		if(p!= null) {
 			Game game = currentPlayedGame.getGame();
@@ -1046,4 +1045,5 @@ public class Block223Controller {
 		}
 		game.setPublished(true);
 	}
+
 }
