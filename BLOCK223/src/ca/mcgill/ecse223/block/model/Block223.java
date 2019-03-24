@@ -10,7 +10,7 @@ import java.util.*;
  */
 // line 1 "../../../../../Block223PlayMode.ump"
 // line 5 "../../../../../Block223Persistence.ump"
-// line 8 "../../../../../Block223 v3.ump"
+// line 8 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -598,14 +598,24 @@ public class Block223 implements Serializable
     }
   }
 
-  // line 13 "../../../../../Block223 v3.ump"
+  // line 13 "../../../../../Block223.ump"
    public Game findGame(String name){
     for (Game game: getGames()) {
-		  if (game.getName() == name) {
+		  if (game.getName().equals(name)) {
 			  return game;
 		  }
 	  }
 	  return null;
+  }
+
+  // line 21 "../../../../../Block223.ump"
+   public PlayedGame findPlayableGame(int id){
+    for (PlayedGame playableGame: getPlayedGames()) {
+			if (playableGame.getId() == id) {
+				return playableGame;
+			}
+		}
+		return null;
   }
   
   //------------------------

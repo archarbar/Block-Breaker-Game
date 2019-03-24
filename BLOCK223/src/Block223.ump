@@ -11,11 +11,19 @@ class Block223 {
    1 <@>- * Game games; 
    public Game findGame(String name) {
 	  for (Game game: getGames()) {
-		  if (game.getName() == name) {
+		  if (game.getName().equals(name)) {
 			  return game;
 		  }
 	  }
 	  return null;
+  }
+  public PlayedGame findPlayableGame(int id) {
+		for (PlayedGame playableGame: getPlayedGames()) {
+			if (playableGame.getId() == id) {
+				return playableGame;
+			}
+		}
+		return null;
   }
 }
 
@@ -53,9 +61,6 @@ class Game {
    unique name;
    before constructor, setName {
    	  Block223 block223 = getBlock223();
-   	  if (block223.findGame(aName) != null) {
-   	  	 throw new RuntimeException("The name of a game must be unique.");
-   	  }
 	  if (aName == null || aName.length() == 0) {
 	     throw new RuntimeException("The name of a game must be specified.");
 	  }
@@ -65,11 +70,14 @@ class Game {
      if (aNrBlocksPerLevel <= 0) {
      	throw new RuntimeException("The number of blocks per level must be greater than zero.");
      }
+     if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
+     	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+     }
    }
    before getLevel {
-     if (index < 0 || index > 98){
-   	  throw new IndexOutOfBoundsException("Level must be between 1 and 99 inclusively.");
-   	  }
+   if (index < 0 || index > numberOfLevels()){
+       	  throw new IndexOutOfBoundsException("Level must be between 1 and the number of levels in the current game.");
+     }
    }
    public Block findBlock(int id) {
 	  List<Block> blocks = this.getBlocks();
@@ -81,6 +89,47 @@ class Game {
 	  }
 	  return null;
   }
+  
+   public int maxNumberOfHorizontalBlocks(){
+    int horizontalPlayAreaSize = Game.PLAY_AREA_SIDE;
+                  int wallPadding = Game.WALL_PADDING;             
+                  int columnPadding = Game.COLUMNS_PADDING;
+                  int blockSize = Block.SIZE;             
+                  int maxNumberOfHorizontalBlocks = 0;   
+                  int spaceForBlocks = horizontalPlayAreaSize - 2* wallPadding;
+                  
+                  while(true) {                      
+                                  spaceForBlocks -= blockSize;
+                                  if(spaceForBlocks <= 0) {
+                                                  break;
+                                  }
+                                  maxNumberOfHorizontalBlocks++;                            
+                                  spaceForBlocks -= columnPadding;            
+                  }  
+                  return maxNumberOfHorizontalBlocks;
+  }
+   public int maxNumberOfVerticalBlocks(){
+    int verticalPlayAreaSize = Game.PLAY_AREA_SIDE;
+                  int wallPadding = Game.WALL_PADDING;             
+                  int rowPadding = Game.ROW_PADDING;
+                  int blockSize = Block.SIZE;             
+                  int verticalPaddleLocation = Paddle.VERTICAL_DISTANCE;
+                  int widthOfPaddle = Paddle.PADDLE_WIDTH;
+                  int spaceForBlocks = verticalPlayAreaSize - wallPadding - verticalPaddleLocation - widthOfPaddle;
+                  int maxNumberOfVerticalBlocks = 0;      
+                   
+                  while(true) {
+                                  spaceForBlocks -= blockSize;
+                                  if(spaceForBlocks <= 0) {
+                                                                  break;
+                                  }
+                                  maxNumberOfVerticalBlocks++;
+                                  spaceForBlocks -= rowPadding;                  
+                
+                  }
+                  return maxNumberOfVerticalBlocks;
+  }
+  
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
    1 <@>- 1..99 Level levels;
@@ -158,37 +207,19 @@ class BlockAssignment {
    Integer gridVerticalPosition;
    * -- 1 Level level;
    * -- 1 Block block;
-   before constructor {
-	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-	    }
-	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-	    }
-   }
-   before setGridHorizontalPosition {
-	   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > getMaxHorizontalGridPosition()) {
-	    	throw new RuntimeException("gridHorizontalPosition can't be negative or greater than " + getMaxHorizontalGridPosition());
-	    }
-   }
-   before setGridVerticalPosition {
-	   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > getMaxVerticalGridPosition()) {
-	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + getMaxVerticalGridPosition());
-	    }
-   }
 }
 
 class Ball {
    const Integer BALL_DIAMETER = 10;
    Integer minBallSpeedX;
+   Integer minBallSpeedY;
    before constructor, setMinBallSpeedX {
-     if (aMinBallSpeedX <= 0) {
+     if (aMinBallSpeedX < 0) {
      	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
      }
    } 
-   Integer minBallSpeedY;
    before constructor, setMinBallSpeedY {
-     if (aMinBallSpeedY <= 0) {
+     if (aMinBallSpeedY < 0) {
      	throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
      }
    }
@@ -205,8 +236,8 @@ class Paddle {
    const Integer VERTICAL_DISTANCE = 30;
    Integer maxPaddleLength;
    before constructor, setMaxPaddleLength {
-     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400) {
-     	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390) {
+     	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
      }
    }
    Integer minPaddleLength;

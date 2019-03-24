@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 20 "../../../../../Block223Persistence.ump"
-// line 22 "../../../../../Block223 v3.ump"
+// line 30 "../../../../../Block223.ump"
 public class User implements Serializable
 {
 
@@ -255,7 +255,7 @@ public class User implements Serializable
      }
   }
 
-  // line 26 "../../../../../Block223 v3.ump"
+  // line 34 "../../../../../Block223.ump"
    public static  String findUsername(UserRole admin){
     return admin.getUsername();
   }
