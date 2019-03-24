@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
-import ca.mcgill.ecse223.block.application.*git;
+import ca.mcgill.ecse223.block.application.*;
 import java.util.*;
 
 // line 11 "../../../../../Block223PlayMode.ump"
