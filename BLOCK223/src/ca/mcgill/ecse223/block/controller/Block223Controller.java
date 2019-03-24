@@ -934,21 +934,8 @@ public class Block223Controller {
 	// P5. Ball is out of bounds
 	// ****************************
 
-	private boolean isOutOfBoundsAndLastLife() {
-
-	}
-
-	private void doOutOfBounds() {
-
-	}
-
-	private boolean isOutOfBounds() {
-
-	}
-
-	private void doGameOver() {
-
-	}
+	//all methods in Block223States.ump
+	//isBalloutofbound in block223playmode.ump
 
 	// ****************************
 	// P6. View hall of fame
@@ -1086,4 +1073,5 @@ public class Block223Controller {
 		}
 		game.setPublished(true);
 	}
+
 }
