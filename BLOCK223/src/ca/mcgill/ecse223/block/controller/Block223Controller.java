@@ -12,6 +12,7 @@ import ca.mcgill.ecse223.block.model.Ball;
 import ca.mcgill.ecse223.block.model.Block;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.HallOfFameEntry;
 import ca.mcgill.ecse223.block.model.Level;
 import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
@@ -950,15 +951,30 @@ public class Block223Controller {
 	}
 
 	private void doOutOfBounds() {
-
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		currentPlayedGame.setLives(currentPlayedGame.getLives()-1);
+		currentPlayedGame.resetCurrentBallX();
+		currentPlayedGame.resetCurrentBallY();
+		currentPlayedGame.resetBallDirectionX();
+		currentPlayedGame.resetBallDirectionY();
+		currentPlayedGame.resetCurrentPaddleX();
 	}
 
 	private boolean isOutOfBounds() {
-
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		boolean outOfBounds = currentPlayedGame.isBallOutofBounds();
 	}
 
 	private void doGameOver() {
-
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		Block223 block223 = currentPlayedGame.getBlock223();
+		Player p = currentPlayedGame.getPlayer();
+		if(p!= null) {
+			Game game = currentPlayedGame.getGame();
+			HallOfFameEntry hof = new HallOfFameEntry(currentPlayedGame.getScore(), currentPlayedGame.getPlayername(), p, game, block223);
+			game.setMostRecentEntry(hof);
+		}
+		currentPlayedGame.delete();
 	}
 
 	// ****************************
