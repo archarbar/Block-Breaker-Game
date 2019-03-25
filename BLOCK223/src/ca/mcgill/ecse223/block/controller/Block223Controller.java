@@ -151,6 +151,9 @@ public class Block223Controller {
 		Game game = block223.findGame(name);
 		// delete game if it exists
 		if (game != null) {
+			if (game.isPublished()) {
+				throw new InvalidInputException("A published game cannot be deleted.");
+			}
 			Block223 block = game.getBlock223();
 			game.delete();
 			Block223Persistence.save(block);
@@ -175,6 +178,9 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can select the game.");
 		}
+		if (currentGame.isPublished()) {
+			throw new InvalidInputException("A published game cannot be changed.");
+		}
 		try {
 			Block223Application.setCurrentGame(currentGame);
 		}
@@ -189,7 +195,6 @@ public class Block223Controller {
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		Game currentGame = Block223Application.getCurrentGame();
-		String error = "";
 		// check if current user is an admin
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings.");
@@ -207,25 +212,12 @@ public class Block223Controller {
 		try {
 			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
 		}
-		// catch and rethrow error if game is duplicate
-		catch (RuntimeException e) {
-			error = e.getMessage();
-			if (error.equals("Cannot create due to duplicate name.")) {
-				error = "The name of a game must be unique.";
-			}
-			throw new InvalidInputException(error);
-		}
-		try {
-			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
-		}
 		// catch and rethrow error if no game is specified
 		catch (RuntimeException e) {
-			if (name == null) {
-				throw new InvalidInputException("The  name  of  a  game  must  be  specified.");
-			}
+			throw new InvalidInputException(e.getMessage());
 		}
-		String currentName = currentGame.getName();
 		// change the name if it is different than the wanted name
+		String currentName = currentGame.getName();
 		if (currentName != name) {
 			currentGame.setName(name);
 		}
@@ -661,7 +653,7 @@ public class Block223Controller {
 		// return the list of all games
 		for (Game game : games) {
 			Admin gameAdmin = game.getAdmin();
-			if (gameAdmin.equals(admin)) {
+			if (gameAdmin.equals(admin) && !game.isPublished()) {
 				TOGame to = new TOGame(game.getName(), game.getLevels().size(), 
 						game.getNrBlocksPerLevel(), 
 						game.getBall().getMinBallSpeedX(), 
@@ -677,28 +669,28 @@ public class Block223Controller {
 
 	public static TOGame getCurrentDesignableGame() throws InvalidInputException {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		Game currentGame = Block223Application.getCurrentGame();
-		Admin admin = currentGame.getAdmin();
+		Game game = Block223Application.getCurrentGame();
+		if (game == null) {
+			throw new InvalidInputException("A game must be selected to access its information.");
+		}
+		Admin admin = game.getAdmin();
 		// check if the current user is an admin
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to access game information.");
 		}
 		// check if current game is set
-		if (currentGame == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
-		}
 		// compare current user is the admin of the current game
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can access its information.");
 		}
 		// return current game
-		TOGame to = new TOGame(currentGame.getName(), currentGame.getLevels().size(),
-				currentGame.getNrBlocksPerLevel(),
-				currentGame.getBall().getMinBallSpeedX(),
-				currentGame.getBall().getMinBallSpeedY(),
-				currentGame.getBall().getBallSpeedIncreaseFactor(),
-				currentGame.getPaddle().getMaxPaddleLength(),
-				currentGame.getPaddle().getMinPaddleLength());
+		TOGame to = new TOGame(game.getName(), game.getLevels().size(),
+				game.getNrBlocksPerLevel(),
+				game.getBall().getMinBallSpeedX(),
+				game.getBall().getMinBallSpeedY(),
+				game.getBall().getBallSpeedIncreaseFactor(),
+				game.getPaddle().getMaxPaddleLength(),
+				game.getPaddle().getMinPaddleLength());
 		return to;
 	}
 
