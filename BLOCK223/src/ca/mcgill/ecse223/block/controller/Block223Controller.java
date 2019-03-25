@@ -946,18 +946,8 @@ public class Block223Controller {
 	// ****************************
 	// P3. Ball hits paddle or wall
 	// ****************************
-
-	private boolean hitPaddle() {
-
-	}
-
-	private void doHitPaddleOrWall() {
-
-	}
-
-	private boolean hitWall() {
-
-	}
+	
+	//All methods are in PlayedGame.Java and in Block223State.uml
 
 	// ****************************
 	// P4. Ball hits block

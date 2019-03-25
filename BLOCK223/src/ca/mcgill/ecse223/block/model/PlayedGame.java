@@ -818,7 +818,7 @@ public class PlayedGame implements Serializable
 		   setBounce(bp);
 		   return true;
 	   }
-    return false;
+	   return false;
   }
 
   // line 38 "../../../../../Block223States.ump"
@@ -863,7 +863,7 @@ public class PlayedGame implements Serializable
 		   setBounce(bp);
 		   return true;
 	   }
-    return false;
+	   return false;
   }
    private BouncePoint calculateBouncePointWall() {
 	   BouncePoint bouncePoint = null;
@@ -909,7 +909,53 @@ public class PlayedGame implements Serializable
    }
 
 private void bounceBall() {
+	double xBallFuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
+	double yBallFuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
+	double xBouncePosition = bounce.getX();
+	double yBouncePosition = bounce.getY();
+	double distanceX = Math.abs(xBallFuture - xBouncePosition);
+	double distanceY = Math.abs(yBallFuture - yBouncePosition);
+	if(xBouncePosition == xBallFuture && yBouncePosition == yBallFuture) {
+		this.setCurrentBallX(xBallFuture);
+		this.setCurrentBallY(yBallFuture);
+	}
+	else {
+		if(bounce.getDirection() == BounceDirection.FLIP_BOTH) {
+			if(Math.signum(this.getBallDirectionX() ) > 0) {
+				this.setCurrentBallX(xBouncePosition - distanceX);
+				this.setCurrentBallY(yBouncePosition + distanceY);
+			}
+			else {
+				this.setCurrentBallX(xBouncePosition + distanceX);
+				this.setCurrentBallY(yBouncePosition + distanceY);
+			}
+			this.setBallDirectionX(-1 * (ballDirectionX + Math.signum(ballDirectionX) * 0.1 * Math.abs(ballDirectionY)) );
+			this.setBallDirectionY(-1 * (ballDirectionY + Math.signum(ballDirectionY) * 0.1 * Math.abs(ballDirectionX)) );
+		}
+		else if(bounce.getDirection() == BounceDirection.FLIP_X){
+			if(Math.signum(this.getBallDirectionX() ) > 0) {
+				this.setCurrentBallX(xBouncePosition - distanceX);
+			}
+			else {
+				this.setCurrentBallX(xBouncePosition + distanceX);
+			}
+			this.setCurrentBallY(yBallFuture);
+			this.setBallDirectionX(this.getBallDirectionX() * -1);
+			this.setBallDirectionY(this.getBallDirectionY() + Math.signum(this.getBallDirectionY() * 0.1 + Math.abs(this.getBallDirectionX())));
+		}
+		else if(bounce.getDirection() == BounceDirection.FLIP_Y){
+			if(Math.signum(this.getBallDirectionY() ) > 0) {
+				this.setCurrentBallY(yBouncePosition - distanceY);
+			}
+			else {
+				this.setCurrentBallY(yBouncePosition + distanceY);
+			}
+			this.setCurrentBallX(xBallFuture);
+			this.setBallDirectionY(this.getBallDirectionY() * -1);
+			this.setBallDirectionX(this.getBallDirectionX() + Math.signum(this.getBallDirectionX() * 0.1 + Math.abs(this.getBallDirectionY())));
+		}
    }
+}
 
   /**
    * Actions
