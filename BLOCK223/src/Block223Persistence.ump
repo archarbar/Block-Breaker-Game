@@ -1,15 +1,20 @@
 external interface Serializable {}
 
+// the reinitialize methods need to be added
 
 class Block223 {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = 6181302407834705923L;
+  
   public void reinitialize() {
-		User.reinitializeUniqueUserName(this.getUsers());
-		Game.reinitializeUniqueName(this.getGames());
-		Block.reinitializeAutouniqueBlockID(this.getGames());
-	}
+    User.reinitializeUseruniqueUsername(this.getUsers());
+    Game.reinitializeGameuniqueName(this.getGames());
+    List<Game> games = this.getGames();
+    for (Game game : games) {
+    	Block.reinitializeBlockuniqueId(game.getBlocks());
+    }
+  }
 }
 
 class User {
@@ -17,11 +22,11 @@ class User {
   isA Serializable;
   private static final long serialVersionUID = 4267485601061759914L;
   
-  public static void reinitializeUniqueUserName(List<User> users){
-  		usersByUsername = new HashMap<String, User>();
-  		for (User user : users) {
-  			usersByUsername.put(user.getUsername(), user);
-  		}
+  public static void reinitializeUseruniqueUsername(List<User> users) {
+    usersByUsername = new HashMap<String, User>();
+    for (User user : users) {
+        usersByUsername.put(user.getUsername(), user);
+     }
   	}
 }
 
@@ -47,12 +52,13 @@ class Game {
   depend java.io.Serializable;
   isA Serializable;
   private static final long serialVersionUID = -210105651472293481L;
-  public static void reinitializeUniqueName(List<Game> games) {
-		gamesByName = new HashMap<String, Game>();
-		for (Game game : games) {
-			gamesByName.put(game.getName(), game);
-		}
-	}
+  
+  public static void reinitializeGameuniqueName(List<Game> games) {
+    gamesByName = new HashMap<String, Game>();
+    for (Game game : games) {
+        gamesByName.put(game.getName(), game);
+      }
+  }
 }
 
 class Block {
@@ -60,18 +66,14 @@ class Block {
   isA Serializable;
   private static final long serialVersionUID = 5332292624658907512L;
   
-  public static  void reinitializeAutouniqueBlockID(List<Game> gamesList){
-    nextId = 0;
-		for (Game game : gamesList) {
-			List<Block> blocks = game.getBlocks();
-		
-			for (Block block : blocks) {
-			if (block.getId() > nextId) {
-				nextId = block.getId();
-			}
-		}
-		nextId++;
-		}
+  public static void reinitializeBlockuniqueId(List<Block> blocks) {
+    nextId = 0; 
+    for (Block block : blocks) {
+      if (block.getId() > nextId) {
+        nextId = block.getId();
+      }
+    }
+    nextId++;
   }
 }
 
