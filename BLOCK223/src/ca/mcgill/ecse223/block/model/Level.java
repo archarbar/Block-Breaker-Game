@@ -5,8 +5,12 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 63 "../../../../../Block223Persistence.ump"
-// line 151 "../../../../../Block223 v2.ump"
+/**
+ * random attribute not needed anymore
+ * Each level is filled up with random blocks just before playing the level to reach the nrBlocksPerLevel defined in Game
+ */
+// line 80 "../../../../../Block223Persistence.ump"
+// line 191 "../../../../../Block223.ump"
 public class Level implements Serializable
 {
 
@@ -189,7 +193,7 @@ public class Level implements Serializable
     }
   }
 
-  // line 153 "../../../../../Block223 v2.ump"
+  // line 193 "../../../../../Block223.ump"
    public BlockAssignment findBlockAssignment(int gridHorizontalPosition, int gridVerticalPosition){
     for (BlockAssignment assignment : this.getBlockAssignments()) {
 			int h = assignment.getGridHorizontalPosition();
@@ -206,8 +210,8 @@ public class Level implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 66 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =006 ;
+  // line 83 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = -7956760334392179806L ;
 
   
 }

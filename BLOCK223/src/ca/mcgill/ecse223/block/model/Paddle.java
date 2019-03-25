@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 68 "../../../../../Block223Persistence.ump"
-// line 187 "../../../../../Block223 v2.ump"
+// line 98 "../../../../../Block223Persistence.ump"
+// line 234 "../../../../../Block223.ump"
 public class Paddle implements Serializable
 {
 
@@ -34,14 +34,14 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
-    // line 192 "../../../../../Block223 v2.ump"
-    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400) {
-         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 239 "../../../../../Block223.ump"
+    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390) {
+         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 198 "../../../../../Block223 v2.ump"
+    // line 245 "../../../../../Block223.ump"
     if (aMinPaddleLength <= 0) {
-         	throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+         	throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
@@ -55,14 +55,14 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
-    // line 192 "../../../../../Block223 v2.ump"
-    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400) {
-         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 239 "../../../../../Block223.ump"
+    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390) {
+         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
          }
     // END OF UMPLE BEFORE INJECTION
-    // line 198 "../../../../../Block223 v2.ump"
+    // line 245 "../../../../../Block223.ump"
     if (aMinPaddleLength <= 0) {
-         	throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+         	throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
@@ -77,9 +77,9 @@ public class Paddle implements Serializable
   public boolean setMaxPaddleLength(int aMaxPaddleLength)
   {
     boolean wasSet = false;
-    // line 192 "../../../../../Block223 v2.ump"
-    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400) {
-         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 239 "../../../../../Block223.ump"
+    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390) {
+         	throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
          }
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
@@ -90,9 +90,9 @@ public class Paddle implements Serializable
   public boolean setMinPaddleLength(int aMinPaddleLength)
   {
     boolean wasSet = false;
-    // line 198 "../../../../../Block223 v2.ump"
+    // line 245 "../../../../../Block223.ump"
     if (aMinPaddleLength <= 0) {
-         	throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+         	throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
          }
     // END OF UMPLE BEFORE INJECTION
     minPaddleLength = aMinPaddleLength;
@@ -137,8 +137,8 @@ public class Paddle implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 71 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID =007 ;
+  // line 101 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 8062668971918939261L ;
 
   
 }
