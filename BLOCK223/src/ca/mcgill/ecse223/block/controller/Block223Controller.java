@@ -201,18 +201,15 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can define its game settings.");
 		}
-		Block223 block223 = Block223Application.getBlock223();
+		// change the name if it is different than the wanted name
 		try {
-			Game game = new Game(name, 1, (Admin) currentUser, 1, 1, 1, 10, 10, block223);
+			String currentName = currentGame.getName();
+			if (currentName != name) {
+				currentGame.setName(name);
+			}
 		}
-		// catch and rethrow error if no game is specified
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
-		}
-		// change the name if it is different than the wanted name
-		String currentName = currentGame.getName();
-		if (currentName != name) {
-			currentGame.setName(name);
 		}
 		// change all the other parameters of the game
 		Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel,
