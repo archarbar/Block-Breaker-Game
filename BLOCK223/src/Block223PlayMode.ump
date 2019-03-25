@@ -49,9 +49,9 @@ class PlayedGame {
    		double xballfuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
    		double yballfuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
    		double xwallleft= 0;
-   		double ywallleft = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		double ywallleft = Game.PLAY_AREA_SIDE;
    		double xwallright = Game.PLAY_AREA_SIDE;
-   		double ywallright = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		double ywallright = Game.PLAY_AREA_SIDE;
    		
    		return java.awt.geom.Line2D.linesIntersect(xball, yball, xballfuture, yballfuture, xwallleft, ywallleft, xwallright, ywallright);
    	
