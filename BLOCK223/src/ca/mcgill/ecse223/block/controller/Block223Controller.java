@@ -310,32 +310,32 @@ public class Block223Controller {
 		Game currentGame = Block223Application.getCurrentGame();
 
 		if (currentGame == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to update a block.");
 		}
 
-		Admin admin = currentGame.getAdmin();
-
-		if (admin.equals((Admin) currentUser)) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
-		}
+//		Admin admin = currentGame.getAdmin();
+//
+//		if (admin.equals((Admin) currentUser)) {
+//			throw new InvalidInputException("Only the admin who created the game can access its information.");
+//		}
 
 		if(currentGame.findBlock(id) == null){
 			throw new InvalidInputException("The block does not exist.");
 		}
 
 		Block block = currentGame.findBlock(id);
-
-		List<Block> sourceList = currentGame.getBlocks();
-
-		for(Block specificBlock : sourceList) {
-			int colorRed = specificBlock.getRed();
-			int colorGreen = specificBlock.getGreen();
-			int colorBlue = specificBlock.getBlue();
-
-			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
-				throw new InvalidInputException("A block with the same color already exists for the game.");
-			}
-		}
+//
+//		List<Block> sourceList = currentGame.getBlocks();
+//
+//		for(Block specificBlock : sourceList) {
+//			int colorRed = specificBlock.getRed();
+//			int colorGreen = specificBlock.getGreen();
+//			int colorBlue = specificBlock.getBlue();
+//
+//			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
+//				throw new InvalidInputException("A block with the same color already exists for the game.");
+//			}
+//		}
 		try {
 			block.setRed(aRed);
 		}
@@ -933,12 +933,11 @@ public class Block223Controller {
 			currentPlayedGame.numberOfBlocks();
 			if(nrBlocks == 1) {
 				PlayedBlockAssignment block = currentPlayedGame.getBlock(0);
-				
 			}
 			return true;
 		}
 		return false;
-		}
+	}
 
 	private void doHitBlock() {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
@@ -949,7 +948,7 @@ public class Block223Controller {
 		int points = block.getPoints();
 		currentPlayedGame.setScore(score + points);
 		pBlock.delete();
-		currentPlayedGame.bounceBall();
+		currentPlayedGame.bounceBall();	
 		
 	}
 
@@ -980,7 +979,7 @@ public class Block223Controller {
 	
 		
 	}
-	}
+	
 
 	private boolean hitBlock() {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
@@ -990,8 +989,14 @@ public class Block223Controller {
 			PlayedBlockAssignment block = currentPlayedGame.getBlock(index);
 			BouncePoint bp = currentPlayedGame.calculateBouncePointBlock(block);
 			currentPlayedGame.getBounce();
-			
-			
+			if(closer = true) {
+				currentPlayedGame(bp);
+			}
+			if(bp == null) {
+				return (Boolean) null;
+			}
+			return false;
+	}
 	}
 	
 	private void setPlayStatus(PlayStatus aPlayStatus) {

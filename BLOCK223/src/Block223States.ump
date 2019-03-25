@@ -1,0 +1,154 @@
+class PlayedGame {
+	depend java.awt.geom.*;
+
+  // State Machine
+  
+  playStatus {
+    Ready {
+      entry / { doSetup(); }
+      play -> Moving;
+    }
+    Moving {
+      pause -> Paused;
+      move [hitPaddle()] / { doHitPaddleOrWall(); } -> Moving;
+      move [isOutOfBoundsAndLastLife()] / { doOutOfBounds(); } -> GameOver;
+      move [isOutOfBounds()] / { doOutOfBounds(); } -> Paused;
+      move [hitLastBlockAndLastLevel()] / { doHitBlock(); } -> GameOver;
+      move [hitLastBlock()] / { doHitBlockNextLevel(); } -> Ready;
+      move [hitBlock()] / { doHitBlock(); } -> Moving;
+      move [hitWall()] / { doHitPaddleOrWall(); } -> Moving;
+      move / { doHitNothingAndNotOutOfBounds(); } -> Moving;
+    }
+    Paused {
+      play -> Moving;
+    }
+    GameOver {
+      entry / { doGameOver(); }
+    }
+  }
+  
+  // Guards
+  
+  private boolean hitPaddle() {
+   	
+    return false;
+  }
+
+  private boolean isOutOfBoundsAndLastLife() {
+    boolean outOfBounds = false;
+    
+    if (lives == 1){
+    	outOfBounds = this.isBallOutOfBounds();
+    }	
+    return outOfBounds;
+  }
+  
+  private boolean isOutOfBounds() {
+    boolean outOfBounds = this.isBallOutOfBounds();
+    return outOfBounds;
+  }
+  
+  private boolean hitLastBlockAndLastLevel() {
+  	PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		Game currentLevel = Block223Application.getCurrentGame();
+		Game nrLevels = Block223Application.getCurrentGame();
+		int nrBlocks = currentPlayedGame.numberOfBlocks();
+		currentPlayedGame.setBounce(null);
+		if(nrLevels == currentLevel) {
+			currentPlayedGame.numberOfBlocks();
+			if(nrBlocks == 1) {
+				PlayedBlockAssignment block = currentPlayedGame.getBlock(0);
+			}
+			return true;
+		}
+		return false;
+  }
+  
+  private boolean hitLastBlock(){
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		int nrBlocks = currentPlayedGame.numberOfBlocks();
+		currentPlayedGame.setBounce(null);
+		if(nrBlocks == 1) {
+			PlayedBlockAssignment block = currentPlayedGame.getBlock(0);
+			BouncePoint bp = currentPlayedGame.calculateBouncePointBlock(block);
+			currentPlayedGame.setBounce(bp);
+			if(bp == null) {
+				return (Boolean) null;
+			}
+			return true;
+		}
+		return false;
+  }
+  
+  private boolean hitBlock() {
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		int nrBlocks = currentPlayedGame.numberOfBlocks();
+		currentPlayedGame.setBounce(null);
+		for(int index = 0; index <= currentPlayedGame.numberOfBlocks(); index++) {
+			PlayedBlockAssignment block = currentPlayedGame.getBlock(index);
+			BouncePoint bp = currentPlayedGame.calculateBouncePointBlock(block);
+			currentPlayedGame.getBounce();
+			if(closer = true) {
+				currentPlayedGame(bp);
+			}
+			if(bp == null) {
+				return (Boolean) null;
+			}
+			return false;
+	}
+  
+  private boolean hitWall() {
+    // TODO implement
+    return false;
+  }
+  
+  // Actions
+  
+  private void doSetup() {
+    // TODO implement
+  }
+  
+  private void doHitPaddleOrWall() {
+    // TODO implement
+  }
+
+  private void doOutOfBounds() {
+		this.setLives(lives-1);
+		this.resetCurrentBallX();
+		this.resetCurrentBallY();
+		this.resetBallDirectionX();
+		this.resetBallDirectionY();
+		this.resetCurrentPaddleX();
+  }
+
+  private void doHitBlock() {
+    // TODO implement
+  }
+
+  private void doHitBlockNextLevel() {
+    // TODO implement
+  }
+
+  private void doHitNothingAndNotOutOfBounds() {
+    // TODO implement
+    PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+	double x = currentPlayedGame.getCurrentBallX();
+	double y = currentPlayedGame.getCurrentBallY();
+	double dx = currentPlayedGame.getBallDirectionX();
+	double dy = currentPlayedGame.getBallDirectionY();
+	currentPlayedGame.setCurrentBallX(x + dx);
+	currentPlayedGame.setCurrentBallY(y + dy);
+  }
+
+  private void doGameOver() {
+    Block223 block223 = this.getBlock223();
+    Player p = this.getPlayer();
+    if (p != null){
+    	game = this.getGame();
+    	HallOfFameEntry hof = new HallOfFameEntry(score, playername, p, game, block223);
+    	game.setMostRecentEntry(hof);
+    }
+    this.delete();
+  }
+
+}
