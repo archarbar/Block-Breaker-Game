@@ -46,12 +46,6 @@ public class Block223Controller {
 		}
 		Block223 block223 = Block223Application.getBlock223();
 		Admin admin = (Admin) currentUser;
-		List<Game> games = block223.getGames();
-		for (Game g : games) {
-			if (g.getName().equals(name)) {
-				throw new InvalidInputException("The name of a game must be unique.");
-			}
-		}
 		try {
 			Game game = new Game(name, 1, admin, 1, 1, 1, 10, 10, block223);
 			block223.addGame(game);
@@ -66,7 +60,6 @@ public class Block223Controller {
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		UserRole currentUser = Block223Application.getCurrentUserRole();
-		String error = "";
 		if (!(currentUser instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to define game settings.");
 		}
