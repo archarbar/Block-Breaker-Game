@@ -1,5 +1,5 @@
 class PlayedGame {
-	depend ca.mcgill.ecse223.block.application.*git ;
+	depend ca.mcgill.ecse223.block.application.*;
 
   // State Machine
   
