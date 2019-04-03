@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Block223Persistence.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223Persistence.ump" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/BLOCK223.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Block223StateMachine.ump" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayModeInterfaceOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223 v3.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223.ump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameOccurence.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" afterDir="false" />
@@ -10,15 +18,11 @@
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Block223.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/HallOfFameEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/HallOfFameEntry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedBlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedBlockAssignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/UserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,62 +31,14 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6782">
-              <folding>
-                <element signature="e#0#22229#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/Downloads/javapersistence.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7">
-              <caret line="6" column="33" selection-end-line="29" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="733" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="50" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="920" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -91,8 +47,23 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -131,18 +102,16 @@
       <workItem from="1551752774314" duration="183000" />
       <workItem from="1551759771666" duration="218000" />
       <workItem from="1553374799191" duration="401000" />
-      <workItem from="1553462034901" duration="273000" />
-      <workItem from="1553464319644" duration="682000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6664000" />
+    <option name="totallyTimeSpent" value="5703000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="733" extended-state="6" />
+    <frame x="10" y="43" width="1260" height="692" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2641357" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2751678" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -158,7 +127,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32917318" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -181,7 +150,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java</url>
-          <line>57</line>
+          <line>55</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -189,34 +158,20 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bin/ca/mcgill/ecse223/block/controller/Block223Controller.class" />
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/bin/ca/mcgill/ecse223/block/controller/Block223Controller.class">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6782">
-          <folding>
-            <element signature="e#0#22229#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/javapersistence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="6" column="33" selection-end-line="29" selection-end-column="1" />
+        <state relative-caret-position="323">
+          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
         </state>
       </provider>
     </entry>

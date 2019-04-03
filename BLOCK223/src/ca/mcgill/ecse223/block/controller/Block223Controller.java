@@ -231,37 +231,35 @@ public class Block223Controller {
 		Game currentGame = Block223Application.getCurrentGame();
 
 		if (currentGame == null) {
-			throw new InvalidInputException("A game must be selected to access its information.");
+			throw new InvalidInputException("A game must be selected to add a block.");
 		}
 
 		Admin admin = currentGame.getAdmin();
 
 		if (admin != (Admin) currentUser) {
-			throw new InvalidInputException("Only the admin who created the game can access its information.");
+			throw new InvalidInputException("Only the admin who created the game can add a block.");
 		}
 
 		List<Block> sourceList = currentGame.getBlocks();
-		Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
 
-		//		for(Block specificBlock : sourceList) {
-		//			int colorRed = specificBlock.getRed();
-		//			int colorGreen = specificBlock.getGreen();
-		//			int colorBlue = specificBlock.getBlue();
-		//
-		//			if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
-		//				throw new InvalidInputException("A block with the same color already exists for the game.");
-		//			}
-		//
-		//			try {
-		//				Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
-		//				System.out.println("TRIED IN ADD BLOCK TO ADD");
-		//				//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
-		//
-		//			}
-		//			catch (RuntimeException e) {
-		//				throw new InvalidInputException(e.getMessage());
-		//			}
-		//		}
+				for(Block specificBlock : sourceList) {
+					int colorRed = specificBlock.getRed();
+					int colorGreen = specificBlock.getGreen();
+					int colorBlue = specificBlock.getBlue();
+		
+					if (colorRed == aRed && colorGreen == aGreen && colorBlue == aBlue) {
+						throw new InvalidInputException("A block with the same color already exists for the game.");
+					}
+				}
+					try {
+						Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
+						System.out.println("TRIED IN ADD BLOCK TO ADD");
+						//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
+		
+					}
+					catch (RuntimeException e) {
+						throw new InvalidInputException(e.getMessage());
+					}
 	}
 
 	public static void deleteBlock(int id) throws InvalidInputException {
@@ -862,6 +860,24 @@ public class Block223Controller {
 		}
 		Block223Application.setCurrentPlayableGame(pgame);
 	}
+	
+	public static void updatePaddlePosition(String userInputs) {
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		double x = currentPlayedGame.getCurrentPaddleX();
+		for (int i = 0; i < userInputs.length(); i++) {
+			if (userInputs.charAt(i) == ' ') {
+				break;
+			}
+			else {
+				if (userInputs.charAt(i) == 'l') {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				}
+				else if (userInputs.charAt(i) == 'r') {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				}
+			}
+		}
+	}
 
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
@@ -904,7 +920,6 @@ public class Block223Controller {
 		}
 	}
 
-
 	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
 		UserRole player = Block223Application.getCurrentUserRole();
 		if (player == null) {
@@ -941,48 +956,6 @@ public class Block223Controller {
 					}
 		return result;
 		}
-
-
-	// ****************************
-	// P3. Ball hits paddle or wall
-	// ****************************
-	
-	//All methods are in PlayedGame.Java and in Block223State.uml
-
-	// ****************************
-	// P4. Ball hits block
-	// ****************************
-
-	private boolean hitLastBlockAndLastLevel() {
-
-	}
-
-	private void doHitBlock() {
-
-	}
-
-	private boolean hitLastBlock() {
-
-	}
-
-	private void doHitBlockNextLevel() {
-
-	}
-
-	private boolean hitBlock() {
-
-	}
-
-	// ****************************
-	// P5. Ball is out of bounds
-	// ****************************
-
-	//all methods in Block223States.ump
-	//isBalloutofbound in block223playmode.ump
-
-	// ****************************
-	// P6. View hall of fame
-	// ****************************
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 		//Verify if user is a player
