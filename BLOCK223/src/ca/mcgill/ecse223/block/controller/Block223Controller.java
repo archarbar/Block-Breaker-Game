@@ -836,7 +836,7 @@ public class Block223Controller {
 
 	}
 
-	public static void selectPlayableGames(String name, int id) throws InvalidInputException {
+	public static void selectPlayableGame(String name, int id) throws InvalidInputException {
 		PlayedGame pgame = null;
 		Block223 block223 = Block223Application.getBlock223();
 		Game game = block223.findGame(name);
@@ -854,7 +854,7 @@ public class Block223Controller {
 			if (pgame == null) {
 				throw new InvalidInputException("The game does not exist.");
 			}
-			else if (player != pgame.getPlayer()) {
+			if (player != pgame.getPlayer()) {
 				throw new InvalidInputException("Only the player that started a game can continue the game.");
 			}
 		}
@@ -879,6 +879,19 @@ public class Block223Controller {
 		}
 	}
 
+	public static void updatePaddlePosition(String userInputs) {
+		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
+		double x = currentPlayedGame.getCurrentPaddleX();
+		for (int i = 0; i < userInputs.length(); i++) {
+			if (userInputs.charAt(i) == 'l') {
+				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+			}
+			else if (userInputs.charAt(i) == 'r') {
+				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+			}
+		}
+	}
+	
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
 		UserRole player = Block223Application.getCurrentUserRole();
@@ -903,7 +916,7 @@ public class Block223Controller {
 		ui.takeInputs();
 		while (game.getPlayStatus() == PlayStatus.Moving) {
 			String userInputs = ui.takeInputs();
-			Block223Controller.updatePaddlePosition(userInputs);
+			updatePaddlePosition(userInputs);
 			game.move();
 			if (userInputs.contains(" ")) {
 				game.pause();
