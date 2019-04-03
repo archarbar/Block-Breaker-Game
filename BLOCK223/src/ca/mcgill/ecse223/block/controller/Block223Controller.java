@@ -326,10 +326,6 @@ public class Block223Controller {
 		}
 
 		Block block = currentGame.findBlock(id);
-
-		
-
-		
 		try {
 			block.setRed(aRed);
 		}
