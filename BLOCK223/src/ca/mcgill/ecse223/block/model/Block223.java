@@ -10,7 +10,7 @@ import java.util.*;
  */
 // line 1 "../../../../../Block223PlayMode.ump"
 // line 5 "../../../../../Block223Persistence.ump"
-// line 8 "../../../../../Block223.ump"
+// line 7 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -598,24 +598,42 @@ public class Block223 implements Serializable
     }
   }
 
-  // line 13 "../../../../../Block223.ump"
+  // line 12 "../../../../../Block223.ump"
    public Game findGame(String name){
-    for (Game game: getGames()) {
+    Game agame = null;
+	  for (Game game: getGames()) {
 		  if (game.getName().equals(name)) {
-			  return game;
+			  agame = game;
+			  break;
 		  }
 	  }
-	  return null;
+	  return agame;
   }
 
-  // line 21 "../../../../../Block223.ump"
+  // line 22 "../../../../../Block223.ump"
+   public String findUsername(UserRole player){
+    String username= "";
+  	for (User user: users){
+  		for (UserRole role: user.getRoles()){
+  			if (role == player) break;
+  			username = user.getUsername();
+  			break;
+  		}
+  	}
+  	return username;
+  }
+
+  // line 34 "../../../../../Block223.ump"
    public PlayedGame findPlayableGame(int id){
-    for (PlayedGame playableGame: getPlayedGames()) {
+    PlayedGame pgame = null;
+		for (PlayedGame playableGame: getPlayedGames()) {
 			if (playableGame.getId() == id) {
-				return playableGame;
+				pgame = playableGame;
+				break;
+				
 			}
 		}
-		return null;
+		return pgame;
   }
   
   //------------------------

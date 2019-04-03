@@ -3,35 +3,61 @@ namespace ca.mcgill.ecse223.block.model;
 use Block223PlayMode.ump;
 use Block223Persistence.ump;
 use Block223States.ump;
-use Block223TransferObjectsPlayMode.ump;
 
 class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games; 
    public Game findGame(String name) {
+   	Game agame = null;
 	  for (Game game: getGames()) {
 		  if (game.getName().equals(name)) {
-			  return game;
+			  agame = game;
+			  break;
 		  }
 	  }
-	  return null;
+	  return agame;
   }
+  public String findUsername(UserRole player){
+  	String username= "";
+  	for (User user: users){
+  		for (UserRole role: user.getRoles()){
+  			if (role == player) break;
+  			username = user.getUsername();
+  			break;
+  		}
+  	}
+  	return username;
+  }
+  	
   public PlayedGame findPlayableGame(int id) {
+  	PlayedGame pgame = null;
 		for (PlayedGame playableGame: getPlayedGames()) {
 			if (playableGame.getId() == id) {
-				return playableGame;
+				pgame = playableGame;
+				break;
+				
 			}
 		}
-		return null;
+		return pgame;
   }
 }
 
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
-   public static String findUsername(UserRole admin) {
-      return admin.getUsername();
+   public String findUsername(UserRole player){
+  	String username= "";
+  	for (User user: users){
+  		for (UserRole role: user.getRoles()){
+  			if (role == player) break;
+  			username = user.getUsername();
+  			break;
+  		}
+  	}
+  before constructor {
+   if (aUsername == null || aUsername.equals(""))
+   	throw new RuntimeException("The username must be specified.");
   }
 }
 
@@ -41,6 +67,10 @@ class UserRole {
    public String getUsername() {
       return super.toString();
    }
+   before constructor {
+   if (aPassword == null || aPassword.equals(""))
+   	throw new RuntimeException("The player password needs to be specified.");
+   	}
 }
 
 class Admin {
@@ -64,12 +94,6 @@ class Game {
    	  Block223 block223 = Block223Application.getBlock223();
 	  if (aName == null || aName.length() == 0) {
 	     throw new RuntimeException("The name of a game must be specified.");
-	  }
-	  List<Game> games = block223.getGames();
-	  for (Game g : games) {
-		  if (g.getName().equals(aName)) {
-			  throw new RuntimeException("The name of a game must be unique.");
-		  }
 	  }
    }
    Integer nrBlocksPerLevel;
