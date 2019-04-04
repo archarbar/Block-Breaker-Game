@@ -46,7 +46,8 @@ public class Block223Controller {
 		}
 		Block223 block223 = Block223Application.getBlock223();
 		Admin admin = (Admin) currentUser;
-		if (block223.findGame(name)!=null) {
+		Game gamename = block223.findGame(name);
+		if (gamename!=null) {
 			throw new InvalidInputException("The name of a game must be unique.");
 		}
 		if (name ==null || name == "") {
@@ -208,15 +209,16 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can define its game settings.");
 		}
+		String currentName = currentGame.getName();
+		if (currentName!=name) {
+			
 		// change the name if it is different than the wanted name
-		try {
-			String currentName = currentGame.getName();
-			if (currentName != name) {
+			try {
 				currentGame.setName(name);
 			}
-		}
-		catch (RuntimeException e) {
-			throw new InvalidInputException(e.getMessage());
+			catch (RuntimeException e) {
+				throw new InvalidInputException(e.getMessage());
+			}
 		}
 		// change all the other parameters of the game
 		Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel,
@@ -291,9 +293,6 @@ public class Block223Controller {
 
 	public static void updateBlock(int id, int aRed, int aGreen, int aBlue, int aPoints) throws InvalidInputException {
 
-		String error = "";
-
-		
 
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to update a block.");
@@ -315,7 +314,7 @@ public class Block223Controller {
 			int colorRed = specificBlock.getRed();
 			int colorGreen = specificBlock.getGreen();
 			int colorBlue = specificBlock.getBlue();
-			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)) {
+			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)&&(specificBlock.getId()!=id)) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 			}
 		}
@@ -328,47 +327,13 @@ public class Block223Controller {
 		Block block = currentGame.findBlock(id);
 		try {
 			block.setRed(aRed);
-		}
-		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Red must be between 0 and 255.")) {
-				error = "Red must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
-		}
-		try {
 			block.setGreen(aGreen);
-		}
-		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Green must be between 0 and 255.")) {
-				error = "Green must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
-		}
-		try {
 			block.setBlue(aBlue);
-		}
-		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Blue must be between 0 and 255.")) {
-				error = "Blue must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
-		}
-
-		try {
 			block.setPoints(aPoints);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Points must be between 1 and 1000.")) {
-				error = "Points must be between 1 and 1000.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
-
-
 	}
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -854,7 +819,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
 		if (game != null) {
-			String username = User.findUsername(player);
+			String username = block223.findUsername(player);
 			pgame = new PlayedGame(username, game, block223);
 			pgame.setPlayer((Player) player);
 		}
@@ -869,24 +834,7 @@ public class Block223Controller {
 		}
 		Block223Application.setCurrentPlayableGame(pgame);
 	}
-	
-	public static void updatePaddlePosition(String userInputs) {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		double x = currentPlayedGame.getCurrentPaddleX();
-		for (int i = 0; i < userInputs.length(); i++) {
-			if (userInputs.charAt(i) == ' ') {
-				break;
-			}
-			else {
-				if (userInputs.charAt(i) == 'l') {
-					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
-				}
-				else if (userInputs.charAt(i) == 'r') {
-					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
-				}
-			}
-		}
-	}
+
 
 	public static void updatePaddlePosition(String userInputs) {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();

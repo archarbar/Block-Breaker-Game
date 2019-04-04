@@ -8,15 +8,14 @@ class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games; 
-   public Game findGame(String name) {
-   	Game agame = null;
-	  for (Game game: getGames()) {
-		  if (game.getName().equals(name)) {
-			  agame = game;
-			  break;
+   public Game findGame(String gameName) {
+	  Game aGame = null;
+	  for(Game game: games) {
+		  if(game.getName().equals(gameName)) {
+			  return game;
 		  }
 	  }
-	  return agame;
+	return null;
   }
   public String findUsername(UserRole player){
   	String username= "";
@@ -41,19 +40,13 @@ class Block223 {
 		}
 		return pgame;
   }
-}
+  }
 
 class User {
    unique username;
    1 -> 1..2 UserRole roles;
    public String findUsername(UserRole player){
-  	String username= "";
-  	for (User user: users){
-  		for (UserRole role: user.getRoles()){
-  			if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
+  	return this.getBlock223().findUsername(player);
   	}
   before constructor {
    if (aUsername == null || aUsername.equals(""))
@@ -96,15 +89,26 @@ class Game {
 	     throw new RuntimeException("The name of a game must be specified.");
 	  }
    }
+   before setName{
+   if (block223.findGame(aName)!=null){
+	  	throw new RuntimeException("The name of a game must be unique.");
+	  }
+	}
    Integer nrBlocksPerLevel;
-   before constructor, setNrBlocksPerLevel {
-     if (aNrBlocksPerLevel <= 0) {
-     	throw new RuntimeException("The number of blocks per level must be greater than zero.");
-     }
-     if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-     	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
-     }
-   }
+   before setNrBlocksPerLevel{
+		if(aNrBlocksPerLevel<1){
+			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+		}
+		int max = 0;
+		List<Level> l = this.getLevels();
+		for (int a =0; a<l.size();a++) {
+			if(max<l.get(a).getBlockAssignments().size())
+				max = l.get(a).getBlockAssignments().size();
+		}
+		if(aNrBlocksPerLevel<max){
+			throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+		}
+	}
    before getLevel {
    if (index < 0 || index > numberOfLevels()){
        	  throw new IndexOutOfBoundsException("Level must be between 1 and the number of levels in the current game.");
@@ -211,7 +215,7 @@ class Block {
 	}
    }
    before setPoints {
-   	if (aPoints < 0 || aPoints > 1000) {
+   	if (aPoints < 1 || aPoints > 1000) {
 	  	throw new RuntimeException("Points must be between 1 and 1000.");
 	}
    }
@@ -238,6 +242,14 @@ class BlockAssignment {
    Integer gridVerticalPosition;
    * -- 1 Level level;
    * -- 1 Block block;
+   before constructor {
+   
+   if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > (1+(Game.PLAY_AREA_SIDE-2*Game.WALL_PADDING-Block.SIZE)/(Block.SIZE+Game.COLUMNS_PADDING)))
+   	 throw new RuntimeException("The horizontal position must be between 1 and "+ (1+(Game.PLAY_AREA_SIDE-2*Game.WALL_PADDING-Block.SIZE)/(Block.SIZE+Game.COLUMNS_PADDING))+".");
+   
+   if (aGridVerticalPosition <= 0 || aGridVerticalPosition > (1+(Game.PLAY_AREA_SIDE-Paddle.VERTICAL_DISTANCE-Game.WALL_PADDING-Paddle.PADDLE_WIDTH-Ball.BALL_DIAMETER-Block.SIZE)/(Block.SIZE+Game.ROW_PADDING)))
+   	 throw new RuntimeException("The vertical position must be between 1 and "+ (1+(Game.PLAY_AREA_SIDE-Paddle.VERTICAL_DISTANCE-Game.WALL_PADDING-Paddle.PADDLE_WIDTH-Ball.BALL_DIAMETER-Block.SIZE)/(Block.SIZE+Game.ROW_PADDING))+".");
+   }
 }
 
 class Ball {

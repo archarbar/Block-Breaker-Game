@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 20 "../../../../../Block223Persistence.ump"
-// line 46 "../../../../../Block223.ump"
+// line 45 "../../../../../Block223.ump"
 public class User implements Serializable
 {
 
@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 53 "../../../../../Block223.ump"
+    // line 52 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.equals(""))
        	throw new RuntimeException("The username must be specified.");
     // END OF UMPLE BEFORE INJECTION
@@ -259,9 +259,9 @@ public class User implements Serializable
      }
   }
 
-  // line 50 "../../../../../Block223.ump"
-   public static  String findUsername(UserRole admin){
-    return admin.getUsername();
+  // line 49 "../../../../../Block223.ump"
+   public String findUsername(UserRole player){
+    return this.getBlock223().findUsername(player);
   }
 
 

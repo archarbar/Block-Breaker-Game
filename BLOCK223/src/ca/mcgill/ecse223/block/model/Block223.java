@@ -599,18 +599,17 @@ public class Block223 implements Serializable
   }
 
   // line 12 "../../../../../Block223.ump"
-   public Game findGame(String name){
-    Game agame = null;
-	  for (Game game: getGames()) {
-		  if (game.getName().equals(name)) {
-			  agame = game;
-			  break;
+   public Game findGame(String gameName){
+    Game aGame = null;
+	  for(Game game: games) {
+		  if(game.getName().equals(gameName)) {
+			  return game;
 		  }
 	  }
-	  return agame;
+	return null;
   }
 
-  // line 22 "../../../../../Block223.ump"
+  // line 21 "../../../../../Block223.ump"
    public String findUsername(UserRole player){
     String username= "";
   	for (User user: users){
@@ -623,7 +622,7 @@ public class Block223 implements Serializable
   	return username;
   }
 
-  // line 34 "../../../../../Block223.ump"
+  // line 33 "../../../../../Block223.ump"
    public PlayedGame findPlayableGame(int id){
     PlayedGame pgame = null;
 		for (PlayedGame playableGame: getPlayedGames()) {
