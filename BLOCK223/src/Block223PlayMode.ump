@@ -95,7 +95,7 @@ class HallOfFameEntry {
 class BouncePoint {
    Double x;
    Double y;
-   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH}
+   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH }
    BounceDirection direction;
    0..1 -> 0..1 PlayedBlockAssignment hitBlock;
 }

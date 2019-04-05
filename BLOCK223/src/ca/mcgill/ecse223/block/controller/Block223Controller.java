@@ -81,11 +81,14 @@ public class Block223Controller {
 		if (minBallSpeedX == 0 && minBallSpeedY == 0) {
 			throw new InvalidInputException("The minimum speed of the ball must be greater than zero.");
 		}
+		if (nrBlocksPerLevel<= 0) {
+			throw new InvalidInputException("The number of blocks per level must be greater than zero.");
+		}
 		try {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
-			throw new InvalidInputException(e.getMessage());
+			throw new InvalidInputException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
 		}
 		Ball ball = game.getBall();
 		try {
@@ -307,12 +310,13 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can update a block.");
 		}
-		List<Block> blocks = currentGame.getBlocks();
-		for(Block block : blocks) {
-			int colorRed = block.getRed();
-			int colorGreen = block.getGreen();
-			int colorBlue = block.getBlue();
-			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue) && block.getId() != id) {
+		List<Block> sourceList = currentGame.getBlocks();
+		for(Block specificBlock : sourceList) {
+			int colorRed = specificBlock.getRed();
+			int colorGreen = specificBlock.getGreen();
+			int colorBlue = specificBlock.getBlue();
+
+			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 			}
 		}
@@ -326,26 +330,42 @@ public class Block223Controller {
 			block.setRed(aRed);
 		}
 		catch (RuntimeException e){
-			throw new InvalidInputException(e.getMessage());
+			error = e.getMessage();
+			if(error.equals("Red must be between 0 and 255.")) {
+				error = "Red must be between 0 and 255.";
+			}
+			throw new InvalidInputException(error);
 		}
 		try {
 			block.setGreen(aGreen);
 		}
 		catch (RuntimeException e){
-			throw new InvalidInputException(e.getMessage());
+			error = e.getMessage();
+			if(error.equals("Green must be between 0 and 255.")) {
+				error = "Green must be between 0 and 255.";
+			}
+			throw new InvalidInputException(error);
 		}
 		try {
 			block.setBlue(aBlue);
 		}
 		catch (RuntimeException e){
-			throw new InvalidInputException(e.getMessage());
+			error = e.getMessage();
+			if(error.equals("Blue must be between 0 and 255.")) {
+				error = "Blue must be between 0 and 255.";
+			}
+			throw new InvalidInputException(error);
 		}
 
 		try {
 			block.setPoints(aPoints);
 		}
 		catch (RuntimeException e){
-			throw new InvalidInputException(e.getMessage());
+			error = e.getMessage();
+			if(error.equals("Points must be between 1 and 1000.")) {
+				error = "Points must be between 1 and 1000.";
+			}
+			throw new InvalidInputException(error);
 		}
 
 
@@ -833,7 +853,7 @@ public class Block223Controller {
 		if (!(player instanceof Player)) {
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
-		else if (game != null) {
+		if (game != null) {
 			String username = User.findUsername(player);
 			pgame = new PlayedGame(username, game, block223);
 			pgame.setPlayer((Player) player);
@@ -854,24 +874,11 @@ public class Block223Controller {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 		double x = currentPlayedGame.getCurrentPaddleX();
 		for (int i = 0; i < userInputs.length(); i++) {
-<<<<<<< HEAD
 			if (userInputs.charAt(i) == 'l') {
 				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
 			}
 			else if (userInputs.charAt(i) == 'r') {
 				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
-=======
-			if (userInputs.charAt(i) == ' ') {
-				break;
-			}
-			else {
-				if (userInputs.charAt(i) == 'l') {
-					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
-				}
-				else if (userInputs.charAt(i) == 'r') {
-					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
-				}
->>>>>>> 26cfd6960f4932eddb644f45d6fc622e5aefc5bc
 			}
 		}
 	}
@@ -905,11 +912,7 @@ public class Block223Controller {
 			if (userInputs.contains(" ")) {
 				game.pause();
 			}
-			try {
-				Thread.sleep((long) game.getWaitTime());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			game.getWaitTime();
 			ui.refresh();
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
@@ -954,9 +957,9 @@ public class Block223Controller {
 					pblock.getX(),
 					pblock.getY(),
 					result);
-		}
+					}
 		return result;
-	}
+		}
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 		//Verify if user is a player
@@ -990,7 +993,7 @@ public class Block223Controller {
 					game.getHallOfFameEntry(i).getScore(),
 					result);
 		}
-		return result;
+	return result;
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
