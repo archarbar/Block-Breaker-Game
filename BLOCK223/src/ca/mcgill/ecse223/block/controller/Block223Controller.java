@@ -318,7 +318,7 @@ public class Block223Controller {
 			int colorGreen = specificBlock.getGreen();
 			int colorBlue = specificBlock.getBlue();
 
-			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)) {
+			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)&&(specificBlock.getId()!=id)) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 			}
 		}
@@ -1023,8 +1023,8 @@ public class Block223Controller {
 		if (testAdmin != (Admin) admin) {
 			throw new InvalidInputException("Only the admin who created the game can test it.");
 		}
-		String username = User.findUsername(admin);
 		Block223 block223 = Block223Application.getBlock223();
+		String username = block223.findUsername(admin);
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
