@@ -833,7 +833,7 @@ public class Block223Controller {
 		if (!(player instanceof Player)) {
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		}
-		if (game != null) {
+		else if (game != null) {
 			String username = User.findUsername(player);
 			pgame = new PlayedGame(username, game, block223);
 			pgame.setPlayer((Player) player);
@@ -905,7 +905,11 @@ public class Block223Controller {
 			if (userInputs.contains(" ")) {
 				game.pause();
 			}
-			game.getWaitTime();
+			try {
+				Thread.sleep((long) game.getWaitTime());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			ui.refresh();
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
@@ -950,9 +954,9 @@ public class Block223Controller {
 					pblock.getX(),
 					pblock.getY(),
 					result);
-					}
-		return result;
 		}
+		return result;
+	}
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
 		//Verify if user is a player
@@ -986,7 +990,7 @@ public class Block223Controller {
 					game.getHallOfFameEntry(i).getScore(),
 					result);
 		}
-	return result;
+		return result;
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
