@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block223.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Block223PlayMode.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223PlayMode.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Block223States.ump" beforeDir="false" afterPath="$PROJECT_DIR$/src/Block223States.ump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/Paddle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -35,6 +31,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java" />
+        <option value="$PROJECT_DIR$/src/Block223.ump" />
       </list>
     </option>
   </component>
@@ -106,12 +103,12 @@
       <workItem from="1551759771666" duration="218000" />
       <workItem from="1553374799191" duration="401000" />
       <workItem from="1554317964946" duration="23000" />
-      <workItem from="1554463829078" duration="387000" />
+      <workItem from="1554463829078" duration="801000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6113000" />
+    <option name="totallyTimeSpent" value="6527000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="733" extended-state="0" />
@@ -155,7 +152,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/controller/Block223Controller.java</url>
-          <line>60</line>
+          <line>58</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
