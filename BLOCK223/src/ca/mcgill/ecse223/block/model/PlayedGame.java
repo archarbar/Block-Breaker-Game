@@ -82,7 +82,14 @@ public class PlayedGame implements Serializable
 
   public PlayedGame(String aPlayername, Game aGame, Block223 aBlock223)
   {
-    // line 61 "../../../../../Block223PlayMode.ump"
+    // line 13 "../../../../../Block223PlayMode.ump"
+    boolean didAddGameResult = setGame(aGame);
+       if (!didAddGameResult)
+       {
+          throw new RuntimeException("Unable to create playedGame due to game");
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 68 "../../../../../Block223PlayMode.ump"
     boolean didAddGameResult = setGame(aGame);
           if (!didAddGameResult)
           {
@@ -722,7 +729,7 @@ public class PlayedGame implements Serializable
     }
   }
 
-  // line 47 "../../../../../Block223PlayMode.ump"
+  // line 54 "../../../../../Block223PlayMode.ump"
    public boolean isBallOutOfBounds(){
     double xball = this.currentBallX;
    		double yball = this.currentBallY;
