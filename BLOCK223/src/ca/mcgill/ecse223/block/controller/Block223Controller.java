@@ -871,11 +871,24 @@ public class Block223Controller {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 		double x = currentPlayedGame.getCurrentPaddleX();
 		for (int i = 0; i < userInputs.length(); i++) {
+<<<<<<< HEAD
 			if (userInputs.charAt(i) == 'l') {
 				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
 			}
 			else if (userInputs.charAt(i) == 'r') {
 				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+=======
+			if (userInputs.charAt(i) == ' ') {
+				break;
+			}
+			else {
+				if (userInputs.charAt(i) == 'l') {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				}
+				else if (userInputs.charAt(i) == 'r') {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				}
+>>>>>>> 26cfd6960f4932eddb644f45d6fc622e5aefc5bc
 			}
 		}
 	}
