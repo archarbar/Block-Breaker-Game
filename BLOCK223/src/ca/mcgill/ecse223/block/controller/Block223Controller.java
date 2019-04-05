@@ -887,19 +887,6 @@ public class Block223Controller {
 			}
 		}
 	}
-
-	public static void updatePaddlePosition(String userInputs) {
-		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		double x = currentPlayedGame.getCurrentPaddleX();
-		for (int i = 0; i < userInputs.length(); i++) {
-			if (userInputs.charAt(i) == 'l') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
-			}
-			else if (userInputs.charAt(i) == 'r') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
-			}
-		}
-	}
 	
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
