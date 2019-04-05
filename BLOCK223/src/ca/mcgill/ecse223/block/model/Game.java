@@ -992,5 +992,10 @@ public class Game implements Serializable
   // line 54 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = -210105651472293481L ;
 
+public Block getRandomBlock() {
+	// TODO Auto-generated method stub
+	return getBlock((int) Math.random()*this.nrBlocksPerLevel);
+}
+
   
 }
