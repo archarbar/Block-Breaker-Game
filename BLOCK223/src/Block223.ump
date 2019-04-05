@@ -25,6 +25,16 @@ class Block223 {
 		}
 		return null;
   }
+  public String findUsername(UserRole player) {
+     for (User user: users) {
+     	for (UserRole role: user.getRoles()) {
+     		if (role == player) {
+     			return user.getUsername();
+     		}
+     	}
+     }
+     return null;
+  }
 }
 
 class User {
@@ -33,6 +43,11 @@ class User {
    public static String findUsername(UserRole admin) {
       return admin.getUsername();
   }
+  before constructor {
+    if (aUsername == null || aUsername.equals("")) {
+   		throw new RuntimeException("The username must be specified.");
+    }
+  } 
 }
 
 class UserRole {
@@ -40,6 +55,11 @@ class UserRole {
    password;
    public String getUsername() {
       return super.toString();
+   }
+   before constructor {
+     if (aPassword == null || aPassword.equals("")) {
+   	 	 throw new RuntimeException("The player password needs to be specified.");
+   	 }
    }
 }
 
@@ -65,12 +85,11 @@ class Game {
 	  if (aName == null || aName.length() == 0) {
 	     throw new RuntimeException("The name of a game must be specified.");
 	  }
-	  List<Game> games = block223.getGames();
-	  for (Game g : games) {
-		  if (g.getName().equals(aName)) {
-			  throw new RuntimeException("The name of a game must be unique.");
-		  }
-	  }
+   }
+   before setName {
+     if (block223.findGame(aName) != null) {
+     	throw new RuntimeException("The name of a game must be unique.");
+     }
    }
    Integer nrBlocksPerLevel;
    before constructor, setNrBlocksPerLevel {
