@@ -81,14 +81,11 @@ public class Block223Controller {
 		if (minBallSpeedX == 0 && minBallSpeedY == 0) {
 			throw new InvalidInputException("The minimum speed of the ball must be greater than zero.");
 		}
-		if (nrBlocksPerLevel<= 0) {
-			throw new InvalidInputException("The number of blocks per level must be greater than zero.");
-		}
 		try {
 			game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		}
 		catch (RuntimeException e) {
-			throw new InvalidInputException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+			throw new InvalidInputException(e.getMessage());
 		}
 		Ball ball = game.getBall();
 		try {

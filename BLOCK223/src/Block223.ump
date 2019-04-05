@@ -95,14 +95,24 @@ class Game {
 	  if (aName == null || aName.length() == 0) {
 	     throw new RuntimeException("The name of a game must be specified.");
 	  }
+	  List<Game> games = block223.getGames();
+	  for (Game g : games) {
+		  if (g.getName().equals(aName)) {
+			  throw new RuntimeException("The name of a game must be unique.");
+		  }
+	  }
    }
    Integer nrBlocksPerLevel;
    before constructor, setNrBlocksPerLevel {
      if (aNrBlocksPerLevel <= 0) {
      	throw new RuntimeException("The number of blocks per level must be greater than zero.");
      }
-     if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-     	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+   }
+   before setNrBlocksPerLevel {
+     for (Level level: getLevels()) {
+     	if (aNrBlocksPerLevel < level.numberOfBlockAssignments()) {
+     		throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+     	}
      }
    }
    before getLevel {
