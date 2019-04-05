@@ -55,7 +55,7 @@ public class Block implements Serializable
     	if (aBlue < 0 || aBlue > 255) {
     	  	throw new RuntimeException("Blue must be between 0 and 255.");
     	}
-    	if(aPoints < 1 || aPoints > 1000){
+    	if(aPoints <= 0 || aPoints > 1000){
     		throw new RuntimeException("Points must be between 1 and 1000.");
     	}
     // END OF UMPLE BEFORE INJECTION

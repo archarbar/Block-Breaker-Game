@@ -41,7 +41,7 @@ class User {
    unique username;
    1 -> 1..2 UserRole roles;
    public static String findUsername(UserRole admin) {
-      return admin.getUsername();
+      return this.getBlock223().findUsername(player);
   }
   before constructor {
     if (aUsername == null || aUsername.equals("")) {
@@ -180,7 +180,7 @@ class Block {
 	if (aBlue < 0 || aBlue > 255) {
 	  	throw new RuntimeException("Blue must be between 0 and 255.");
 	}
-	if(aPoints < 1 || aPoints > 1000){
+	if(aPoints <= 0 || aPoints > 1000){
 		throw new RuntimeException("Points must be between 1 and 1000.");
 	}
    }

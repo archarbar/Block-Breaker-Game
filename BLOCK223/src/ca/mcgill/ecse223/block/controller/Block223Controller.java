@@ -326,42 +326,26 @@ public class Block223Controller {
 			block.setRed(aRed);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Red must be between 0 and 255.")) {
-				error = "Red must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			block.setGreen(aGreen);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Green must be between 0 and 255.")) {
-				error = "Green must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			block.setBlue(aBlue);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Blue must be between 0 and 255.")) {
-				error = "Blue must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 
 		try {
 			block.setPoints(aPoints);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Points must be between 1 and 1000.")) {
-				error = "Points must be between 1 and 1000.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 
 

@@ -262,7 +262,7 @@ public class User implements Serializable
 
   // line 44 "../../../../../Block223.ump"
    public static  String findUsername(UserRole admin){
-    return admin.getUsername();
+    return this.getBlock223().findUsername(player);
   }
 
 
