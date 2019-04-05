@@ -5,12 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * the reinitialize methods need to be added
- */
 // line 1 "../../../../../Block223PlayMode.ump"
-// line 5 "../../../../../Block223Persistence.ump"
-// line 7 "../../../../../Block223.ump"
+// line 4 "../../../../../Block223Persistence.ump"
+// line 8 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -588,59 +585,38 @@ public class Block223 implements Serializable
     
   }
 
-  // line 11 "../../../../../Block223Persistence.ump"
+  // line 9 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
-    User.reinitializeUseruniqueUsername(this.getUsers());
-    Game.reinitializeGameuniqueName(this.getGames());
-    List<Game> games = this.getGames();
-    for (Game game : games) {
-    	Block.reinitializeBlockuniqueId(game.getBlocks());
-    }
+    User.reinitializeUniqueUserName(this.getUsers());
+		Game.reinitializeUniqueName(this.getGames());
+		Block.reinitializeAutouniqueBlockID(this.getGames());
   }
 
-  // line 12 "../../../../../Block223.ump"
+  // line 13 "../../../../../Block223.ump"
    public Game findGame(String name){
-    Game agame = null;
-	  for (Game game: getGames()) {
+    for (Game game: getGames()) {
 		  if (game.getName().equals(name)) {
-			  agame = game;
-			  break;
+			  return game;
 		  }
 	  }
-	  return agame;
+	  return null;
   }
 
-  // line 22 "../../../../../Block223.ump"
-   public String findUsername(UserRole player){
-    String username= "";
-  	for (User user: users){
-  		for (UserRole role: user.getRoles()){
-  			if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
-  	}
-  	return username;
-  }
-
-  // line 34 "../../../../../Block223.ump"
+  // line 21 "../../../../../Block223.ump"
    public PlayedGame findPlayableGame(int id){
-    PlayedGame pgame = null;
-		for (PlayedGame playableGame: getPlayedGames()) {
+    for (PlayedGame playableGame: getPlayedGames()) {
 			if (playableGame.getId() == id) {
-				pgame = playableGame;
-				break;
-				
+				return playableGame;
 			}
 		}
-		return pgame;
+		return null;
   }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 8 "../../../../../Block223Persistence.ump"
+  // line 7 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 6181302407834705923L ;
 
   
