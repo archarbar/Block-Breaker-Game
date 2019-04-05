@@ -211,7 +211,7 @@ public class Block223Controller {
 		}
 		String currentName = currentGame.getName();
 		if (currentName!=name) {
-			
+
 		// change the name if it is different than the wanted name
 			try {
 				currentGame.setName(name);
@@ -293,6 +293,9 @@ public class Block223Controller {
 
 	public static void updateBlock(int id, int aRed, int aGreen, int aBlue, int aPoints) throws InvalidInputException {
 
+		String error = "";
+
+		
 
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			throw new InvalidInputException("Admin privileges are required to update a block.");
@@ -314,11 +317,11 @@ public class Block223Controller {
 			int colorRed = specificBlock.getRed();
 			int colorGreen = specificBlock.getGreen();
 			int colorBlue = specificBlock.getBlue();
-			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)&&(specificBlock.getId()!=id)) {
+
+			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 			}
 		}
-		
 
 		if(currentGame.findBlock(id) == null){
 			throw new InvalidInputException("The block does not exist.");
@@ -835,7 +838,6 @@ public class Block223Controller {
 		Block223Application.setCurrentPlayableGame(pgame);
 	}
 
-
 	public static void updatePaddlePosition(String userInputs) {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 		double x = currentPlayedGame.getCurrentPaddleX();
@@ -1021,9 +1023,8 @@ public class Block223Controller {
 		if (testAdmin != (Admin) admin) {
 			throw new InvalidInputException("Only the admin who created the game can test it.");
 		}
-		
+		String username = User.findUsername(admin);
 		Block223 block223 = Block223Application.getBlock223();
-		String username = block223.findUsername(admin);
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
