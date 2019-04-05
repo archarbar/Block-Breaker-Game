@@ -912,7 +912,11 @@ public class Block223Controller {
 			if (userInputs.contains(" ")) {
 				game.pause();
 			}
-			game.getWaitTime();
+			try {
+				Thread.sleep((long) game.getWaitTime());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			ui.refresh();
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
