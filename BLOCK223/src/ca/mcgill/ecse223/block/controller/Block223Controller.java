@@ -310,13 +310,13 @@ public class Block223Controller {
 		if (admin != (Admin) currentUser) {
 			throw new InvalidInputException("Only the admin who created the game can update a block.");
 		}
-		List<Block> sourceList = currentGame.getBlocks();
-		for(Block specificBlock : sourceList) {
-			int colorRed = specificBlock.getRed();
-			int colorGreen = specificBlock.getGreen();
-			int colorBlue = specificBlock.getBlue();
+		List<Block> blocks = currentGame.getBlocks();
+		for(Block block : blocks) {
+			int colorRed = block.getRed();
+			int colorGreen = block.getGreen();
+			int colorBlue = block.getBlue();
 
-			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue)) {
+			if ((colorRed == aRed) && (colorGreen == aGreen) && (colorBlue == aBlue) && (block.getId() != id)) {
 				throw new InvalidInputException("A block with the same color already exists for the game.");
 			}
 		}
@@ -330,42 +330,26 @@ public class Block223Controller {
 			block.setRed(aRed);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Red must be between 0 and 255.")) {
-				error = "Red must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			block.setGreen(aGreen);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Green must be between 0 and 255.")) {
-				error = "Green must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 		try {
 			block.setBlue(aBlue);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Blue must be between 0 and 255.")) {
-				error = "Blue must be between 0 and 255.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 
 		try {
 			block.setPoints(aPoints);
 		}
 		catch (RuntimeException e){
-			error = e.getMessage();
-			if(error.equals("Points must be between 1 and 1000.")) {
-				error = "Points must be between 1 and 1000.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException(e.getMessage());
 		}
 
 

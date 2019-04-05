@@ -55,6 +55,7 @@ class User {
   			break;
   		}
   	}
+  }
   before constructor {
    if (aUsername == null || aUsername.equals(""))
    	throw new RuntimeException("The username must be specified.");
@@ -96,13 +97,22 @@ class Game {
 	     throw new RuntimeException("The name of a game must be specified.");
 	  }
    }
+   before setName {
+     if (block223.findGame(aName) != null) {
+     	throw new RuntimeException("The name of a game must be unique.");
+     }
+   }
    Integer nrBlocksPerLevel;
    before constructor, setNrBlocksPerLevel {
      if (aNrBlocksPerLevel <= 0) {
      	throw new RuntimeException("The number of blocks per level must be greater than zero.");
      }
-     if (getNrBlocksPerLevel() > aNrBlocksPerLevel) {
-     	throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+   }
+   before setNrBlocksPerLevel {
+     for (Level level: getLevels()) {
+     	if (aNrBlocksPerLevel < level.numberOfBlockAssignments()) {
+     		throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+     	}
      }
    }
    before getLevel {
@@ -236,6 +246,17 @@ class Level {
 class BlockAssignment {
    Integer gridHorizontalPosition;
    Integer gridVerticalPosition;
+   before setGridVerticalPosition {
+   	     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
+ 	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
+ 	    }
+   }
+   
+   before setGridHorizontalPosition{
+         if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
+	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
+	    }
+   }
    * -- 1 Level level;
    * -- 1 Block block;
 }
