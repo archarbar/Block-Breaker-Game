@@ -120,7 +120,7 @@ public class Block implements Serializable
   {
     boolean wasSet = false;
     // line 224 "../../../../../Block223.ump"
-    if (aPoints < 0 || aPoints > 1000) {
+    if (aPoints < 1 || aPoints > 1000) {
     	  	throw new RuntimeException("Points must be between 1 and 1000.");
     	}
     // END OF UMPLE BEFORE INJECTION
