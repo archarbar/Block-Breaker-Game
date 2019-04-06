@@ -3,7 +3,6 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
-import ca.mcgill.ecse223.block.application.*;
 
 // line 86 "../../../../../Block223Persistence.ump"
 // line 238 "../../../../../Block223.ump"

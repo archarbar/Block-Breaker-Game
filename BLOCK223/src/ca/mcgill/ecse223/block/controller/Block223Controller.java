@@ -952,7 +952,7 @@ public class Block223Controller {
 
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			throw new InvalidInputException("Player privileges are required to access a gameï¿½s hall of fame.");
+			throw new InvalidInputException("Player privileges are required to access a game’s hall of fame.");
 		}
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		if (pgame == null) {
@@ -971,10 +971,10 @@ public class Block223Controller {
 			end = game.numberOfHallOfFameEntries();
 			}
 
-		start -= 1;
-		end -= -1;
+		start = game.numberOfHallOfFameEntries() - start;
+		end = game.numberOfHallOfFameEntries() - end;
 
-		for (int i = start; i < end ; i++ ) {  //is end included ?????
+		for (int i = start; i >= end ; i-- ) {  
 			TOHallOfFameEntry to = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(),
 					game.getHallOfFameEntry(i).getScore(),
 					result);
@@ -986,7 +986,7 @@ public class Block223Controller {
 		//Check if user is a player
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			throw new InvalidInputException("Player privileges are required to access a gameï¿½s hall of fame.");
+			throw new InvalidInputException("Player privileges are required to access a game’s hall of fame.");
 		}
 
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
@@ -999,24 +999,21 @@ public class Block223Controller {
 		TOHallOfFame result = new TOHallOfFame(game.getName());
 
 		HallOfFameEntry mostRecent = game.getMostRecentEntry();
+		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
 
-		int start = indexR - (numberOfEntries/2);
+		int start = indexR + (numberOfEntries/2);
 
-		if (start < 1) {
-			start = 1;
+		if (start > game.numberOfHallOfFameEntries() - 1) {
+			start =  game.numberOfHallOfFameEntries() - 1;
 		}
 
-		int end = start + (numberOfEntries - 1);
+		int end = start - numberOfEntries + 1;
 
-		if(end > game.numberOfHallOfFameEntries()) {
-			end = game.numberOfHallOfFameEntries();
+		if(end < 0) {
+			end = 0;
 		}
-
-		start -= 1;
-		end -= 1;
-
-		for(int i = start; i < end; i++) { //is end included ?
+		for(int i = start; i >= end; i--) { //is end included ?
 			TOHallOfFameEntry to = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(),
 					game.getHallOfFameEntry(i).getScore(), result);
 		}
