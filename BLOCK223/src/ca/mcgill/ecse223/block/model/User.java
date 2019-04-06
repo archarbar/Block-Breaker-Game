@@ -261,14 +261,20 @@ public class User implements Serializable
   }
 
   // line 39 "../../../../../Block223.ump"
-   public static  String findUsername(UserRole player){
-    for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
-		   if (entry.getValue().getUsername() == player.getUsername()) {
-			   return entry.getKey();
+   public static String findUsername(UserRole player) {
+	   String username = "";
+	   boolean found = false;
+	   for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
+		   for (UserRole role : entry.getValue().getRoles()) {
+			   if (role == player) break;
+			   username = entry.getKey();
+			   found = true;
+			   break;
 		   }
+		   if (found) break;
 	   }
-	   return null;
-  }
+	   return username;
+   }
 
 
   public String toString()
