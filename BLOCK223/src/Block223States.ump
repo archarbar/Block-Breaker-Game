@@ -98,9 +98,7 @@ class PlayedGame {
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
 			   }
 		   }
-	   }
-
-		} else {
+	    } else {
 			return null;
 		}
   }
@@ -117,8 +115,7 @@ class PlayedGame {
 
 		blockRect.setFrame(pblock.getX()- Ball.BALL_DIAMETER / 2, pblock.getY() - Ball.BALL_DIAMETER / 2,  Block.SIZE+pblock.getX() + Ball.BALL_DIAMETER/2,
 				pblock.getY() + Ball.BALL_DIAMETER/2+Block.SIZE);
-
-
+   }
 
 
   private void bounceBall() {
