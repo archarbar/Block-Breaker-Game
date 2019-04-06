@@ -98,28 +98,14 @@ class PlayedGame {
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
 			   }
 		   }
-	   }
 
 		} else {
 			return null;
 		}
-  }
+		}
   
-  private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
-    Rectangle2D blockRect = new Rectangle2D.Double();
-		Line2D l = new Line2D.Double();
-		ArrayList<BouncePoint> intersect = new ArrayList<>();
-		int counter = 0;
-		l.setLine(getCurrentBallX(), getCurrentBallY(), getCurrentBallX() + ballDirectionX,
-				getCurrentBallY() + ballDirectionY);
-		math.geom2d.line.Line2D l1= new math.geom2d.line.Line2D(getCurrentBallX(), getCurrentBallY(), getCurrentBallX() + ballDirectionX,
-				getCurrentBallY() + ballDirectionY);
-
-		blockRect.setFrame(pblock.getX()- Ball.BALL_DIAMETER / 2, pblock.getY() - Ball.BALL_DIAMETER / 2,  Block.SIZE+pblock.getX() + Ball.BALL_DIAMETER/2,
-				pblock.getY() + Ball.BALL_DIAMETER/2+Block.SIZE);
-
-
-
+  
+  
 
   private void bounceBall() {
 	double xBallFuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();

@@ -51,17 +51,10 @@ class PlayedGame {
    0..1 -> 0..1 BouncePoint bounce;
    
    public boolean isBallOutOfBounds(){
-   		double xball = this.currentBallX;
-   		double yball = this.currentBallY;
-   		double xballfuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
-   		double yballfuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
-   		double xwallleft= 0;
-   		double ywallleft = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
-   		double xwallright = Game.PLAY_AREA_SIDE;
-   		double ywallright = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
-   		return java.awt.geom.Line2D.linesIntersect(xball, yball, xballfuture, yballfuture, xwallleft, ywallleft, xwallright, ywallright);
-   	
-   }
+   
+  	   return this.currentBallY > Game.PLAY_AREA_SIDE - Paddle.VERTICAL_DISTANCE;
+  
+  }
    private static Point getLineIntersection(Line2D pLine1, Line2D pLine2) {
 	   Point result = null;
 	   double s1_x = pLine1.getX2() - pLine1.getX1();
