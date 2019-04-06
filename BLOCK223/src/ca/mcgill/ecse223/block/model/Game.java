@@ -944,7 +944,7 @@ public class Game implements Serializable
   public Block getRandomBlock(){
     Random random = new Random();
 	  int index = random.nextInt(this.getBlocks().size());
-	  
+
 	  return this.getBlock(index);
   }
 
