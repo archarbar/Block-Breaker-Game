@@ -3,7 +3,6 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
-import ca.mcgill.ecse223.block.application.*;
 import java.util.*;
 
 // line 20 "../../../../../Block223Persistence.ump"
@@ -34,9 +33,10 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 62 "../../../../../Block223.ump"
-    if (aUsername == null || aUsername.equals(""))
-       	throw new RuntimeException("The username must be specified.");
+    // line 53 "../../../../../Block223.ump"
+    if (aUsername == null || aUsername.equals("")) {
+        		throw new RuntimeException("The username must be specified.");
+        	}
     // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
@@ -260,17 +260,9 @@ public class User implements Serializable
      }
   }
 
-  // line 51 "../../../../../Block223.ump"
+  // line 50 "../../../../../Block223.ump"
    public String findUsername(UserRole player){
-    Block223 block223 = Block223Application.getBlock223();
-  		String username= "";
-  		for (User user: block223.getUsers()){
-  			for (UserRole role: user.getRoles()){
-  				if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
-  	}
+    return this.getBlock223().findUsername(player);
   }
 
 

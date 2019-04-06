@@ -44,24 +44,16 @@ class Block223 {
 }
 
 class User {
-	depend ca.mcgill.ecse223.block.application.*;
     unique username;
     1 -> 1..2 UserRole roles;
-    public String findUsername(UserRole player){
-    	Block223 block223 = Block223Application.getBlock223();
-  		String username= "";
-  		for (User user: block223.getUsers()){
-  			for (UserRole role: user.getRoles()){
-  				if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
-  	}
-  }
-  before constructor {
-   if (aUsername == null || aUsername.equals(""))
-   	throw new RuntimeException("The username must be specified.");
-  }
+    public String findUsername(UserRole player) {
+      return this.getBlock223().findUsername(player);
+    }
+    before constructor {
+    	if (aUsername == null || aUsername.equals("")) {
+    		throw new RuntimeException("The username must be specified.");
+    	}
+    }
 }
 
 class UserRole {
