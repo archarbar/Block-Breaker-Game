@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 56 "../../../../../Block223.ump"
+    // line 64 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.equals("")) {
         		throw new RuntimeException("The username must be specified.");
         	}
@@ -258,6 +258,16 @@ public class User implements Serializable
     for (User user : users) {
         usersByUsername.put(user.getUsername(), user);
      }
+  }
+
+  // line 56 "../../../../../Block223.ump"
+   public static  String findUsername(UserRole player){
+    for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
+		   if (entry.getValue().getUsername() == player.getUsername()) {
+			   return entry.getKey();
+		   }
+	   }
+	   return null;
   }
 
 

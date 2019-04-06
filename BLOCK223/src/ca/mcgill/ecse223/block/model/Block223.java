@@ -627,7 +627,7 @@ public class Block223 implements Serializable
    public String findUsername(UserRole player){
     String username = "";
 	   boolean found = false;
-	   
+
 	   for(User user : users) {
 		   for(UserRole role : user.getRoles()) {
 			   if(role == player) break;
@@ -637,7 +637,7 @@ public class Block223 implements Serializable
 		   }
 		   if(found) break;
 	   }
-	   
+
 	   return username;
   }
   

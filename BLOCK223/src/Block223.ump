@@ -52,6 +52,14 @@ class Block223 {
 class User {
     unique username;
     1 -> 1..2 UserRole roles;
+    public static  String findUsername(UserRole player){
+	   for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
+		   if (entry.getValue().getUsername() == player.getUsername()) {
+			   return entry.getKey();
+		   }
+	   }
+	   return null;
+    }
     before constructor {
     	if (aUsername == null || aUsername.equals("")) {
     		throw new RuntimeException("The username must be specified.");
