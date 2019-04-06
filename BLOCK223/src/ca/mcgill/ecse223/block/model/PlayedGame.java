@@ -41,12 +41,12 @@ public class PlayedGame implements Serializable
    * no direct link to Paddle, because the paddle can be found by navigating to Game and then Paddle
    * pixels moved when right arrow key is pressed
    */
-  public static final int PADDLE_MOVE_RIGHT = 5;
+  public static final int PADDLE_MOVE_RIGHT = 1;
 
   /**
    * pixels moved when left arrow key is pressed
    */
-  public static final int PADDLE_MOVE_LEFT = -5;
+  public static final int PADDLE_MOVE_LEFT = -1;
 
   //------------------------
   // MEMBER VARIABLES

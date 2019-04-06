@@ -622,24 +622,6 @@ public class Block223 implements Serializable
 		}
 		return pgame;
   }
-
-  // line 34 "../../../../../Block223.ump"
-   public String findUsername(UserRole player){
-    String username = "";
-	   boolean found = false;
-
-	   for(User user : users) {
-		   for(UserRole role : user.getRoles()) {
-			   if(role == player) break;
-			   username = user.getUsername();
-			   found = true;
-			   break;
-		   }
-		   if(found) break;
-	   }
-
-	   return username;
-  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS

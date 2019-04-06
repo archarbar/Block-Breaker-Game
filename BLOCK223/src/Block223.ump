@@ -30,23 +30,6 @@ class Block223 {
 		}
 		return pgame;
   }
-  public String findUsername(UserRole player) {
-	   String username = "";
-	   boolean found = false;
-
-	   for(User user : users) {
-		   for(UserRole role : user.getRoles()) {
-			   if(role == player) break;
-			   username = user.getUsername();
-			   found = true;
-			   break;
-		   }
-		   if(found) break;
-	   }
-
-	   return username;
-   }
-
 }
 
 class User {
@@ -89,6 +72,7 @@ class Player {
 
 class Game {
    depend ca.mcgill.ecse223.block.application.*;
+   depend java.util.Random;
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
    const Integer PLAY_AREA_SIDE = 390; // play area is now constant
@@ -135,10 +119,9 @@ class Game {
 	  }
 	  return null;
   }
-  Block getRandomBlock() {
+  public Block getRandomBlock() {
 	  Random random = new Random();
 	  int index = random.nextInt(this.getBlocks().size());
-
 	  return this.getBlock(index);
   }
 
@@ -169,8 +152,8 @@ class Game {
      
       	 	}
        		return maxNumberOfVerticalBlocks;
-	}
-  
+   }
+     
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
    1 <@>- 1..99 Level levels;
