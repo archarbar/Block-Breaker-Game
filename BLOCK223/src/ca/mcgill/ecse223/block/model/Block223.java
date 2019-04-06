@@ -5,9 +5,12 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * the reinitialize methods need to be added
+ */
 // line 1 "../../../../../Block223PlayMode.ump"
-// line 4 "../../../../../Block223Persistence.ump"
-// line 8 "../../../../../Block223.ump"
+// line 5 "../../../../../Block223Persistence.ump"
+// line 7 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -585,38 +588,46 @@ public class Block223 implements Serializable
     
   }
 
-  // line 9 "../../../../../Block223Persistence.ump"
+  // line 11 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
-    User.reinitializeUniqueUserName(this.getUsers());
-		Game.reinitializeUniqueName(this.getGames());
-		Block.reinitializeAutouniqueBlockID(this.getGames());
+    User.reinitializeUseruniqueUsername(this.getUsers());
+    Game.reinitializeGameuniqueName(this.getGames());
+    List<Game> games = this.getGames();
+    for (Game game : games) {
+    	Block.reinitializeBlockuniqueId(game.getBlocks());
+    }
   }
 
-  // line 13 "../../../../../Block223.ump"
+  // line 12 "../../../../../Block223.ump"
    public Game findGame(String name){
-    for (Game game: getGames()) {
+    Game agame = null;
+	  for (Game game: getGames()) {
 		  if (game.getName().equals(name)) {
-			  return game;
+			  agame = game;
+			  break;
 		  }
 	  }
-	  return null;
+	  return agame;
   }
 
-  // line 21 "../../../../../Block223.ump"
+  // line 23 "../../../../../Block223.ump"
    public PlayedGame findPlayableGame(int id){
-    for (PlayedGame playableGame: getPlayedGames()) {
+    PlayedGame pgame = null;
+		for (PlayedGame playableGame: getPlayedGames()) {
 			if (playableGame.getId() == id) {
-				return playableGame;
+				pgame = playableGame;
+				break;
+				
 			}
 		}
-		return null;
+		return pgame;
   }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 7 "../../../../../Block223Persistence.ump"
+  // line 8 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 6181302407834705923L ;
 
   

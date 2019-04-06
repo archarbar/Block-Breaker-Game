@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 15 "../../../../../Block223Persistence.ump"
-// line 30 "../../../../../Block223.ump"
+// line 20 "../../../../../Block223Persistence.ump"
+// line 35 "../../../../../Block223.ump"
 public class User implements Serializable
 {
 
@@ -33,6 +33,11 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
+    // line 47 "../../../../../Block223.ump"
+    if (aUsername == null || aUsername.equals("")) {
+        		throw new RuntimeException("The username must be specified.");
+        	}
+    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
@@ -247,17 +252,22 @@ public class User implements Serializable
     }
   }
 
-  // line 21 "../../../../../Block223Persistence.ump"
-   public static  void reinitializeUniqueUserName(List<User> users){
+  // line 26 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeUseruniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
-  		for (User user : users) {
-  			usersByUsername.put(user.getUsername(), user);
-  		}
+    for (User user : users) {
+        usersByUsername.put(user.getUsername(), user);
+     }
   }
 
-  // line 34 "../../../../../Block223.ump"
-   public static  String findUsername(UserRole admin){
-    return admin.getUsername();
+  // line 39 "../../../../../Block223.ump"
+   public static  String findUsername(UserRole player){
+    for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
+		   if (entry.getValue().getUsername() == player.getUsername()) {
+			   return entry.getKey();
+		   }
+	   }
+	   return null;
   }
 
 
@@ -271,7 +281,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 18 "../../../../../Block223Persistence.ump"
+  // line 23 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 4267485601061759914L ;
 
   
