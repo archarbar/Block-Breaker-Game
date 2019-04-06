@@ -1,49 +1,202 @@
-class PlayedGame {
-	depend java.awt.geom.*;
-	depend math.geom2d.conic.*;
-	depend java.awt.Point;
-	depend ca.mcgill.ecse223.block.application.Block223Application;
-	
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
-  // State Machine
-  
-  playStatus {
-    Ready {
-      entry / { doSetup(); }
-      play -> Moving;
+
+import java.awt.geom.*;
+import math.geom2d.conic.*;
+import java.awt.Point;
+import ca.mcgill.ecse223.block.application.Block223Application;
+
+// line 1 "Block223States.ump"
+public class PlayedGame
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //PlayedGame State Machines
+  public enum PlayStatus { Ready, Moving, Paused, GameOver }
+  private PlayStatus playStatus;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public PlayedGame()
+  {
+    setPlayStatus(PlayStatus.Ready);
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+
+  public String getPlayStatusFullName()
+  {
+    String answer = playStatus.toString();
+    return answer;
+  }
+
+  public PlayStatus getPlayStatus()
+  {
+    return playStatus;
+  }
+
+  public boolean play()
+  {
+    boolean wasEventProcessed = false;
+    
+    PlayStatus aPlayStatus = playStatus;
+    switch (aPlayStatus)
+    {
+      case Ready:
+        setPlayStatus(PlayStatus.Moving);
+        wasEventProcessed = true;
+        break;
+      case Paused:
+        setPlayStatus(PlayStatus.Moving);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
     }
-    Moving {
-      pause -> Paused;
-      move [hitPaddle()] / { doHitPaddleOrWall(); } -> Moving;
-      move [isOutOfBoundsAndLastLife()] / { doOutOfBounds(); } -> GameOver;
-      move [isOutOfBounds()] / { doOutOfBounds(); } -> Paused;
-      move [hitLastBlockAndLastLevel()] / { doHitBlock(); } -> GameOver;
-      move [hitLastBlock()] / { doHitBlockNextLevel(); } -> Ready;
-      move [hitBlock()] / { doHitBlock(); } -> Moving;
-      move [hitWall()] / { doHitPaddleOrWall(); } -> Moving;
-      move / { doHitNothingAndNotOutOfBounds(); } -> Moving;
+
+    return wasEventProcessed;
+  }
+
+  public boolean pause()
+  {
+    boolean wasEventProcessed = false;
+    
+    PlayStatus aPlayStatus = playStatus;
+    switch (aPlayStatus)
+    {
+      case Moving:
+        setPlayStatus(PlayStatus.Paused);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
     }
-    Paused {
-      play -> Moving;
+
+    return wasEventProcessed;
+  }
+
+  public boolean move()
+  {
+    boolean wasEventProcessed = false;
+    
+    PlayStatus aPlayStatus = playStatus;
+    switch (aPlayStatus)
+    {
+      case Moving:
+        if (hitPaddle())
+        {
+        // line 17 "Block223States.ump"
+          doHitPaddleOrWall();
+          setPlayStatus(PlayStatus.Moving);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isOutOfBoundsAndLastLife())
+        {
+        // line 18 "Block223States.ump"
+          doOutOfBounds();
+          setPlayStatus(PlayStatus.GameOver);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isOutOfBounds())
+        {
+        // line 19 "Block223States.ump"
+          doOutOfBounds();
+          setPlayStatus(PlayStatus.Paused);
+          wasEventProcessed = true;
+          break;
+        }
+        if (hitLastBlockAndLastLevel())
+        {
+        // line 20 "Block223States.ump"
+          doHitBlock();
+          setPlayStatus(PlayStatus.GameOver);
+          wasEventProcessed = true;
+          break;
+        }
+        if (hitLastBlock())
+        {
+        // line 21 "Block223States.ump"
+          doHitBlockNextLevel();
+          setPlayStatus(PlayStatus.Ready);
+          wasEventProcessed = true;
+          break;
+        }
+        if (hitBlock())
+        {
+        // line 22 "Block223States.ump"
+          doHitBlock();
+          setPlayStatus(PlayStatus.Moving);
+          wasEventProcessed = true;
+          break;
+        }
+        if (hitWall())
+        {
+        // line 23 "Block223States.ump"
+          doHitPaddleOrWall();
+          setPlayStatus(PlayStatus.Moving);
+          wasEventProcessed = true;
+          break;
+        }
+        // line 24 "Block223States.ump"
+        doHitNothingAndNotOutOfBounds();
+        setPlayStatus(PlayStatus.Moving);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
     }
-    GameOver {
-      entry / { doGameOver(); }
+
+    return wasEventProcessed;
+  }
+
+  private void setPlayStatus(PlayStatus aPlayStatus)
+  {
+    playStatus = aPlayStatus;
+
+    // entry actions and do activities
+    switch(playStatus)
+    {
+      case Ready:
+        // line 12 "Block223States.ump"
+        doSetup();
+        break;
+      case GameOver:
+        // line 30 "Block223States.ump"
+        doGameOver();
+        break;
     }
   }
-  
-  // Guards
-  
-  private boolean hitPaddle() {
-   	BouncePoint bp = calculateBouncePointPaddle();
+
+  public void delete()
+  {}
+
+
+  /**
+   * Guards
+   */
+  // line 37 "Block223States.ump"
+   private boolean hitPaddle(){
+    BouncePoint bp = calculateBouncePointPaddle();
 	if(bp != null) {
 		setBounce(bp);
 		return true;
 	}
     return false;
   }
-  
-  private BouncePoint calculateBouncePointPaddle() {
-	Rectangle2D paddleRect = new Rectangle2D.Double();
+
+  // line 46 "Block223States.ump"
+   private BouncePoint calculateBouncePointPaddle(){
+    Rectangle2D paddleRect = new Rectangle2D.Double();
 		Line2D l = new Line2D.Double();
 		ArrayList<BouncePoint> intersect = new ArrayList<>();
 		int counter = 0;
@@ -146,8 +299,9 @@ class PlayedGame {
 			return null;
 		}
   }
-  
-  private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
+
+  // line 151 "Block223States.ump"
+   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
     Rectangle2D blockRect = new Rectangle2D.Double();
 		Line2D l = new Line2D.Double();
 		ArrayList<BouncePoint> intersect = new ArrayList<>();
@@ -257,9 +411,9 @@ class PlayedGame {
 		return null;
   }
 
-
-  private void bounceBall() {
-	   double distanceX = getBallDirectionX();
+  // line 262 "Block223States.ump"
+   private void bounceBall(){
+    double distanceX = getBallDirectionX();
 	   double distanceY = getBallDirectionY();
 	   double positionX = getCurrentBallX();
 	   double positionY = getCurrentBallY();
@@ -299,7 +453,8 @@ class PlayedGame {
 	   setBounce(null);
   }
 
-  private boolean isOutOfBoundsAndLastLife() {
+  // line 303 "Block223States.ump"
+   private boolean isOutOfBoundsAndLastLife(){
     boolean outOfBounds = false;
     
     if (lives == 1){
@@ -307,13 +462,15 @@ class PlayedGame {
     }	
     return outOfBounds;
   }
-  
-  private boolean isOutOfBounds() {
+
+  // line 312 "Block223States.ump"
+   private boolean isOutOfBounds(){
     boolean outOfBounds = this.isBallOutOfBounds();
     return outOfBounds;
   }
-  
-   private boolean hitLastBlockAndLastLevel() {
+
+  // line 317 "Block223States.ump"
+   private boolean hitLastBlockAndLastLevel(){
     Game game = this.getGame();
     	int nrLevels = game.numberOfLevels();
     	this.setBounce(null);
@@ -328,8 +485,9 @@ class PlayedGame {
     	}
     return false;
   }
-  
-  private boolean hitLastBlock(){
+
+  // line 333 "Block223States.ump"
+   private boolean hitLastBlock(){
     int nrBlocks = this.numberOfBlocks();
     	this.setBounce(null);
     	if(nrBlocks == 1){
@@ -340,8 +498,9 @@ class PlayedGame {
     	}
     return false;
   }
-  
-  private boolean hitBlock() {
+
+  // line 345 "Block223States.ump"
+   private boolean hitBlock(){
     int nrBlocks = this.numberOfBlocks();
     	this.setBounce(null);
     	for(int i=0; i<nrBlocks; i++){
@@ -356,19 +515,23 @@ class PlayedGame {
     	}
     	return this.getBounce() != null;
   }
-  
-  private boolean hitWall() {
-  	BouncePoint bp = calculateBouncePointWall();
+
+  // line 361 "Block223States.ump"
+   private boolean hitWall(){
+    BouncePoint bp = calculateBouncePointWall();
 	if(bp != null) {
 		setBounce(bp);
 		return true;
 	}
 	return false;
   }
-  
-  // Actions
-  
-  private void doSetup() {
+
+
+  /**
+   * Actions
+   */
+  // line 372 "Block223States.ump"
+   private void doSetup(){
     this.resetCurrentBallX();
 	   this.resetCurrentBallY();
 	   this.resetBallDirectionX();
@@ -417,13 +580,15 @@ class PlayedGame {
 			numberOfBlocks++;
 	   }
   }
-  
-  private void doHitPaddleOrWall() {
+
+  // line 422 "Block223States.ump"
+   private void doHitPaddleOrWall(){
     this.bounceBall();
   }
 
-  private void doOutOfBounds() {
-		this.setLives(lives-1);
+  // line 426 "Block223States.ump"
+   private void doOutOfBounds(){
+    this.setLives(lives-1);
 		this.resetCurrentBallX();
 		this.resetCurrentBallY();
 		this.resetBallDirectionX();
@@ -431,7 +596,8 @@ class PlayedGame {
 		this.resetCurrentPaddleX();
   }
 
-  private void doHitBlock() {
+  // line 435 "Block223States.ump"
+   private void doHitBlock(){
     int currentscore = this.getScore();
     BouncePoint bouncepoint = this.getBounce();
     PlayedBlockAssignment playedblock = bouncepoint.getHitBlock();
@@ -442,7 +608,8 @@ class PlayedGame {
     this.bounceBall();
   }
 
-  private void doHitBlockNextLevel() {
+  // line 446 "Block223States.ump"
+   private void doHitBlockNextLevel(){
     this.doHitBlock();
     int level = this.getCurrentLevel();
     this.setCurrentPaddleLength(this.getGame().getPaddle().getMaxPaddleLength()-(this.getGame().getPaddle().getMaxPaddleLength()
@@ -451,7 +618,8 @@ class PlayedGame {
     this.setCurrentLevel(level+1);
   }
 
-  private void doHitNothingAndNotOutOfBounds() {
+  // line 455 "Block223States.ump"
+   private void doHitNothingAndNotOutOfBounds(){
     PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 	double x = currentPlayedGame.getCurrentBallX();
 	double y = currentPlayedGame.getCurrentBallY();
@@ -461,7 +629,8 @@ class PlayedGame {
 	currentPlayedGame.setCurrentBallY(y + dy);
   }
 
-  private void doGameOver() {
+  // line 465 "Block223States.ump"
+   private void doGameOver(){
     Block223 block223 = this.getBlock223();
     Player p = this.getPlayer();
     if (p != null){
