@@ -2240,7 +2240,7 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	private void removeBlockButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void removeBlockButtonActionPerformed(ActionEvent evt) {
 
 		String error = "";
 		int level = levelComboBox.getSelectedIndex();
@@ -2262,13 +2262,13 @@ public class BlockEditWindow extends JFrame {
 
 	}
 	private void positionBlockButtonActionPerformed(ActionEvent evt) {
-
 		String error = "";
 		int selectedBlock = toBlockComboBox.getSelectedIndex();
 		int level = levelComboBox.getSelectedIndex();
 		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
+		System.out.println(newGridHorizontalPosition);
 		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
-
+		System.out.println(newGridVerticalPosition);
 		if (selectedBlock < 0) {
 		error = "Block needs to be selected in order to placed in the game!";}
 
@@ -2276,9 +2276,9 @@ public class BlockEditWindow extends JFrame {
 		if (level < 0) {
 		error = error + "A level needs to be selected for block! ";}
 		if (newGridHorizontalPosition < 0) {
-		error = error + "A horizontal grid position needs to be selected for block! ";}
+		error = error + "A horizontal grid position needs to be selected for block!";}
 		if (newGridVerticalPosition < 0) {
-		error = error + "A vertical grid position needs to be selected for block! ";}
+		error = error + "A vertical grid position needs to be selected for block!";}
 
 		error = error.trim();
 
@@ -2295,8 +2295,6 @@ public class BlockEditWindow extends JFrame {
 		//update visuals
 		refreshData();
 	}
-
-
 
 	private void moveBlockButtonActionPerformed(ActionEvent evt) {
 
@@ -2350,7 +2348,6 @@ public class BlockEditWindow extends JFrame {
 				toBlockComboBox.addItem("Block ID: " + block.getId());
 			}
 			toBlockComboBox.setSelectedIndex(-1);
-
 
 			levels = new HashMap<Integer, Integer>();
 			levelComboBox.removeAllItems();

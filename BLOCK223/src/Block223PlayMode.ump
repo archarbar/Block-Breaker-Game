@@ -135,17 +135,7 @@ class PlayedGame {
   	else{
   	 return false;
   	}
-  }
-   
-   
-   before constructor {
-      boolean didAddGameResult = setGame(aGame);
-      if (!didAddGameResult)
-      {
-         throw new RuntimeException("Unable to create playedGame due to game");
-      }
-   }
-   
+  }   
 }
 
 class PlayedBlockAssignment {
