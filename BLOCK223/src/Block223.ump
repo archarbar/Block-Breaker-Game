@@ -30,22 +30,28 @@ class Block223 {
 		}
 		return pgame;
   }
+  public String findUsername(UserRole player) {
+	   String username = "";
+	   boolean found = false;
+	   
+	   for(User user : users) {
+		   for(UserRole role : user.getRoles()) {
+			   if(role == player) break;
+			   username = user.getUsername();
+			   found = true;
+			   break;
+		   }
+		   if(found) break;
+	   }
+	   
+	   return username;
+   }
+   
 }
 
 class User {
     unique username;
     1 -> 1..2 UserRole roles;
-    public static String findUsername(UserRole player){
-  	String username= "";
-  	for (User user: users){
-  		for (UserRole role: user.getRoles()){
-  			if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
-  	}
-  	return username;
-    }
     before constructor {
     	if (aUsername == null || aUsername.equals("")) {
     		throw new RuntimeException("The username must be specified.");
@@ -121,6 +127,13 @@ class Game {
 	  }
 	  return null;
   }
+  Block getRandomBlock() {
+	  Random random = new Random();
+	  int index = random.nextInt(this.getBlocks().size());
+	  
+	  return this.getBlock(index);
+  }
+   
   
    public int maxNumberOfHorizontalBlocks(){            	                     
  	                  int maxNumberOfHorizontalBlocks = 0;   

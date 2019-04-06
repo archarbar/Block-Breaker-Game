@@ -62,6 +62,80 @@ class PlayedGame {
    		return java.awt.geom.Line2D.linesIntersect(xball, yball, xballfuture, yballfuture, xwallleft, ywallleft, xwallright, ywallright);
    	
    }
+   private static Point getLineIntersection(Line2D pLine1, Line2D pLine2) {
+	   Point result = null;
+	   double s1_x = pLine1.getX2() - pLine1.getX1();
+	   double s1_y = pLine1.getY2() - pLine1.getY1();
+	   double s2_x = pLine2.getX2() - pLine2.getX1();
+	   double s2_y = pLine2.getY2() - pLine2.getY1();
+	   double s = (-s1_y * (pLine1.getX1() - pLine2.getX1()) + s1_x * (pLine1.getY1() - pLine2.getY1())) / (-s2_x * s1_y + s1_x * s2_y);
+	   double t = ( s2_x * (pLine1.getY1() - pLine2.getY1()) - s2_y * (pLine1.getX1() - pLine2.getX1())) / (-s2_x * s1_y + s1_x * s2_y);
+
+	   if(s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+		   //This is only true if there is the two lines intersect
+		   result = new Point((int) (pLine1.getX1() + (t * s1_x)), (int) (pLine1.getY1() + (t * s1_y)));
+	   }
+	   return result;
+   }
+   
+   private BouncePoint calculateBouncePointWall() {
+	   BouncePoint bouncePoint = null;
+	   Point bouncePosition;
+	   double ballRadius = 5.0;
+	   double wallHeight = Game.PLAY_AREA_SIDE;
+	   double xBall = this.currentBallX;
+	   double yBall = this.currentBallY;
+	   double xBallFuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
+	   double yBallFuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
+	   Line2D.Double leftWall = new Line2D.Double(ballRadius, ballRadius, ballRadius, wallHeight - ballRadius);
+	   Line2D.Double topWall = new Line2D.Double(ballRadius, ballRadius, wallHeight - ballRadius, ballRadius);
+	   Line2D.Double rightWall = new Line2D.Double(ballRadius, wallHeight - ballRadius, wallHeight - ballRadius, wallHeight - ballRadius);
+	   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
+	   //If it doesn't intersect with any wall, return null
+	   if (!(lineBallPath.intersectsLine(leftWall) || lineBallPath.intersectsLine(topWall) || lineBallPath.intersectsLine(rightWall))) {
+		   return bouncePoint;
+	   }
+	   else {
+		   if(lineBallPath.intersectsLine(leftWall)) {
+			   bouncePosition = getLineIntersection(lineBallPath, leftWall);
+			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
+				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
+			   } 
+		   }
+		   else if(lineBallPath.intersectsLine(topWall)){
+			   bouncePosition = getLineIntersection(lineBallPath, topWall);
+			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
+				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
+			   } 
+		   }
+		   else if(lineBallPath.intersectsLine(rightWall)) {
+			   bouncePosition = getLineIntersection(lineBallPath, rightWall);
+			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
+				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
+			   } 
+		   }
+	   }
+	   return bouncePoint;
+   }
+   
+   private boolean isCloser(BouncePoint first, BouncePoint second){
+  	if (second == null){
+  		return true;
+  	}
+  	if (first == null){
+  		return false;
+  	}
+  	if (Math.sqrt(Math.pow((this.getCurrentBallX()-first.getX()),2.0)+Math.pow((this.getCurrentBallY()-first.getY()),2.0)) <
+  		Math.sqrt(Math.pow((this.getCurrentBallX()-second.getX()),2.0)+Math.pow((this.getCurrentBallY()-second.getY()),2.0))){
+  			return true;
+  	}
+  	else{
+  	 return false;
+  	}
+  }
    
    
    before constructor {
