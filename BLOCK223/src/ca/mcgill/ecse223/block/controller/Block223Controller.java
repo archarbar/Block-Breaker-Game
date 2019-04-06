@@ -1043,8 +1043,8 @@ public class Block223Controller {
 		if (testAdmin != (Admin) admin) {
 			throw new InvalidInputException("Only the admin who created the game can test it.");
 		}
-		String username = User.findUsername(admin);
 		Block223 block223 = Block223Application.getBlock223();
+		String username = block223.findUsername(admin);
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
