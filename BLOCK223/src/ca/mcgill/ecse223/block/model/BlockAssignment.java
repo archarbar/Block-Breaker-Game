@@ -6,7 +6,7 @@ import java.io.Serializable;
 import ca.mcgill.ecse223.block.application.*;
 
 // line 86 "../../../../../Block223Persistence.ump"
-// line 228 "../../../../../Block223.ump"
+// line 225 "../../../../../Block223.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -57,7 +57,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 240 "../../../../../Block223.ump"
+    // line 237 "../../../../../Block223.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
     	    	throw new RuntimeException("The vertical horizontal must be between 1 and " + currentGame.maxNumberOfHorizontalBlocks() + ".");
     	    }
@@ -70,7 +70,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 234 "../../../../../Block223.ump"
+    // line 231 "../../../../../Block223.ump"
     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
      	    	throw new RuntimeException("The vertical position must be between 1 and " + currentGame.maxNumberOfVerticalBlocks() + ".");
      	    }

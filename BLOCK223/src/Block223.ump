@@ -18,17 +18,6 @@ class Block223 {
 	  }
 	  return agame;
   }
-  public String findUsername(UserRole player){
-  	String username= "";
-  	for (User user: users){
-  		for (UserRole role: user.getRoles()){
-  			if (role == player) break;
-  			username = user.getUsername();
-  			break;
-  		}
-  	}
-  	return username;
-  }
   	
   public PlayedGame findPlayableGame(int id) {
   	PlayedGame pgame = null;
@@ -46,8 +35,16 @@ class Block223 {
 class User {
     unique username;
     1 -> 1..2 UserRole roles;
-    public String findUsername(UserRole player) {
-      return this.getBlock223().findUsername(player);
+    public static String findUsername(UserRole player){
+  	String username= "";
+  	for (User user: users){
+  		for (UserRole role: user.getRoles()){
+  			if (role == player) break;
+  			username = user.getUsername();
+  			break;
+  		}
+  	}
+  	return username;
     }
     before constructor {
     	if (aUsername == null || aUsername.equals("")) {
