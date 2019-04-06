@@ -4,9 +4,14 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.awt.geom.*;
+import java.awt.geom.Ellipse2D;
+
 import math.geom2d.conic.*;
 import java.awt.Point;
 import java.util.*;
+
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.model.BouncePoint.BounceDirection;
 
 // line 11 "../../../../../Block223PlayMode.ump"
 // line 104 "../../../../../Block223Persistence.ump"
@@ -89,13 +94,7 @@ public class PlayedGame implements Serializable
           throw new RuntimeException("Unable to create playedGame due to game");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 68 "../../../../../Block223PlayMode.ump"
-    boolean didAddGameResult = setGame(aGame);
-          if (!didAddGameResult)
-          {
-             throw new RuntimeException("Unable to create playedGame due to game");
-          }
-    // END OF UMPLE BEFORE INJECTION
+
     score = 0;
     lives = NR_LIVES;
     currentLevel = 1;
