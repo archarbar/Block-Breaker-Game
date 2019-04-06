@@ -963,9 +963,61 @@ private void bounceBall() {
   // line 74 "../../../../../Block223States.ump"
    private void doSetup(){
     // TODO implement
+	   this.resetCurrentBallX();
+	   this.resetCurrentBallY();
+	   this.resetBallDirectionX();
+	   this.resetBallDirectionY();	   
+	   this.resetCurrentPaddleX();
+	   Game game = this.getGame();
+	   Level level = game.getLevel(currentLevel - 1);
+	   List<BlockAssignment> assignments = level.getBlockAssignments();
+	   
+	   for(BlockAssignment a : assignments) {
+		   PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1),Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) * (a.getGridVerticalPosition() - 1), a.getBlock(),this);
+	   }
+	   int numberOfBlocks = assignments.size();
+	   int maxHorizontal = (1+(Game.PLAY_AREA_SIDE-2*Game.WALL_PADDING-Block.SIZE)/(Block.SIZE+Game.COLUMNS_PADDING));
+	   int maxVertical = (1+(Game.PLAY_AREA_SIDE-Paddle.VERTICAL_DISTANCE-Game.WALL_PADDING-Paddle.PADDLE_WIDTH-Ball.BALL_DIAMETER-Block.SIZE)/(Block.SIZE+Game.ROW_PADDING));
+	   int x;
+	   int y;
+	   
+	   while(numberOfBlocks < game.getNrBlocksPerLevel()) {
+		   Random rand = new Random();
+		   x = rand.nextInt(maxHorizontal);
+		   y = rand.nextInt(maxVertical);
+		   PlayedBlockAssignment foundAssignment = this.findPlayedBlockAssignment(x , y);
+		   while(foundAssignment != null) {
+			   if(y < maxVertical) {
+				   if(x <= maxHorizontal) x=x+1;
+				   if(x > maxHorizontal) {
+					   x = 1;
+					   y=y+1;
+				   }
+			   }
+			   
+			   else if(y >= maxVertical) {
+				   if(x <= maxHorizontal) x=x+1;
+				   if(x > maxHorizontal) {
+					   x = 1;
+					   y = 1;
+				   }
+			   }  
+			   foundAssignment = this.findPlayedBlockAssignment(x , y);
+		   }
+		   x = Game.WALL_PADDING + (x-1)*(Game.COLUMNS_PADDING+Block.SIZE);
+		   y = Game.WALL_PADDING + (y-1)*(Game.ROW_PADDING+Block.SIZE);
+		   
+		   new PlayedBlockAssignment(x,y,game.getRandomBlock(),this);
+			numberOfBlocks++;
+	   }
   }
 
-  // line 78 "../../../../../Block223States.ump"
+  private PlayedBlockAssignment findPlayedBlockAssignment(int x, int y) {
+	// TODO Auto-generated method stub
+	return ;
+}
+
+// line 78 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
     // TODO implement
 	   this.bounceBall();
