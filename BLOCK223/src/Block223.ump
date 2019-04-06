@@ -33,7 +33,7 @@ class Block223 {
   public String findUsername(UserRole player) {
 	   String username = "";
 	   boolean found = false;
-	   
+
 	   for(User user : users) {
 		   for(UserRole role : user.getRoles()) {
 			   if(role == player) break;
@@ -43,10 +43,10 @@ class Block223 {
 		   }
 		   if(found) break;
 	   }
-	   
+
 	   return username;
    }
-   
+
 }
 
 class User {
@@ -130,11 +130,11 @@ class Game {
   Block getRandomBlock() {
 	  Random random = new Random();
 	  int index = random.nextInt(this.getBlocks().size());
-	  
+
 	  return this.getBlock(index);
   }
-   
-  
+
+
    public int maxNumberOfHorizontalBlocks(){            	                     
  	                  int maxNumberOfHorizontalBlocks = 0;   
  	                  int spaceForBlocks = Game.PLAY_AREA_SIDE - 2* Game.WALL_PADDING;	                  
