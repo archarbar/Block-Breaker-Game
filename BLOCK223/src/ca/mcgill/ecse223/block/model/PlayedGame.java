@@ -96,13 +96,7 @@ public class PlayedGame implements Serializable
           throw new RuntimeException("Unable to create playedGame due to game");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 142 "../../../../../Block223PlayMode.ump"
-    boolean didAddGameResult = setGame(aGame);
-          if (!didAddGameResult)
-          {
-             throw new RuntimeException("Unable to create playedGame due to game");
-          }
-    // END OF UMPLE BEFORE INJECTION
+       
     score = 0;
     lives = NR_LIVES;
     currentLevel = 1;
@@ -1008,11 +1002,6 @@ public class PlayedGame implements Serializable
 
 			return null;
 	  }
-
-  // line 109 "../../../../../Block223States.ump"
-   private void bounceBall(){
-    double xBallFuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
-  }
 
   // line 109 "../../../../../Block223States.ump"
    private void bounceBall(){
