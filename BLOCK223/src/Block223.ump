@@ -230,16 +230,25 @@ class BlockAssignment {
    depend ca.mcgill.ecse223.block.application.*;
    Integer gridHorizontalPosition;
    Integer gridVerticalPosition;
-   Game currentGame = Block223Application.getCurrentGame();
-   before setGridVerticalPosition {
+   
+   before constructor {
+           if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
+            	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
+            	    }
+            if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
+            	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
+            	    }
+   }
+   
+   before setGridVerticalPosition{
    	     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
- 	    	throw new RuntimeException("The vertical position must be between 1 and " + currentGame.maxNumberOfVerticalBlocks() + ".");
+ 	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
  	    }
    }
    
    before setGridHorizontalPosition{
          if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
-	    	throw new RuntimeException("The vertical horizontal must be between 1 and " + currentGame.maxNumberOfHorizontalBlocks() + ".");
+	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
 	    }
    }
    * -- 1 Level level;
