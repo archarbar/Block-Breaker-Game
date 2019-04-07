@@ -411,7 +411,6 @@ public class Block223Controller {
 		//System.out.println(newBlockAssignment.getMaxHorizontalGridPosition());
 		try {
 			BlockAssignment newBlockAssignment = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
-			System.out.println("Positionned a block");
 		}
 		catch (RuntimeException e) {
 			error = e.getMessage();
