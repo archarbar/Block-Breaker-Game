@@ -92,6 +92,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private JLabel numberOfLives;
 	private JPanel contentPane;
 	private JLabel displayHOF;
 	private JLabel currentGameName;
@@ -1983,7 +1984,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		JLabel numberOfLives = new JLabel("Lives:");
+		numberOfLives = new JLabel("Lives:");
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
@@ -2023,6 +2024,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		this.setVisible(false);
 	}
 	
+	private void updateLives() {
+		numberOfLives.setText()
+	}
+	
 	private void displayHOF() {
 		error = "ello";
 		
@@ -2049,7 +2054,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //		for(TOHallOfFameEntry entry: Hof.getEntries()) {
 //			
 //		}
-		currentGameName.setText("Current game:" + HOF.getGamename() );
+		currentGameName.setText("Current game: " + HOF.getGamename() );
 		displayHOF.setText(error);
 		
 	}
