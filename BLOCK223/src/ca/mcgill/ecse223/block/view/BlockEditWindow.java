@@ -1748,7 +1748,7 @@ public class BlockEditWindow extends JFrame {
 		toBlockComboBox = new JComboBox();
 		toBlockComboBox.setBounds(563, 224, 123, 20);
 		contentPane.add(toBlockComboBox);
-		toBlockComboBox.setModel(new DefaultComboBoxModel(new String[] {"1 - Block1", "2 - Blockred", "3-as;dklja", "4-asdkaod", "5-", "asdasjkd", "5", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1!!1!", "1", "1"}));
+		toBlockComboBox.setModel(new DefaultComboBoxModel(new String[] {"Blocks"}));
 		toBlockComboBox.setToolTipText("Select a block");
 
 		JLabel lblListOfBlocks_1 = new JLabel("List of Level Blocks:");
@@ -1765,7 +1765,7 @@ public class BlockEditWindow extends JFrame {
 		contentPane.add(levelComboBox);
 
 		toGridCellComboBox = new JComboBox();
-		toGridCellComboBox.setModel(new DefaultComboBoxModel(new String[] {"1- Block1asWELL"}));
+		toGridCellComboBox.setModel(new DefaultComboBoxModel(new String[] {"CurrentLevelBlocks"}));
 		toGridCellComboBox.setBounds(563, 364, 123, 20);
 		contentPane.add(toGridCellComboBox);
 
@@ -1783,14 +1783,7 @@ public class BlockEditWindow extends JFrame {
 				positionBlockButtonActionPerformed(evt);
 			}
 		});
-//		positionBlockButton.setBounds(430, 224, 123, 23);
 
-//		JButton positionBlockButton = new JButton("Position Block");
-//		positionBlockButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				positionBlockButtonActionPerformed(e);
-//			}
-//		});
 		positionBlockButton.setBounds(432, 257, 123, 23);
 		contentPane.add(positionBlockButton);
 
@@ -1830,7 +1823,7 @@ public class BlockEditWindow extends JFrame {
 
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+			public void actionPerformed(ActionEvent evt) {
 				saveButtonActionPerformed(evt);
 			}
 		});
@@ -1901,12 +1894,12 @@ public class BlockEditWindow extends JFrame {
 		panel_121.add(formattedTextField_7);
 
 		xPositionComboBox = new JComboBox();
-		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "6", "7", "8", "8", "9", "10", "11", "12", "13", "14", "15"}));
+		xPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"HorizontalPosition"}));
 		xPositionComboBox.setBounds(563, 293, 123, 22);
 		contentPane.add(xPositionComboBox);
 
 		yPositionComboBox = new JComboBox();
-		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8"}));
+		yPositionComboBox.setModel(new DefaultComboBoxModel(new String[] {"VerticalPosition"}));
 		yPositionComboBox.setBounds(563, 328, 123, 23);
 		contentPane.add(yPositionComboBox);
 
@@ -2263,34 +2256,43 @@ public class BlockEditWindow extends JFrame {
 	}
 	private void positionBlockButtonActionPerformed(ActionEvent evt) {
 		String error = "";
-		int selectedBlock = toBlockComboBox.getSelectedIndex();
-		int level = levelComboBox.getSelectedIndex();
-		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
-		System.out.println(newGridHorizontalPosition);
-		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
-		System.out.println(newGridVerticalPosition);
+		
+		int selectedBlock = toBlockComboBox.getSelectedIndex();		
 		if (selectedBlock < 0) {
-		error = "Block needs to be selected in order to placed in the game!";}
+		error = "Block needs to be selected in order to place it in the game!";
+		}
+		
+		int level = levelComboBox.getSelectedIndex();
+		if (level < 0) {
+		error = error + "A level needs to be selected for block! ";
+		}
+		
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex() + 1;
+		//this gives me the index which means if I select y=1 , the actual value is 0 so we need to add + 1 
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex() + 1;
+
 
 		//int selectedAssignment = selectedBlock.getId(); //replace assignmentlist par JPanel list?? CA VA ETRE LE PANEL QUI VA ETRE CHOISI
-		if (level < 0) {
-		error = error + "A level needs to be selected for block! ";}
+
 		if (newGridHorizontalPosition < 0) {
 		error = error + "A horizontal grid position needs to be selected for block!";}
 		if (newGridVerticalPosition < 0) {
 		error = error + "A vertical grid position needs to be selected for block!";}
 
 		error = error.trim();
+		
+		if(error.length() > 0) {
+			JOptionPane.showMessageDialog(null, error);
+		}
 
 		if (error == "") {
-		try {
-			Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
-			System.out.println("succesfully positioned block");
-			
+			try {
+				Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
+				JOptionPane.showMessageDialog(null, "Successfully positionned block at x: " + newGridHorizontalPosition + " and y: " + newGridVerticalPosition);
+			} catch (InvalidInputException e) {
+				error = e.getMessage();
+				JOptionPane.showMessageDialog(null, error);
 			}
-		catch (InvalidInputException e) {
-			System.out.println(e);
-		}
 	}
 		//update visuals
 		refreshData();
@@ -2376,7 +2378,7 @@ public class BlockEditWindow extends JFrame {
 			}
 			for (TOGridCell gridCell : toGridCells) {
 			gridCells.put(index, gridCell);
-			toGridCellComboBox.addItem("Grid ID:" + gridCell.getId() + "x : " + gridCell.getGridHorizontalPosition() + "y : " + gridCell.getGridVerticalPosition());
+			toGridCellComboBox.addItem("Grid ID: " + gridCell.getId() + " x: " + gridCell.getGridHorizontalPosition() + " y: " + gridCell.getGridVerticalPosition());
 			}
 		
 			gridHorizontalPosition = new HashMap<Integer, Integer>();
