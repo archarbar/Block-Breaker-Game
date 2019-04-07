@@ -78,6 +78,10 @@ import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.JTextField;
 import acm.graphics.GRectangle;
+import javafx.scene.shape.CircleBuilder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.BevelBorder;
+import javafx.scene.shape.Circle;
 
 public class Block223PlayMode extends JFrame implements Block223PlayModeInterface {
 	/**
@@ -223,13 +227,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JLabel lblPrevious;
 	private JLabel lblNext;
 	/**
-	 * @wbp.nonvisual location=233,344
+	 * @wbp.nonvisual location=51,374
 	 */
-	private final GOval oval = new GOval(0.0, 0.0);
-	/**
-	 * @wbp.nonvisual location=215,424
-	 */
-	private final GRectangle rectangle = new GRectangle();
 	/**
 	 * Launch the application.
 	 */
@@ -250,12 +249,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 * Create the frame.
 	 */
 	public Block223PlayMode() {
-		oval.setColor(Color.RED);
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 710, 574);
 
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(192, 192, 192));
 		setJMenuBar(menuBar);
 
 		JMenu mnUser = new JMenu("User");
@@ -270,15 +269,17 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		
 		mnUser.add(mntmLogout);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(176, 224, 230));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255)));
+		panel.setForeground(Color.WHITE);
 		panel.setBounds(30, 30, 390, 390);
 		panel.setAlignmentX(0.0f);
 		panel.setAlignmentY(0.0f);
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(176, 196, 222));
 		
 //		deleteBlockButton = new JButton("Delete Block");
 //		deleteBlockButton.addActionListener(new ActionListener() {
@@ -292,6 +293,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //		lblListOfBlocks.setBounds(432, 227, 139, 14);
 		panel.setLayout(null);
 
+//		panel.add(oval);
+//		panel.add(rectangle);
+		
 		panel_1_1 = new JPanel();
 		panel_1_1.setBounds(10, 10, 20, 20);
 		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1753,12 +1757,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 		JPanel panel_121 = new JPanel();
 		panel_121.setBorder(null);
-		panel_121.setBackground(Color.WHITE);
+		panel_121.setBackground(new Color(230, 230, 250));
 		panel_121.setBounds(10, 30, 20, 390);
 		contentPane.add(panel_121);
 		panel_121.setLayout(null);
 
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
+		formattedTextField_1.setBackground(new Color(230, 230, 250));
 		formattedTextField_1.setBorder(null);
 		formattedTextField_1.setBounds(0, 10, 20, 20);
 		panel_121.add(formattedTextField_1);
@@ -1766,6 +1771,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_1.setText("1");
 
 		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBackground(new Color(230, 230, 250));
 		formattedTextField.setText("8");
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField.setBorder(null);
@@ -1773,6 +1779,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField);
 
 		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
+		formattedTextField_2.setBackground(new Color(230, 230, 250));
 		formattedTextField_2.setText("7");
 		formattedTextField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_2.setBorder(null);
@@ -1780,6 +1787,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_2);
 
 		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
+		formattedTextField_3.setBackground(new Color(230, 230, 250));
 		formattedTextField_3.setText("6");
 		formattedTextField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_3.setBorder(null);
@@ -1787,6 +1795,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_3);
 
 		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
+		formattedTextField_4.setBackground(new Color(230, 230, 250));
 		formattedTextField_4.setText("5");
 		formattedTextField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_4.setBorder(null);
@@ -1794,6 +1803,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_4);
 
 		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
+		formattedTextField_5.setBackground(new Color(230, 230, 250));
 		formattedTextField_5.setText("4");
 		formattedTextField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_5.setBorder(null);
@@ -1801,6 +1811,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_5);
 
 		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
+		formattedTextField_6.setBackground(new Color(230, 230, 250));
 		formattedTextField_6.setText("3");
 		formattedTextField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_6.setBorder(null);
@@ -1808,6 +1819,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_6);
 
 		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
+		formattedTextField_7.setBackground(new Color(230, 230, 250));
 		formattedTextField_7.setText("2");
 		formattedTextField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField_7.setBorder(null);
@@ -1815,7 +1827,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_121.add(formattedTextField_7);
 		
 		JPanel panel_122 = new JPanel();
-		panel_122.setBackground(Color.WHITE);
+		panel_122.setBackground(new Color(230, 230, 250));
 		panel_122.setBorder(null);
 		panel_122.setBounds(30, 10, 390, 20);
 		contentPane.add(panel_122);
@@ -1962,10 +1974,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panelList.add(panel_4_1);
 		
 		BasicArrowButton nextHOF = new BasicArrowButton(0);
+		nextHOF.setBackground(new Color(192, 192, 192));
 		nextHOF.setBounds(615, 385, 40, 35);
 		contentPane.add(nextHOF);
 		
 		BasicArrowButton previousHOF = new BasicArrowButton(0);
+		previousHOF.setBackground(new Color(192, 192, 192));
 		previousHOF.setBounds(477, 385, 40, 35);
 		contentPane.add(previousHOF);
 		
