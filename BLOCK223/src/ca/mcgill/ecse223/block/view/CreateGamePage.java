@@ -38,11 +38,11 @@ public class CreateGamePage extends JFrame {
 	 */
 	private static final long serialVersionUID = 6791018688197203010L;
 	private JPanel contentPane;
-	private JTextField GameNameTextField;
-	private JTextField GameName;
+	private JTextField createGameTextField;
+	private JTextField updateGameTextField;
 
 	private String error = null;
-	private JTextField textField;
+	private JTextField testGameTextField;
 
 	/**
 	 * Launch the application.
@@ -105,10 +105,10 @@ public class CreateGamePage extends JFrame {
 		lblGameName.setBounds(20, 46, 81, 14);
 		contentPane.add(lblGameName);
 		
-		GameNameTextField = new JTextField();
-		GameNameTextField.setBounds(127, 44, 86, 20);
-		contentPane.add(GameNameTextField);
-		GameNameTextField.setColumns(10);
+		createGameTextField = new JTextField();
+		createGameTextField.setBounds(127, 44, 86, 20);
+		contentPane.add(createGameTextField);
+		createGameTextField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Create Game");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -154,10 +154,10 @@ public class CreateGamePage extends JFrame {
 		btnDeleteGame.setBounds(360, 144, 112, 23);
 		contentPane.add(btnDeleteGame);
 
-		GameName = new JTextField();
-		GameName.setColumns(10);
-		GameName.setBounds(127, 147, 86, 20);
-		contentPane.add(GameName);
+		updateGameTextField = new JTextField();
+		updateGameTextField.setColumns(10);
+		updateGameTextField.setBounds(127, 147, 86, 20);
+		contentPane.add(updateGameTextField);
 		
 		//Separator 2
 		
@@ -182,10 +182,10 @@ public class CreateGamePage extends JFrame {
 		label.setBounds(10, 256, 114, 14);
 		contentPane.add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(127, 254, 86, 20);
-		contentPane.add(textField);
+		testGameTextField = new JTextField();
+		testGameTextField.setColumns(10);
+		testGameTextField.setBounds(127, 254, 86, 20);
+		contentPane.add(testGameTextField);
 		
 		JButton btnStartGame = new JButton("Start Game\r\n");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -200,7 +200,7 @@ public class CreateGamePage extends JFrame {
 	
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String name = GameNameTextField.getText();
+		String name = createGameTextField.getText();
 		try {
 			Block223Controller.createGame(name);
 			GamePage gameSettings = new GamePage();
@@ -215,7 +215,7 @@ public class CreateGamePage extends JFrame {
 	
 	private void updateGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String name = GameName.getText();
+		String name = updateGameTextField.getText();
 		try {
 			Block223Controller.selectGame(name);
 			UpdateGame gameSettings = new UpdateGame();
@@ -230,7 +230,7 @@ public class CreateGamePage extends JFrame {
 	
 	private void deleteGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String name = GameName.getText();
+		String name = updateGameTextField.getText();
 		try {
 			Block223Controller.selectGame(name);
 			Block223Controller.deleteGame(name);
@@ -243,8 +243,10 @@ public class CreateGamePage extends JFrame {
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
+		String name = testGameTextField.getText();
 		try {
 			Block223PlayMode playingUI = new Block223PlayMode();
+			Block223Controller.selectGame(name);
 			Block223Controller.testGame(playingUI);
 			playingUI.setVisible(true);
 			this.setVisible(false);
