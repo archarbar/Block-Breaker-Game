@@ -82,6 +82,7 @@ import javafx.scene.shape.CircleBuilder;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 import javafx.scene.shape.Circle;
+import javafx.geometry.Rectangle2D;
 
 public class Block223PlayMode extends JFrame implements Block223PlayModeInterface {
 	/**
@@ -90,20 +91,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private JButton createBlockButton;
-	private JButton deleteBlockButton;
-
 	// data elements
 	private String error = "";
 	//blocks
-	private HashMap<Integer, TOBlock> blocks;
-	//grid cells
-	private HashMap<Integer, TOGridCell> gridCells;
-	//games
-	private HashMap<Integer, TOGame> games;
-	private HashMap<Integer, Integer> levels;
-	private HashMap<Integer, Integer> gridHorizontalPosition;
-	private HashMap<Integer, Integer> gridVerticalPosition;
 	private JPanel panel_1_1;
 	private JPanel panel_1_2;
 	private JPanel panel_1_3;
@@ -226,12 +216,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	ArrayList<JPanel> panelList;
 	private JLabel lblPrevious;
 	private JLabel lblNext;
-	/**
-	 * @wbp.nonvisual location=51,374
-	 */
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -301,6 +286,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setPreferredSize(new Dimension(20, 20));
+		panel_1_1.setVisible(false);
 		panel.add(panel_1_1);
 		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
 		gbl_panel_1_1.columnWidths = new int[]{0, 0};
