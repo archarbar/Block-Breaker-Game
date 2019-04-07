@@ -103,18 +103,86 @@ class PlayedGame {
 	   return bouncePoint;
   }
   
-  private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
-    Rectangle2D blockRect = new Rectangle2D.Double();
-		Line2D l = new Line2D.Double();
-		ArrayList<BouncePoint> intersect = new ArrayList<>();
-		int counter = 0;
-		l.setLine(getCurrentBallX(), getCurrentBallY(), getCurrentBallX() + ballDirectionX,
-				getCurrentBallY() + ballDirectionY);
-		math.geom2d.line.Line2D l1= new math.geom2d.line.Line2D(getCurrentBallX(), getCurrentBallY(), getCurrentBallX() + ballDirectionX,
-				getCurrentBallY() + ballDirectionY);
-
-		blockRect.setFrame(pblock.getX()- Ball.BALL_DIAMETER / 2, pblock.getY() - Ball.BALL_DIAMETER / 2,  Block.SIZE+pblock.getX() + Ball.BALL_DIAMETER/2,
-				pblock.getY() + Ball.BALL_DIAMETER/2+Block.SIZE);
+  private double currentBlockLength;
+  private double currentBlockHeight;
+  private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment block){
+	   BouncePoint bouncePointBlock = null;
+	   Point bouncePosition;
+	   double ballRadius = Ball.BALL_DIAMETER/2;
+	   double blockHeight = Block.SIZE;
+	   double blockLength = Block.SIZE;
+	   double blockX = this.currentBlockLength;
+	   double blockY = this.currentBlockHeight;
+	   double xBall = this.currentBallX;
+	   double yBall = this.currentBallY;
+	   double xBallFuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
+	   double yBallFuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
+	   Rectangle2D.Double blockRect = new Rectangle2D.Double(blockX, blockY, blockLength, blockHeight);
+	   boolean intersect = blockRect.intersectsLine(xBall, yBall, xBallFuture, yBallFuture);
+	   if(!intersect) {
+		   return bouncePointBlock;
+	   }
+	   else{
+		   Ellipse2D.Double ellipseTopLeftE = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius, blockY - ballRadius);
+		   Ellipse2D.Double ellipseBottomLeftG = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius, blockY + blockHeight + ballRadius);
+		   Ellipse2D.Double ellipseBottomRightH = new Ellipse2D.Double(ballRadius, ballRadius, blockX + blockLength + ballRadius, blockY + blockHeight + ballRadius);
+		   Ellipse2D.Double ellipseTopRightF = new Ellipse2D.Double(ballRadius, ballRadius, blockX +blockLength + ballRadius, blockY - ballRadius);
+		   Line2D.Double lineTop = new Line2D.Double(blockX - ballRadius, blockY - ballRadius, blockX + blockLength + ballRadius, blockY - ballRadius);
+		   Line2D.Double lineLeft = new Line2D.Double(blockX - ballRadius, blockY - ballRadius, blockX - ballRadius, blockY + blockHeight + ballRadius);
+		   Line2D.Double lineBottom = new Line2D.Double(blockX - ballRadius, blockY - blockHeight - ballRadius, blockX + blockLength + ballRadius, blockY - blockHeight - ballRadius);
+		   Line2D.Double lineRight = new Line2D.Double(blockX + blockLength + ballRadius, blockY - ballRadius, blockX + blockLength + ballRadius, blockY + blockHeight + ballRadius);
+		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
+		   if(lineTop.intersectsLine(lineBallPath)) {
+			   bouncePosition = getLineIntersection(lineBallPath, lineTop);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+		   }
+		   else if(lineLeft.intersectsLine(lineBallPath)){
+			   bouncePosition = getLineIntersection(lineBallPath, lineLeft);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+		   }
+		   else if(lineBottom.intersectsLine(lineBallPath)){
+			   bouncePosition = getLineIntersection(lineBallPath, lineBottom);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+		   }
+		   else if(lineRight.intersectsLine(lineBallPath)){
+			   bouncePosition = getLineIntersection(lineBallPath, lineRight);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+		   }
+		   else if(ellipseTopLeftE.contains(xBallFuture, yBallFuture)) {
+			   if(xBall < xBallFuture) {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   }
+			   else {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   }
+		   }
+		   else if(ellipseBottomLeftG.contains(xBallFuture, yBallFuture)) {
+			   if(xBall < xBallFuture) {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   }
+			   else {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   }
+		   }
+		   else if(ellipseBottomRightH.contains(xBallFuture, yBallFuture)) {
+			   if(xBall < xBallFuture) {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   }
+			   else {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   }
+		   }
+		   else if(ellipseTopRightF.contains(xBallFuture, yBallFuture)) {
+			   if(xBall < xBallFuture) {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   }
+			   else {
+				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   }
+		   }
+	   }
+	   return bouncePointBlock;
+	   
    }
 
 
