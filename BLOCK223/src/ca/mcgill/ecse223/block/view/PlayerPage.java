@@ -12,13 +12,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.PlayedGame;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class PlayerPage extends JFrame {
 
@@ -109,8 +114,10 @@ public class PlayerPage extends JFrame {
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = GameName.getText();
+		Random random = new Random();
+		int id = random.nextInt(100);
 		try {
-			Block223Controller.selectGame(name);
+			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
 			playingUI.setVisible(true);
 			this.setVisible(false);
