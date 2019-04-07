@@ -259,10 +259,7 @@ public class Block223Controller {
 					}
 				}
 					try {
-						Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);
-						System.out.println("TRIED IN ADD BLOCK TO ADD");
-						//currentGame.addBlock(aRed, aGreen, aBlue, aPoints);
-		
+						Block block = new Block(aRed, aGreen, aBlue, aPoints, currentGame);		
 					}
 					catch (RuntimeException e) {
 						throw new InvalidInputException(e.getMessage());
@@ -506,21 +503,15 @@ public class Block223Controller {
 		}
 		Level currentLevel;
 		try {
-			currentLevel = game.getLevel(level-1);
+			currentLevel = game.getLevel(level - 1);
 		}
 		catch (IndexOutOfBoundsException e) {
-			error = e.getMessage();
-			if (error.equals("the index is out of range(index < 0 || index >= size())")) {
-				error = "Level" + level + "does not exist for the game.";
-			}
-			throw new InvalidInputException(error);
+			throw new InvalidInputException("Level " + level + " does not exist for the game.");
 		}
 		BlockAssignment assignment = currentLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
 		if(assignment != null){
 			assignment.delete();
 		}
-
-
 	}
 
 	public static void saveGame() throws InvalidInputException {
