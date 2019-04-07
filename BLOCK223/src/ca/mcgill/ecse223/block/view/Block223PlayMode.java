@@ -80,7 +80,6 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.JTextField;
-import acm.graphics.GRectangle;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 import javafx.scene.shape.Circle;
@@ -2026,31 +2025,39 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private void displayHOF() {
 		error = "ello";
 		
-//		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, Hof);
-//		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, Hof);
-//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, Hof);
-//		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, Hof);
-//		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, Hof);
-//		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, Hof);
+		
+		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
+		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, randomHOF);
+		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
+		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, randomHOF);
+		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
+		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
+		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
 //		
-
+//test it by creating a random hall of fame 
+		
+	
+//		System.out.println(randomHOF);
 		
 		//set
 		//Hof.getGamename();
 		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
-		try {
-			HOF = Block223Controller.getHallOfFame(1, 100);
-		} catch (InvalidInputException e ) {
-			error = e.getMessage();
-			JOptionPane.showMessageDialog(null, error);
-		}
-		
-//		
-//		for(TOHallOfFameEntry entry: Hof.getEntries()) {
-//			
+//		try {
+//			HOF = Block223Controller.getHallOfFame(1, 100);
+//		} catch (InvalidInputException e ) {
+//			error = e.getMessage();
+//			JOptionPane.showMessageDialog(null, error);
 //		}
-		currentGameName.setText("Current game:" + HOF.getGamename() );
-		displayHOF.setText(error);
+//		
+		String hallOfFame = "";
+		
+		for(TOHallOfFameEntry entry: randomHOF.getEntries()) {
+			hallOfFame += entry.getPosition() + entry.getPlayername() + entry.getScore() + "/n" ;			
+		}
+//		
+		currentGameName.setText("Current game:" + randomHOF.getGamename() );
+		displayHOF.setText(hallOfFame);
+		
 		
 	}
 
