@@ -12,11 +12,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import acm.program.GraphicsProgram;
+import acm.graphics.GOval;
+
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.TOHallOfFame;
+import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.BorderLayout;
@@ -88,6 +93,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
+	private JLabel displayHOF;
+	private JLabel currentGameName;
 	// data elements
 	private String error = "";
 	//blocks
@@ -214,6 +221,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JLabel lblPrevious;
 	private JLabel lblNext;
 
+	private TOHallOfFame HOF;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -283,7 +292,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setPreferredSize(new Dimension(20, 20));
-		panel_1_1.setVisible(false);
+		//panel_1_1.setVisible(false);
 		panel.add(panel_1_1);
 		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
 		gbl_panel_1_1.columnWidths = new int[]{0, 0};
@@ -1970,29 +1979,29 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		JLabel lblLives = new JLabel("Level: ");
-		lblLives.setBounds(468, 14, 83, 16);
-		contentPane.add(lblLives);
+		JLabel currentLevel = new JLabel("Level: ");
+		currentLevel.setBounds(468, 14, 83, 16);
+		contentPane.add(currentLevel);
 		
-		JLabel lblLives_1 = new JLabel("Lives:");
-		lblLives_1.setBounds(563, 14, 83, 16);
-		contentPane.add(lblLives_1);
+		JLabel numberOfLives = new JLabel("Lives:");
+		numberOfLives.setBounds(563, 14, 83, 16);
+		contentPane.add(numberOfLives);
 		
-		JLabel lblScore = new JLabel("Score:");
-		lblScore.setBounds(468, 45, 83, 16);
-		contentPane.add(lblScore);
+		JLabel playerScore = new JLabel("Score:");
+		playerScore.setBounds(468, 45, 83, 16);
+		contentPane.add(playerScore);
 		
 		JLabel lblHallOfFame = new JLabel("Hall Of Fame:");
 		lblHallOfFame.setBounds(469, 88, 186, 16);
 		contentPane.add(lblHallOfFame);
 		
-		JLabel lblCurrentgame = new JLabel("Current game:");
-		lblCurrentgame.setBounds(469, 118, 186, 16);
-		contentPane.add(lblCurrentgame);
+		currentGameName = new JLabel("Current game:");
+		currentGameName.setBounds(469, 118, 186, 16);
+		contentPane.add(currentGameName);
 		
-		JLabel lblDisplayHallOf = new JLabel("DISPLAY HALL OF FAME");
-		lblDisplayHallOf.setBounds(464, 140, 202, 232);
-		contentPane.add(lblDisplayHallOf);
+		displayHOF = new JLabel();
+		displayHOF.setBounds(464, 140, 202, 232);
+		contentPane.add(displayHOF);
 		
 		lblPrevious = new JLabel("Previous");
 		lblPrevious.setBounds(472, 433, 61, 16);
@@ -2001,13 +2010,48 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext = new JLabel("Next");
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
+		
+		
+		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
+		
 	}
 	
-	private void mntmLogOutActionPerformed(ActionEvent evt) {//Mettre le LOGOUT A TONY IL EST MIEUX
+	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
 		loginpage.setVisible(true);
 		this.setVisible(false);
+	}
+	
+	private void displayHOF() {
+		error = "ello";
+		
+//		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, Hof);
+//		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, Hof);
+//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, Hof);
+//		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, Hof);
+//		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, Hof);
+//		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, Hof);
+//		
+
+		
+		//set
+		//Hof.getGamename();
+		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
+		try {
+			HOF = Block223Controller.getHallOfFame(1, 100);
+		} catch (InvalidInputException e ) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		
+//		
+//		for(TOHallOfFameEntry entry: Hof.getEntries()) {
+//			
+//		}
+		currentGameName.setText("Current game:" + HOF.getGamename() );
+		displayHOF.setText(error);
+		
 	}
 
 
