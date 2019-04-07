@@ -135,7 +135,8 @@ class PlayedGame {
   	else{
   	 return false;
   	}
-  }   
+  }
+  }
 }
 
 class PlayedBlockAssignment {

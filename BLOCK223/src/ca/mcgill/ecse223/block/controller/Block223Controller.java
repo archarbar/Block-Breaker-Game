@@ -854,13 +854,24 @@ public class Block223Controller {
 	
 	public static void updatePaddlePosition(String userInputs) {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		double x = currentPlayedGame.getCurrentPaddleX();
 		for (int i = 0; i < userInputs.length(); i++) {
+			double x = currentPlayedGame.getCurrentPaddleX();
 			if (userInputs.charAt(i) == 'l') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				if (x <= 4) { //since it moves by 5 pixels, if x is at 4, it will be at -1 if it moves left
+					continue;
+				}
+				else {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				}
 			}
 			else if (userInputs.charAt(i) == 'r') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				if ((Game.PLAY_AREA_SIDE - 2*Game.WALL_PADDING) - x <= 4) {
+					//since it moves by 5 pixels, if x is at 4 pixels from the wall, it will be 1 pixel outside the wall if it moves right
+					continue;
+				}
+				else {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				}
 			}
 		}
 	}
@@ -903,6 +914,8 @@ public class Block223Controller {
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
 			Block223Application.setCurrentPlayableGame(null);
+			Block223 block223 = Block223Application.getBlock223();
+			Block223Persistence.save(block223);
 		}
 		else if (game.getPlayer() != null) {
 			game.setBounce(null);

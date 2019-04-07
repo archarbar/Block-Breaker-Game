@@ -780,21 +780,21 @@ public class PlayedGame implements Serializable
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
+			   }
 		   }
 		   else if(lineBallPath.intersectsLine(topWall)){
 			   bouncePosition = getLineIntersection(lineBallPath, topWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
+			   }
 		   }
 		   else if(lineBallPath.intersectsLine(rightWall)) {
 			   bouncePosition = getLineIntersection(lineBallPath, rightWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
+			   }
 		   }
 	   }
 	   return bouncePoint;
@@ -889,9 +889,10 @@ public class PlayedGame implements Serializable
 	   return bouncePoint;
   }
 
-  // line 109 "../../../../../Block223States.ump"
-   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment block){
-    BouncePoint bouncePointBlock = null;
+   private double currentBlockLength;
+   private double currentBlockHeight;
+   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
+	   BouncePoint bouncePointBlock = null;
 	   Point bouncePosition;
 	   double ballRadius = Ball.BALL_DIAMETER/2;
 	   double blockHeight = Block.SIZE;
@@ -967,7 +968,9 @@ public class PlayedGame implements Serializable
 		   }
 	   }
 	   return bouncePointBlock;
-  }
+
+   }
+
 
   // line 190 "../../../../../Block223States.ump"
    private void bounceBall(){
@@ -1022,10 +1025,10 @@ public class PlayedGame implements Serializable
   // line 239 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
     boolean outOfBounds = false;
-    
+
     if (lives == 1){
     	outOfBounds = this.isBallOutOfBounds();
-    }	
+    }
     return outOfBounds;
   }
 
@@ -1060,7 +1063,7 @@ public class PlayedGame implements Serializable
     		PlayedBlockAssignment block = this.getBlock(0);
     		BouncePoint bp = this.calculateBouncePointBlock(block);
     		this.setBounce(bp);
-    		return bp != null;	
+    		return bp != null;
     	}
     return false;
   }
@@ -1074,10 +1077,10 @@ public class PlayedGame implements Serializable
     		BouncePoint bp = this.calculateBouncePointBlock(block);
     		BouncePoint bounce = this.getBounce();
     		boolean closer = this.isCloser(bp, bounce);
-    		
+
     		if(closer){
     			this.setBounce(bp);
-    		}   		
+    		}
     	}
     	return this.getBounce() != null;
   }
@@ -1256,10 +1259,7 @@ public class PlayedGame implements Serializable
   
   // line 107 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 8597675110221231714L ;
-// line 106 "../../../../../Block223States.ump"
-  private double currentBlockLength ;
-// line 107 "../../../../../Block223States.ump"
-  private double currentBlockHeight ;
+
 
   
 }
