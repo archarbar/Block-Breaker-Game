@@ -3,9 +3,10 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
+import ca.mcgill.ecse223.block.application.*;
 
 // line 86 "../../../../../Block223Persistence.ump"
-// line 238 "../../../../../Block223.ump"
+// line 235 "../../../../../Block223.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -28,11 +29,11 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 244 "../../../../../Block223.ump"
+    // line 241 "../../../../../Block223.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > aGame.maxNumberOfHorizontalBlocks()) {
                 	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + aGame.maxNumberOfHorizontalBlocks());
                 	    }
-    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
+                if (aGridVerticalPosition <= 0 || aGridVerticalPosition > aGame.maxNumberOfVerticalBlocks()) {
                 	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + aGame.maxNumberOfVerticalBlocks());
                 	    }
     // END OF UMPLE BEFORE INJECTION
@@ -62,7 +63,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 250 "../../../../../Block223.ump"
+    // line 256 "../../../../../Block223.ump"
     if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > game.maxNumberOfHorizontalBlocks()) {
     	    	throw new RuntimeException("GridHorizontalPosition can't be negative or greater than " + game.maxNumberOfHorizontalBlocks());
     	    }
@@ -75,7 +76,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 244 "../../../../../Block223.ump"
+    // line 250 "../../../../../Block223.ump"
     if (aGridVerticalPosition <= 0 || aGridVerticalPosition > game.maxNumberOfVerticalBlocks()) {
      	    	throw new RuntimeException("GridVerticalPosition can't be negative or greater than " + game.maxNumberOfVerticalBlocks());
      	    }
