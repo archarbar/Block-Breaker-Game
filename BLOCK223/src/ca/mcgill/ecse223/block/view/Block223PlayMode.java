@@ -2024,7 +2024,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	
 	private void displayHOF() {
 		error = "ello";
-		
+		int start = 0;
+		int end;
 		
 		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
 		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, randomHOF);
@@ -2033,6 +2034,24 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
 		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
 		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
+		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 0, randomHOF);
+		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 0, randomHOF);
+		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 0, randomHOF);
+		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 0, randomHOF);
+		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, randomHOF);
+
+		randomHOF.addEntry(player1);
+		randomHOF.addEntry(player2);
+		randomHOF.addEntry(player3);
+		randomHOF.addEntry(player4);
+		randomHOF.addEntry(player5);
+		randomHOF.addEntry(player6);
+		randomHOF.addEntry(player7);
+		randomHOF.addEntry(player8);
+		randomHOF.addEntry(player9);
+		randomHOF.addEntry(player10);
+		randomHOF.addEntry(player11);
+		
 //		
 //test it by creating a random hall of fame 
 		
@@ -2043,18 +2062,26 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		//Hof.getGamename();
 		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
 //		try {
-//			HOF = Block223Controller.getHallOfFame(1, 100);
+//			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
 //		} catch (InvalidInputException e ) {
 //			error = e.getMessage();
 //			JOptionPane.showMessageDialog(null, error);
 //		}
 //		
+		if(randomHOF.numberOfEntries() > 10) {
+			end = 10;
+		} else {
+			end = randomHOF.numberOfEntries();
+		}
+		
 		String hallOfFame = "";
 		
-		for(TOHallOfFameEntry entry: randomHOF.getEntries()) {
-			hallOfFame += entry.getPosition() + entry.getPlayername() + entry.getScore() + "/n" ;			
+		if(randomHOF.numberOfEntries() > 0) {
+		for (int index = 0; index < end; index++) {
+			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;	
+			}
 		}
-//		
+				
 		currentGameName.setText("Current game:" + randomHOF.getGamename() );
 		displayHOF.setText(hallOfFame);
 		
