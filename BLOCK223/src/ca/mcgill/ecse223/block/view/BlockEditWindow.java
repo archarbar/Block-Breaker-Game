@@ -2165,9 +2165,8 @@ public class BlockEditWindow extends JFrame {
 			Block223Controller.addBlock(blockRedSlider.getValue(), blockGreenSlider.getValue(), blockBlueSlider.getValue(), pointsSlider.getValue());
 
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println(e);
+			String error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
 		}
 		refreshData();
 		
