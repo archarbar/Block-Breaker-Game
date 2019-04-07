@@ -2241,13 +2241,24 @@ public class BlockEditWindow extends JFrame {
 		if(gridCell < 0) {
 		error = "An existing block needs to be selected to be removed!";
 		}
+		
+		if (level < 0) {
+		error = error + "A level needs to be selected for block! ";
+		}
+		
+		error = error.trim();
+		
+		if(error.length() > 0) {
+			JOptionPane.showMessageDialog(null, error);
+		}
+
 
 		if(error == "") {
 			try {
-				Block223Controller.removeBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridHorizontalPosition());
+				Block223Controller.removeBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition());
 			} catch (InvalidInputException e) {
-				// TODO Auto-generated catch block
-				System.out.println(e);
+				error = e.getMessage();
+				JOptionPane.showMessageDialog(null, error);
 			}
 			//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
 		}
@@ -2303,10 +2314,11 @@ public class BlockEditWindow extends JFrame {
 
 		int gridCell = toGridCellComboBox.getSelectedIndex();
 		int level = levelComboBox.getSelectedIndex();
-		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex();
-		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex();
+		int newGridHorizontalPosition = xPositionComboBox.getSelectedIndex() + 1;
+		int newGridVerticalPosition = yPositionComboBox.getSelectedIndex() + 1;
+		
 		if (gridCell < 0) {
-		error = "An object needs to be selected in order to move it in the game!";}
+		error = "An existing block needs to be selected in order to move it in the game!";}
 		
 		if (level < 0) {
 		error = error + "A level needs to be selected for block! ";}
@@ -2314,10 +2326,20 @@ public class BlockEditWindow extends JFrame {
 		if (newGridVerticalPosition < 0){
 		error = error + "A new vertical position must be selected.";
 		}
+		
+		if (newGridHorizontalPosition < 0){
+		error = error + "A new horizontal position must be selected.";
+		}
 
+		error = error.trim();
+		
+		if(error.length() > 0) {
+			JOptionPane.showMessageDialog(null, error);
+		}
+		
 		if (error == "") {
 		try {
-			Block223Controller.moveBlock(level, gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridHorizontalPosition(),
+			Block223Controller.moveBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition(),
 					newGridHorizontalPosition,  newGridVerticalPosition);
 		}
 		catch (InvalidInputException e) {
@@ -2328,7 +2350,7 @@ public class BlockEditWindow extends JFrame {
 
 	private void refreshData() {
 
-		System.out.println(error.length());
+		//System.out.println(error.length());
 		error = "";
 		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
@@ -2339,7 +2361,6 @@ public class BlockEditWindow extends JFrame {
 			List<TOBlock> toBlocks = null;
 			try {
 				toBlocks = Block223Controller.getBlocksOfCurrentDesignableGame();
-				System.out.println(toBlocks);
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 				System.out.println(error);
@@ -2347,6 +2368,7 @@ public class BlockEditWindow extends JFrame {
 			for (TOBlock block : toBlocks) {
 				blocks.put(index, block);
 				toBlockComboBox.addItem("Block ID: " + block.getId());
+				index++;
 			}
 			toBlockComboBox.setSelectedIndex(-1);
 
@@ -2378,7 +2400,9 @@ public class BlockEditWindow extends JFrame {
 			for (TOGridCell gridCell : toGridCells) {
 			gridCells.put(index, gridCell);
 			toGridCellComboBox.addItem("Grid ID: " + gridCell.getId() + " x: " + gridCell.getGridHorizontalPosition() + " y: " + gridCell.getGridVerticalPosition());
+			index++;
 			}
+			toGridCellComboBox.setSelectedIndex(-1);
 		
 			gridHorizontalPosition = new HashMap<Integer, Integer>();
 			xPositionComboBox.removeAllItems();
@@ -2387,6 +2411,7 @@ public class BlockEditWindow extends JFrame {
 				gridHorizontalPosition.put(index, i);
 				xPositionComboBox.addItem(i);
 			}		
+			xPositionComboBox.setSelectedIndex(-1);
 			
 			gridVerticalPosition = new HashMap<Integer, Integer>();
 			yPositionComboBox.removeAllItems();
@@ -2395,7 +2420,7 @@ public class BlockEditWindow extends JFrame {
 				gridHorizontalPosition.put(index,i);
 				yPositionComboBox.addItem(i);
 			}
-			
+			yPositionComboBox.setSelectedIndex(-1);
 			
 			}
 		}
