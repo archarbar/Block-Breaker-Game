@@ -884,9 +884,9 @@ public class PlayedGame implements Serializable
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
 			   }
 		   }
-	    } else {
-			return null;
-		}
+	   }
+
+	   return bouncePoint;
   }
 
   // line 107 "../../../../../Block223States.ump"
@@ -1033,61 +1033,82 @@ public class PlayedGame implements Serializable
    */
   // line 240 "../../../../../Block223States.ump"
    private void doSetup(){
-    this.resetCurrentBallX();
+    // TODO implement
+	   this.resetCurrentBallX();
 	   this.resetCurrentBallY();
 	   this.resetBallDirectionX();
-	   this.resetBallDirectionY();	   
+	   this.resetBallDirectionY();
 	   this.resetCurrentPaddleX();
 	   Game game = this.getGame();
 	   Level level = game.getLevel(currentLevel - 1);
 	   List<BlockAssignment> assignments = level.getBlockAssignments();
-	   
 	   for(BlockAssignment a : assignments) {
-		   PlayedBlockAssignment pblock = new PlayedBlockAssignment(Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1),Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) * (a.getGridVerticalPosition() - 1), a.getBlock(),this);
+			 PlayedBlockAssignment pblock = new PlayedBlockAssignment(
+					 Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1),
+					 Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) * (a.getGridVerticalPosition() - 1), a.getBlock(),this);
 	   }
 	   int numberOfBlocks = assignments.size();
-	   int maxHorizontal = (1+(Game.PLAY_AREA_SIDE-2*Game.WALL_PADDING-Block.SIZE)/(Block.SIZE+Game.COLUMNS_PADDING));
-	   int maxVertical = (1+(Game.PLAY_AREA_SIDE-Paddle.VERTICAL_DISTANCE-Game.WALL_PADDING-Paddle.PADDLE_WIDTH-Ball.BALL_DIAMETER-Block.SIZE)/(Block.SIZE+Game.ROW_PADDING));
+	   int maxHorizontal = (Game.PLAY_AREA_SIDE-2*Game.WALL_PADDING-Block.SIZE)/(Block.SIZE+Game.COLUMNS_PADDING);
+	   int maxVertical = (Game.PLAY_AREA_SIDE-Paddle.VERTICAL_DISTANCE-Game.WALL_PADDING-Paddle.PADDLE_WIDTH-Ball.BALL_DIAMETER-Block.SIZE)/(Block.SIZE+Game.ROW_PADDING);
 	   int x;
 	   int y;
-	   
-	   while(numberOfBlocks < game.getNrBlocksPerLevel()) {
+	   while(numberOfBlocks < game.getNrBlocksPerLevel() - 1) {
 		   Random rand = new Random();
 		   x = rand.nextInt(maxHorizontal);
 		   y = rand.nextInt(maxVertical);
 		   PlayedBlockAssignment foundAssignment = this.findPlayedBlockAssignment(x , y);
 		   while(foundAssignment != null) {
 			   if(y < maxVertical) {
-				   if(x <= maxHorizontal) x=x+1;
-				   if(x > maxHorizontal) {
+				   if(x < maxHorizontal) {
+					   x=x+1;
+				   }
+				   if(x >= maxHorizontal) {
 					   x = 1;
 					   y=y+1;
 				   }
 			   }
-			   
 			   else if(y >= maxVertical) {
-				   if(x <= maxHorizontal) x=x+1;
-				   if(x > maxHorizontal) {
+				   if(x < maxHorizontal) {
+					   x=x+1;
+				   }
+				   if(x >= maxHorizontal) {
 					   x = 1;
 					   y = 1;
 				   }
-			   }  
+			   }
 			   foundAssignment = this.findPlayedBlockAssignment(x , y);
 		   }
 		   x = Game.WALL_PADDING + (x-1)*(Game.COLUMNS_PADDING+Block.SIZE);
 		   y = Game.WALL_PADDING + (y-1)*(Game.ROW_PADDING+Block.SIZE);
-		   
 		   new PlayedBlockAssignment(x,y,game.getRandomBlock(),this);
-			numberOfBlocks++;
+		   numberOfBlocks++;
 	   }
   }
 
-  // line 290 "../../../../../Block223States.ump"
+  // line 293 "../../../../../Block223States.ump"
+   private PlayedBlockAssignment findPlayedBlockAssignment(int x, int y){
+    Game game = this.getGame();
+	  Level level = game.getLevel(currentLevel - 1);
+	  List<BlockAssignment> assignments = level.getBlockAssignments();
+	  for(BlockAssignment a : assignments) {
+		 PlayedBlockAssignment pblock = new PlayedBlockAssignment(
+				 Game.WALL_PADDING + (Block.SIZE + Game.COLUMNS_PADDING) * (a.getGridHorizontalPosition() - 1),
+				 Game.WALL_PADDING + (Block.SIZE + Game.ROW_PADDING) * (a.getGridVerticalPosition() - 1), a.getBlock(),this);
+		 int h = pblock.getX();
+		 int v = pblock.getY();
+		 if(h == x && v == y) {
+			 return pblock;
+		 }
+	  }
+		 return null;
+  }
+
+  // line 310 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
     this.bounceBall();
   }
 
-  // line 294 "../../../../../Block223States.ump"
+  // line 314 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
     this.setLives(lives-1);
 		this.resetCurrentBallX();
@@ -1097,7 +1118,7 @@ public class PlayedGame implements Serializable
 		this.resetCurrentPaddleX();
   }
 
-  // line 303 "../../../../../Block223States.ump"
+  // line 323 "../../../../../Block223States.ump"
    private void doHitBlock(){
     int currentscore = this.getScore();
     BouncePoint bouncepoint = this.getBounce();
@@ -1109,7 +1130,7 @@ public class PlayedGame implements Serializable
     this.bounceBall();
   }
 
-  // line 314 "../../../../../Block223States.ump"
+  // line 334 "../../../../../Block223States.ump"
    private void doHitBlockNextLevel(){
     this.doHitBlock();
     int level = this.getCurrentLevel();
@@ -1119,7 +1140,7 @@ public class PlayedGame implements Serializable
     this.setCurrentLevel(level+1);
   }
 
-  // line 323 "../../../../../Block223States.ump"
+  // line 343 "../../../../../Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
     PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 	double x = currentPlayedGame.getCurrentBallX();
@@ -1130,7 +1151,7 @@ public class PlayedGame implements Serializable
 	currentPlayedGame.setCurrentBallY(y + dy);
   }
 
-  // line 333 "../../../../../Block223States.ump"
+  // line 353 "../../../../../Block223States.ump"
    private void doGameOver(){
     Block223 block223 = this.getBlock223();
     Player p = this.getPlayer();
