@@ -36,12 +36,18 @@ class User {
     unique username;
     1 -> 1..2 UserRole roles;
     public static  String findUsername(UserRole player){
+	   String username = "";
+	   boolean found = false;
 	   for (Map.Entry<String, User> entry : usersByUsername.entrySet()) {
-		   if (entry.getValue().getUsername() == player.getUsername()) {
-			   return entry.getKey();
+		   for (UserRole role : entry.getValue().getRoles()) {
+			   if (role == player) break;
+			   username = entry.getKey();
+			   found = true;
+			   break;
 		   }
+		   if (found) break;
 	   }
-	   return null;
+	   return username;
     }
     before constructor {
     	if (aUsername == null || aUsername.equals("")) {

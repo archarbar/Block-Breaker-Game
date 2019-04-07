@@ -854,13 +854,24 @@ public class Block223Controller {
 	
 	public static void updatePaddlePosition(String userInputs) {
 		PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
-		double x = currentPlayedGame.getCurrentPaddleX();
 		for (int i = 0; i < userInputs.length(); i++) {
+			double x = currentPlayedGame.getCurrentPaddleX();
 			if (userInputs.charAt(i) == 'l') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				if (x <= 4) { //since it moves by 5 pixels, if x is at 4, it will be at -1 if it moves left
+					continue;
+				}
+				else {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_LEFT);
+				}
 			}
 			else if (userInputs.charAt(i) == 'r') {
-				currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				if ((Game.PLAY_AREA_SIDE - 2*Game.WALL_PADDING) - x <= 4) {
+					//since it moves by 5 pixels, if x is at 4 pixels from the wall, it will be 1 pixel outside the wall if it moves right
+					continue;
+				}
+				else {
+					currentPlayedGame.setCurrentPaddleX(x + PlayedGame.PADDLE_MOVE_RIGHT);
+				}
 			}
 		}
 	}
@@ -903,8 +914,11 @@ public class Block223Controller {
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
 			Block223Application.setCurrentPlayableGame(null);
+			Block223 block223 = Block223Application.getBlock223();
+			Block223Persistence.save(block223);
 		}
 		else if (game.getPlayer() != null) {
+			game.setBounce(null);
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);
 		}
@@ -952,7 +966,7 @@ public class Block223Controller {
 
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			throw new InvalidInputException("Player privileges are required to access a gameï¿½s hall of fame.");
+			throw new InvalidInputException("Player privileges are required to access a game’s hall of fame.");
 		}
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		if (pgame == null) {
@@ -971,10 +985,10 @@ public class Block223Controller {
 			end = game.numberOfHallOfFameEntries();
 			}
 
-		start -= 1;
-		end -= -1;
+		start = game.numberOfHallOfFameEntries() - start;
+		end = game.numberOfHallOfFameEntries() - end;
 
-		for (int i = start; i < end ; i++ ) {  //is end included ?????
+		for (int i = start; i >= end ; i-- ) {  
 			TOHallOfFameEntry to = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(),
 					game.getHallOfFameEntry(i).getScore(),
 					result);
@@ -986,7 +1000,7 @@ public class Block223Controller {
 		//Check if user is a player
 		UserRole currentUser = Block223Application.getCurrentUserRole();
 		if (!(currentUser instanceof Player)) {
-			throw new InvalidInputException("Player privileges are required to access a gameï¿½s hall of fame.");
+			throw new InvalidInputException("Player privileges are required to access a game’s hall of fame.");
 		}
 
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
@@ -999,24 +1013,21 @@ public class Block223Controller {
 		TOHallOfFame result = new TOHallOfFame(game.getName());
 
 		HallOfFameEntry mostRecent = game.getMostRecentEntry();
+		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
 
-		int start = indexR - (numberOfEntries/2);
+		int start = indexR + (numberOfEntries/2);
 
-		if (start < 1) {
-			start = 1;
+		if (start > game.numberOfHallOfFameEntries() - 1) {
+			start =  game.numberOfHallOfFameEntries() - 1;
 		}
 
-		int end = start + (numberOfEntries - 1);
+		int end = start - numberOfEntries + 1;
 
-		if(end > game.numberOfHallOfFameEntries()) {
-			end = game.numberOfHallOfFameEntries();
+		if(end < 0) {
+			end = 0;
 		}
-
-		start -= 1;
-		end -= 1;
-
-		for(int i = start; i < end; i++) { //is end included ?
+		for(int i = start; i >= end; i--) { //is end included ?
 			TOHallOfFameEntry to = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(),
 					game.getHallOfFameEntry(i).getScore(), result);
 		}
@@ -1042,7 +1053,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can test it.");
 		}
 		Block223 block223 = Block223Application.getBlock223();
-		String username = block223.findUsername(admin);
+		String username = User.findUsername(admin);
 		PlayedGame pgame = new PlayedGame(username, game, block223);
 		pgame.setPlayer(null);
 		Block223Application.setCurrentPlayableGame(pgame);
