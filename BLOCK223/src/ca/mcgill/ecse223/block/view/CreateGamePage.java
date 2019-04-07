@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
@@ -41,6 +42,7 @@ public class CreateGamePage extends JFrame {
 	private JTextField GameName;
 
 	private String error = null;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -64,7 +66,7 @@ public class CreateGamePage extends JFrame {
 	public CreateGamePage() {
 		setTitle("Edit Game Page");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 322);
+		setBounds(100, 100, 519, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -104,7 +106,7 @@ public class CreateGamePage extends JFrame {
 		contentPane.add(lblGameName);
 		
 		GameNameTextField = new JTextField();
-		GameNameTextField.setBounds(111, 44, 86, 20);
+		GameNameTextField.setBounds(127, 44, 86, 20);
 		contentPane.add(GameNameTextField);
 		GameNameTextField.setColumns(10);
 		
@@ -156,11 +158,44 @@ public class CreateGamePage extends JFrame {
 		GameName.setColumns(10);
 		GameName.setBounds(127, 147, 86, 20);
 		contentPane.add(GameName);
+		
+		//Separator 2
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 191, 483, 14);
+		contentPane.add(separator_1);
+		
+		//Test Game Section
+		
+		JLabel lblTestGame = new JLabel("Test Game\r\n");
+		lblTestGame.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTestGame.setBounds(10, 216, 165, 20);
+		contentPane.add(lblTestGame);
 
-		JLabel lblSearchForA = new JLabel("Search for a game:");
-		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSearchForA.setBounds(20, 147, 114, 14);
-		contentPane.add(lblSearchForA);
+		JLabel lblSearchGame = new JLabel("Search for a game:");
+		lblSearchGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSearchGame.setBounds(10, 148, 114, 14);
+		contentPane.add(lblSearchGame);
+		
+		JLabel label = new JLabel("Search for a game:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		label.setBounds(10, 256, 114, 14);
+		contentPane.add(label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(127, 254, 86, 20);
+		contentPane.add(textField);
+		
+		JButton btnStartGame = new JButton("Start Game\r\n");
+		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnStartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				startGameActionPerformed(evt);
+			}
+		});
+		btnStartGame.setBounds(234, 252, 114, 23);
+		contentPane.add(btnStartGame);
 	}
 	
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +234,20 @@ public class CreateGamePage extends JFrame {
 		try {
 			Block223Controller.selectGame(name);
 			Block223Controller.deleteGame(name);
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+	}
+	
+	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		try {
+			Block223PlayMode playingUI = new Block223PlayMode();
+			Block223Controller.testGame(playingUI);
+			playingUI.setVisible(true);
+			this.setVisible(false);
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();

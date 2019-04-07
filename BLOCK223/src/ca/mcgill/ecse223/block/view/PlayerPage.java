@@ -114,9 +114,8 @@ public class PlayerPage extends JFrame {
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = GameName.getText();
-		Random random = new Random();
-		int id = random.nextInt(100);
 		try {
+			int id = Block223Controller.getPlayableGames().size();
 			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
 			playingUI.setVisible(true);
