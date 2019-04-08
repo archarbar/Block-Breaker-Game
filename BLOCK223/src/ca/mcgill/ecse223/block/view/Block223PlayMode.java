@@ -2010,7 +2010,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
 		
-		updateLives(); //TO BE INCLUDED IN REFRESH DATA LATER
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 		
 	}
@@ -2020,11 +2019,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		RegisterLoginPage loginpage = new RegisterLoginPage();
 		loginpage.setVisible(true);
 		this.setVisible(false);
-	}
-	
-	private void updateLives() {
-		PlayedGame aPlayedGame = Block223Application.getCurrentPlayableGame();
-		numberOfLives.setText("Lives: " + aPlayedGame.getLives());
 	}
 	
 	private void displayHOF() {
