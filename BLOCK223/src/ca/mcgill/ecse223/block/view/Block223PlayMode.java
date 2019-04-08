@@ -23,6 +23,7 @@ import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -2012,7 +2013,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
 		
-		
+		updateLives(); //TO BE INCLUDED IN REFRESH DATA LATER
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 		
 	}
@@ -2025,7 +2026,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	}
 	
 	private void updateLives() {
-		numberOfLives.setText()
+		PlayedGame aPlayedGame = Block223Application.getCurrentPlayableGame();
+		numberOfLives.setText("Lives: " + aPlayedGame.getLives());
 	}
 	
 	private void displayHOF() {
