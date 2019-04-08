@@ -125,7 +125,7 @@ public class RegisterLoginPage extends JFrame {
 		String password = String.valueOf(this.passwordFieldPlayer.getPassword());
 		try {
 			Block223Controller.login(username, password);
-			Block223Page playerpage = new Block223Page();
+			PlayerPage playerpage = new PlayerPage();
 			playerpage.setVisible(true);
 			this.setVisible(false);
 		} catch (InvalidInputException e) {

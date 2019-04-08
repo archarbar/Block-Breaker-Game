@@ -13,6 +13,13 @@ class Block223 {
     List<Game> games = this.getGames();
     for (Game game : games) {
     	Block.reinitializeBlockuniqueId(game.getBlocks());
+    	game.setHallOfFameEntriesPriority(new Comparator<HallOfFameEntry>(){
+     	@Override
+     	public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1) {
+          return ((Integer)arg0.getScore()).compareTo(
+          ((Integer)arg1.getScore()));
+     	}
+		});
     }
   }
 }

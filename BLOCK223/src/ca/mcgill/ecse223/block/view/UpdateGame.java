@@ -269,7 +269,7 @@ public class UpdateGame extends JFrame {
 
 		JComboBox savedGamesList = new JComboBox();
 		List<TOGame> games = null;
-		savedGamesList.addItem("select");
+		savedGamesList.addItem("Select: ");
 		try {
 			games = Block223Controller.getDesignableGames();
 		}
