@@ -18,6 +18,8 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.model.Player;
+import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 
@@ -130,10 +132,16 @@ public class PlayerPage extends JFrame {
 	}
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		PlayedGame game = (PlayedGame) PublishedGameList.getSelectedItem();
-		String name = game.getPlayername();
-		int id = game.getId();
+		error = "";	
+		String name = (String) PublishedGameList.getSelectedItem();
+		int id = 1;
+		Player player = (Player) Block223Application.getCurrentUserRole();
+		for (PlayedGame game: player.getPlayedGames()) {
+			if (game.getGame().getName() == name) {
+				id = game.getId();
+				break;
+			}
+		}
 		try {
 			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
