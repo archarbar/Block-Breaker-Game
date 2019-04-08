@@ -36,7 +36,7 @@ public class PlayerPage extends JFrame {
 	 */
 	private static final long serialVersionUID = 6791018688197203010L;
 	private JPanel contentPane;
-	private JComboBox nonPublishedGameList;
+	private JComboBox PublishedGameList;
 
 	private String error = null;
 
@@ -99,9 +99,9 @@ public class PlayerPage extends JFrame {
 		lblSearchForA.setBounds(10, 64, 203, 14);
 		contentPane.add(lblSearchForA);
 		
-		nonPublishedGameList = new JComboBox();
+		PublishedGameList = new JComboBox();
 		List<TOPlayableGame> games = null;
-		nonPublishedGameList.addItem("Select: ");
+		PublishedGameList.addItem("Select: ");
 		try {
 			games = Block223Controller.getPlayableGames();
 		}
@@ -110,13 +110,13 @@ public class PlayerPage extends JFrame {
 			JOptionPane.showMessageDialog(null, error);
 		}
 		if (games.isEmpty()) {
-			nonPublishedGameList.addItem("No games available");
+			PublishedGameList.addItem("No games available");
 		}
 		for (int i=0; i<games.size(); i++) {
-			nonPublishedGameList.addItem(games.get(i).getName());
+			PublishedGameList.addItem(games.get(i).getName());
 		}
-		nonPublishedGameList.setBounds(227, 62, 150, 20);
-		contentPane.add(nonPublishedGameList);
+		PublishedGameList.setBounds(227, 62, 150, 20);
+		contentPane.add(PublishedGameList);
 		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -131,7 +131,7 @@ public class PlayerPage extends JFrame {
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		PlayedGame game = (PlayedGame) nonPublishedGameList.getSelectedItem();
+		PlayedGame game = (PlayedGame) PublishedGameList.getSelectedItem();
 		String name = game.getPlayername();
 		int id = game.getId();
 		try {
