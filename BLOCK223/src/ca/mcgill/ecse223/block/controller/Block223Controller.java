@@ -1044,7 +1044,7 @@ public class Block223Controller {
 			throw new InvalidInputException("Only the admin who created the game can test it.");
 		}
 		if (game.getBlockAssignments().size() < 1) {
-			throw new RuntimeException("There must be at least one block in the game before it can be tested");
+			throw new InvalidInputException("There must be at least one block in the game before it can be tested");
 		}
 		Block223 block223 = Block223Application.getBlock223();
 		String username = User.findUsername(admin);
