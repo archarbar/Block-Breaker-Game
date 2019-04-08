@@ -2,20 +2,10 @@ class Block223 {
    1 <@>- * PlayedGame playedGames;
    1 <@>- * HallOfFameEntry entries;
 }
-class PlayedBlockAssignment {
-   // the associated block is either (a) the same as the one of the corresponding BlockAssignent or (b) randomly chosen
-   * -- 1 Block block;
-   // the position of a block is at its top right corner
-   Integer x;
-   Integer y;
-}
 
-class HallOfFameEntry {
-   Integer score;
-   playername; // added here so that it only needs to be determined once
-   * -- 1 Player player;
-   // the sorted keyword keeps the list of entries in the game automatically sorted by the score
-   * sorted {score} -- 1 Game game;
+class Game {
+   Boolean published = false;
+   1 -> 0..1 HallOfFameEntry mostRecentEntry;
 }
 
 // this class needs to be specified but the use of it is optional; it is also not added to the persistence file
@@ -27,12 +17,6 @@ class BouncePoint {
    BounceDirection direction;
    0..1 -> 0..1 PlayedBlockAssignment hitBlock;
 }
-
-class Game {
-   Boolean published = false;
-   1 -> 0..1 HallOfFameEntry mostRecentEntry;
-}
-
 class PlayedGame {
 	before constructor {
    boolean didAddGameResult = setGame(aGame);
@@ -152,5 +136,20 @@ class PlayedGame {
   	 return false;
   	}
 }
+}
+class PlayedBlockAssignment {
+   // the associated block is either (a) the same as the one of the corresponding BlockAssignent or (b) randomly chosen
+   * -- 1 Block block;
+   // the position of a block is at its top right corner
+   Integer x;
+   Integer y;
+}
+
+class HallOfFameEntry {
+   Integer score;
+   playername; // added here so that it only needs to be determined once
+   * -- 1 Player player;
+   // the sorted keyword keeps the list of entries in the game automatically sorted by the score
+   * sorted {score} -- 1 Game game;
 }
 
