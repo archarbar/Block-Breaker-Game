@@ -2350,11 +2350,26 @@ public class BlockEditWindow extends JFrame {
 
 	private void refreshData() {
 
-		//System.out.println(error.length());
-		error = "";
+//		error = "";
 		// TODO Auto-generated method stub
 		if (error == null || error.length() == 0) {
 
+//			for (JPanel panel : panelList) {
+//				
+//				if (isAssigned) {
+//				panel.setVisible(true);
+//				}
+//				
+//				if (isAssigned) {
+//					panel.setColor(block.getcolor());
+//				}
+//				if (isAssigned) {
+//					panel.setPoints();
+//				}
+//			}
+//			
+//			
+			
 			blocks = new HashMap<Integer, TOBlock>();
 			toBlockComboBox.removeAllItems();
 			Integer index = 0;
