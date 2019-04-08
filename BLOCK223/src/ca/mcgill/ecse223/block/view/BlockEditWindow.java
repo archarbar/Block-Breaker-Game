@@ -2151,6 +2151,16 @@ public class BlockEditWindow extends JFrame {
 		});
 		btnPublishGame.setBounds(488, 443, 146, 40);
 		contentPane.add(btnPublishGame);
+		
+		JLabel lblDontForgetTo = new JLabel("DON'T FORGET TO SAVE YOUR CHANGES");
+		lblDontForgetTo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblDontForgetTo.setBounds(104, 431, 254, 40);
+		contentPane.add(lblDontForgetTo);
+		
+		JLabel lblevenAfterPressing = new JLabel("(EVEN AFTER PRESSING PUBLISH GAME)");
+		lblevenAfterPressing.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblevenAfterPressing.setBounds(104, 463, 254, 40);
+		contentPane.add(lblevenAfterPressing);
 	}
 	
 	public void publishGameActionPerformed(ActionEvent e) {
