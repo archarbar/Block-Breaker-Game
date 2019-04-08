@@ -269,9 +269,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public HallOfFameEntry addEntry(int aScore, String aPlayername, Player aPlayer, Game aGame)
+  public HallOfFameEntry addEntry()
   {
-    return new HallOfFameEntry(aScore, aPlayername, aPlayer, aGame, this);
+    return new HallOfFameEntry(this);
   }
 
   public boolean addEntry(HallOfFameEntry aEntry)
@@ -595,6 +595,13 @@ public class Block223 implements Serializable
     List<Game> games = this.getGames();
     for (Game game : games) {
     	Block.reinitializeBlockuniqueId(game.getBlocks());
+    	game.setHallOfFameEntriesPriority(new Comparator<HallOfFameEntry>(){
+     	@Override
+     	public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1) {
+          return ((Integer)arg0.getScore()).compareTo(
+          ((Integer)arg1.getScore()));
+     	}
+		});
     }
   }
 

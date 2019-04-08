@@ -17,7 +17,9 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.view.Block223PlayModeListener;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -75,7 +77,6 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.JTextField;
-import acm.graphics.GRectangle;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 import javafx.scene.shape.Circle;
@@ -213,6 +214,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	ArrayList<JPanel> panelList;
 	private JLabel lblPrevious;
 	private JLabel lblNext;
+	JTextArea gameArea;
+	Block223PlayModeListener bp;
+	private JButton button;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -233,7 +237,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	public Block223PlayMode() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 574);
+		setBounds(100, 100, 710, 638);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(192, 192, 192));
@@ -1991,16 +1995,64 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		contentPane.add(lblCurrentgame);
 		
 		JLabel lblDisplayHallOf = new JLabel("DISPLAY HALL OF FAME");
-		lblDisplayHallOf.setBounds(464, 140, 202, 232);
+		lblDisplayHallOf.setBounds(441, 140, 243, 232);
 		contentPane.add(lblDisplayHallOf);
 		
 		lblPrevious = new JLabel("Previous");
-		lblPrevious.setBounds(472, 433, 61, 16);
+		lblPrevious.setBounds(472, 433, 95, 16);
 		contentPane.add(lblPrevious);
 		
 		lblNext = new JLabel("Next");
-		lblNext.setBounds(622, 433, 31, 16);
+		lblNext.setBounds(622, 433, 62, 16);
 		contentPane.add(lblNext);
+		
+		JButton button = new JButton("Start Game");
+		button.setBounds(174, 470, 337, 35);
+		contentPane.add(button);
+
+		gameArea = new JTextArea();
+		gameArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(gameArea);
+		scrollPane.setPreferredSize(new Dimension(375, 125));
+
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		
+		button.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				button.setVisible(false);
+				// initiating a thread to start listening to keyboard inputs
+				bp = new Block223PlayModeListener();
+				Runnable r1 = new Runnable() {
+					@Override
+					public void run() {
+						// in the actual game, add keyListener to the game window
+						gameArea.addKeyListener(bp);
+					}
+				};
+				Thread t1 = new Thread(r1);
+				t1.start();
+				// to be on the safe side use join to start executing thread t1 before executing
+				// the next thread
+				try {
+					t1.join();
+				} catch (InterruptedException e1) {
+				}
+
+				// initiating a thread to start the game loop
+				Runnable r2 = new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Block223Controller.startGame(Block223PlayMode.this);
+							button.setVisible(true);
+						} catch (InvalidInputException e) {
+						}
+					}
+				};
+				Thread t2 = new Thread(r2);
+				t2.start();
+			}
+		});
 	}
 	
 	private void mntmLogOutActionPerformed(ActionEvent evt) {//Mettre le LOGOUT A TONY IL EST MIEUX
@@ -2009,22 +2061,24 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-
-
-	public String takeInputs() {
-		Scanner scan = new Scanner(System.in);
-		String userInput = scan.nextLine();
-		String inputs = "";
-		for (int i=0; i < userInput.length(); i++) {
-			if (userInput.charAt(i) == 'l' || userInput.charAt(i) == 'r' || userInput.charAt(i) == ' ') {
-				inputs += Character.toString(userInput.charAt(i));
-			}
-		}
-		scan.close();
-		return inputs;
-	}
 	
+
+	@Override
+	public String takeInputs() {
+		if (bp == null) {
+			return "";
+		}
+		return bp.takeInputs();
+	}
+
+	@Override
 	public void refresh() {
+		System.out.println("UI is refreshing now...");
+	}
+
+	@Override
+	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
+		// TODO Auto-generated method stub
 		
 	}
 }

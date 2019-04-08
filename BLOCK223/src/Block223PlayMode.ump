@@ -8,6 +8,15 @@ class Game {
    1 -> 0..1 HallOfFameEntry mostRecentEntry;
 }
 
+// this class needs to be specified but the use of it is optional; it is also not added to the persistence file
+// you may implement bounce behavior differently
+class BouncePoint {
+   Double x;
+   Double y;
+   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH }
+   BounceDirection direction;
+   0..1 -> 0..1 PlayedBlockAssignment hitBlock;
+}
 class PlayedGame {
 	before constructor {
    boolean didAddGameResult = setGame(aGame);
@@ -53,8 +62,8 @@ class PlayedGame {
    public boolean isBallOutOfBounds(){
    		double xball = this.currentBallX;
    		double yball = this.currentBallY;
-   		double xballfuture = this.currentBallX + (this.ballDirectionX)*getWaitTime();
-   		double yballfuture = this.currentBallY + (this.ballDirectionY)*getWaitTime();
+   		double xballfuture = this.currentBallX + (this.ballDirectionX);
+   		double yballfuture = this.currentBallY + (this.ballDirectionY);
    		double xwallleft= 0;
    		double ywallleft = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
    		double xwallright = Game.PLAY_AREA_SIDE;
@@ -155,12 +164,3 @@ class HallOfFameEntry {
    * sorted {score} -- 1 Game game;
 }
 
-// this class needs to be specified but the use of it is optional; it is also not added to the persistence file
-// you may implement bounce behavior differently
-class BouncePoint {
-   Double x;
-   Double y;
-   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH }
-   BounceDirection direction;
-   0..1 -> 0..1 PlayedBlockAssignment hitBlock;
-}
