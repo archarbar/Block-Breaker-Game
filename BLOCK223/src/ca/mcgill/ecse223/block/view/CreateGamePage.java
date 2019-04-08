@@ -217,12 +217,9 @@ public class CreateGamePage extends JFrame {
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		PlayedGame game = (PlayedGame) nonPublishedGameList.getSelectedItem();
-		String name = game.getPlayername();
-		int id = game.getId();
 		try {
-			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
+			Block223Controller.testGame(playingUI);
 			playingUI.setVisible(true);
 			this.setVisible(false);
 		}
