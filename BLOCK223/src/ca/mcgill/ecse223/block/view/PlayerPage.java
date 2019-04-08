@@ -35,6 +35,7 @@ public class PlayerPage extends JFrame {
 	private JTextField GameName;
 
 	private String error = null;
+	private JTextField id;
 
 	/**
 	 * Launch the application.
@@ -58,7 +59,7 @@ public class PlayerPage extends JFrame {
 	public PlayerPage() {
 		setTitle("Block223");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 193);
+		setBounds(100, 100, 519, 243);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,25 +98,41 @@ public class PlayerPage extends JFrame {
 				startGameActionPerformed(evt);
 			}
 		});
-		btnStartGame.setBounds(357, 60, 114, 23);
+		btnStartGame.setBounds(317, 104, 114, 23);
 		contentPane.add(btnStartGame);
 
 		GameName = new JTextField();
 		GameName.setColumns(10);
-		GameName.setBounds(234, 62, 114, 20);
+		GameName.setBounds(150, 106, 114, 20);
 		contentPane.add(GameName);
 
 		JLabel lblSearchForA = new JLabel("Please search for an available game: ");
 		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSearchForA.setBounds(10, 64, 203, 14);
 		contentPane.add(lblSearchForA);
+		
+		JLabel lblGameName = new JLabel("Game name: ");
+		lblGameName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblGameName.setBounds(10, 108, 78, 14);
+		contentPane.add(lblGameName);
+		
+		id = new JTextField();
+		id.setColumns(10);
+		id.setBounds(150, 141, 36, 20);
+		contentPane.add(id);
+		
+		JLabel lblCreateloadGameId = new JLabel("Create/Load Game id: ");
+		lblCreateloadGameId.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCreateloadGameId.setBounds(10, 143, 130, 14);
+		contentPane.add(lblCreateloadGameId);
 	}
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
 		String name = GameName.getText();
+		String textId = GameName.getText();
+		int id = Integer.parseInt(textId);
 		try {
-			int id = Block223Controller.getPlayableGames().size();
 			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
 			playingUI.setVisible(true);
