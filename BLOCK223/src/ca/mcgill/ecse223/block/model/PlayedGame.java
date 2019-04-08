@@ -836,31 +836,38 @@ public class PlayedGame implements Serializable
 	   double yBall = this.currentBallY;
 	   double xBallFuture = this.currentBallX + (this.ballDirectionX);
 	   double yBallFuture = this.currentBallY + (this.ballDirectionY);
-	   Rectangle2D.Double paddleRect = new Rectangle2D.Double(paddleX, paddleY, paddleLength, paddleHeight+ballRadius);
-	   boolean intersect = paddleRect.intersectsLine(xBall, yBall, xBallFuture, yBallFuture);
-	   if (!intersect) {
-		   return bouncePoint;
-	   }
-	   else {
+//	   Rectangle2D.Double paddleRect = new Rectangle2D.Double(paddleX, paddleY, paddleLength, paddleHeight+ballRadius);
+	   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
+//	   boolean intersect = paddleRect.intersectsLine(lineBallPath);
+//	   if (!(intersect)) {
+//
+//	   }
+//	   else {
 		   Ellipse2D.Double ellipseE = new Ellipse2D.Double(ballRadius, ballRadius, paddleX - ballRadius, paddleY - ballRadius );
 		   Ellipse2D.Double ellipseF = new Ellipse2D.Double(ballRadius, ballRadius, paddleX + paddleLength + ballRadius, paddleY - ballRadius);
 		   Line2D.Double lineA = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2,getCurrentPaddleX(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2);
 		   Line2D.Double lineB = new Line2D.Double(getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
 		   Line2D.Double lineC = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2,getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
-		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
+		   System.out.println(ellipseE.getX());
+		   System.out.println(ellipseE.getY());
+		   System.out.println(this.getCurrentBallX());
 		   if(lineA.intersectsLine(lineBallPath)) {
+			   System.out.println("linea");
 			   bouncePosition = getLineIntersection(lineBallPath, lineA);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
 		   }
 		   else if(lineB.intersectsLine(lineBallPath)){
+			   System.out.println("lineb");
 			   bouncePosition = getLineIntersection(lineBallPath, lineB);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 		   }
 		   else if(lineC.intersectsLine(lineBallPath)) {
+			   System.out.println("linec");
 			   bouncePosition = getLineIntersection(lineBallPath, lineC);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 		   }
 		   else if(ellipseE.contains(xBallFuture, yBallFuture)) {
+			   System.out.println("linee");
 			   if(xBall < xBallFuture) {
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
 			   }
@@ -869,6 +876,7 @@ public class PlayedGame implements Serializable
 			   }
 		   }
 		   else if(ellipseF.contains(xBallFuture, yBallFuture)) {
+			   System.out.println("linef");
 			   if(xBall < xBallFuture) {
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
 			   }
@@ -876,7 +884,11 @@ public class PlayedGame implements Serializable
 				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
 			   }
 		   }
-	   }
+		   else {
+			   System.out.println("no interesection");
+			   return bouncePoint;
+		   }
+//	   }
 
 	   return bouncePoint;
   }
