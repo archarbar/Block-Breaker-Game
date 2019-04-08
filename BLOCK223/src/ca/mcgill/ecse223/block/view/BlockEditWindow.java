@@ -2141,7 +2141,25 @@ public class BlockEditWindow extends JFrame {
 		panelList.add(panel_3_14);
 		panelList.add(panel_3_15);
 		panelList.add(panel_4_1);
-
+		
+		JButton btnPublishGame = new JButton("Publish Game");
+		btnPublishGame.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				publishGameActionPerformed(evt);
+			}
+		});
+	}
+	
+	public void publishGameActionPerformed(ActionEvent e) {
+		error = "";
+		try {
+			Block223Controller.publishGame();
+		}
+		catch(InvalidInputException e10) {
+			error = e10.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		
 	}
 
 	public void deleteBlockButtonActionEvent(ActionEvent e) {

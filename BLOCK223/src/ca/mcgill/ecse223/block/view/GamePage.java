@@ -294,6 +294,7 @@ public class GamePage extends JFrame {
 	}
 
 	private void saveGameSettingsActionPerformed(ActionEvent evt, String game) {
+		error = "";
 		try {
 			Block223Controller.selectGame(game);
 			Block223Controller.saveGame();

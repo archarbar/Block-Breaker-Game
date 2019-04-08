@@ -2,6 +2,7 @@ package ca.mcgill.ecse223.block.view;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,8 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -24,6 +27,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import javax.swing.JComboBox;
 
 public class PlayerPage extends JFrame {
 
@@ -32,7 +36,7 @@ public class PlayerPage extends JFrame {
 	 */
 	private static final long serialVersionUID = 6791018688197203010L;
 	private JPanel contentPane;
-	private JTextField GameName;
+	private JComboBox PublishedGameList;
 
 	private String error = null;
 
@@ -58,7 +62,7 @@ public class PlayerPage extends JFrame {
 	public PlayerPage() {
 		setTitle("Block223");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 193);
+		setBounds(100, 100, 578, 189);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,6 +94,30 @@ public class PlayerPage extends JFrame {
 		lblCreateNewGame.setBounds(10, 11, 157, 14);
 		contentPane.add(lblCreateNewGame);
 
+		JLabel lblSearchForA = new JLabel("Please search for an available game: ");
+		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSearchForA.setBounds(10, 64, 203, 14);
+		contentPane.add(lblSearchForA);
+		
+		PublishedGameList = new JComboBox();
+		List<TOPlayableGame> games = null;
+		PublishedGameList.addItem("Select: ");
+		try {
+			games = Block223Controller.getPlayableGames();
+		}
+		catch (InvalidInputException e) {
+			String error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		if (games.isEmpty()) {
+			PublishedGameList.addItem("No games available");
+		}
+		for (int i=0; i<games.size(); i++) {
+			PublishedGameList.addItem(games.get(i).getName());
+		}
+		PublishedGameList.setBounds(227, 62, 150, 20);
+		contentPane.add(PublishedGameList);
+		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnStartGame.addActionListener(new ActionListener() {
@@ -97,25 +125,16 @@ public class PlayerPage extends JFrame {
 				startGameActionPerformed(evt);
 			}
 		});
-		btnStartGame.setBounds(357, 60, 114, 23);
+		btnStartGame.setBounds(410, 60, 114, 23);
 		contentPane.add(btnStartGame);
-
-		GameName = new JTextField();
-		GameName.setColumns(10);
-		GameName.setBounds(234, 62, 114, 20);
-		contentPane.add(GameName);
-
-		JLabel lblSearchForA = new JLabel("Please search for an available game: ");
-		lblSearchForA.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSearchForA.setBounds(10, 64, 203, 14);
-		contentPane.add(lblSearchForA);
 	}
 	
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
 		error = "";
-		String name = GameName.getText();
+		PlayedGame game = (PlayedGame) PublishedGameList.getSelectedItem();
+		String name = game.getPlayername();
+		int id = game.getId();
 		try {
-			int id = Block223Controller.getPlayableGames().size();
 			Block223Controller.selectPlayableGame(name, id);
 			Block223PlayMode playingUI = new Block223PlayMode();
 			playingUI.setVisible(true);

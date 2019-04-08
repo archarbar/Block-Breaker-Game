@@ -16,8 +16,10 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -40,9 +42,10 @@ public class CreateGamePage extends JFrame {
 	private JPanel contentPane;
 	private JTextField createGameTextField;
 	private JTextField updateGameTextField;
+	JComboBox nonPublishedGameList;
+	JButton btnStartGame;
 
 	private String error = null;
-	private JTextField testGameTextField;
 
 	/**
 	 * Launch the application.
@@ -182,20 +185,51 @@ public class CreateGamePage extends JFrame {
 		label.setBounds(10, 256, 114, 14);
 		contentPane.add(label);
 		
-		testGameTextField = new JTextField();
-		testGameTextField.setColumns(10);
-		testGameTextField.setBounds(127, 254, 86, 20);
-		contentPane.add(testGameTextField);
+		nonPublishedGameList = new JComboBox();
+		List<TOGame> games = null;
+		nonPublishedGameList.addItem("Select: ");
+		try {
+			games = Block223Controller.getDesignableGames();
+		}
+		catch (InvalidInputException e) {
+			String error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+		if (games.isEmpty()) {
+			nonPublishedGameList.addItem("No games available");
+		}
+		for (int i=0; i<games.size(); i++) {
+			nonPublishedGameList.addItem(games.get(i).getName());
+		}
+		nonPublishedGameList.setBounds(127, 254, 134, 20);
+		contentPane.add(nonPublishedGameList);
 		
-		JButton btnStartGame = new JButton("Start Game\r\n");
+		btnStartGame = new JButton("Start Game\r\n");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				startGameActionPerformed(evt);
 			}
 		});
-		btnStartGame.setBounds(234, 252, 114, 23);
+		btnStartGame.setBounds(271, 252, 114, 23);
 		contentPane.add(btnStartGame);
+	}
+	
+	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
+		error = "";
+		PlayedGame game = (PlayedGame) nonPublishedGameList.getSelectedItem();
+		String name = game.getPlayername();
+		int id = game.getId();
+		try {
+			Block223Controller.selectPlayableGame(name, id);
+			Block223PlayMode playingUI = new Block223PlayMode();
+			playingUI.setVisible(true);
+			this.setVisible(false);
+		}
+		catch (InvalidInputException e) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
 	}
 	
 	private void createGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,22 +268,6 @@ public class CreateGamePage extends JFrame {
 		try {
 			Block223Controller.selectGame(name);
 			Block223Controller.deleteGame(name);
-		}
-		catch (InvalidInputException e) {
-			error = e.getMessage();
-			JOptionPane.showMessageDialog(null, error);
-		}
-	}
-	
-	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
-		error = "";
-		String name = testGameTextField.getText();
-		try {
-			Block223PlayMode playingUI = new Block223PlayMode();
-			Block223Controller.selectGame(name);
-			Block223Controller.testGame(playingUI);
-			playingUI.setVisible(true);
-			this.setVisible(false);
 		}
 		catch (InvalidInputException e) {
 			error = e.getMessage();
