@@ -2143,11 +2143,14 @@ public class BlockEditWindow extends JFrame {
 		panelList.add(panel_4_1);
 		
 		JButton btnPublishGame = new JButton("Publish Game");
+		btnPublishGame.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnPublishGame.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				publishGameActionPerformed(evt);
 			}
 		});
+		btnPublishGame.setBounds(488, 443, 146, 40);
+		contentPane.add(btnPublishGame);
 	}
 	
 	public void publishGameActionPerformed(ActionEvent e) {
