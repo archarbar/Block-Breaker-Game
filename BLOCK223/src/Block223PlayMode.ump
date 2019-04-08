@@ -33,6 +33,15 @@ class Game {
    1 -> 0..1 HallOfFameEntry mostRecentEntry;
 }
 
+// this class needs to be specified but the use of it is optional; it is also not added to the persistence file
+// you may implement bounce behavior differently
+class BouncePoint {
+   Double x;
+   Double y;
+   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH }
+   BounceDirection direction;
+   0..1 -> 0..1 PlayedBlockAssignment hitBlock;
+}
 class PlayedGame {
 	before constructor {
    boolean didAddGameResult = setGame(aGame);
@@ -77,6 +86,16 @@ class PlayedGame {
    
    public boolean isBallOutOfBounds(){
    		return this.currentBallY > Game.PLAY_AREA_SIDE - Paddle.VERTICAL_DISTANCE;
+   		double xball = this.currentBallX;
+   		double yball = this.currentBallY;
+   		double xballfuture = this.currentBallX + (this.ballDirectionX);
+   		double yballfuture = this.currentBallY + (this.ballDirectionY);
+   		double xwallleft= 0;
+   		double ywallleft = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		double xwallright = Game.PLAY_AREA_SIDE;
+   		double ywallright = Game.WALL_PADDING + Game.PLAY_AREA_SIDE;
+   		return java.awt.geom.Line2D.linesIntersect(xball, yball, xballfuture, yballfuture, xwallleft, ywallleft, xwallright, ywallright);
+
    }
    private static Point getLineIntersection(Line2D pLine1, Line2D pLine2) {
 	   Point result = null;
@@ -154,3 +173,28 @@ class PlayedGame {
 }
 }
 
+class PlayedBlockAssignment {
+   // the associated block is either (a) the same as the one of the corresponding BlockAssignent or (b) randomly chosen
+   * -- 1 Block block;
+   // the position of a block is at its top right corner
+   Integer x;
+   Integer y;
+}
+
+class HallOfFameEntry {
+   Integer score;
+   playername; // added here so that it only needs to be determined once
+   * -- 1 Player player;
+   // the sorted keyword keeps the list of entries in the game automatically sorted by the score
+   * sorted {score} -- 1 Game game;
+}
+
+// this class needs to be specified but the use of it is optional; it is also not added to the persistence file
+// you may implement bounce behavior differently
+class BouncePoint {
+   Double x;
+   Double y;
+   enum BounceDirection { FLIP_X, FLIP_Y, FLIP_BOTH }
+   BounceDirection direction;
+   0..1 -> 0..1 PlayedBlockAssignment hitBlock;
+}
