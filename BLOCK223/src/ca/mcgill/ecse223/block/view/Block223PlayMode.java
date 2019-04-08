@@ -90,7 +90,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private JLabel displayHOF;
 	private JLabel currentGameName;
 	// data elements
 	private String error = "";
@@ -219,6 +218,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JLabel lblNext;
 
 	private TOHallOfFame HOF;
+	private JLabel displayHOF;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -1978,11 +1978,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		currentGameName = new JLabel("Current game:");
 		currentGameName.setBounds(469, 118, 186, 16);
 		contentPane.add(currentGameName);
-		
-		displayHOF = new JLabel();
-		displayHOF.setBounds(464, 140, 202, 232);
-		contentPane.add(displayHOF);
-		
+
 		lblPrevious = new JLabel("Previous");
 		lblPrevious.setBounds(472, 433, 61, 16);
 		contentPane.add(lblPrevious);
@@ -1991,6 +1987,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
 		
+		displayHOF = new JLabel("");
+		displayHOF.setHorizontalAlignment(SwingConstants.CENTER);
+		displayHOF.setVerticalAlignment(SwingConstants.TOP);
+		displayHOF.setBounds(469, 147, 196, 225);
+		contentPane.add(displayHOF);
+
+
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 		
 	}
@@ -2003,70 +2006,64 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	}
 	
 	private void displayHOF() {
-		error = "ello";
-		int start = 0;
 		int end;
-		
-		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
-		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, randomHOF);
-		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
-		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, randomHOF);
-		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
-		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
-		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
-		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 0, randomHOF);
-		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 0, randomHOF);
-		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 0, randomHOF);
-		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 0, randomHOF);
-		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, randomHOF);
+//test it by creating a random hall of fame
+//		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
+//		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, HOF);
+//		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
+//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, randomHOF);
+//		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
+//		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
+//		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
+//		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 0, randomHOF);
+//		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 0, randomHOF);
+//		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 0, randomHOF);
+//		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 0, randomHOF);
+//		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, randomHOF);
+//		randomHOF.addEntry(player1);
+//		randomHOF.addEntry(player2);
+//		randomHOF.addEntry(player3);
+//		randomHOF.addEntry(player4);
+//		randomHOF.addEntry(player5);
+//		randomHOF.addEntry(player6);
+//		randomHOF.addEntry(player7);
+//		randomHOF.addEntry(player8);
+//		randomHOF.addEntry(player9);
+//		randomHOF.addEntry(player10);
+//		randomHOF.addEntry(player11);
 
-		randomHOF.addEntry(player1);
-		randomHOF.addEntry(player2);
-		randomHOF.addEntry(player3);
-		randomHOF.addEntry(player4);
-		randomHOF.addEntry(player5);
-		randomHOF.addEntry(player6);
-		randomHOF.addEntry(player7);
-		randomHOF.addEntry(player8);
-		randomHOF.addEntry(player9);
-		randomHOF.addEntry(player10);
-		randomHOF.addEntry(player11);
-		
-//		
-//test it by creating a random hall of fame 
-		
-	
-//		System.out.println(randomHOF);
-		
-		//set
-		//Hof.getGamename();
+
 		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
-//		try {
-//			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
-//		} catch (InvalidInputException e ) {
-//			error = e.getMessage();
-//			JOptionPane.showMessageDialog(null, error);
-//		}
-//		
-		if(randomHOF.numberOfEntries() > 10) {
+		try {
+			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
+		} catch (InvalidInputException e ) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
+
+
+
+		if(HOF.numberOfEntries() > 10) {
 			end = 10;
 		} else {
-			end = randomHOF.numberOfEntries();
+			end = HOF.numberOfEntries();
 		}
 		
 		String hallOfFame = "";
 		
-		if(randomHOF.numberOfEntries() > 0) {
+		if(HOF.numberOfEntries() > 0) {
 		for (int index = 0; index < end; index++) {
-			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;	
+			hallOfFame += HOF.getEntry(index).getPosition() + " " + HOF.getEntry(index).getPlayername()+ " " + HOF.getEntry(index).getScore() + " \n " + "<br>";
 			}
+		} else {
+			hallOfFame = "Empty Hall Of Fame.";
+			}
+		currentGameName.setText("Current game: " + HOF.getGamename() );
+		displayHOF.setText("<html><body style = 'width: 150px'>  "+ hallOfFame + "</body></html>");
+
 		}
-				
-		currentGameName.setText("Current game:" + randomHOF.getGamename() );
-		displayHOF.setText(error);
 		
-		
-	}
+
 
 
 	public String takeInputs() {
