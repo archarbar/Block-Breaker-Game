@@ -222,8 +222,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JButton button;
 	private TOHallOfFame HOF;
 
-	private TOHallOfFame HOF;
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
