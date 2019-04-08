@@ -82,6 +82,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
 import javafx.scene.shape.Circle;
 import javafx.geometry.Rectangle2D;
+import java.awt.TextArea;
 
 public class Block223PlayMode extends JFrame implements Block223PlayModeInterface {
 	/**
@@ -90,7 +91,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private JLabel displayHOF;
 	private JLabel currentGameName;
 	// data elements
 	private String error = "";
@@ -219,6 +219,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JLabel lblNext;
 
 	private TOHallOfFame HOF;
+	private JLabel displayHOF;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -1979,10 +1980,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		currentGameName.setBounds(469, 118, 186, 16);
 		contentPane.add(currentGameName);
 		
-		displayHOF = new JLabel();
-		displayHOF.setBounds(464, 140, 202, 232);
-		contentPane.add(displayHOF);
-		
 		lblPrevious = new JLabel("Previous");
 		lblPrevious.setBounds(472, 433, 61, 16);
 		contentPane.add(lblPrevious);
@@ -1990,6 +1987,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext = new JLabel("Next");
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
+		
+		displayHOF = new JLabel("");
+		displayHOF.setHorizontalAlignment(SwingConstants.CENTER);
+		displayHOF.setVerticalAlignment(SwingConstants.TOP);
+		displayHOF.setBounds(470, 140, 100, 232);
+		contentPane.add(displayHOF);
 		
 		
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
@@ -2005,7 +2008,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	
 	private void displayHOF() {
 		error = "ello";
-		int start = 0;
 		int end;
 		
 		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
@@ -2049,6 +2051,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //			JOptionPane.showMessageDialog(null, error);
 //		}
 //		
+	
+		
 		if(randomHOF.numberOfEntries() > 10) {
 			end = 10;
 		} else {
@@ -2059,15 +2063,24 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		
 		if(randomHOF.numberOfEntries() > 0) {
 		for (int index = 0; index < end; index++) {
-			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;	
+			hallOfFame += randomHOF.getEntry(index).getPosition() + " " + randomHOF.getEntry(index).getPlayername()+ " " + randomHOF.getEntry(index).getScore() + " \n " + "<br>";
+//			JLabel entry = new JLabel(randomHOF.getEntry(index).getPosition() + " " + randomHOF.getEntry(index).getPlayername()+ " " + randomHOF.getEntry(index).getScore()+ "\n");
+//			entry.setSize(202, 10);
+//			HOFPanel.add(entry);
 			}
 		}
-				
-		currentGameName.setText("Current game:" + randomHOF.getGamename() );
-		displayHOF.setText(error);
+//		else {
+//			JLabel emptyHOF = new JLabel("No player has played this game.");
+//			HOFPanel.add(emptyHOF);
+//			}
+		System.out.println(hallOfFame);
 		
+		currentGameName.setText("Current game: " + randomHOF.getGamename() );
+		displayHOF.setText("<html><body style = 'width: %2spx '>  "+ hallOfFame + "</body></html>");
 		
-	}
+		} 
+		
+
 
 
 	public String takeInputs() {
