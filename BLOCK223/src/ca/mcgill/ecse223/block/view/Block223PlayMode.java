@@ -2053,7 +2053,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 	private void displayHOF() {
 		int end;
 //test it by creating a random hall of fame
@@ -2097,9 +2097,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		} else {
 			end = HOF.numberOfEntries();
 		}
-		
+
 		String hallOfFame = "";
-		
+
 		if(HOF.numberOfEntries() > 0) {
 		for (int index = 0; index < end; index++) {
 			hallOfFame += HOF.getEntry(index).getPosition() + " " + HOF.getEntry(index).getPlayername()+ " " + HOF.getEntry(index).getScore() + " \n " + "<br>";
