@@ -12,7 +12,7 @@ import ca.mcgill.ecse223.block.model.BouncePoint.BounceDirection;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import java.util.*;
 
-// line 36 "../../../../../Block223PlayMode.ump"
+// line 20 "../../../../../Block223PlayMode.ump"
 // line 111 "../../../../../Block223Persistence.ump"
 // line 1 "../../../../../Block223States.ump"
 public class PlayedGame implements Serializable
@@ -86,7 +86,7 @@ public class PlayedGame implements Serializable
 
   public PlayedGame(String aPlayername, Game aGame, Block223 aBlock223)
   {
-    // line 38 "../../../../../Block223PlayMode.ump"
+    // line 22 "../../../../../Block223PlayMode.ump"
     boolean didAddGameResult = setGame(aGame);
        if (!didAddGameResult)
        {
@@ -726,12 +726,12 @@ public class PlayedGame implements Serializable
     }
   }
 
-  // line 79 "../../../../../Block223PlayMode.ump"
+  // line 63 "../../../../../Block223PlayMode.ump"
    public boolean isBallOutOfBounds(){
     return this.currentBallY > Game.PLAY_AREA_SIDE - Paddle.VERTICAL_DISTANCE;
   }
 
-  // line 82 "../../../../../Block223PlayMode.ump"
+  // line 66 "../../../../../Block223PlayMode.ump"
    private static  Point getLineIntersection(Line2D pLine1, Line2D pLine2){
     Point result = null;
 	   double s1_x = pLine1.getX2() - pLine1.getX1();
@@ -748,7 +748,7 @@ public class PlayedGame implements Serializable
 	   return result;
   }
 
-  // line 98 "../../../../../Block223PlayMode.ump"
+  // line 82 "../../../../../Block223PlayMode.ump"
    private BouncePoint calculateBouncePointWall(){
     BouncePoint bouncePoint = null;
 	   Point bouncePosition;
@@ -792,7 +792,7 @@ public class PlayedGame implements Serializable
 	   return bouncePoint;
   }
 
-  // line 141 "../../../../../Block223PlayMode.ump"
+  // line 125 "../../../../../Block223PlayMode.ump"
    private boolean isCloser(BouncePoint first, BouncePoint second){
     if (second == null){
   		return true;
