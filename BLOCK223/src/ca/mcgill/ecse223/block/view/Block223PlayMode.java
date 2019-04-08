@@ -12,8 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import acm.program.GraphicsProgram;
-import acm.graphics.GOval;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
@@ -235,9 +233,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Block223PlayMode() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,27 +266,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel.setAlignmentY(0.0f);
 		panel.setBackground(new Color(176, 196, 222));
 		
-//		deleteBlockButton = new JButton("Delete Block");
-//		deleteBlockButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				deleteBlockButtonActionPerformed(e);
-//			}
-//		});
-//		deleteBlockButton.setBounds(563, 257, 123, 23);
-//
-//		JLabel lblListOfBlocks = new JLabel("List of Game Blocks:\r\n");
-//		lblListOfBlocks.setBounds(432, 227, 139, 14);
 		panel.setLayout(null);
-
-//		panel.add(oval);
-//		panel.add(rectangle);
 		
 		panel_1_1 = new JPanel();
 		panel_1_1.setBounds(10, 10, 20, 20);
 		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setPreferredSize(new Dimension(20, 20));
-		//panel_1_1.setVisible(false);
 		panel.add(panel_1_1);
 		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
 		gbl_panel_1_1.columnWidths = new int[]{0, 0};
@@ -2083,7 +2064,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		}
 				
 		currentGameName.setText("Current game:" + randomHOF.getGamename() );
-		displayHOF.setText(hallOfFame);
+		displayHOF.setText(error);
 		
 		
 	}
