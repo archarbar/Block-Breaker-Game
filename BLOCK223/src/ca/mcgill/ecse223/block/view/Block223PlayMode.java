@@ -12,14 +12,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
+import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
-import ca.mcgill.ecse223.block.view.Block223PlayModeListener;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -89,6 +90,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
+	private JLabel displayHOF;
+	private JLabel currentGameName;
 	// data elements
 	private String error = "";
 	//blocks
@@ -217,6 +220,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	JTextArea gameArea;
 	Block223PlayModeListener bp;
 	private JButton button;
+	private TOHallOfFame HOF;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -231,13 +235,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Block223PlayMode() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 638);
+		setBounds(100, 100, 710, 574);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(192, 192, 192));
@@ -267,27 +268,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel.setAlignmentY(0.0f);
 		panel.setBackground(new Color(176, 196, 222));
 		
-//		deleteBlockButton = new JButton("Delete Block");
-//		deleteBlockButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				deleteBlockButtonActionPerformed(e);
-//			}
-//		});
-//		deleteBlockButton.setBounds(563, 257, 123, 23);
-//
-//		JLabel lblListOfBlocks = new JLabel("List of Game Blocks:\r\n");
-//		lblListOfBlocks.setBounds(432, 227, 139, 14);
 		panel.setLayout(null);
-
-//		panel.add(oval);
-//		panel.add(rectangle);
 		
 		panel_1_1 = new JPanel();
 		panel_1_1.setBounds(10, 10, 20, 20);
 		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setPreferredSize(new Dimension(20, 20));
-		panel_1_1.setVisible(false);
 		panel.add(panel_1_1);
 		GridBagLayout gbl_panel_1_1 = new GridBagLayout();
 		gbl_panel_1_1.columnWidths = new int[]{0, 0};
@@ -1974,37 +1961,39 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		JLabel lblLives = new JLabel("Level: ");
-		lblLives.setBounds(468, 14, 83, 16);
-		contentPane.add(lblLives);
+		JLabel currentLevel = new JLabel("Level: ");
+		currentLevel.setBounds(468, 14, 83, 16);
+		contentPane.add(currentLevel);
 		
-		JLabel lblLives_1 = new JLabel("Lives:");
-		lblLives_1.setBounds(563, 14, 83, 16);
-		contentPane.add(lblLives_1);
+		JLabel numberOfLives = new JLabel("Lives:");
+		numberOfLives.setBounds(563, 14, 83, 16);
+		contentPane.add(numberOfLives);
 		
-		JLabel lblScore = new JLabel("Score:");
-		lblScore.setBounds(468, 45, 83, 16);
-		contentPane.add(lblScore);
+		JLabel playerScore = new JLabel("Score:");
+		playerScore.setBounds(468, 45, 83, 16);
+		contentPane.add(playerScore);
 		
 		JLabel lblHallOfFame = new JLabel("Hall Of Fame:");
 		lblHallOfFame.setBounds(469, 88, 186, 16);
 		contentPane.add(lblHallOfFame);
 		
-		JLabel lblCurrentgame = new JLabel("Current game:");
-		lblCurrentgame.setBounds(469, 118, 186, 16);
-		contentPane.add(lblCurrentgame);
+		currentGameName = new JLabel("Current game:");
+		currentGameName.setBounds(469, 118, 186, 16);
+		contentPane.add(currentGameName);
 		
-		JLabel lblDisplayHallOf = new JLabel("DISPLAY HALL OF FAME");
-		lblDisplayHallOf.setBounds(441, 140, 243, 232);
-		contentPane.add(lblDisplayHallOf);
+		displayHOF = new JLabel();
+		displayHOF.setBounds(464, 140, 202, 232);
+		contentPane.add(displayHOF);
 		
 		lblPrevious = new JLabel("Previous");
-		lblPrevious.setBounds(472, 433, 95, 16);
+		lblPrevious.setBounds(472, 433, 61, 16);
 		contentPane.add(lblPrevious);
 		
 		lblNext = new JLabel("Next");
-		lblNext.setBounds(622, 433, 62, 16);
+		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
+		
+		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 		
 		JButton button = new JButton("Start Game");
 		button.setBounds(174, 470, 337, 35);
@@ -2055,13 +2044,79 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		});
 	}
 	
-	private void mntmLogOutActionPerformed(ActionEvent evt) {//Mettre le LOGOUT A TONY IL EST MIEUX
+	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
 	
+	private void displayHOF() {
+		error = "ello";
+		int start = 0;
+		int end;
+		
+		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
+		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, randomHOF);
+		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
+		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, randomHOF);
+		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
+		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
+		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
+		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 0, randomHOF);
+		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 0, randomHOF);
+		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 0, randomHOF);
+		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 0, randomHOF);
+		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, randomHOF);
+
+		randomHOF.addEntry(player1);
+		randomHOF.addEntry(player2);
+		randomHOF.addEntry(player3);
+		randomHOF.addEntry(player4);
+		randomHOF.addEntry(player5);
+		randomHOF.addEntry(player6);
+		randomHOF.addEntry(player7);
+		randomHOF.addEntry(player8);
+		randomHOF.addEntry(player9);
+		randomHOF.addEntry(player10);
+		randomHOF.addEntry(player11);
+		
+//		
+//test it by creating a random hall of fame 
+		
+	
+//		System.out.println(randomHOF);
+		
+		//set
+		//Hof.getGamename();
+		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
+//		try {
+//			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
+//		} catch (InvalidInputException e ) {
+//			error = e.getMessage();
+//			JOptionPane.showMessageDialog(null, error);
+//		}
+//		
+		if(randomHOF.numberOfEntries() > 10) {
+			end = 10;
+		} else {
+			end = randomHOF.numberOfEntries();
+		}
+		
+		String hallOfFame = "";
+		
+		if(randomHOF.numberOfEntries() > 0) {
+		for (int index = 0; index < end; index++) {
+			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;	
+			}
+		}
+				
+		currentGameName.setText("Current game:" + randomHOF.getGamename() );
+		displayHOF.setText(error);
+		
+		
+	}
+
 
 	@Override
 	public String takeInputs() {

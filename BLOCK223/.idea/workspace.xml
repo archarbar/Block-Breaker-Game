@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="" />
+    <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/data.block223" beforeDir="false" afterPath="$PROJECT_DIR$/data.block223" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayMode.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,12 +14,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Block223.ump">
+        <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/model/PlayedBlockAssignment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+            <state relative-caret-position="255">
+              <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#1972#0" expanded="true" />
+                <element signature="e#930#931#0" expanded="true" />
+                <element signature="e#957#958#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -36,24 +45,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BLOCK223" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BLOCK223" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -99,12 +93,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7492000" />
+    <option name="totallyTimeSpent" value="7502000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29140893" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29621994" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -120,7 +114,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32858837" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.11625148" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -161,13 +155,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223Page.java" />
     <entry file="file://$PROJECT_DIR$/src/Block223.ump">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
