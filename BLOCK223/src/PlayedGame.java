@@ -213,14 +213,13 @@ public class PlayedGame
 	   Rectangle2D.Double paddleRect = new Rectangle2D.Double(paddleX, paddleY, paddleLength, paddleHeight+ballRadius);
 	   boolean intersect = paddleRect.intersectsLine(xBall, yBall, xBallFuture, yBallFuture);
 	   if (!intersect) {
-		   return bouncePoint;
 	   }
 	   else {
 		   Ellipse2D.Double ellipseE = new Ellipse2D.Double(ballRadius, ballRadius, paddleX - ballRadius, paddleY - ballRadius );
 		   Ellipse2D.Double ellipseF = new Ellipse2D.Double(ballRadius, ballRadius, paddleX + paddleLength + ballRadius, paddleY - ballRadius);
-		   Line2D.Double lineA = new Line2D.Double(paddleX, paddleY, paddleX + paddleLength, paddleY);
-		   Line2D.Double lineB = new Line2D.Double(paddleX - ballRadius, paddleY, paddleX - ballRadius, paddleY + ballRadius);
-		   Line2D.Double lineC = new Line2D.Double(paddleX + paddleLength + ballRadius, paddleY, paddleX + paddleLength + ballRadius, paddleY + ballRadius);
+		   Line2D.Double lineA = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2,getCurrentPaddleX(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2);
+		   Line2D.Double lineB = new Line2D.Double(getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
+		   Line2D.Double lineC = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2,getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
 		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
 		   if(lineA.intersectsLine(lineBallPath)) {
 			   bouncePosition = getLineIntersection(lineBallPath, lineA);
@@ -251,11 +250,14 @@ public class PlayedGame
 			   }
 		   }
 	   }
+	   else {
+			   return bouncePoint;
+		   }
 
 	   return bouncePoint;
   }
 
-  // line 108 "Block223States.ump"
+  // line 110 "Block223States.ump"
    private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment block){
     BouncePoint bouncePointBlock = null;
 	   Point bouncePosition;
@@ -335,7 +337,7 @@ public class PlayedGame
 	   return bouncePointBlock;
   }
 
-  // line 189 "Block223States.ump"
+  // line 191 "Block223States.ump"
    private void bounceBall(){
     double x = this.getBallDirectionX();
 	    double y = this.getBallDirectionY();
@@ -417,7 +419,7 @@ public class PlayedGame
 	    setBallDirectionY(y);
   }
 
-  // line 270 "Block223States.ump"
+  // line 272 "Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
     boolean outOfBounds = false;
     
@@ -427,13 +429,13 @@ public class PlayedGame
     return outOfBounds;
   }
 
-  // line 279 "Block223States.ump"
+  // line 281 "Block223States.ump"
    private boolean isOutOfBounds(){
     boolean outOfBounds = this.isBallOutOfBounds();
     return outOfBounds;
   }
 
-  // line 284 "Block223States.ump"
+  // line 286 "Block223States.ump"
    private boolean hitLastBlockAndLastLevel(){
     Game game = this.getGame();
     	int nrLevels = game.numberOfLevels();
@@ -450,7 +452,7 @@ public class PlayedGame
     return false;
   }
 
-  // line 300 "Block223States.ump"
+  // line 302 "Block223States.ump"
    private boolean hitLastBlock(){
     int nrBlocks = this.numberOfBlocks();
     	this.setBounce(null);
@@ -463,7 +465,7 @@ public class PlayedGame
     return false;
   }
 
-  // line 312 "Block223States.ump"
+  // line 314 "Block223States.ump"
    private boolean hitBlock(){
     int nrBlocks = this.numberOfBlocks();
     	this.setBounce(null);
@@ -480,7 +482,7 @@ public class PlayedGame
     	return this.getBounce() != null;
   }
 
-  // line 328 "Block223States.ump"
+  // line 330 "Block223States.ump"
    private boolean hitWall(){
     BouncePoint bp = calculateBouncePointWall();
 	if(bp != null) {
@@ -494,7 +496,7 @@ public class PlayedGame
   /**
    * Actions
    */
-  // line 339 "Block223States.ump"
+  // line 341 "Block223States.ump"
    private void doSetup(){
     // TODO implement
 	   this.resetCurrentBallX();
@@ -548,7 +550,7 @@ public class PlayedGame
 	   }
   }
 
-  // line 392 "Block223States.ump"
+  // line 394 "Block223States.ump"
    private PlayedBlockAssignment findPlayedBlockAssignment(int x, int y){
     Game game = this.getGame();
 	  Level level = game.getLevel(currentLevel - 1);
@@ -566,12 +568,12 @@ public class PlayedGame
 		 return null;
   }
 
-  // line 409 "Block223States.ump"
+  // line 411 "Block223States.ump"
    private void doHitPaddleOrWall(){
     this.bounceBall();
   }
 
-  // line 413 "Block223States.ump"
+  // line 415 "Block223States.ump"
    private void doOutOfBounds(){
     this.setLives(lives-1);
 		this.resetCurrentBallX();
@@ -581,7 +583,7 @@ public class PlayedGame
 		this.resetCurrentPaddleX();
   }
 
-  // line 422 "Block223States.ump"
+  // line 424 "Block223States.ump"
    private void doHitBlock(){
     int currentscore = this.getScore();
     BouncePoint bouncepoint = this.getBounce();
@@ -593,7 +595,7 @@ public class PlayedGame
     this.bounceBall();
   }
 
-  // line 433 "Block223States.ump"
+  // line 435 "Block223States.ump"
    private void doHitBlockNextLevel(){
     this.doHitBlock();
     int level = this.getCurrentLevel();
@@ -603,7 +605,7 @@ public class PlayedGame
     this.setCurrentLevel(level+1);
   }
 
-  // line 442 "Block223States.ump"
+  // line 444 "Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
     PlayedGame currentPlayedGame = Block223Application.getCurrentPlayableGame();
 	double x = currentPlayedGame.getCurrentBallX();
@@ -614,7 +616,7 @@ public class PlayedGame
 	currentPlayedGame.setCurrentBallY(y + dy);
   }
 
-  // line 452 "Block223States.ump"
+  // line 454 "Block223States.ump"
    private void doGameOver(){
     Block223 block223 = this.getBlock223();
     Player p = this.getPlayer();
@@ -630,9 +632,9 @@ public class PlayedGame
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 105 "Block223States.ump"
+  // line 107 "Block223States.ump"
   private double currentBlockLength ;
-// line 106 "Block223States.ump"
+// line 108 "Block223States.ump"
   private double currentBlockHeight ;
 
   
