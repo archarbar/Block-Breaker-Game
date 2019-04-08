@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd10dfff-b799-4f2e-9f1e-d32f2cc6d2e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/Block223PlayMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project-tests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/src/Block223.ump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/src/Block223Persistence.ump" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/Block223Persistence.ump" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLOCK223/data.block223" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/data.block223" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLOCK223/src/Block223.ump" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/Block223.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/Block223PlayMode.ump" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/Block223PlayMode.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/Block223States.ump" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/Block223States.ump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/PlayedGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/PlayedGame.java" afterDir="false" />
@@ -21,8 +12,8 @@
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Block223.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Block223.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/BlockAssignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/BouncePoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/BouncePoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/HallOfFameEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/HallOfFameEntry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Level.java" afterDir="false" />
@@ -32,8 +23,7 @@
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/model/UserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/persistence/PersistenceObjectStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/Block223PlayModeInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/Block223PlayModeInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/BLOCK223/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,7 +53,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -80,6 +69,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -112,16 +102,17 @@
       <option name="presentableId" value="Default" />
       <updated>1553484284259</updated>
       <workItem from="1553484291329" duration="2499000" />
+      <workItem from="1554660150522" duration="518000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2505000" />
+    <option name="totallyTimeSpent" value="3023000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="798" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="798" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
