@@ -217,6 +217,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	ArrayList<JPanel> panelList;
 	private JLabel lblPrevious;
 	private JLabel lblNext;
+	JTextArea gameArea;
+	Block223PlayModeListener bp;
+	private JButton button;
+	private TOHallOfFame HOF;
 
 	private TOHallOfFame HOF;
 
@@ -265,7 +269,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		panel.setAlignmentX(0.0f);
 		panel.setAlignmentY(0.0f);
 		panel.setBackground(new Color(176, 196, 222));
-		
+
 		panel.setLayout(null);
 		
 		panel_1_1 = new JPanel();
@@ -1990,9 +1994,56 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		lblNext = new JLabel("Next");
 		lblNext.setBounds(622, 433, 31, 16);
 		contentPane.add(lblNext);
-		
+
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
-		
+
+		JButton button = new JButton("Start Game");
+		button.setBounds(174, 470, 337, 35);
+		contentPane.add(button);
+
+		gameArea = new JTextArea();
+		gameArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(gameArea);
+		scrollPane.setPreferredSize(new Dimension(375, 125));
+
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+		button.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				button.setVisible(false);
+				// initiating a thread to start listening to keyboard inputs
+				bp = new Block223PlayModeListener();
+				Runnable r1 = new Runnable() {
+					@Override
+					public void run() {
+						// in the actual game, add keyListener to the game window
+						gameArea.addKeyListener(bp);
+					}
+				};
+				Thread t1 = new Thread(r1);
+				t1.start();
+				// to be on the safe side use join to start executing thread t1 before executing
+				// the next thread
+				try {
+					t1.join();
+				} catch (InterruptedException e1) {
+				}
+
+				// initiating a thread to start the game loop
+				Runnable r2 = new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Block223Controller.startGame(Block223PlayMode.this);
+							button.setVisible(true);
+						} catch (InvalidInputException e) {
+						}
+					}
+				};
+				Thread t2 = new Thread(r2);
+				t2.start();
+			}
+		});
 	}
 	
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
@@ -2001,12 +2052,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 	private void displayHOF() {
 		error = "ello";
 		int start = 0;
 		int end;
-		
+
 		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
 		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, randomHOF);
 		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
@@ -2031,13 +2082,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		randomHOF.addEntry(player9);
 		randomHOF.addEntry(player10);
 		randomHOF.addEntry(player11);
-		
-//		
-//test it by creating a random hall of fame 
-		
-	
+
+//
+//test it by creating a random hall of fame
+
+
 //		System.out.println(randomHOF);
-		
+
 		//set
 		//Hof.getGamename();
 		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
@@ -2047,42 +2098,43 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //			error = e.getMessage();
 //			JOptionPane.showMessageDialog(null, error);
 //		}
-//		
+//
 		if(randomHOF.numberOfEntries() > 10) {
 			end = 10;
 		} else {
 			end = randomHOF.numberOfEntries();
 		}
-		
+
 		String hallOfFame = "";
-		
+
 		if(randomHOF.numberOfEntries() > 0) {
 		for (int index = 0; index < end; index++) {
-			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;	
+			hallOfFame += randomHOF.getEntry(index).getPosition() + randomHOF.getEntry(index).getPlayername() + randomHOF.getEntry(index).getScore() + "/n" ;
 			}
 		}
-				
+
 		currentGameName.setText("Current game:" + randomHOF.getGamename() );
 		displayHOF.setText(error);
-		
-		
+
+
 	}
 
 
 	public String takeInputs() {
-		Scanner scan = new Scanner(System.in);
-		String userInput = scan.nextLine();
-		String inputs = "";
-		for (int i=0; i < userInput.length(); i++) {
-			if (userInput.charAt(i) == 'l' || userInput.charAt(i) == 'r' || userInput.charAt(i) == ' ') {
-				inputs += Character.toString(userInput.charAt(i));
-			}
+		if (bp == null) {
+			return "";
 		}
-		scan.close();
-		return inputs;
+		return bp.takeInputs();
 	}
-	
+
+	@Override
 	public void refresh() {
-		
+		System.out.println("UI is refreshing now...");
+	}
+
+	@Override
+	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
+		// TODO Auto-generated method stub
+
 	}
 }

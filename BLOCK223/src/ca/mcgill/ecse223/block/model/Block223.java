@@ -269,9 +269,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public HallOfFameEntry addEntry(int aScore, String aPlayername, Player aPlayer, Game aGame)
+  public HallOfFameEntry addEntry()
   {
-    return new HallOfFameEntry(aScore, aPlayername, aPlayer, aGame, this);
+    return new HallOfFameEntry(this);
   }
 
   public boolean addEntry(HallOfFameEntry aEntry)
