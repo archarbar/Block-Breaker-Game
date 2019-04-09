@@ -224,28 +224,28 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JButton button;
 	private TOHallOfFame HOF;
 	private JLabel displayHOF;
-	
+
 //	public void paint(Graphics g) {
 //		//background?
 //		g.setColor(Color.black);
 //		g.fillRect(1,1,500,500);
-//		
+//
 //		// borders (only 3 border because no border at the end, for out of bound
 //		g.setColor(Color.yellow);
 //		g.fillRect(0,0,3,500);
 //		g.fillRect(0,0,600,3);
 //		g.fillRect(0,0,500,3);
-//		
-//		// create the paddle 
+//
+//		// create the paddle
 //		g.setColor(Color.red);
 //		g.fillRect(40,500,100,0);
-//		
-//		//the ball 
+//
+//		//the ball
 //		g.setColor(Color.yellow);
 //		g.fillRect(300, 300, 20, 20);
 //	}
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -253,7 +253,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-
 				}
 			}
 		});
@@ -262,7 +261,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	public Block223PlayMode() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 574);
+		setBounds(100, 100, 710, 640);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(192, 192, 192));
@@ -293,7 +292,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		playArea.setBackground(new Color(176, 196, 222));
 
 		playArea.setLayout(null);
-		
+
 //		panel_1_1 = new JPanel();
 //		panel_1_1.setBounds(10, 10, 20, 20);
 //		panel_1_1.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1921,7 +1920,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		label_14.setBounds(360, 0, 20, 20);
 		panel_122.add(label_14);
 
-		
 
 
 //		panelList = new ArrayList<>();
@@ -2142,32 +2140,32 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		playArea() {
 			setPreferredSize(new Dimension(420,420));
 		}
-		
-		
-		
+
+
+
 //		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
-		
-		
-		
-		@Override 
+
+
+
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			
+
 			//Background
 			g.setColor(Color.pink);
-			g.fillRect(0,0,390,390);			
-			
-			
-			//ball	
+			g.fillRect(0,0,390,390);
+
+
+			//ball
 			g.setColor(Color.red);
 			g.fillOval(195,195,10,10);
-		
+
 			//paddle
 			g.setColor(Color.green);
 			g.fillRect(195,360,20,5);
-			
-			
-			
+
+
+
 		}
 	}
 
@@ -2184,9 +2182,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		System.out.println("UI is refreshing now...");
 	}
 
-	@Override
+/*	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
 		// TODO Auto-generated method stub
 
-	}
+	} */
 }
