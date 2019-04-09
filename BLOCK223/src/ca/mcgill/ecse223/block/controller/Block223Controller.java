@@ -894,8 +894,11 @@ public class Block223Controller {
 			updatePaddlePosition(userInputs);
 			game.move();
 			if (userInputs.contains(" ")) {
+				String inputsBeforeSpace = userInputs.substring(0, (userInputs.indexOf(" ")));
+				System.out.println("Inputs: " + inputsBeforeSpace + " Pause");
 				game.pause();
 			}
+			System.out.println("Inputs: " + userInputs);
 			try {
 				Thread.sleep((long) game.getWaitTime());
 			} catch (InterruptedException e) {
@@ -904,6 +907,7 @@ public class Block223Controller {
 			ui.refresh();
 		}
 		if (game.getPlayStatus() == PlayStatus.GameOver) {
+			System.out.println("Game Over");
 			Block223Application.setCurrentPlayableGame(null);
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);

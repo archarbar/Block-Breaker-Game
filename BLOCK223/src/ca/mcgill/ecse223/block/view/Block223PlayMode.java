@@ -238,7 +238,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	public Block223PlayMode() {
 		setTitle("BLOCK CREATOR 9000");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 574);
+		setBounds(100, 100, 710, 640);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(192, 192, 192));
@@ -2061,7 +2061,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //		TOHallOfFame randomHOF = new TOHallOfFame("mlej8");
 //		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, HOF);
 //		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, randomHOF);
-//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, randomHOF);
+//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 99999999, randomHOF);
 //		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, randomHOF);
 //		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, randomHOF);
 //		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, randomHOF);
@@ -2128,9 +2128,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		System.out.println("UI is refreshing now...");
 	}
 
-	@Override
+/*	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
 		// TODO Auto-generated method stub
 
-	}
+	} */
 }
