@@ -2143,13 +2143,31 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			setPreferredSize(new Dimension(420,420));
 		}
 		
+		
+		
+//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
+		
+		
+		
 		@Override 
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			
-//			g.drawRect(30,30,390,390);
-//			g.drawString("BLAH", 20, 20);
-			g.fillOval(0,0,50,50);
+			//Background
+			g.setColor(Color.pink);
+			g.fillRect(0,0,390,390);			
+			
+			
+			//ball	
+			g.setColor(Color.red);
+			g.fillOval(195,195,10,10);
+		
+			//paddle
+			g.setColor(Color.green);
+			g.fillRect(195,360,20,5);
+			
+			
+			
 		}
 	}
 
