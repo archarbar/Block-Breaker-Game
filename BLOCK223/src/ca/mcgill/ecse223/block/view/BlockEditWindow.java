@@ -2002,6 +2002,9 @@ public class BlockEditWindow extends JFrame {
 		error = "";
 		try {
 			Block223Controller.publishGame();
+			RegisterLoginPage login = new RegisterLoginPage();
+			login.setVisible(true);
+			this.setVisible(false);
 		}
 		catch(InvalidInputException e10) {
 			error = e10.getMessage();
