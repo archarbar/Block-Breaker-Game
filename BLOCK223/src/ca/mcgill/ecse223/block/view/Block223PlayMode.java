@@ -14,7 +14,11 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.TOCurrentBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
-import ca.mcgill.ecse223.block.model.PlayedGame;
+import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
+
+
+
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.BorderLayout;
 
@@ -43,7 +47,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TOCurrentlyPlayedGame playableGame;
+	public TOCurrentlyPlayedGame playableGame;
 
 	private JPanel contentPane;
 	private JLabel currentGameName;
@@ -345,15 +349,15 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
+		currentLevel = new JLabel("Level: " + 1);
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		numberOfLives = new JLabel("Lives: " + playableGame.getLives());
+		numberOfLives = new JLabel("Lives: " + 3);
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
-		playerScore = new JLabel("Score: " + playableGame.getScore());
+		playerScore = new JLabel("Score: " + 0);
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
@@ -441,6 +445,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	}
 
 	public TOCurrentlyPlayedGame getCurrentPlayableGame() {
+		
 		try {
 		playableGame = Block223Controller.getCurrentPlayableGame();
 	} catch (InvalidInputException e ) {
@@ -506,33 +511,19 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		displayHOF.setText("<html><body style = 'width: 150px'>  "+ hallOfFame + "</body></html>");
 
 		}
-
+	
 	public class playArea extends JPanel {
 		playArea() {
 			setPreferredSize(new Dimension(420,420));
 		}
-		//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
 		private int boxSize = 20;
-
-//		try {
-//		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
-//		}	catch (InvalidInputException e ) {
-//			error = e.getMessage();
-//			JOptionPane.showMessageDialog(null, error);
-//		}
-		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
 		private double ballposX = 195;
 		private double ballposY = 195;
-//		private double balldirX = playableGame.getBallDirectionX();
-//		private double balldirY = playableGame.getBallDirectionY();
-		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 
 		@Override
 		public void paintComponent(Graphics g) {
-
-			
-			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
-
+			TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -543,40 +534,18 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), 10, 10);
+			g.fillOval((int) playableGame.getCurrentBallX(), (int) playableGame.getCurrentBallY(), 10, 10);
 
 			//paddle
 
 			g.setColor(Color.green);
-			g.fillRect((int) currentGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
+			g.fillRect((int) playableGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
 
 
 			for (TOCurrentBlock block : blocks) {
-				int i = 1;
-				int j = 1;
-				int xPosition = 10;
-				int yPosition = 10;
-				int x = block.getX();
-				int y = block.getY();
-
-				if (x == 1 || y == 1) {
-					xPosition = 10;
-					yPosition = 10;
-				}
-
-				while (i < x) {
-					xPosition += 25;
-					i++;
-				}
-
-				while (j < y) {
-					yPosition += 22;
-					j++;
-				}
-
 				// create new block
 				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(xPosition, yPosition, boxSize, boxSize);
+				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
 			}
 		}
 	}
