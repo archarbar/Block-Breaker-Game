@@ -61,6 +61,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JButton button;
 	private TOHallOfFame HOF;
 	private JLabel displayHOF;
+	private JLabel playerScore;
+	private JLabel numberOfLives;
+	private JLabel currentLevel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -342,19 +345,19 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		JLabel currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
+		currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		JLabel numberOfLives = new JLabel("Lives: " + playableGame.getLives());
+		numberOfLives = new JLabel("Lives: " + playableGame.getLives());
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
-		JLabel playerScore = new JLabel("Score: " + playableGame.getScore());
+		playerScore = new JLabel("Score: " + playableGame.getScore());
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
-		JLabel lblHallOfFame = new JLabel("Hall Of Fame: " + playableGame.getBlocks().size());
+		JLabel lblHallOfFame = new JLabel("Hall Of Fame: ");
 		lblHallOfFame.setBounds(469, 88, 186, 16);
 		contentPane.add(lblHallOfFame);
 		
@@ -429,7 +432,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		});
 		refresh();
 	}
-	
+
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
@@ -588,10 +591,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	@Override
 	public void refresh() {
 		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
-		System.out.println(playableGame.getBlocks().size());
-//		System.out.println(playableGame.getBlock(2).getX());
-//		System.out.println(playableGame.getBlock(2).getY());
-		System.out.println("UI is refreshing now...");
+		numberOfLives.setText("Lives: " + playableGame.getLives());
+		playerScore.setText("Score: " + playableGame.getScore());
+		currentLevel.setText("Level: " + playableGame.getCurrentLevel());
 		playArea.revalidate();
 		playArea.repaint();
 	}
