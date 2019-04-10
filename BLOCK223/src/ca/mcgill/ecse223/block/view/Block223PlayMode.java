@@ -24,6 +24,7 @@ import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.model.Ball;
 import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
@@ -103,125 +104,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	//PlayArea
 	private JPanel playArea;
 	//blocks
-//	private JPanel panel_1_1;
-//	private JPanel panel_1_2;
-//	private JPanel panel_1_3;
-//	private JPanel panel_1_4;
-//	private JPanel panel_1_5;
-//	private JPanel panel_1_6;
-//	private JPanel panel_1_7;
-//	private JPanel panel_1_8;
-//	private JPanel panel_1_9;
-//	private JPanel panel_1_10;
-//	private JPanel panel_1_11;
-//	private JPanel panel_1_12;
-//	private JPanel panel_1_13;
-//	private JPanel panel_1_14;
-//	private JPanel panel_1_15;
-//	private JPanel panel_2_1;
-//	private JPanel panel_3_1;
-//	private JPanel panel_4_1;
-//	private JPanel panel_5_1;
-//	private JPanel panel_6_1;
-//	private JPanel panel_7_1;
-//	private JPanel panel_8_1;
-//	private JPanel panel_2_2;
-//	private JPanel panel_2_3;
-//	private JPanel panel_2_4;
-//	private JPanel panel_2_5;
-//	private JPanel panel_2_6;
-//	private JPanel panel_2_7;
-//	private JPanel panel_2_8;
-//	private JPanel panel_2_9;
-//	private JPanel panel_2_10;
-//	private JPanel panel_2_11;
-//	private JPanel panel_2_12;
-//	private JPanel panel_2_13;
-//	private JPanel panel_2_14;
-//	private JPanel panel_2_15;
-//	private JPanel panel_3_2;
-//	private JPanel panel_3_3;
-//	private JPanel panel_3_4;
-//	private JPanel panel_3_5;
-//	private JPanel panel_3_6;
-//	private JPanel panel_3_7;
-//	private JPanel panel_3_8;
-//	private JPanel panel_3_9;
-//	private JPanel panel_3_10;
-//	private JPanel panel_3_11;
-//	private JPanel panel_3_12;
-//	private JPanel panel_3_13;
-//	private JPanel panel_3_14;
-//	private JPanel panel_3_15;
-//	private JPanel panel_4_2;
-//	private JPanel panel_4_3;
-//	private JPanel panel_4_4;
-//	private JPanel panel_4_5;
-//	private JPanel panel_4_6;
-//	private JPanel panel_4_7;
-//	private JPanel panel_4_8;
-//	private JPanel panel_4_9;
-//	private JPanel panel_4_10;
-//	private JPanel panel_4_11;
-//	private JPanel panel_4_12;
-//	private JPanel panel_4_13;
-//	private JPanel panel_4_14;
-//	private JPanel panel_4_15;
-//	private JPanel panel_5_2;
-//	private JPanel panel_5_3;
-//	private JPanel panel_5_4;
-//	private JPanel panel_5_5;
-//	private JPanel panel_5_6;
-//	private JPanel panel_5_7;
-//	private JPanel panel_5_8;
-//	private JPanel panel_5_9;
-//	private JPanel panel_5_10;
-//	private JPanel panel_5_11;
-//	private JPanel panel_5_13;
-//	private JPanel panel_5_14;
-//	private JPanel panel_5_15;
-//	private JPanel panel_6_2;
-//	private JPanel panel_6_3;
-//	private JPanel panel_6_4;
-//	private JPanel panel_6_5;
-//	private JPanel panel_6_6;
-//	private JPanel panel_6_7;
-//	private JPanel panel_6_8;
-//	private JPanel panel_6_9;
-//	private JPanel panel_6_10;
-//	private JPanel panel_6_11;
-//	private JPanel panel_6_12;
-//	private JPanel panel_6_13;
-//	private JPanel panel_6_14;
-//	private JPanel panel_6_15;
-//	private JPanel panel_7_2;
-//	private JPanel panel_7_3;
-//	private JPanel panel_7_4;
-//	private JPanel panel_7_5;
-//	private JPanel panel_7_6;
-//	private JPanel panel_7_7;
-//	private JPanel panel_7_8;
-//	private JPanel panel_7_9;
-//	private JPanel panel_7_10;
-//	private JPanel panel_7_11;
-//	private JPanel panel_7_12;
-//	private JPanel panel_7_13;
-//	private JPanel panel_7_14;
-//	private JPanel panel_7_15;
-//	private JPanel panel_8_2;
-//	private JPanel panel_8_3;
-//	private JPanel panel_8_4;
-//	private JPanel panel_8_5;
-//	private JPanel panel_8_6;
-//	private JPanel panel_8_7;
-//	private JPanel panel_8_8;
-//	private JPanel panel_8_9;
-//	private JPanel panel_8_10;
-//	private JPanel panel_8_11;
-//	private JPanel panel_8_12;
-//	private JPanel panel_8_13;
-//	private JPanel panel_8_14;
-//	private JPanel panel_8_15;
+//	List<TOGridCell> blocks;
 	ArrayList<JPanel> panelList;
 	private JLabel lblPrevious;
 	private JLabel lblNext;
@@ -2087,38 +1970,37 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private void displayHOF() {
 		int end;
 //test it by creating a random hall of fame
-		TOHallOfFame HOF = new TOHallOfFame(playableGame.getGame().getName());
-		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, HOF);
-		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, HOF);
-		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 99999999, HOF);
-		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, HOF);
-		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS le caca", 20, HOF);
-		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, HOF);
-		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 4, HOF);
-		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 3, HOF);
-		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 2, HOF);
-		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 1, HOF);
-		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, HOF);
-		HOF.addEntry(player1);
-		HOF.addEntry(player2);
-		HOF.addEntry(player3);
-		HOF.addEntry(player4);
-		HOF.addEntry(player5);
-		HOF.addEntry(player6);
-		HOF.addEntry(player7);
-		HOF.addEntry(player8);
-		HOF.addEntry(player9);
-		HOF.addEntry(player10);
-		HOF.addEntry(player11);
-
+//		TOHallOfFame HOF = new TOHallOfFame(playableGame.getGame().getName());
+//		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, HOF);
+//		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, HOF);
+//		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 99999999, HOF);
+//		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, HOF);
+//		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS le caca", 20, HOF);
+//		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, HOF);
+//		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 4, HOF);
+//		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 3, HOF);
+//		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 2, HOF);
+//		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 1, HOF);
+//		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, HOF);
+//		HOF.addEntry(player1);
+//		HOF.addEntry(player2);
+//		HOF.addEntry(player3);
+//		HOF.addEntry(player4);
+//		HOF.addEntry(player5);
+//		HOF.addEntry(player6);
+//		HOF.addEntry(player7);
+//		HOF.addEntry(player8);
+//		HOF.addEntry(player9);
+//		HOF.addEntry(player10);
+//		HOF.addEntry(player11);
 
 		//The player views the first ten entries of the hall of fame and can browse to the next/previous ten entries in the hall of fame.
-//		try {
-//			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
-//		} catch (InvalidInputException e ) {
-//			error = e.getMessage();
-//			JOptionPane.showMessageDialog(null, error);
-//		}
+		try {
+			HOF = Block223Controller.getHallOfFame(1, 100); //returns a TOHallOfFame
+		} catch (InvalidInputException e ) {
+			error = e.getMessage();
+			JOptionPane.showMessageDialog(null, error);
+		}
 
 
 
@@ -2146,16 +2028,39 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		playArea() {
 			setPreferredSize(new Dimension(420,420));
 		}
+		
+		public List<TOGridCell> getBlocksAtCurrentLevel() {
+			int level = playableGame.getCurrentLevel();
+//					levels.get(levelComboBox.getSelectedIndex());
+			List<TOGridCell> currentLevelBlocks = null;
+				try {
+					currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
+					JOptionPane.showMessageDialog(null, "Successfully got blocks of level " + level);
+				} catch (InvalidInputException e) {
+					System.out.println(e.getMessage());
+				}
+			System.out.println(currentLevelBlocks.size());
+			return currentLevelBlocks;
+		}
 
 
 
 //		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
-		
+		private int boxSize = 20;		
+		List<PlayedBlockAssignment> blocks = playableGame.getBlocks();
+//		try {
+//		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
+//		}	catch (InvalidInputException e ) {
+//			error = e.getMessage();
+//			JOptionPane.showMessageDialog(null, error);
+//		}
+ 
 		private double ballposX = 195;
 		private double ballposY = 195;
 		private double balldirX = playableGame.getBallDirectionX();
 		private double balldirY = playableGame.getBallDirectionY();
 		public static final int diameter = Ball.BALL_DIAMETER;
+		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 		
 		@Override
 		public void paintComponent(Graphics g) {
@@ -2173,10 +2078,36 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			g.fillOval((int) ballposX, (int) ballposY, diameter, diameter);
 
 			//paddle
-			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
+		
 			g.setColor(Color.green);
 			g.fillRect((390-currentPaddleLength)/2,360, currentPaddleLength, 5);
+			
+			for (PlayedBlockAssignment block : blocks) {
+				int i = 1;
+				int xPosition = 10;
+				int yPosition = 10;
+				int x = block.getX();
+				int y = block.getY();
 
+				if (x == 1 || y == 1) {
+					xPosition = 10;
+					yPosition = 10;
+				}
+
+				while (i < x) {
+					xPosition += 25;
+					i++;
+				}
+
+				while (i < y) {
+					yPosition += 22;
+					i++;
+				}
+
+				// create new block
+				g.setColor(new Color(block.getBlock().getRed(), block.getBlock().getGreen(), block.getBlock().getBlue()));
+				g.fillRect(xPosition, yPosition, boxSize, boxSize);
+			}
 		}
 	}
 
