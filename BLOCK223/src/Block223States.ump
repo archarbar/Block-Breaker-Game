@@ -6,6 +6,7 @@ class PlayedGame {
 	depend java.awt.Point;
 	depend ca.mcgill.ecse223.block.model.BouncePoint.BounceDirection;
 	depend ca.mcgill.ecse223.block.application.Block223Application;
+	depend java.awt.geom.Point2D;
 	
 
   // State Machine
@@ -72,7 +73,7 @@ class PlayedGame {
 		   else if(lineBallPath.intersectsLine(topWall)){
 			   bouncePosition = getLineIntersection(lineBallPath, topWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
-			   System.out.println(bouncePoint);
+			   //System.out.println(bouncePoint);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
 			   } 
@@ -176,7 +177,7 @@ class PlayedGame {
 		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
 		   if(lineTop.intersectsLine(lineBallPath)) {
 			   bouncePosition = getLineIntersection(lineBallPath, lineTop);
-			   System.out.println(bouncePosition);
+			   //System.out.println(bouncePosition);
 			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
 			   bouncePointBlock.setHitBlock(pblock);
 			   intersectionPoints.add(bouncePointBlock);
