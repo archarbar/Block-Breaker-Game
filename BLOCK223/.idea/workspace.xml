@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2766456b-1475-45bb-9902-4d671aba8ec9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.block223" beforeDir="false" afterPath="$PROJECT_DIR$/data.block223" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/BlockEditWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayedGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ca/mcgill/ecse223/block/view/Block223PlayMode.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,9 +33,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -79,16 +78,17 @@
       <workItem from="1554561716378" duration="259000" />
       <workItem from="1554572938854" duration="885000" />
       <workItem from="1554851876379" duration="157000" />
+      <workItem from="1554919025990" duration="220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9670000" />
+    <option name="totallyTimeSpent" value="9890000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30939597" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31409395" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
