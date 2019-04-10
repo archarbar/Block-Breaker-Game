@@ -25,8 +25,6 @@ import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.model.Ball;
-import ca.mcgill.ecse223.block.model.Game;
-import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
@@ -96,8 +94,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TOCurrentlyPlayedGame playableGame;		
-	
+	private TOCurrentlyPlayedGame playableGame;
+
 	private JPanel contentPane;
 	private JLabel currentGameName;
 	// data elements
@@ -243,7 +241,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_8.setBackground(new Color(230, 230, 250));
 		formattedTextField_8.setBounds(0, 186, 20, 20);
 		panel_121.add(formattedTextField_8);
-		
+
 		JFormattedTextField formattedTextField_9 = new JFormattedTextField();
 		formattedTextField_9.setText("11");
 		formattedTextField_9.setHorizontalAlignment(SwingConstants.CENTER);
@@ -251,7 +249,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_9.setBackground(new Color(230, 230, 250));
 		formattedTextField_9.setBounds(0, 208, 20, 20);
 		panel_121.add(formattedTextField_9);
-		
+
 		JFormattedTextField formattedTextField_10 = new JFormattedTextField();
 		formattedTextField_10.setText("12");
 		formattedTextField_10.setHorizontalAlignment(SwingConstants.CENTER);
@@ -259,7 +257,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_10.setBackground(new Color(230, 230, 250));
 		formattedTextField_10.setBounds(0, 230, 20, 20);
 		panel_121.add(formattedTextField_10);
-		
+
 		JFormattedTextField formattedTextField_11 = new JFormattedTextField();
 		formattedTextField_11.setText("13");
 		formattedTextField_11.setHorizontalAlignment(SwingConstants.CENTER);
@@ -267,7 +265,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_11.setBackground(new Color(230, 230, 250));
 		formattedTextField_11.setBounds(0, 252, 20, 20);
 		panel_121.add(formattedTextField_11);
-		
+
 		JFormattedTextField formattedTextField_12 = new JFormattedTextField();
 		formattedTextField_12.setText("14");
 		formattedTextField_12.setHorizontalAlignment(SwingConstants.CENTER);
@@ -275,7 +273,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_12.setBackground(new Color(230, 230, 250));
 		formattedTextField_12.setBounds(0, 274, 20, 20);
 		panel_121.add(formattedTextField_12);
-		
+
 		JFormattedTextField formattedTextField_13 = new JFormattedTextField();
 		formattedTextField_13.setText("15");
 		formattedTextField_13.setHorizontalAlignment(SwingConstants.CENTER);
@@ -283,7 +281,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_13.setBackground(new Color(230, 230, 250));
 		formattedTextField_13.setBounds(0, 296, 20, 20);
 		panel_121.add(formattedTextField_13);
-		
+
 		JPanel panel_122 = new JPanel();
 		panel_122.setBackground(new Color(230, 230, 250));
 		panel_122.setBorder(null);
@@ -489,7 +487,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 	public TOCurrentlyPlayedGame getCurrentPlayableGame() {
 		try {
 		playableGame = Block223Controller.getCurrentPlayableGame();
@@ -562,8 +560,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			setPreferredSize(new Dimension(420,420));
 		}
 		//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
-		private int boxSize = 20;		
-		
+		private int boxSize = 20;
+
 //		try {
 //		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
 //		}	catch (InvalidInputException e ) {
@@ -577,12 +575,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //		private double balldirY = playableGame.getBallDirectionY();
 		public static final int diameter = Ball.BALL_DIAMETER;
 		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
-		
+
 		@Override
 		public void paintComponent(Graphics g) {
+
 			
 			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
-			
+
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -596,17 +595,40 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), diameter, diameter);
 
 			//paddle
-		
+
 			g.setColor(Color.green);
-			g.fillRect((390-currentPaddleLength)/2,360, currentPaddleLength, 5);
-			
+			PlayedGame game = Block223Application.getCurrentPlayableGame();
+			g.fillRect((int) game.getCurrentPaddleX(),360, currentPaddleLength, 5);
+
+
 			for (TOCurrentBlock block : blocks) {
+				int i = 1;
+				int j = 1;
+				int xPosition = 10;
+				int yPosition = 10;
+				int x = block.getX();
+				int y = block.getY();
+
+				if (x == 1 || y == 1) {
+					xPosition = 10;
+					yPosition = 10;
+				}
+
+				while (i < x) {
+					xPosition += 25;
+					i++;
+				}
+
+				while (j < y) {
+					yPosition += 22;
+					j++;
+				}
+
 				// create new block
 				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
+				g.fillRect(xPosition, yPosition, boxSize, boxSize);
 			}
 		}
-
 	}
 
 	public String takeInputs() {
@@ -626,4 +648,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		playArea.revalidate();
 		playArea.repaint();
 	}
+
+/*	@Override
+	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
+		// TODO Auto-generated method stub
+
+	} */
 }
