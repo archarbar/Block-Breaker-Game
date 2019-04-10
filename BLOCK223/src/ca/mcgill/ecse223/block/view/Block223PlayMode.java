@@ -2029,7 +2029,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 
 		JButton button = new JButton("Start Game");
-		button.setBounds(174, 470, 337, 35);
+		button.setBounds(175, 453, 337, 35);
 		contentPane.add(button);
 
 		gameArea = new JTextArea();
