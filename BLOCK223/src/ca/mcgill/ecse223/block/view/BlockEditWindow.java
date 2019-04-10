@@ -85,6 +85,7 @@ public class BlockEditWindow extends JFrame {
 	
 	//playArea
 	private JPanel playArea;
+	private JPanel newPanel;
 	private JPanel gridforblocks;
 	// data elements
 	private String error = "";
@@ -158,21 +159,6 @@ public class BlockEditWindow extends JFrame {
 		playArea.setAlignmentY(0.0f);
 		playArea.setBackground(Color.WHITE);
 		
-		gridforblocks = new gridCells();
-		gridforblocks.setBounds(10,10,370,335);
-		gridforblocks.setBackground(Color.PINK);
-		gridforblocks.setLayout(new GridLayout(15,15,5,2));
-		gridforblocks.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		playArea.add(gridforblocks);
-		// if I put 0 for gridlayout row, we have any number of rows, and 4 columns
-//		gridforblocks.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-//
-//		for (int i =0; i<(10*10); i++){
-//		    final JLabel label = new JLabel("Label");
-//		    label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//		    gridforblocks.add(label);
-//		}
-
 		deleteBlockButton = new JButton("Delete Block");
 		deleteBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,6 +190,11 @@ public class BlockEditWindow extends JFrame {
 		contentPane.add(lblListOfLevels);
 
 		levelComboBox = new JComboBox();
+		levelComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshData();
+			}
+		});
 		levelComboBox.setModel(new DefaultComboBoxModel(new String[] {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14", "Level 15", "Level 16", "Level 17", "Level 18", "Level 19", "Level 20", "Level 21", "Level 22", "Level 23", "Level 24", "Level 25", "Level 26", "Level 27", "Level 28", "Level 29", "Level 30", "Level 31", "Level 32", "Level 33", "Level 34", "Level 35", "Level 36", "Level 37", "Level 38", "Level 39", "Level 40", "Level 41", "Level 42", "Level 43", "Level 44", "Level 45", "Level 46", "Level 47", "Level 48", "Level 49", "Level 50", "Level 51", "Level 52", "Level 53", "Level 54", "Level 55", "Level 56", "Level 57", "Level 58", "Level 59", "Level 60", "Level 61", "Level 62", "Level 63", "Level 64", "Level 65", "Level 66", "Level 67", "Level 68", "Level 69", "Level 70", "Level 71", "Level 72", "Level 73", "Level 74", "Level 75"}));
 		levelComboBox.setBounds(563, 44, 123, 20);
 		contentPane.add(levelComboBox);
@@ -550,15 +541,11 @@ public class BlockEditWindow extends JFrame {
 		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refreshData();
+				System.out.println("Refreshed!");
 			}
 		});
 		refreshButton.setBounds(179, 451, 110, 23);
 		contentPane.add(refreshButton);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(30, 30, 390, 390);
-		contentPane.add(panel);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
 	}
 	
 	public void publishGameActionPerformed(ActionEvent e) {
@@ -685,17 +672,38 @@ public class BlockEditWindow extends JFrame {
 		if(error.length() > 0) {
 			JOptionPane.showMessageDialog(null, error);
 		}
+//		
+//		gridCells = new HashMap<Integer, TOGridCell>();
+//		List<TOGridCell> toGridCells = null;
+//		try {
+//			toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex() + 1));
+//			System.out.println(toGridCells);
+//
+//		} catch(InvalidInputException e) {
+//			System.out.println(e);
+//		}
 
 
 		if(error == "") {
 			try {
-				Block223Controller.removeBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition());
+//
+//				TOGridCell gridCellRemove = gridCells.get(gridCell);
+//				System.out.println("ok");
+//				System.out.println(level);
+//				System.out.println(gridCells.get(gridCell));
+//				Block223Controller.removeBlock(level + 1, gridCellRemove.getGridHorizontalPosition(), gridCellRemove.getGridVerticalPosition());
+//				Block223Controller.removeBlock(1, 1, 1);
+//				System.out.println("removed?");
+				Block223Controller.removeBlock(level + 1, gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition());
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 				JOptionPane.showMessageDialog(null, error);
 			}
 			//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
 		}
+		
+		refreshData();
+
 
 	}
 	private void positionBlockButtonActionPerformed(ActionEvent evt) {
@@ -781,100 +789,84 @@ public class BlockEditWindow extends JFrame {
 			System.out.println(e);}
 		}
 		refreshData();
-		System.out.println();
 	}
 
-	protected List<TOGridCell> getBlocksAtCurrentLevel() {
+	public List<TOGridCell> getBlocksAtCurrentLevel() {
 		int level =1;
 //				levels.get(levelComboBox.getSelectedIndex());
 		List<TOGridCell> currentLevelBlocks = null;
 			try {
 				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
-				JOptionPane.showMessageDialog(null, "Successfully got blocks of level " + level);
+//				JOptionPane.showMessageDialog(null, "Successfully got blocks of level " + level);
 			} catch (InvalidInputException e) {
-				error = e.getMessage();
-				JOptionPane.showMessageDialog(null, error);
+				System.out.println(e.getMessage());
 			}
-		System.out.println(currentLevelBlocks.size());
 		return currentLevelBlocks;
 	}
 
 	
 	public class playArea extends JPanel {
-
-
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		playArea() {
 			setPreferredSize(new Dimension(390,390));
 		}
-
+		private int boxSize = 20;
+		
 		@Override 
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			//always set color of the component first and then the object
+			// always set color of the component first and then the object
+			//This has to be here so each time it gets the new blocks 
+			List<TOGridCell> blocks = getBlocksAtCurrentLevel();
+			// Background
+			g.setColor(new Color(51,204,255));
+			g.fillRect(0, 0, 390, 390);
 
-			//Background
-			g.setColor(Color.WHITE);
-			g.fillRect(0,0,390,390);			
-
-			//ball	
+			// ball
 			g.setColor(Color.red);
-			g.fillOval(195,195,10,10);
-		
-			//paddle
+			g.fillOval(195, 195, 10, 10);
+
+			// paddle
 			g.setColor(Color.green);
-			g.fillRect(195,360,20,5);
-			}
-	}
-
-	public class gridCells extends JPanel {
-
-		gridCells(){
-			setPreferredSize(new Dimension(370,335));
-		}
-		private int boxSize = 20;
-		List<TOGridCell> blocks = getBlocksAtCurrentLevel();
-		@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-
-			for (TOGridCell block: blocks) {
+			g.fillRect(195, 360, 20, 5);
+			
+			for (TOGridCell block : blocks) {
 				int i = 1;
-				int xPosition = 0;
-				int yPosition = 0;
+				int xPosition = 10;
+				int yPosition = 10;
 				int x = block.getGridHorizontalPosition();
 				int y = block.getGridVerticalPosition();
-				
-				if (x == 0 || y == 0) {
-					xPosition = 0;
-					yPosition = 0;
+
+				if (x == 1 || y == 1) {
+					xPosition = 10;
+					yPosition = 10;
 				}
 
-				while(i < x) {
+				while (i < x) {
 					xPosition += 25;
 					i++;
 				}
 
-				while(i < y) {
+				while (i < y) {
 					yPosition += 22;
 					i++;
 				}
 
-				//create new block
-				g.setColor(new Color(block.getRed(),block.getGreen(),block.getBlue()));
-				g.fillRect(xPosition, yPosition, boxSize,boxSize);
-				//do the points
+				// create new block
+				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
+				g.fillRect(xPosition, yPosition, boxSize, boxSize);
 			}
 			
 		}
 	}
-	
-	
 	private void refreshData() {
-		
 		playArea.revalidate();
-		playArea.repaint();
-
-		if (error == null || error.length() == 0) {
+		playArea.repaint();	
+		if (error == null || error.length() == 0) {			
 			blocks = new HashMap<Integer, TOBlock>();
 			toBlockComboBox.removeAllItems();
 			Integer index = 0;
