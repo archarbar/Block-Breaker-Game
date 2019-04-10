@@ -895,10 +895,10 @@ public class Block223Controller {
 			game.move();
 			if (userInputs.contains(" ")) {
 				String inputsBeforeSpace = userInputs.substring(0, (userInputs.indexOf(" ")));
-				System.out.println("Inputs: " + inputsBeforeSpace + " Pause");
+//				System.out.println("Inputs: " + inputsBeforeSpace + " Pause");
 				game.pause();
 			}
-			System.out.println("Inputs: " + userInputs);
+//			System.out.println("Inputs: " + userInputs);
 			try {
 				Thread.sleep((long) game.getWaitTime());
 			} catch (InterruptedException e) {
