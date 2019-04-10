@@ -24,10 +24,6 @@ import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
-import ca.mcgill.ecse223.block.model.Ball;
-import ca.mcgill.ecse223.block.model.Game;
-import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
-import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -96,8 +92,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TOCurrentlyPlayedGame playableGame;		
-	
+	private TOCurrentlyPlayedGame playableGame;
+
 	private JPanel contentPane;
 	private JLabel currentGameName;
 	// data elements
@@ -182,7 +178,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setBackground(new Color(230, 230, 250));
-		formattedTextField.setText("8");
+		formattedTextField.setText("9");
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField.setBorder(null);
 		formattedTextField.setBounds(0, 164, 20, 20);
@@ -236,6 +232,54 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_7.setBounds(0, 32, 20, 20);
 		panel_121.add(formattedTextField_7);
 		
+		JFormattedTextField formattedTextField_8 = new JFormattedTextField();
+		formattedTextField_8.setText("10");
+		formattedTextField_8.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_8.setBorder(null);
+		formattedTextField_8.setBackground(new Color(230, 230, 250));
+		formattedTextField_8.setBounds(0, 186, 20, 20);
+		panel_121.add(formattedTextField_8);
+
+		JFormattedTextField formattedTextField_9 = new JFormattedTextField();
+		formattedTextField_9.setText("11");
+		formattedTextField_9.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_9.setBorder(null);
+		formattedTextField_9.setBackground(new Color(230, 230, 250));
+		formattedTextField_9.setBounds(0, 208, 20, 20);
+		panel_121.add(formattedTextField_9);
+
+		JFormattedTextField formattedTextField_10 = new JFormattedTextField();
+		formattedTextField_10.setText("12");
+		formattedTextField_10.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_10.setBorder(null);
+		formattedTextField_10.setBackground(new Color(230, 230, 250));
+		formattedTextField_10.setBounds(0, 230, 20, 20);
+		panel_121.add(formattedTextField_10);
+
+		JFormattedTextField formattedTextField_11 = new JFormattedTextField();
+		formattedTextField_11.setText("13");
+		formattedTextField_11.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_11.setBorder(null);
+		formattedTextField_11.setBackground(new Color(230, 230, 250));
+		formattedTextField_11.setBounds(0, 252, 20, 20);
+		panel_121.add(formattedTextField_11);
+
+		JFormattedTextField formattedTextField_12 = new JFormattedTextField();
+		formattedTextField_12.setText("14");
+		formattedTextField_12.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_12.setBorder(null);
+		formattedTextField_12.setBackground(new Color(230, 230, 250));
+		formattedTextField_12.setBounds(0, 274, 20, 20);
+		panel_121.add(formattedTextField_12);
+
+		JFormattedTextField formattedTextField_13 = new JFormattedTextField();
+		formattedTextField_13.setText("15");
+		formattedTextField_13.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_13.setBorder(null);
+		formattedTextField_13.setBackground(new Color(230, 230, 250));
+		formattedTextField_13.setBounds(0, 296, 20, 20);
+		panel_121.add(formattedTextField_13);
+
 		JPanel panel_122 = new JPanel();
 		panel_122.setBackground(new Color(230, 230, 250));
 		panel_122.setBorder(null);
@@ -432,6 +476,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 				t2.start();
 			}
 		});
+		refresh();
 	}
 	
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
@@ -440,7 +485,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		loginpage.setVisible(true);
 		this.setVisible(false);
 	}
-	
+
 	public TOCurrentlyPlayedGame getCurrentPlayableGame() {
 		try {
 		playableGame = Block223Controller.getCurrentPlayableGame();
@@ -513,8 +558,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			setPreferredSize(new Dimension(420,420));
 		}
 		//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
-		private int boxSize = 20;		
-		
+		private int boxSize = 20;
+
 //		try {
 //		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
 //		}	catch (InvalidInputException e ) {
@@ -528,10 +573,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //		private double balldirY = playableGame.getBallDirectionY();
 		public static final int diameter = Ball.BALL_DIAMETER;
 		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
-		
+
 		@Override
 		public void paintComponent(Graphics g) {
-			
+
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -545,10 +590,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			g.fillOval((int) ballposX, (int) ballposY, diameter, diameter);
 
 			//paddle
-		
+
 			g.setColor(Color.green);
-			g.fillRect((390-currentPaddleLength)/2,360, currentPaddleLength, 5);
-			
+			PlayedGame game = Block223Application.getCurrentPlayableGame();
+			g.fillRect((int) game.getCurrentPaddleX(),360, currentPaddleLength, 5);
+
+
 			for (TOCurrentBlock block : blocks) {
 				int i = 1;
 				int j = 1;
@@ -589,7 +636,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 	@Override
 	public void refresh() {
+		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+		System.out.println(playableGame.getBlocks().size());
+//		System.out.println(playableGame.getBlock(2).getX());
+//		System.out.println(playableGame.getBlock(2).getY());
 		System.out.println("UI is refreshing now...");
+		playArea.revalidate();
+		playArea.repaint();
 	}
 
 /*	@Override
