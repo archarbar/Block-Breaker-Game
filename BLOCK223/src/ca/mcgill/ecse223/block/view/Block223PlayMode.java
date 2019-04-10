@@ -432,6 +432,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 				t2.start();
 			}
 		});
+		refresh();
 	}
 	
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
@@ -551,33 +552,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			g.fillRect((390-currentPaddleLength)/2,360, currentPaddleLength, 5);
 			
 			for (TOCurrentBlock block : blocks) {
-				int i = 1;
-				int j = 1;
-				int xPosition = 10;
-				int yPosition = 10;
-				int x = block.getX();
-				int y = block.getY();
-
-				if (x == 1 || y == 1) {
-					xPosition = 10;
-					yPosition = 10;
-				}
-
-				while (i < x) {
-					xPosition += 25;
-					i++;
-				}
-
-				while (j < y) {
-					yPosition += 22;
-					j++;
-				}
-
 				// create new block
 				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(xPosition, yPosition, boxSize, boxSize);
+				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
 			}
 		}
+
 	}
 
 
@@ -590,7 +570,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 	@Override
 	public void refresh() {
+		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+		System.out.println(playableGame.getBlocks().size());
+//		System.out.println(playableGame.getBlock(2).getX());
+//		System.out.println(playableGame.getBlock(2).getY());
 		System.out.println("UI is refreshing now...");
+		playArea.revalidate();
+		playArea.repaint();
 	}
 
 /*	@Override
