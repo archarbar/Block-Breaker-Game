@@ -96,7 +96,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public TOCurrentlyPlayedGame playableGame;		
+	private TOCurrentlyPlayedGame playableGame;		
 	
 	private JPanel contentPane;
 	private JLabel currentGameName;
@@ -359,7 +359,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
-		JLabel lblHallOfFame = new JLabel("Hall Of Fame:");
+		JLabel lblHallOfFame = new JLabel("Hall Of Fame: " + playableGame.getBlocks().size());
 		lblHallOfFame.setBounds(469, 88, 186, 16);
 		contentPane.add(lblHallOfFame);
 		
@@ -449,7 +449,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		JOptionPane.showMessageDialog(null, error);
 	}
 		return playableGame;
-
 	}
 
 	private void displayHOF() {
