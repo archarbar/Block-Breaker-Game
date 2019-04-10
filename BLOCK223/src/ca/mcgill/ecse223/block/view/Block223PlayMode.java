@@ -508,7 +508,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			hallOfFame = "Empty Hall Of Fame.";
 			}
 		currentGameName.setText("Current game: " + HOF.getGamename() );
-		displayHOF.setText("<html><body style = 'width: 150px'>  "+ hallOfFame + "</body></html>");
+		displayHOF.setText("<html><body style = 'width: 150px'>  " + hallOfFame + "</body></html>");
 
 		}
 	
@@ -522,7 +522,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 		@Override
 		public void paintComponent(Graphics g) {
-			TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+			playableGame = getCurrentPlayableGame();
 			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
@@ -560,6 +560,10 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	@Override
 	public void refresh() {
 		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+		List<TOCurrentBlock> blocks = playableGame.getBlocks();
+		for (TOCurrentBlock block : blocks) {
+			System.out.println(block.getX() + " " + block.getY() + " \n ") ;
+		}
 		numberOfLives.setText("Lives: " + playableGame.getLives());
 		playerScore.setText("Score: " + playableGame.getScore());
 		currentLevel.setText("Level: " + playableGame.getCurrentLevel());

@@ -45,7 +45,7 @@ public class BlockEditWindow extends JFrame {
 	private JComboBox toBlockComboBox;
 	private JButton gameSettingsButton;
 	private JComboBox toGridCellComboBox;
-	private JComboBox levelComboBox;
+	private static JComboBox levelComboBox;
 	private JButton saveButton;
 	private JComboBox yPositionComboBox;
 	private JComboBox xPositionComboBox;
@@ -795,8 +795,8 @@ public class BlockEditWindow extends JFrame {
 	}
 
 	public static List<TOGridCell> getBlocksAtCurrentLevel() {
-		int level =1;
-//				levels.get(levelComboBox.getSelectedIndex());
+		int level = 1;
+				//levels.get(levelComboBox.getSelectedIndex());
 		List<TOGridCell> currentLevelBlocks = null;
 			try {
 				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
