@@ -740,7 +740,7 @@ public class BlockEditWindow extends JFrame {
 		if (error == "") {
 			try {
 				Block223Controller.positionBlock((blocks.get(selectedBlock)).getId(), levels.get(level), newGridHorizontalPosition, newGridVerticalPosition);
-				JOptionPane.showMessageDialog(null, "Successfully positionned block at x: " + newGridHorizontalPosition + " and y: " + newGridVerticalPosition);
+//				JOptionPane.showMessageDialog(null, "Successfully positionned block at x: " + newGridHorizontalPosition + " and y: " + newGridVerticalPosition);
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 				JOptionPane.showMessageDialog(null, error);
@@ -791,7 +791,7 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	public List<TOGridCell> getBlocksAtCurrentLevel() {
+	public static List<TOGridCell> getBlocksAtCurrentLevel() {
 		int level =1;
 //				levels.get(levelComboBox.getSelectedIndex());
 		List<TOGridCell> currentLevelBlocks = null;
@@ -836,6 +836,7 @@ public class BlockEditWindow extends JFrame {
 			
 			for (TOGridCell block : blocks) {
 				int i = 1;
+				int j = 1;
 				int xPosition = 10;
 				int yPosition = 10;
 				int x = block.getGridHorizontalPosition();
@@ -851,9 +852,9 @@ public class BlockEditWindow extends JFrame {
 					i++;
 				}
 
-				while (i < y) {
+				while (j < y) {
 					yPosition += 22;
-					i++;
+					j++;
 				}
 
 				// create new block
