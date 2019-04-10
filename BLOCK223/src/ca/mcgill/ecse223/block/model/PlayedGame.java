@@ -5,6 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.awt.geom.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+
 import math.geom2d.conic.*;
 import math.geom2d.*;
 import java.awt.Point;
@@ -732,8 +734,8 @@ public class PlayedGame implements Serializable
   }
 
   // line 66 "../../../../../Block223PlayMode.ump"
-   private static  Point getLineIntersection(Line2D pLine1, Line2D pLine2){
-    Point result = null;
+   private static  Point2D.Double getLineIntersection(Line2D pLine1, Line2D pLine2){
+    Point2D.Double result = null;
 	   double s1_x = pLine1.getX2() - pLine1.getX1();
 	   double s1_y = pLine1.getY2() - pLine1.getY1();
 	   double s2_x = pLine2.getX2() - pLine2.getX1();
@@ -743,15 +745,34 @@ public class PlayedGame implements Serializable
 
 	   if(s >= 0 && s <= 1 && t >= 0 && t <= 1) {
 		   //This is only true if there is the two lines intersect
-		   result = new Point((int) (pLine1.getX1() + (t * s1_x)), (int) (pLine1.getY1() + (t * s1_y)));
+		   result = new Point2D.Double((double) (pLine1.getX1() + (t * s1_x)), (double) (pLine1.getY1() + (t * s1_y)));
 	   }
 	   return result;
   }
 
+   private BouncePoint getEllipseIntersection(double centerEllipseX, double centerEllipseY, 
+		      BounceDirection bounceDirection) {
+	   double distance = getDistanceBetweenTwoPoints(getCurrentBallX() + getBallDirectionX(),
+			   getCurrentBallY() + getBallDirectionY(), centerEllipseX, centerEllipseY);
+	   if (Ball.BALL_DIAMETER/2 > distance) {
+		   double lengthX = this.getCurrentBallX() - centerEllipseX;
+		   double lengthY = this.getCurrentBallY() - centerEllipseY;
+		   distance = Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2));
+		   double intersectionPointX = centerEllipseX + (Ball.BALL_DIAMETER/2 / distance * lengthX);
+		   double intersectionPointY = centerEllipseY + (Ball.BALL_DIAMETER/2 / distance * lengthY);
+		   return new BouncePoint(intersectionPointX, intersectionPointY, bounceDirection);
+	   } else {
+		   return null;
+	   }
+   }
+   private double getDistanceBetweenTwoPoints(double x1, double y1, double x2, double y2) {
+	   return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+   }
+
   // line 82 "../../../../../Block223PlayMode.ump"
    private BouncePoint calculateBouncePointWall(){
     BouncePoint bouncePoint = null;
-	   Point bouncePosition;
+	   Point2D.Double bouncePosition;
 	   double ballRadius = 5.0;
 	   double wallHeight = Game.PLAY_AREA_SIDE;
 	   double xBall = this.currentBallX;
@@ -764,10 +785,12 @@ public class PlayedGame implements Serializable
 	   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
 	   //If it doesn't intersect with any wall, return null
 	   if (!(lineBallPath.intersectsLine(leftWall) || lineBallPath.intersectsLine(topWall) || lineBallPath.intersectsLine(rightWall))) {
+//		   System.out.println("nowall");
 		   return bouncePoint;
 	   }
 	   else {
 		   if(lineBallPath.intersectsLine(leftWall)) {
+//			   System.out.println("leftwall");
 			   bouncePosition = getLineIntersection(lineBallPath, leftWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
@@ -775,13 +798,16 @@ public class PlayedGame implements Serializable
 			   } 
 		   }
 		   else if(lineBallPath.intersectsLine(topWall)){
+//			   System.out.println("topwall");
 			   bouncePosition = getLineIntersection(lineBallPath, topWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+//			   System.out.println(bouncePoint);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
 			   } 
 		   }
 		   else if(lineBallPath.intersectsLine(rightWall)) {
+//			   System.out.println("rightwall");
 			   bouncePosition = getLineIntersection(lineBallPath, rightWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
@@ -826,7 +852,7 @@ public class PlayedGame implements Serializable
   // line 49 "../../../../../Block223States.ump"
    private BouncePoint calculateBouncePointPaddle(){
     BouncePoint bouncePoint = null;
-	   Point bouncePosition;
+	Point2D.Double bouncePosition;
 	   double ballRadius = 5.0;
 	   double paddleHeight = 5.0;
 	   double paddleLength = this.currentPaddleLength;
@@ -836,179 +862,309 @@ public class PlayedGame implements Serializable
 	   double yBall = this.currentBallY;
 	   double xBallFuture = this.currentBallX + (this.ballDirectionX);
 	   double yBallFuture = this.currentBallY + (this.ballDirectionY);
+//	   System.out.println("xBallFuture: " + xBallFuture);
+//	   System.out.println("yBallFuture: " + yBallFuture);
+//	   System.out.println("xBall:" + xBall);
+//	   System.out.println("yBall: " + yBall);
+//	   System.out.println("BallDirectionX: " + this.ballDirectionX);
+//	   System.out.println("BallDirectionY: " + this.ballDirectionY);
 	   Rectangle2D.Double paddleRect = new Rectangle2D.Double(paddleX, paddleY, paddleLength, paddleHeight+ballRadius);
 	   boolean intersect = paddleRect.intersectsLine(xBall, yBall, xBallFuture, yBallFuture);
+	   Ellipse2D.Double ellipseE = new Ellipse2D.Double(paddleX - ballRadius, paddleY - ballRadius, ballRadius*2 , ballRadius*2);
+	   Ellipse2D.Double ellipseF = new Ellipse2D.Double(paddleX - ballRadius + paddleLength, paddleY - ballRadius, ballRadius*2 , ballRadius*2);
+
+	   Line2D.Double lineA = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2,getCurrentPaddleX(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2);
+	   Line2D.Double lineB = new Line2D.Double(getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
+	   Line2D.Double lineC = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2,getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
+	   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
 	   if (!intersect) {
-	   	return bouncePoint;
+//		   System.out.println("nobounce");
+//	   	return bouncePoint;
 	   }
-	   else {
-		   Ellipse2D.Double ellipseE = new Ellipse2D.Double(ballRadius, ballRadius, paddleX - ballRadius, paddleY - ballRadius );
-		   Ellipse2D.Double ellipseF = new Ellipse2D.Double(ballRadius, ballRadius, paddleX + paddleLength + ballRadius, paddleY - ballRadius);
-		   Line2D.Double lineA = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2,getCurrentPaddleX(), getCurrentPaddleY() - Ball.BALL_DIAMETER / 2);
-		   Line2D.Double lineB = new Line2D.Double(getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() - Ball.BALL_DIAMETER / 2, getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
-		   Line2D.Double lineC = new Line2D.Double(getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2, getCurrentPaddleY(),getCurrentPaddleX() + getCurrentPaddleLength() + Ball.BALL_DIAMETER / 2,getCurrentPaddleY() + Paddle.PADDLE_WIDTH);
-		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
-		   if(lineA.intersectsLine(lineBallPath)) {
-			   bouncePosition = getLineIntersection(lineBallPath, lineA);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+//	   else {
+		   
+	   if(lineA.intersectsLine(lineBallPath)) {
+//		   System.out.println("bounceA");
+		   bouncePosition = getLineIntersection(lineBallPath, lineA);
+		   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+	   }
+	   if(lineB.intersectsLine(lineBallPath)){
+//		   System.out.println("bounceB");
+		   bouncePosition = getLineIntersection(lineBallPath, lineB);
+		   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+	   }
+	   if(lineC.intersectsLine(lineBallPath)) {
+//		   System.out.println("bounceC");
+		   bouncePosition = getLineIntersection(lineBallPath, lineC);
+		   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+	   }
+	   if(ellipseE.contains(xBallFuture, yBallFuture)) {
+//		   System.out.println("bounceE");
+		   if(xBall < xBallFuture) {
+
+			   bouncePoint = getEllipseIntersection(ellipseE.getCenterX(), ellipseE.getCenterY(), BounceDirection.FLIP_X);
+			   
 		   }
-		   else if(lineB.intersectsLine(lineBallPath)){
-			   bouncePosition = getLineIntersection(lineBallPath, lineB);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
-		   }
-		   else if(lineC.intersectsLine(lineBallPath)) {
-			   bouncePosition = getLineIntersection(lineBallPath, lineC);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
-		   }
-		   else if(ellipseE.contains(xBallFuture, yBallFuture)) {
-			   if(xBall < xBallFuture) {
-				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
-			   }
-			   else {
-				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
-			   }
-		   }
-		   else if(ellipseF.contains(xBallFuture, yBallFuture)) {
-			   if(xBall < xBallFuture) {
-				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
-			   }
-			   else {
-				   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
-			   }
+		   else {
+			   bouncePoint = getEllipseIntersection(ellipseE.getCenterX(), ellipseE.getCenterY(), BounceDirection.FLIP_Y);
+
 		   }
 	   }
+	   if(ellipseF.contains(xBallFuture, yBallFuture)) {
+//		   System.out.println("bounceF");
+		   if(xBall < xBallFuture) {
+			   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+		   }
+		   else {
+			   bouncePoint = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+		   }
+	   }
+//	   }
 
 	   return bouncePoint;
   }
 
+   
+   
   // line 108 "../../../../../Block223States.ump"
-   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment block){
-    BouncePoint bouncePointBlock = null;
-	   Point bouncePosition;
+   
+   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
+	   BouncePoint bouncePointBlock = null;
+	   Point2D bouncePosition;
 	   double ballRadius = Ball.BALL_DIAMETER/2;
 	   double blockHeight = Block.SIZE;
 	   double blockLength = Block.SIZE;
-	   double blockX = this.currentBlockLength;
-	   double blockY = this.currentBlockHeight;
+	   double blockX = pblock.getX();
+	   double blockY = pblock.getY();
 	   double xBall = this.currentBallX;
 	   double yBall = this.currentBallY;
 	   double xBallFuture = this.currentBallX + (this.ballDirectionX);
 	   double yBallFuture = this.currentBallY + (this.ballDirectionY);
-	   Rectangle2D.Double blockRect = new Rectangle2D.Double(blockX, blockY, blockLength, blockHeight);
+	   Rectangle2D.Double blockRect = new Rectangle2D.Double(blockX - ballRadius, blockY - ballRadius, blockLength + Ball.BALL_DIAMETER, blockHeight + Ball.BALL_DIAMETER);
 	   boolean intersect = blockRect.intersectsLine(xBall, yBall, xBallFuture, yBallFuture);
-	   if(!intersect) {
-		   return bouncePointBlock;
-	   }
-	   else{
-		   Ellipse2D.Double ellipseTopLeftE = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius, blockY - ballRadius);
-		   Ellipse2D.Double ellipseBottomLeftG = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius, blockY + blockHeight + ballRadius);
-		   Ellipse2D.Double ellipseBottomRightH = new Ellipse2D.Double(ballRadius, ballRadius, blockX + blockLength + ballRadius, blockY + blockHeight + ballRadius);
-		   Ellipse2D.Double ellipseTopRightF = new Ellipse2D.Double(ballRadius, ballRadius, blockX +blockLength + ballRadius, blockY - ballRadius);
-		   Line2D.Double lineTop = new Line2D.Double(blockX - ballRadius, blockY - ballRadius, blockX + blockLength + ballRadius, blockY - ballRadius);
-		   Line2D.Double lineLeft = new Line2D.Double(blockX - ballRadius, blockY - ballRadius, blockX - ballRadius, blockY + blockHeight + ballRadius);
-		   Line2D.Double lineBottom = new Line2D.Double(blockX - ballRadius, blockY - blockHeight - ballRadius, blockX + blockLength + ballRadius, blockY - blockHeight - ballRadius);
-		   Line2D.Double lineRight = new Line2D.Double(blockX + blockLength + ballRadius, blockY - ballRadius, blockX + blockLength + ballRadius, blockY + blockHeight + ballRadius);
+	   ArrayList <BouncePoint> intersectionPoints = new ArrayList <BouncePoint>();
+	   ArrayList <Double> intersectionDistances = new ArrayList <Double>();
+//	   System.out.println("ballradius:" + ballRadius);
+//	   System.out.println("xBallFuture: " + xBallFuture);
+//	   System.out.println("yBallFuture: " + yBallFuture);
+//	   System.out.println("xBall:" + xBall);
+//	   System.out.println("yBall: " + yBall);
+//	   System.out.println("BallDirectionX: " + this.ballDirectionX);
+//	   System.out.println("BallDirectionY: " + this.ballDirectionY);
+//	   System.out.println(blockX - (ballRadius + blockLength));
+//	   System.out.println(blockY - ballRadius);
+//	   System.out.println("blockX:" +blockX);
+//	   System.out.println("blockY:" + blockY);
+//	   if(!intersect) {
+//		   System.out.println("nointersection");
+//		   return null;
+//	   }
+//	   else{
+//		   Ellipse2D.Double ellipseTopLeftE = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius , blockY - ballRadius);
+		   Ellipse2D.Double ellipseTopLeftE = new Ellipse2D.Double(blockX - ballRadius, blockY - ballRadius, ballRadius*2 , ballRadius*2);
+//		   System.out.println(ellipseTopLeftE.getBounds2D());
+//		   System.out.println("ELLIPSE HEIGHT:" + ellipseTopLeftE.getHeight());
+//		   System.out.println("is it inside: "+ ellipseTopLeftE.contains(xBallFuture, yBallFuture));
+//		   System.out.println("is it inside fake: "+ ellipseTopLeftE.contains(206, 29));
+		   Ellipse2D.Double ellipseBottomLeftG = new Ellipse2D.Double(blockX - ballRadius, blockY - ballRadius + blockLength, ballRadius*2 , ballRadius*2);
+		   Ellipse2D.Double ellipseBottomRightH = new Ellipse2D.Double(blockX - ballRadius + blockLength, blockY - ballRadius + blockLength, ballRadius*2 , ballRadius*2);
+		   Ellipse2D.Double ellipseTopRightF = new Ellipse2D.Double(blockX - ballRadius + blockLength, blockY - ballRadius, ballRadius*2 , ballRadius*2);
+			  
+//		   Ellipse2D.Double ellipseBottomLeftG = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius , blockY + blockHeight - ballRadius);
+//		   Ellipse2D.Double ellipseBottomRightH = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius + blockLength, blockY + blockHeight - ballRadius);
+//		   Ellipse2D.Double ellipseTopRightF = new Ellipse2D.Double(ballRadius, ballRadius, blockX - ballRadius + blockLength, blockY - ballRadius);
+		   Line2D.Double lineTop = new Line2D.Double(blockX, blockY - ballRadius, blockX + blockLength, blockY - ballRadius);
+		   Line2D.Double lineLeft = new Line2D.Double(blockX - ballRadius, blockY, blockX - ballRadius, blockY + blockHeight);
+		   Line2D.Double lineBottom = new Line2D.Double(blockX, blockY + blockHeight + ballRadius, blockX + blockLength, blockY + blockHeight + ballRadius);
+		   Line2D.Double lineRight = new Line2D.Double(blockX + blockLength + ballRadius, blockY, blockX + blockLength + ballRadius, blockY + blockHeight);
 		   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
 		   if(lineTop.intersectsLine(lineBallPath)) {
+//			   System.out.println("linetop");
 			   bouncePosition = getLineIntersection(lineBallPath, lineTop);
-			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+//			   System.out.println(bouncePosition);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+			   bouncePointBlock.setHitBlock(pblock);
+			   intersectionPoints.add(bouncePointBlock);
 		   }
-		   else if(lineLeft.intersectsLine(lineBallPath)){
+		   if(lineLeft.intersectsLine(lineBallPath)){
+//			   System.out.println("lineleft");
 			   bouncePosition = getLineIntersection(lineBallPath, lineLeft);
 			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+			   bouncePointBlock.setHitBlock(pblock);
+			   intersectionPoints.add(bouncePointBlock);
 		   }
-		   else if(lineBottom.intersectsLine(lineBallPath)){
+		   if(lineBottom.intersectsLine(lineBallPath)){
+//			   System.out.println("linebottom");
 			   bouncePosition = getLineIntersection(lineBallPath, lineBottom);
-			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+			   bouncePointBlock.setHitBlock(pblock);
+			   intersectionPoints.add(bouncePointBlock);
 		   }
-		   else if(lineRight.intersectsLine(lineBallPath)){
+		   if(lineRight.intersectsLine(lineBallPath)){
+//			   System.out.println("lineright");
 			   bouncePosition = getLineIntersection(lineBallPath, lineRight);
 			   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+			   bouncePointBlock.setHitBlock(pblock);
+			   intersectionPoints.add(bouncePointBlock);
 		   }
-		   else if(ellipseTopLeftE.contains(xBallFuture, yBallFuture)) {
+		   if(ellipseTopLeftE.contains(xBallFuture, yBallFuture)) {
 			   if(xBall < xBallFuture) {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+//				   bouncePosition = getEllipseIntersection(lineBallPath, ellipseTopLeftE, blockX, blockY, blockLength);
+//				   bouncePosition = getIntersection(xBall, xBallFuture, yBall, yBallFuture, ellipseTopLeftE.getCenterX(), ellipseTopLeftE.getCenterY(), ellipseTopLeftE.getHeight(), ellipseTopLeftE.getWidth());
+				   bouncePointBlock = getEllipseIntersection(ellipseTopLeftE.getCenterX(), ellipseTopLeftE.getCenterY(), BounceDirection.FLIP_X);
+//				   System.out.println("BOUNCEPOSITION");
+//				   System.out.println(bouncePosition);
+//				   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+//				   System.out.println(bouncePointBlock);
+//				   BouncePoint bounceTemp = new BouncePoint(206.0, 29.0, BounceDirection.FLIP_X);
+//				   return bounceTemp;
+				   return bouncePointBlock;
 			   }
-			   else {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   else if(xBall > xBallFuture){
+//				   bouncePosition = getEllipseIntersection(lineBallPath, ellipseTopLeftE, blockX, blockY, blockLength);
+//				   bouncePosition = getIntersection(xBall, xBallFuture, yBall, yBallFuture, ellipseTopLeftE.getCenterX(), ellipseTopLeftE.getCenterY(), ellipseTopLeftE.getHeight(), ellipseTopLeftE.getWidth());
+//				   bouncePointBlock = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
+				   
+				   bouncePointBlock = getEllipseIntersection(ellipseTopLeftE.getCenterX(), ellipseTopLeftE.getCenterY(), BounceDirection.FLIP_Y);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+//				   System.out.println(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
 		   }
-		   else if(ellipseBottomLeftG.contains(xBallFuture, yBallFuture)) {
+		   if(ellipseBottomLeftG.contains(xBallFuture, yBallFuture)) {
+//			   System.out.println("ellipsebottomleftg");
 			   if(xBall < xBallFuture) {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+				   bouncePointBlock = getEllipseIntersection(ellipseBottomLeftG.getCenterX(), ellipseBottomLeftG.getCenterY(), BounceDirection.FLIP_X);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
-			   else {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+			   else if(xBall > xBallFuture){
+				   bouncePointBlock = getEllipseIntersection(ellipseBottomLeftG.getCenterX(), ellipseBottomLeftG.getCenterY(), BounceDirection.FLIP_Y);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
 		   }
-		   else if(ellipseBottomRightH.contains(xBallFuture, yBallFuture)) {
+		   if(ellipseBottomRightH.contains(xBallFuture, yBallFuture)) {
+//			   System.out.println("ellipsebottomrighth");
 			   if(xBall < xBallFuture) {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+				   bouncePointBlock = getEllipseIntersection(ellipseBottomRightH.getCenterX(), ellipseBottomRightH.getCenterY(), BounceDirection.FLIP_Y);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
-			   else {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   else if(xBall > xBallFuture){
+				   bouncePointBlock = getEllipseIntersection(ellipseBottomRightH.getCenterX(), ellipseBottomRightH.getCenterY(), BounceDirection.FLIP_X);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
+		
 			   }
 		   }
-		   else if(ellipseTopRightF.contains(xBallFuture, yBallFuture)) {
+		   if(ellipseTopRightF.contains(xBallFuture, yBallFuture)) {
+//			   System.out.println("ellipsetoprightf");
 			   if(xBall < xBallFuture) {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_Y);
+				   bouncePointBlock = getEllipseIntersection(ellipseTopRightF.getCenterX(), ellipseTopRightF.getCenterY(), BounceDirection.FLIP_Y);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
-			   else {
-				   bouncePointBlock = new BouncePoint(xBall, yBall, BounceDirection.FLIP_X);
+			   else if(xBall > xBallFuture){
+				   bouncePointBlock = getEllipseIntersection(ellipseTopRightF.getCenterX(), ellipseTopRightF.getCenterY(), BounceDirection.FLIP_X);
+				   bouncePointBlock.setHitBlock(pblock);
+				   intersectionPoints.add(bouncePointBlock);
+				   return bouncePointBlock;
 			   }
 		   }
-	   }
-	   return bouncePointBlock;
-  }
+		   for(BouncePoint closestPoint: intersectionPoints) {
+			   double squareX = Math.pow(java.lang.Math.abs(xBall - (blockX + blockLength)), 2);
+			   double squareY = Math.pow(java.lang.Math.abs(yBall - (blockY + blockLength)), 2);
+			   double distanceIntersectionPointToBall = java.lang.Math.sqrt(squareX + squareY);
+			   intersectionDistances.add(distanceIntersectionPointToBall);
+		   }
+		   if (!intersectionPoints.isEmpty()) {
+			   int indexClosestPoint = intersectionDistances.indexOf(Collections.min(intersectionDistances));
+			   BouncePoint closestPoint = intersectionPoints.get(indexClosestPoint);
+//			   System.out.println("FINALPOINT");
+//			   System.out.println(closestPoint);
+			   return closestPoint;
+		   }
+		   else {
+			   return null;
+		   }
 
+	   }
+   
   // line 189 "../../../../../Block223States.ump"
    private void bounceBall(){
-    double x = this.getBallDirectionX();
-	    double y = this.getBallDirectionY();
-	    double outgoingDistanceX = x - (bounce.getX() - this.getCurrentBallX());
-	    double outgoingDistanceY = y - (bounce.getY() - this.getCurrentBallY());
-	    double signX = Math.signum(x);
-	    double signY = Math.signum(y);
+	    double xBallDirection = this.getBallDirectionX();
+	    double yBallDirection = this.getBallDirectionY();
+	    double xNewDistance = xBallDirection - (bounce.getX() - this.getCurrentBallX());
+	    double yNewDistance = yBallDirection - (bounce.getY() - this.getCurrentBallY());
+	    double signX = Math.signum(xBallDirection);
+	    double signY = Math.signum(yBallDirection);
+	    
+//	    
+//	    Math.signum(xBallDirection);
+//	    
+//	    
+//	    
 
 	    if (bounce.getDirection().equals(BounceDirection.FLIP_Y)) {
-	      x = (x == 0) ? 0.1 * Math.abs(y) : x + signX * 0.1 * Math.abs(y);
-	      y *= -1.0;
-	      if (outgoingDistanceY == 0 || (getBounce().getX() != getCurrentBallX() && getBounce().getY() != getCurrentBallY())) {
+	    	xBallDirection = (xBallDirection == 0) ? 0.1 * Math.abs(yBallDirection) : xBallDirection + signX * 0.1 * Math.abs(yBallDirection);
+	    	yBallDirection *= -1.0;
+	      if (yNewDistance == 0 || (getBounce().getX() != getCurrentBallX() && getBounce().getY() != getCurrentBallY())) {
 	        setCurrentBallX(bounce.getX());
 	        setCurrentBallY(bounce.getY());
 	        if (getBounce().getHitBlock() != null) {
-	          setBallDirectionX(x);
-	          setBallDirectionY(y);
+	          setBallDirectionX(xBallDirection);
+	          setBallDirectionY(yBallDirection);
+//	          System.out.println(xBallDirection);
+//		        System.out.println(xNewDistance);
 	        }
 	        return;
 	      } else {
-	        setCurrentBallX(bounce.getX() + outgoingDistanceY / getBallDirectionY() * x);
-	        setCurrentBallY(bounce.getY() + outgoingDistanceY / getBallDirectionY() * y);
+	        setCurrentBallX(bounce.getX() + yNewDistance / getBallDirectionY() * xBallDirection);
+	        setCurrentBallY(bounce.getY() + yNewDistance / getBallDirectionY() * yBallDirection);
 	      }
 	    } else if (bounce.getDirection().equals(BounceDirection.FLIP_X)) {
-	      y = (y == 0) ? 0.1 * Math.abs(x) : y + signY * 0.1 * Math.abs(x);
-	      x *= -1.0;
-	      if (outgoingDistanceX == 0 || (getBounce().getX() != getCurrentBallX() && getBounce().getY() != getCurrentBallY())) {
+	     
+	    	yBallDirection = (yBallDirection == 0) ? 0.1 * Math.abs(xBallDirection) : yBallDirection + signY * 0.1 * Math.abs(xBallDirection);
+	      xBallDirection *= -1.0;
+//	      System.out.println(xBallDirection);
+	      if (xNewDistance == 0 || (getBounce().getX() != getCurrentBallX() && getBounce().getY() != getCurrentBallY())) {
 	        if (getBounce().getHitBlock() != null) {
-	          setBallDirectionX(x);
-	          setBallDirectionY(y);
+	        		setBallDirectionX(xBallDirection);
+	        		setBallDirectionY(yBallDirection);
 	        }
-	        setCurrentBallX(bounce.getX());
+	        	setCurrentBallX(bounce.getX());
 	        setCurrentBallY(bounce.getY());
+//	        System.out.println(yNewDistance);
+//	        System.out.println(xNewDistance);
 	        return;
+	        
 	      } else {
-	        double nextX = (bounce.getX() + outgoingDistanceX / getBallDirectionX() * x);
-	        double nextY = bounce.getY() + outgoingDistanceX / getBallDirectionX() * y;
+	        double nextX = (bounce.getX() + xNewDistance / getBallDirectionX() * xBallDirection);
+	        double nextY = bounce.getY() + xNewDistance / getBallDirectionX() * yBallDirection;
+//		      System.out.println(xBallDirection);
 
 	        if(nextX < 5) {
 	          nextX = 5; 
-	        }else if(nextX > 385){
+	        }
+	        
+	        else if(nextX > 385){
 	          nextX = 385;
 	        }
 
 	        if(nextY < 5) {
 	          nextY = 5; 
-	        }else if(nextY > 385){
+	        }
+	        
+	        else if(nextY > 385){
 	          nextY = 385;
 	        }
 
@@ -1016,31 +1172,24 @@ public class PlayedGame implements Serializable
 	        setCurrentBallY(nextY);
 	      }
 	    } else {
-	      x *= -1.0;
-	      y *= -1.0;
-	      if (outgoingDistanceX == 0 && outgoingDistanceY == 0) {
+	    	xBallDirection *= -1.0;
+	    	yBallDirection *= -1.0;
+	      if (xNewDistance == 0 && yNewDistance == 0) {
 	        if (getBounce().getHitBlock() != null) {
-	          setBallDirectionX(x);
-	          setBallDirectionY(y);
+	          setBallDirectionX(xBallDirection);
+	          setBallDirectionY(yBallDirection);
 	        }
 	        setCurrentBallX(bounce.getX());
 	        setCurrentBallY(bounce.getY());
 	        return;
 	      } else {
-	        setCurrentBallX(bounce.getX() + outgoingDistanceX / getBallDirectionX() * x);
-	        setCurrentBallY(bounce.getY() + outgoingDistanceY / getBallDirectionY() * y);
+	        setCurrentBallX(bounce.getX() + (xBallDirection * (xNewDistance / getBallDirectionX())));
+	        setCurrentBallY(bounce.getY() + (yBallDirection * (yNewDistance / getBallDirectionY())));
 	      }
 	    }
 
-	    if (waitTime != 0) {
-	      double threshold = waitTime / 10.0;
-	      if (Math.abs(x) >= threshold || Math.abs(y) >= threshold) {
-	        x /= threshold;
-	        y /= threshold;
-	      }
-	    }
-	    setBallDirectionX(x);
-	    setBallDirectionY(y);
+	    setBallDirectionX(xBallDirection);
+	    setBallDirectionY(yBallDirection);
   }
 
   // line 270 "../../../../../Block223States.ump"
@@ -1223,8 +1372,13 @@ public class PlayedGame implements Serializable
    private void doHitBlockNextLevel(){
     this.doHitBlock();
     int level = this.getCurrentLevel();
-    this.setCurrentPaddleLength(this.getGame().getPaddle().getMaxPaddleLength()-(this.getGame().getPaddle().getMaxPaddleLength()
-    							-this.getGame().getPaddle().getMinPaddleLength())/(this.getGame().numberOfLevels())*(this.getCurrentLevel()));
+//    System.out.println("-------------");
+//    System.out.println(level);
+//    System.out.println(this.getGame().numberOfLevels());
+//    System.out.println(this.getGame().getPaddle().getMaxPaddleLength());
+//    System.out.println(this.getGame().getPaddle().getMinPaddleLength());
+    this.setCurrentPaddleLength(this.getGame().getPaddle().getMaxPaddleLength()-( (this.getGame().getPaddle().getMaxPaddleLength()
+    							-this.getGame().getPaddle().getMinPaddleLength()) /( this.getGame().numberOfLevels() ) )*(this.getCurrentLevel() + 1));
     this.setWaitTime(INITIAL_WAIT_TIME*Math.pow(this.getGame().getBall().getBallSpeedIncreaseFactor(),(double)(this.getCurrentLevel())));
     this.setCurrentLevel(level+1);
   }
@@ -1280,10 +1434,7 @@ public class PlayedGame implements Serializable
   
   // line 114 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 8597675110221231714L ;
-// line 105 "../../../../../Block223States.ump"
-  private double currentBlockLength ;
-// line 106 "../../../../../Block223States.ump"
-  private double currentBlockHeight ;
+
 
   
 }
