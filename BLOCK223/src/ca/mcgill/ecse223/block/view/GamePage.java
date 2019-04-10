@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -386,7 +385,6 @@ public class GamePage extends JFrame {
 				BlockEditWindow blockpage = new BlockEditWindow();
 				blockpage.setVisible(true);
 				this.setVisible(false);
-				System.out.println(Block223Application.getCurrentUserRole());
 			}
 			catch (InvalidInputException e) {
 				error = e.getMessage();
