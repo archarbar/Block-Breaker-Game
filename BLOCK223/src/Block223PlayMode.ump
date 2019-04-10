@@ -78,48 +78,6 @@ class PlayedGame {
 	   return result;
    }
    
-   private BouncePoint calculateBouncePointWall() {
-	   BouncePoint bouncePoint = null;
-	   Point bouncePosition;
-	   double ballRadius = 5.0;
-	   double wallHeight = Game.PLAY_AREA_SIDE;
-	   double xBall = this.currentBallX;
-	   double yBall = this.currentBallY;
-	   double xBallFuture = this.currentBallX + (this.ballDirectionX);
-	   double yBallFuture = this.currentBallY + (this.ballDirectionY);
-	   Line2D.Double leftWall = new Line2D.Double(ballRadius, ballRadius, ballRadius, wallHeight - ballRadius);
-	   Line2D.Double topWall = new Line2D.Double(ballRadius, ballRadius, wallHeight - ballRadius, ballRadius);
-	   Line2D.Double rightWall = new Line2D.Double(Game.PLAY_AREA_SIDE - Ball.BALL_DIAMETER / 2, Ball.BALL_DIAMETER / 2, Game.PLAY_AREA_SIDE - Ball.BALL_DIAMETER / 2, Game.PLAY_AREA_SIDE);
-	   Line2D.Double lineBallPath = new Line2D.Double(xBall, yBall, xBallFuture, yBallFuture);
-	   //If it doesn't intersect with any wall, return null
-	   if (!(lineBallPath.intersectsLine(leftWall) || lineBallPath.intersectsLine(topWall) || lineBallPath.intersectsLine(rightWall))) {
-		   return bouncePoint;
-	   }
-	   else {
-		   if(lineBallPath.intersectsLine(leftWall)) {
-			   bouncePosition = getLineIntersection(lineBallPath, leftWall);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
-			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
-				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
-		   }
-		   else if(lineBallPath.intersectsLine(topWall)){
-			   bouncePosition = getLineIntersection(lineBallPath, topWall);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_Y);
-			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
-				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
-		   }
-		   else if(lineBallPath.intersectsLine(rightWall)) {
-			   bouncePosition = getLineIntersection(lineBallPath, rightWall);
-			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
-			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
-				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
-			   } 
-		   }
-	   }
-	   return bouncePoint;
-   }
    
    private boolean isCloser(BouncePoint first, BouncePoint second){
   	if (second == null){
@@ -135,7 +93,26 @@ class PlayedGame {
   	else{
   	 return false;
   	}
+  	
 }
+   private BouncePoint getEllipseIntersection(double centerEllipseX, double centerEllipseY, 
+		      BounceDirection bounceDirection) {
+	   double distance = getDistanceBetweenTwoPoints(getCurrentBallX() + getBallDirectionX(),
+			   getCurrentBallY() + getBallDirectionY(), centerEllipseX, centerEllipseY);
+	   if (Ball.BALL_DIAMETER/2 > distance) {
+		   double lengthX = this.getCurrentBallX() - centerEllipseX;
+		   double lengthY = this.getCurrentBallY() - centerEllipseY;
+		   distance = Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2));
+		   double intersectionPointX = centerEllipseX + (Ball.BALL_DIAMETER/2 / distance * lengthX);
+		   double intersectionPointY = centerEllipseY + (Ball.BALL_DIAMETER/2 / distance * lengthY);
+		   return new BouncePoint(intersectionPointX, intersectionPointY, bounceDirection);
+	   } else {
+		   return null;
+	   }
+   }
+   private double getDistanceBetweenTwoPoints(double x1, double y1, double x2, double y2) {
+	   return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+   }
 }
 class PlayedBlockAssignment {
    // the associated block is either (a) the same as the one of the corresponding BlockAssignent or (b) randomly chosen
