@@ -368,6 +368,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		currentGameName = new JLabel("Current game:");
 		currentGameName.setBounds(469, 118, 186, 16);
 		contentPane.add(currentGameName);
+		
 
 		lblPrevious = new JLabel("Previous");
 		lblPrevious.setBounds(472, 433, 61, 16);
@@ -507,7 +508,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		} else {
 			hallOfFame = "Empty Hall Of Fame.";
 			}
-		currentGameName.setText("Current game: " + HOF.getGamename() );
+//		currentGameName.setText("Current game: " + HOF.getGamename() );
 		displayHOF.setText("<html><body style = 'width: 150px'>  " + hallOfFame + "</body></html>");
 
 		}
@@ -543,9 +544,11 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 
 			for (TOCurrentBlock block : blocks) {
+				int x = block.getX();
+				int y = block.getY();
 				// create new block
 				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
+				g.fillRect(x, y, boxSize, boxSize);
 			}
 		}
 	}
@@ -564,6 +567,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		for (TOCurrentBlock block : blocks) {
 			System.out.println(block.getX() + " " + block.getY() + " \n ") ;
 		}
+		currentGameName.setText("Current game: " + playableGame.getGamename());
 		numberOfLives.setText("Lives: " + playableGame.getLives());
 		playerScore.setText("Score: " + playableGame.getScore());
 		currentLevel.setText("Level: " + playableGame.getCurrentLevel());
