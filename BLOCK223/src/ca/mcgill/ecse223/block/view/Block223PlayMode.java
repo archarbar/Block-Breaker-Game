@@ -47,7 +47,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TOCurrentlyPlayedGame playableGame;
+	public TOCurrentlyPlayedGame playableGame;
 
 	private JPanel contentPane;
 	private JLabel currentGameName;
@@ -445,6 +445,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	}
 
 	public TOCurrentlyPlayedGame getCurrentPlayableGame() {
+		
 		try {
 		playableGame = Block223Controller.getCurrentPlayableGame();
 	} catch (InvalidInputException e ) {
@@ -510,34 +511,20 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		displayHOF.setText("<html><body style = 'width: 150px'>  "+ hallOfFame + "</body></html>");
 
 		}
-
+	
 	public class playArea extends JPanel {
 		playArea() {
 			setPreferredSize(new Dimension(420,420));
 		}
-		//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
 		private int boxSize = 20;
-
-//		try {
-//		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
-//		}	catch (InvalidInputException e ) {
-//			error = e.getMessage();
-//			JOptionPane.showMessageDialog(null, error);
-//		}
-		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
 		private double ballposX = 195;
 		private double ballposY = 195;
-//		private double balldirX = playableGame.getBallDirectionX();
-//		private double balldirY = playableGame.getBallDirectionY();
-		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 
 		@Override
 		public void paintComponent(Graphics g) {
-
-			
-			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
-			int currentPaddleLength = (int) currentGame.getCurrentPaddleLength();
-			List<PlayedBlockAssignment> blocks = currentGame.getBlocks();
+			TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
+			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
 			//Background
@@ -547,17 +534,17 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), 10, 10);
+			g.fillOval((int) playableGame.getCurrentBallX(), (int) playableGame.getCurrentBallY(), 10, 10);
 
 			//paddle
 
 			g.setColor(Color.green);
-			g.fillRect((int) currentGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
+			g.fillRect((int) playableGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
 
 
-			for (PlayedBlockAssignment block : blocks) {
+			for (TOCurrentBlock block : blocks) {
 				// create new block
-				g.setColor(new Color(block.getBlock().getRed(), block.getBlock().getGreen(), block.getBlock().getBlue()));
+				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
 				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
 			}
 		}
