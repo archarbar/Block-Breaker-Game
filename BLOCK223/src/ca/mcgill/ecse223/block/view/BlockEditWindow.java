@@ -672,17 +672,38 @@ public class BlockEditWindow extends JFrame {
 		if(error.length() > 0) {
 			JOptionPane.showMessageDialog(null, error);
 		}
+//		
+//		gridCells = new HashMap<Integer, TOGridCell>();
+//		List<TOGridCell> toGridCells = null;
+//		try {
+//			toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex() + 1));
+//			System.out.println(toGridCells);
+//
+//		} catch(InvalidInputException e) {
+//			System.out.println(e);
+//		}
 
 
 		if(error == "") {
 			try {
-				Block223Controller.removeBlock(levels.get(level), gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition());
+//
+//				TOGridCell gridCellRemove = gridCells.get(gridCell);
+//				System.out.println("ok");
+//				System.out.println(level);
+//				System.out.println(gridCells.get(gridCell));
+//				Block223Controller.removeBlock(level + 1, gridCellRemove.getGridHorizontalPosition(), gridCellRemove.getGridVerticalPosition());
+//				Block223Controller.removeBlock(1, 1, 1);
+//				System.out.println("removed?");
+				Block223Controller.removeBlock(level + 1, gridCells.get(gridCell).getGridHorizontalPosition(), gridCells.get(gridCell).getGridVerticalPosition());
 			} catch (InvalidInputException e) {
 				error = e.getMessage();
 				JOptionPane.showMessageDialog(null, error);
 			}
 			//getCurrentLevel existe pas dans TOGridCell (et aucun des transfer objects) mais ca existe dans le model (Game.java), jsp comment le get.
 		}
+		
+		refreshData();
+
 
 	}
 	private void positionBlockButtonActionPerformed(ActionEvent evt) {
