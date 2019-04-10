@@ -794,12 +794,14 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	public static List<TOGridCell> getBlocksAtCurrentLevel() {
-		int level =1;
+	public List<TOGridCell> getBlocksAtCurrentLevel() {
+		int level = 1;
+		int currentLevel = levelComboBox.getSelectedIndex() + 1;
+
 //				levels.get(levelComboBox.getSelectedIndex());
 		List<TOGridCell> currentLevelBlocks = null;
 			try {
-				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
+				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(currentLevel);
 //				JOptionPane.showMessageDialog(null, "Successfully got blocks of level " + level);
 			} catch (InvalidInputException e) {
 				System.out.println(e.getMessage());
@@ -868,6 +870,7 @@ public class BlockEditWindow extends JFrame {
 		}
 	}
 	private void refreshData() {
+		
 		playArea.revalidate();
 		playArea.repaint();	
 		if (error == null || error.length() == 0) {			
@@ -887,7 +890,7 @@ public class BlockEditWindow extends JFrame {
 				index++;
 			}
 			toBlockComboBox.setSelectedIndex(-1);
-
+			int currentLevel = levelComboBox.getSelectedIndex() + 1;
 			levels = new HashMap<Integer, Integer>();
 			levelComboBox.removeAllItems();
 			index = 0;
@@ -908,7 +911,10 @@ public class BlockEditWindow extends JFrame {
 			index = 0;
 			List<TOGridCell> toGridCells = null;
 			try {
-				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex()));
+//				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(levelComboBox.getSelectedIndex()));
+				toGridCells =  Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(levels.get(currentLevel));
+//				System.out.println(currentLevel);
+//				System.out.println(toGridCells);
 
 			} catch(InvalidInputException e) {
 				System.out.println(e);
@@ -918,6 +924,7 @@ public class BlockEditWindow extends JFrame {
 			toGridCellComboBox.addItem("Grid ID: " + gridCell.getId() + " x: " + gridCell.getGridHorizontalPosition() + " y: " + gridCell.getGridVerticalPosition());
 			index++;
 			}
+			levelComboBox.setSelectedIndex(currentLevel - 1);
 			toGridCellComboBox.setSelectedIndex(-1);
 		
 			gridHorizontalPosition = new HashMap<Integer, Integer>();
