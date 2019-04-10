@@ -45,7 +45,7 @@ public class BlockEditWindow extends JFrame {
 	private JComboBox toBlockComboBox;
 	private JButton gameSettingsButton;
 	private JComboBox toGridCellComboBox;
-	private static JComboBox levelComboBox;
+	private JComboBox levelComboBox;
 	private JButton saveButton;
 	private JComboBox yPositionComboBox;
 	private JComboBox xPositionComboBox;
@@ -794,12 +794,14 @@ public class BlockEditWindow extends JFrame {
 		refreshData();
 	}
 
-	public static List<TOGridCell> getBlocksAtCurrentLevel() {
+	public List<TOGridCell> getBlocksAtCurrentLevel() {
 		int level = 1;
-				//levels.get(levelComboBox.getSelectedIndex());
+		int currentLevel = levelComboBox.getSelectedIndex() + 1;
+
+//				levels.get(levelComboBox.getSelectedIndex());
 		List<TOGridCell> currentLevelBlocks = null;
 			try {
-				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
+				currentLevelBlocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(currentLevel);
 //				JOptionPane.showMessageDialog(null, "Successfully got blocks of level " + level);
 			} catch (InvalidInputException e) {
 				System.out.println(e.getMessage());
