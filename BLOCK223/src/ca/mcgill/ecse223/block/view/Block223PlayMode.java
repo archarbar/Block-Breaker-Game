@@ -1,92 +1,41 @@
 package ca.mcgill.ecse223.block.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
-import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
-import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
-import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
-import ca.mcgill.ecse223.block.controller.TOUserMode;
-import ca.mcgill.ecse223.block.model.Ball;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.awt.SystemColor;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JInternalFrame;
-import javax.swing.JSlider;
-import java.awt.ComponentOrientation;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.Font;
 import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
-import javafx.scene.shape.Circle;
-import javafx.geometry.Rectangle2D;
 
 public class Block223PlayMode extends JFrame implements Block223PlayModeInterface {
 	/**
@@ -573,7 +522,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		private double ballposY = 195;
 //		private double balldirX = playableGame.getBallDirectionX();
 //		private double balldirY = playableGame.getBallDirectionY();
-		public static final int diameter = Ball.BALL_DIAMETER;
 		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 
 		@Override
@@ -592,13 +540,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), diameter, diameter);
+			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), 10, 10);
 
 			//paddle
 
 			g.setColor(Color.green);
-			PlayedGame game = Block223Application.getCurrentPlayableGame();
-			g.fillRect((int) game.getCurrentPaddleX(),360, currentPaddleLength, 5);
+			g.fillRect((int) currentGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
 
 
 			for (TOCurrentBlock block : blocks) {
