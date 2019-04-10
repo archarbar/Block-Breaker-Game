@@ -591,7 +591,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		System.out.println(playableGame.getBlocks().size());
 //		System.out.println(playableGame.getBlock(2).getX());
 //		System.out.println(playableGame.getBlock(2).getY());
-		System.out.println("UI is refreshing now...");
+//		System.out.println("UI is refreshing now...");
 		playArea.revalidate();
 		playArea.repaint();
 	}
