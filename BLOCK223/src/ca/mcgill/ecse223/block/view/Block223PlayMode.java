@@ -182,7 +182,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 		JFormattedTextField formattedTextField = new JFormattedTextField();
 		formattedTextField.setBackground(new Color(230, 230, 250));
-		formattedTextField.setText("8");
+		formattedTextField.setText("9");
 		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		formattedTextField.setBorder(null);
 		formattedTextField.setBounds(0, 164, 20, 20);
@@ -235,6 +235,54 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		formattedTextField_7.setBorder(null);
 		formattedTextField_7.setBounds(0, 32, 20, 20);
 		panel_121.add(formattedTextField_7);
+		
+		JFormattedTextField formattedTextField_8 = new JFormattedTextField();
+		formattedTextField_8.setText("10");
+		formattedTextField_8.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_8.setBorder(null);
+		formattedTextField_8.setBackground(new Color(230, 230, 250));
+		formattedTextField_8.setBounds(0, 186, 20, 20);
+		panel_121.add(formattedTextField_8);
+		
+		JFormattedTextField formattedTextField_9 = new JFormattedTextField();
+		formattedTextField_9.setText("11");
+		formattedTextField_9.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_9.setBorder(null);
+		formattedTextField_9.setBackground(new Color(230, 230, 250));
+		formattedTextField_9.setBounds(0, 208, 20, 20);
+		panel_121.add(formattedTextField_9);
+		
+		JFormattedTextField formattedTextField_10 = new JFormattedTextField();
+		formattedTextField_10.setText("12");
+		formattedTextField_10.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_10.setBorder(null);
+		formattedTextField_10.setBackground(new Color(230, 230, 250));
+		formattedTextField_10.setBounds(0, 230, 20, 20);
+		panel_121.add(formattedTextField_10);
+		
+		JFormattedTextField formattedTextField_11 = new JFormattedTextField();
+		formattedTextField_11.setText("13");
+		formattedTextField_11.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_11.setBorder(null);
+		formattedTextField_11.setBackground(new Color(230, 230, 250));
+		formattedTextField_11.setBounds(0, 252, 20, 20);
+		panel_121.add(formattedTextField_11);
+		
+		JFormattedTextField formattedTextField_12 = new JFormattedTextField();
+		formattedTextField_12.setText("14");
+		formattedTextField_12.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_12.setBorder(null);
+		formattedTextField_12.setBackground(new Color(230, 230, 250));
+		formattedTextField_12.setBounds(0, 274, 20, 20);
+		panel_121.add(formattedTextField_12);
+		
+		JFormattedTextField formattedTextField_13 = new JFormattedTextField();
+		formattedTextField_13.setText("15");
+		formattedTextField_13.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedTextField_13.setBorder(null);
+		formattedTextField_13.setBackground(new Color(230, 230, 250));
+		formattedTextField_13.setBounds(0, 296, 20, 20);
+		panel_121.add(formattedTextField_13);
 		
 		JPanel panel_122 = new JPanel();
 		panel_122.setBackground(new Color(230, 230, 250));
@@ -591,10 +639,4 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	public void refresh() {
 		System.out.println("UI is refreshing now...");
 	}
-
-/*	@Override
-	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
-		// TODO Auto-generated method stub
-
-	} */
 }
