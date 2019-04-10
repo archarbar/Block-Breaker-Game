@@ -22,6 +22,9 @@ import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.model.Ball;
+import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -89,6 +92,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	PlayedGame playableGame = Block223Application.getCurrentPlayableGame();
+	Game game = Block223Application.getCurrentGame();
 	
 	private JPanel contentPane;
 	private JLabel currentGameName;
@@ -1984,15 +1990,15 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		JLabel currentLevel = new JLabel("Level: ");
+		JLabel currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		JLabel numberOfLives = new JLabel("Lives:");
+		JLabel numberOfLives = new JLabel("Lives: " + playableGame.getLives());
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
-		JLabel playerScore = new JLabel("Score:");
+		JLabel playerScore = new JLabel("Score: " + playableGame.getScore());
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
@@ -2023,7 +2029,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		displayHOF(); //TO BE INCLUDED IN REFRESH DATA LATER
 
 		JButton button = new JButton("Start Game");
-		button.setBounds(174, 470, 337, 35);
+		button.setBounds(175, 453, 337, 35);
 		contentPane.add(button);
 
 		gameArea = new JTextArea();
@@ -2081,17 +2087,17 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private void displayHOF() {
 		int end;
 //test it by creating a random hall of fame
-		TOHallOfFame HOF = new TOHallOfFame("mlej8");
+		TOHallOfFame HOF = new TOHallOfFame(playableGame.getGame().getName());
 		TOHallOfFameEntry player1 = new TOHallOfFameEntry(0, "Mike", 10000000, HOF);
 		TOHallOfFameEntry player2 = new TOHallOfFameEntry(1, "Tony", 50, HOF);
-		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 40, HOF);
+		TOHallOfFameEntry player3 = new TOHallOfFameEntry(2, "Victor", 99999999, HOF);
 		TOHallOfFameEntry player4 = new TOHallOfFameEntry(3, "ShiTong", 30, HOF);
-		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS", 20, HOF);
+		TOHallOfFameEntry player5 = new TOHallOfFameEntry(4, "JWS le caca", 20, HOF);
 		TOHallOfFameEntry player6 = new TOHallOfFameEntry(5, "William Zhang", 0, HOF);
-		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 0, HOF);
-		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 0, HOF);
-		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 0, HOF);
-		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 0, HOF);
+		TOHallOfFameEntry player7 = new TOHallOfFameEntry(6, "trash", 4, HOF);
+		TOHallOfFameEntry player8 = new TOHallOfFameEntry(7, "trash", 3, HOF);
+		TOHallOfFameEntry player9 = new TOHallOfFameEntry(8, "trash", 2, HOF);
+		TOHallOfFameEntry player10 = new TOHallOfFameEntry(9, "trash", 1, HOF);
 		TOHallOfFameEntry player11 = new TOHallOfFameEntry(10, "trash", 0, HOF);
 		HOF.addEntry(player1);
 		HOF.addEntry(player2);
@@ -2144,11 +2150,17 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 
 //		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
-
-
-
+		
+		private double ballposX = 195;
+		private double ballposY = 195;
+		private double balldirX = playableGame.getBallDirectionX();
+		private double balldirY = playableGame.getBallDirectionY();
+		public static final int diameter = Ball.BALL_DIAMETER;
+		
 		@Override
 		public void paintComponent(Graphics g) {
+			
+			
 			super.paintComponent(g);
 
 			//Background
@@ -2158,13 +2170,12 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval(195,195,10,10);
+			g.fillOval((int) ballposX, (int) ballposY, diameter, diameter);
 
 			//paddle
+			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 			g.setColor(Color.green);
-			g.fillRect(195,360,20,5);
-
-
+			g.fillRect((390-currentPaddleLength)/2,360, currentPaddleLength, 5);
 
 		}
 	}
