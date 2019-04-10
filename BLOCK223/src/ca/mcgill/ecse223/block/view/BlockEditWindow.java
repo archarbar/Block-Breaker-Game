@@ -181,7 +181,9 @@ public class BlockEditWindow extends JFrame {
 
 		updateBlockButton = new JButton("Update Block");
 		updateBlockButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
+				updateBlockButtonActionPerformed(evt);
+				
 			}
 		});
 		updateBlockButton.setBounds(563, 191, 123, 23);
@@ -618,6 +620,32 @@ public class BlockEditWindow extends JFrame {
 			// call the controller
 			try{
 				Block223Controller.deleteBlock(blocks.get(selectedBlock).getId()); 	//We need to get the blockId value that is associated with this block index in hashMap
+			} catch (InvalidInputException e) {
+				System.out.println(e);
+			}
+		}
+
+
+		// update visuals
+		refreshData();
+	}
+	private void updateBlockButtonActionPerformed(ActionEvent evt) {
+		// clear error message and basic input validation
+		error = "";
+		int redColor = blockRedSlider.getValue();
+		int greenColor = blockGreenSlider.getValue();
+		int blueColor = blockBlueSlider.getValue();
+		int blockPoint = pointsSlider.getValue();
+		int selectedBlock = toBlockComboBox.getSelectedIndex();
+
+		if (selectedBlock < 0) {
+			error = "Block needs to be selected for deletion!";}
+
+		if (error.length() == 0) {
+			// call the controller
+			try{
+				Block223Controller.updateBlock(blocks.get(selectedBlock).getId(), redColor, greenColor, blueColor, blockPoint); 
+				//We need to get the blockId value that is associated with this block index in hashMap
 			} catch (InvalidInputException e) {
 				System.out.println(e);
 			}
