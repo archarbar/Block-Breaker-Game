@@ -62,8 +62,8 @@ class PlayedGame {
    public boolean isBallOutOfBounds(){
    		return this.currentBallY > Game.PLAY_AREA_SIDE - Paddle.VERTICAL_DISTANCE;
    }
-   private static Point getLineIntersection(Line2D pLine1, Line2D pLine2) {
-	   Point result = null;
+   private static Point2D.Double getLineIntersection(Line2D pLine1, Line2D pLine2){
+    Point2D.Double result = null;
 	   double s1_x = pLine1.getX2() - pLine1.getX1();
 	   double s1_y = pLine1.getY2() - pLine1.getY1();
 	   double s2_x = pLine2.getX2() - pLine2.getX1();
@@ -73,10 +73,10 @@ class PlayedGame {
 
 	   if(s >= 0 && s <= 1 && t >= 0 && t <= 1) {
 		   //This is only true if there is the two lines intersect
-		   result = new Point((int) (pLine1.getX1() + (t * s1_x)), (int) (pLine1.getY1() + (t * s1_y)));
+		   result = new Point2D.Double((double) (pLine1.getX1() + (t * s1_x)), (double) (pLine1.getY1() + (t * s1_y)));
 	   }
 	   return result;
-   }
+  }
    
    
    private boolean isCloser(BouncePoint first, BouncePoint second){
