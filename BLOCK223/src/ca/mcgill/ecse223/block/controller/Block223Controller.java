@@ -856,7 +856,7 @@ public class Block223Controller {
 				}
 			}
 			else if (userInputs.charAt(i) == 'r') {
-				if ((Game.PLAY_AREA_SIDE - 2*Game.WALL_PADDING) - x <= 4) {
+				if (Game.PLAY_AREA_SIDE-Game.COLUMNS_PADDING - (x+currentPlayedGame.getCurrentPaddleLength()) <= 4) {
 					//since it moves by 5 pixels, if x is at 4 pixels from the wall, it will be 1 pixel outside the wall if it moves right
 					continue;
 				}
