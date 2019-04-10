@@ -349,15 +349,15 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
+		currentLevel = new JLabel("Level: " + 1);
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		numberOfLives = new JLabel("Lives: " + playableGame.getLives());
+		numberOfLives = new JLabel("Lives: " + 3);
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
-		playerScore = new JLabel("Score: " + playableGame.getScore());
+		playerScore = new JLabel("Score: " + 0);
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
