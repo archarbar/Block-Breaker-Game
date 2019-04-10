@@ -588,7 +588,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	@Override
 	public void refresh() {
 		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
-		System.out.println(playableGame.getBlocks().size());
+//		System.out.println(playableGame.getBlocks().size());
 //		System.out.println(playableGame.getBlock(2).getX());
 //		System.out.println(playableGame.getBlock(2).getY());
 //		System.out.println("UI is refreshing now...");
