@@ -25,6 +25,7 @@ import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.model.Ball;
+import ca.mcgill.ecse223.block.model.PlayedBlockAssignment;
 import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
@@ -568,21 +569,21 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 //			error = e.getMessage();
 //			JOptionPane.showMessageDialog(null, error);
 //		}
-		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+//		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
 		private double ballposX = 195;
 		private double ballposY = 195;
 //		private double balldirX = playableGame.getBallDirectionX();
 //		private double balldirY = playableGame.getBallDirectionY();
 		public static final int diameter = Ball.BALL_DIAMETER;
-		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
+
 
 		@Override
 		public void paintComponent(Graphics g) {
 
 			
 			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
-
-			List<TOCurrentBlock> blocks = playableGame.getBlocks();
+			int currentPaddleLength = (int) currentGame.getCurrentPaddleLength();
+			List<PlayedBlockAssignment> blocks = currentGame.getBlocks();
 			super.paintComponent(g);
 
 			//Background
@@ -597,36 +598,13 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			//paddle
 
 			g.setColor(Color.green);
-			PlayedGame game = Block223Application.getCurrentPlayableGame();
-			g.fillRect((int) game.getCurrentPaddleX(),360, currentPaddleLength, 5);
+			g.fillRect((int) currentGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
 
 
-			for (TOCurrentBlock block : blocks) {
-				int i = 1;
-				int j = 1;
-				int xPosition = 10;
-				int yPosition = 10;
-				int x = block.getX();
-				int y = block.getY();
-
-				if (x == 1 || y == 1) {
-					xPosition = 10;
-					yPosition = 10;
-				}
-
-				while (i < x) {
-					xPosition += 25;
-					i++;
-				}
-
-				while (j < y) {
-					yPosition += 22;
-					j++;
-				}
-
+			for (PlayedBlockAssignment block : blocks) {
 				// create new block
-				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(xPosition, yPosition, boxSize, boxSize);
+				g.setColor(new Color(block.getBlock().getRed(), block.getBlock().getGreen(), block.getBlock().getBlue()));
+				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
 			}
 		}
 	}
