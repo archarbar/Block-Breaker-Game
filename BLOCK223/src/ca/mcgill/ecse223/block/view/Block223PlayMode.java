@@ -581,6 +581,8 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		@Override
 		public void paintComponent(Graphics g) {
 			
+			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
+			
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -591,7 +593,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) ballposX, (int) ballposY, diameter, diameter);
+			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), diameter, diameter);
 
 			//paddle
 		
@@ -606,7 +608,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		}
 
 	}
-
 
 	public String takeInputs() {
 		if (bp == null) {
