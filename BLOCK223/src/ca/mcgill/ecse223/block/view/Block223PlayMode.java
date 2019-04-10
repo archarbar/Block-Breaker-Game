@@ -24,6 +24,8 @@ import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.model.Ball;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
@@ -577,6 +579,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		@Override
 		public void paintComponent(Graphics g) {
 
+			
+			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
+
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -587,7 +592,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) ballposX, (int) ballposY, diameter, diameter);
+			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), diameter, diameter);
 
 			//paddle
 
@@ -625,7 +630,6 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 			}
 		}
 	}
-
 
 	public String takeInputs() {
 		if (bp == null) {
