@@ -236,6 +236,7 @@ public class CreateGamePage extends JFrame {
 		String name = createGameTextField.getText();
 		try {
 			Block223Controller.createGame(name);
+			Block223Controller.selectGame(name);
 			GamePage gameSettings = new GamePage();
 			gameSettings.setVisible(true);
 			this.setVisible(false);
