@@ -1,92 +1,45 @@
 package ca.mcgill.ecse223.block.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
-import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
-import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOGridCell;
 import ca.mcgill.ecse223.block.controller.TOHallOfFame;
 import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
-import ca.mcgill.ecse223.block.model.Ball;
-import ca.mcgill.ecse223.block.model.PlayedGame;
+
+
+
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.view.PlayerPage;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.awt.SystemColor;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JInternalFrame;
-import javax.swing.JSlider;
-import java.awt.ComponentOrientation;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.Font;
 import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 import javax.swing.border.BevelBorder;
-import javafx.scene.shape.Circle;
-import javafx.geometry.Rectangle2D;
 
 public class Block223PlayMode extends JFrame implements Block223PlayModeInterface {
 	/**
@@ -94,7 +47,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TOCurrentlyPlayedGame playableGame;
+	public TOCurrentlyPlayedGame playableGame;
 
 	private JPanel contentPane;
 	private JLabel currentGameName;
@@ -112,6 +65,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	private JButton button;
 	private TOHallOfFame HOF;
 	private JLabel displayHOF;
+	private JLabel playerScore;
+	private JLabel numberOfLives;
+	private JLabel currentLevel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -393,19 +349,19 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		separator.setBounds(459, 73, 207, 2);
 		contentPane.add(separator);
 		
-		JLabel currentLevel = new JLabel("Level: " + playableGame.getCurrentLevel());
+		currentLevel = new JLabel("Level: " + 1);
 		currentLevel.setBounds(468, 14, 83, 16);
 		contentPane.add(currentLevel);
 		
-		JLabel numberOfLives = new JLabel("Lives: " + playableGame.getLives());
+		numberOfLives = new JLabel("Lives: " + 3);
 		numberOfLives.setBounds(563, 14, 83, 16);
 		contentPane.add(numberOfLives);
 		
-		JLabel playerScore = new JLabel("Score: " + playableGame.getScore());
+		playerScore = new JLabel("Score: " + 0);
 		playerScore.setBounds(468, 45, 83, 16);
 		contentPane.add(playerScore);
 		
-		JLabel lblHallOfFame = new JLabel("Hall Of Fame: " + playableGame.getBlocks().size());
+		JLabel lblHallOfFame = new JLabel("Hall Of Fame: ");
 		lblHallOfFame.setBounds(469, 88, 186, 16);
 		contentPane.add(lblHallOfFame);
 		
@@ -480,7 +436,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		});
 		refresh();
 	}
-	
+
 	private void mntmLogOutActionPerformed(ActionEvent evt) {
 		Block223Controller.logout();
 		RegisterLoginPage loginpage = new RegisterLoginPage();
@@ -489,6 +445,7 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	}
 
 	public TOCurrentlyPlayedGame getCurrentPlayableGame() {
+		
 		try {
 		playableGame = Block223Controller.getCurrentPlayableGame();
 	} catch (InvalidInputException e ) {
@@ -554,34 +511,19 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 		displayHOF.setText("<html><body style = 'width: 150px'>  "+ hallOfFame + "</body></html>");
 
 		}
-
+	
 	public class playArea extends JPanel {
 		playArea() {
 			setPreferredSize(new Dimension(420,420));
 		}
-		//		List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame(); to try  to position blocks ?????
 		private int boxSize = 20;
-
-//		try {
-//		blocks = Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(playableGame.getCurrentLevel());
-//		}	catch (InvalidInputException e ) {
-//			error = e.getMessage();
-//			JOptionPane.showMessageDialog(null, error);
-//		}
-		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
 		private double ballposX = 195;
 		private double ballposY = 195;
-//		private double balldirX = playableGame.getBallDirectionX();
-//		private double balldirY = playableGame.getBallDirectionY();
-		public static final int diameter = Ball.BALL_DIAMETER;
-		int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 
 		@Override
 		public void paintComponent(Graphics g) {
-
-			
-			PlayedGame currentGame = Block223Application.getCurrentPlayableGame();
-
+			TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
+			int currentPaddleLength = (int) playableGame.getCurrentPaddleLength();
 			List<TOCurrentBlock> blocks = playableGame.getBlocks();
 			super.paintComponent(g);
 
@@ -592,41 +534,18 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 
 			//ball
 			g.setColor(Color.red);
-			g.fillOval((int) currentGame.getCurrentBallX(), (int) currentGame.getCurrentBallY(), diameter, diameter);
+			g.fillOval((int) playableGame.getCurrentBallX(), (int) playableGame.getCurrentBallY(), 10, 10);
 
 			//paddle
 
 			g.setColor(Color.green);
-			PlayedGame game = Block223Application.getCurrentPlayableGame();
-			g.fillRect((int) game.getCurrentPaddleX(),360, currentPaddleLength, 5);
+			g.fillRect((int) playableGame.getCurrentPaddleX(),360, currentPaddleLength, 5);
 
 
 			for (TOCurrentBlock block : blocks) {
-				int i = 1;
-				int j = 1;
-				int xPosition = 10;
-				int yPosition = 10;
-				int x = block.getX();
-				int y = block.getY();
-
-				if (x == 1 || y == 1) {
-					xPosition = 10;
-					yPosition = 10;
-				}
-
-				while (i < x) {
-					xPosition += 25;
-					i++;
-				}
-
-				while (j < y) {
-					yPosition += 22;
-					j++;
-				}
-
 				// create new block
 				g.setColor(new Color(block.getRed(), block.getGreen(), block.getBlue()));
-				g.fillRect(xPosition, yPosition, boxSize, boxSize);
+				g.fillRect(block.getX(), block.getY(), boxSize, boxSize);
 			}
 		}
 	}
@@ -641,10 +560,9 @@ public class Block223PlayMode extends JFrame implements Block223PlayModeInterfac
 	@Override
 	public void refresh() {
 		TOCurrentlyPlayedGame playableGame = getCurrentPlayableGame();
-		System.out.println(playableGame.getBlocks().size());
-//		System.out.println(playableGame.getBlock(2).getX());
-//		System.out.println(playableGame.getBlock(2).getY());
-		System.out.println("UI is refreshing now...");
+		numberOfLives.setText("Lives: " + playableGame.getLives());
+		playerScore.setText("Score: " + playableGame.getScore());
+		currentLevel.setText("Level: " + playableGame.getCurrentLevel());
 		playArea.revalidate();
 		playArea.repaint();
 	}
