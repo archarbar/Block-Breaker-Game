@@ -824,6 +824,7 @@ public class PlayedGame implements Serializable
 			   bouncePosition = getLineIntersection(lineBallPath, leftWall);
 			   bouncePoint = new BouncePoint(bouncePosition.getX(), bouncePosition.getY(), BounceDirection.FLIP_X);
 			   if( (bouncePosition.getX() == 5 && bouncePosition.getY() == 5) || (bouncePosition.getX() == 385 && bouncePosition.getY() == 5) ) {
+				   System.out.println("flipboth");
 				   bouncePoint.setDirection(BounceDirection.FLIP_BOTH);
 			   } 
 		   }
